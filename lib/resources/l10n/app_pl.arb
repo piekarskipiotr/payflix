@@ -1,0 +1,15 @@
+{
+  "language": "Polski",
+  "@language": {
+    "description": "Język systemu"
+  },
+  "test_message": "Cześć {username}",
+  "@test_message": {
+    "description": "Wiadomość powitalna z argumentem",
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  }
+}

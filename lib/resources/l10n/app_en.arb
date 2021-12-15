@@ -1,0 +1,16 @@
+{
+  "language" : "English",
+  "@language" : {
+    "description" : "System language"
+  },
+
+  "test_message" : "Hello {username}",
+  "@test_message" : {
+    "description" : "Hello message with argument",
+    "placeholders" : {
+      "username" : {
+        "type" : "String"
+      }
+    }
+  }
+}
