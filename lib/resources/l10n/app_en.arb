@@ -12,5 +12,12 @@
         "type" : "String"
       }
     }
-  }
+  },
+  "login" : "Login",
+  "email_id" : "Email ID",
+  "password" : "Password",
+  "forgot" : "Forgot?",
+  "no_account_text" : "You don't have an account yet?",
+  "register" : "Register",
+  "login_register_with" : "Use account to login or register easily ✨"
 }

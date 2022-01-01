@@ -11,5 +11,12 @@
         "type": "String"
       }
     }
-  }
+  },
+  "login" : "Zaloguj się",
+  "email_id" : "Email ID",
+  "password" : "Hasło",
+  "forgot" : "Zapomniałeś?",
+  "no_account_text" : "Nie posiadasz jeszcze konta?",
+  "register" : "Zarejestruj się",
+  "login_register_with" : "Użyj konta aby zalogować lub zajerejestrować się łatwo ✨"
 }

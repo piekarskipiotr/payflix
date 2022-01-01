@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/l10n/l10n.dart';
@@ -7,6 +8,10 @@ import 'package:payflix/resources/routes/routes_handler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
   runApp(const MyApp());
 }
 
@@ -20,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       // routes
-      initialRoute: AppRoutes.playground,
+      initialRoute: AppRoutes.login,
       onGenerateRoute: RoutesHandler().getRoute,
 
       // localization
@@ -33,7 +38,7 @@ class MyApp extends StatelessWidget {
       ],
 
       // theme
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
     );

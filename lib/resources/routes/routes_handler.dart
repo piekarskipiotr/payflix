@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:payflix/playground.dart';
+import 'package:payflix/screens/login/ui/login.dart';
 import 'app_routes.dart';
 
 class RoutesHandler {
@@ -9,6 +10,8 @@ class RoutesHandler {
     switch (settings.name) {
       case AppRoutes.playground:
         return buildRoute(const Playground(), settings: settings);
+      case AppRoutes.login:
+        return buildRoute(const Login(), settings: settings);
     }
   }
 
