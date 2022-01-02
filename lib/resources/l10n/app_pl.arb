@@ -20,5 +20,11 @@
   "register" : "Zarejestruj się",
   "login_register_with" : "Użyj konta aby zalogować lub zajerejestrować się łatwo ✨",
   "field_cannot_be_empty" : "Pole nie może być puste",
-  "not_email" : "Nieprawidłowy format adresu email"
+  "not_email" : "Nieprawidłowy format adresu email",
+  "registration" : "Rejestracja",
+  "profile_name" : "Nazwa profilu",
+  "confirm_password" : "Potwierdź hasło",
+  "i_agree_to" : "Zgadzam się na",
+  "terms_and_conditions" : "Zasady i Warunki",
+  "password_doesnt_match" : "Hasło nie jest takie samo"
 }

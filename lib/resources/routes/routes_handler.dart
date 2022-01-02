@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/playground.dart';
 import 'package:payflix/screens/login/bloc/login_bloc.dart';
 import 'package:payflix/screens/login/ui/login.dart';
+import 'package:payflix/screens/registration/bloc/registration_bloc.dart';
+import 'package:payflix/screens/registration/ui/registration.dart';
 import 'app_routes.dart';
 
 class RoutesHandler {
@@ -19,6 +21,14 @@ class RoutesHandler {
           BlocProvider(
             create: (_) => LoginBloc(),
             child: Login(),
+          ),
+          settings: settings,
+        );
+      case AppRoutes.registration:
+        return buildRoute(
+          BlocProvider(
+            create: (_) => RegistrationBloc(),
+            child: Registration(),
           ),
           settings: settings,
         );

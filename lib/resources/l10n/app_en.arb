@@ -21,5 +21,11 @@
   "register" : "Register",
   "login_register_with" : "Use account to login or register easily ✨",
   "field_cannot_be_empty" : "Field cannot be empty",
-  "not_email" : "Incorrect email address pattern"
+  "not_email" : "Incorrect email address pattern",
+  "registration" : "Registration",
+  "profile_name" : "Profile name",
+  "confirm_password" : "Confirm password",
+  "i_agree_to" : "I agree to",
+  "terms_and_conditions" : "Terms and Conditions",
+  "password_doesnt_match" : "Passwords doesn't match"
 }
