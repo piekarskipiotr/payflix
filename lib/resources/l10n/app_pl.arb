@@ -18,5 +18,7 @@
   "forgot" : "Zapomniałeś?",
   "no_account_text" : "Nie posiadasz jeszcze konta?",
   "register" : "Zarejestruj się",
-  "login_register_with" : "Użyj konta aby zalogować lub zajerejestrować się łatwo ✨"
+  "login_register_with" : "Użyj konta aby zalogować lub zajerejestrować się łatwo ✨",
+  "field_cannot_be_empty" : "Pole nie może być puste",
+  "not_email" : "Nieprawidłowy format adresu email"
 }

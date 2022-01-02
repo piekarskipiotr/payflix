@@ -19,5 +19,7 @@
   "forgot" : "Forgot?",
   "no_account_text" : "You don't have an account yet?",
   "register" : "Register",
-  "login_register_with" : "Use account to login or register easily ✨"
+  "login_register_with" : "Use account to login or register easily ✨",
+  "field_cannot_be_empty" : "Field cannot be empty",
+  "not_email" : "Incorrect email address pattern"
 }
