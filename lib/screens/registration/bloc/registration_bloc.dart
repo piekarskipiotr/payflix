@@ -5,7 +5,10 @@ import 'package:payflix/screens/registration/bloc/registration_state.dart';
 
 class RegistrationBloc extends Cubit<RegistrationState> {
   bool? _agreementToTermsAndConditions;
+  String? _profileName;
+  String? _emailId;
   String? _password;
+  String? _confirmPassword;
 
   RegistrationBloc() : super(InitRegistrationState());
 
@@ -19,6 +22,14 @@ class RegistrationBloc extends Cubit<RegistrationState> {
     emit(AgreementOfTermsAndConditionsChanged());
   }
 
+  void setProfileName(String? value) {
+    _profileName = value;
+  }
+
+  void setEmailId(String? value) {
+    _emailId = value;
+  }
+
   void setPassword(String? value) {
     _password = value;
   }
@@ -27,8 +38,12 @@ class RegistrationBloc extends Cubit<RegistrationState> {
     return _password;
   }
 
+  void setConfirmPassword(String? value) {
+    _confirmPassword = value;
+  }
+
   Future<void> registerUser() async {
-    log('should start registration procedure');
+    log('should start registration procedure with data: {\nProfileName: $_profileName,\nEmailID: $_emailId,\nPassword: $_password,\nConfirmPassword: $_confirmPassword\n}');
   }
 
   @override

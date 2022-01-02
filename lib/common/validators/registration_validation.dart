@@ -31,6 +31,7 @@ class RegistrationValidation {
   }
 
   static String? validatePasswordField(BuildContext context, String? value) {
+
     // case 1: Empty field
     if (value == null || value.trim() == '') {
       return getString(context).field_cannot_be_empty;
@@ -40,6 +41,7 @@ class RegistrationValidation {
   }
 
   static String? validateConfirmPasswordField(BuildContext context, String? value, String? superiorValue) {
+
     // case 1: Empty field
     if (value == null || value.trim() == '') {
       return getString(context).field_cannot_be_empty;

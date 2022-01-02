@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 
@@ -23,7 +21,7 @@ class LoginValidation {
   }
 
   static String? validatePasswordField(BuildContext context, String? value) {
-    log(value.toString());
+
     // case 1: Empty field
     if (value == null || value.trim() == '') {
       return getString(context).field_cannot_be_empty;

@@ -56,6 +56,7 @@ class Login extends StatelessWidget {
                         height: 30.0,
                       ),
                       TextFormField(
+                        onSaved: (value) => context.read<LoginBloc>().setEmailId(value),
                         validator: (value) =>
                             LoginValidation.validateEmailIdField(
                                 context, value),
@@ -79,6 +80,7 @@ class Login extends StatelessWidget {
                         height: 10.0,
                       ),
                       TextFormField(
+                        onSaved: (value) => context.read<LoginBloc>().setPassword(value),
                         validator: (value) =>
                             LoginValidation.validatePasswordField(
                                 context, value),
@@ -124,6 +126,7 @@ class Login extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
                               context
                                   .read<LoginBloc>()
                                   .authenticateUserByForm();
