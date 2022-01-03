@@ -56,13 +56,15 @@ class Login extends StatelessWidget {
                         height: 30.0,
                       ),
                       TextFormField(
-                        onSaved: (value) => context.read<LoginBloc>().setEmailId(value),
+                        onSaved: (value) =>
+                            context.read<LoginBloc>().setEmailId(value),
                         validator: (value) =>
                             LoginValidation.validateEmailIdField(
                                 context, value),
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         maxLines: 1,
                         textAlignVertical: TextAlignVertical.center,
+                        textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.zero,
                           prefixIcon: const Icon(
@@ -80,7 +82,8 @@ class Login extends StatelessWidget {
                         height: 10.0,
                       ),
                       TextFormField(
-                        onSaved: (value) => context.read<LoginBloc>().setPassword(value),
+                        onSaved: (value) =>
+                            context.read<LoginBloc>().setPassword(value),
                         validator: (value) =>
                             LoginValidation.validatePasswordField(
                                 context, value),
@@ -88,6 +91,7 @@ class Login extends StatelessWidget {
                         maxLines: 1,
                         textAlignVertical: TextAlignVertical.center,
                         obscureText: true,
+                        textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.zero,
                           prefixIcon: const Icon(
@@ -127,6 +131,8 @@ class Login extends StatelessWidget {
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
+
+                              FocusScope.of(context).unfocus();
                               context
                                   .read<LoginBloc>()
                                   .authenticateUserByForm();
@@ -154,8 +160,11 @@ class Login extends StatelessWidget {
                             TextSpan(
                               text: getString(context).register,
                               recognizer: TapGestureRecognizer()
-                                ..onTap = () => Navigator.pushNamed(
-                                    context, AppRoutes.registration),
+                                ..onTap = () {
+                                  FocusScope.of(context).unfocus();
+                                  Navigator.pushNamed(
+                                      context, AppRoutes.registration);
+                                },
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.blue,
@@ -189,9 +198,12 @@ class Login extends StatelessWidget {
                           ),
                           Expanded(
                             child: OutlinedButton(
-                              onPressed: () => context
-                                  .read<LoginBloc>()
-                                  .authenticateUserByGoogleAccount(),
+                              onPressed: () {
+                                FocusScope.of(context).unfocus();
+                                context
+                                    .read<LoginBloc>()
+                                    .authenticateUserByGoogleAccount();
+                              },
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: SvgPicture.asset(
@@ -207,9 +219,12 @@ class Login extends StatelessWidget {
                           ),
                           Expanded(
                             child: OutlinedButton(
-                              onPressed: () => context
-                                  .read<LoginBloc>()
-                                  .authenticateUserByAppleAccount(),
+                              onPressed: () {
+                                FocusScope.of(context).unfocus();
+                                context
+                                    .read<LoginBloc>()
+                                    .authenticateUserByAppleAccount();
+                              },
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: SvgPicture.asset(

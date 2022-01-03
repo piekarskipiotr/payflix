@@ -78,6 +78,7 @@ class Registration extends StatelessWidget {
                                 AutovalidateMode.onUserInteraction,
                             maxLines: 1,
                             textAlignVertical: TextAlignVertical.center,
+                            textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.zero,
                               prefixIcon: const Icon(
@@ -105,6 +106,7 @@ class Registration extends StatelessWidget {
                                 AutovalidateMode.onUserInteraction,
                             maxLines: 1,
                             textAlignVertical: TextAlignVertical.center,
+                            textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.zero,
                               prefixIcon: const Icon(
@@ -133,6 +135,7 @@ class Registration extends StatelessWidget {
                             maxLines: 1,
                             textAlignVertical: TextAlignVertical.center,
                             obscureText: true,
+                            textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.zero,
                               prefixIcon: const Icon(
@@ -165,6 +168,7 @@ class Registration extends StatelessWidget {
                             maxLines: 1,
                             textAlignVertical: TextAlignVertical.center,
                             obscureText: true,
+                            textInputAction: TextInputAction.done,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.zero,
                               prefixIcon: const Icon(
@@ -242,6 +246,8 @@ class Registration extends StatelessWidget {
                                   ? () {
                                       if (_formKey.currentState!.validate()) {
                                         _formKey.currentState!.save();
+
+                                        FocusScope.of(context).unfocus();
                                         context
                                             .read<RegistrationBloc>()
                                             .registerUser();
