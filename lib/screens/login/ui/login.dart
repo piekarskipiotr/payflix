@@ -8,6 +8,7 @@ import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/login/bloc/login_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:payflix/widgets/static_spacer.dart';
 
 class Login extends StatelessWidget {
   late final GlobalKey<FormState> _formKey;
@@ -24,19 +25,23 @@ class Login extends StatelessWidget {
         bottom: true,
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Container(
-            height: MediaQuery.of(context).size.height -
-                MediaQuery.of(context).padding.top -
-                MediaQuery.of(context).padding.bottom,
+          child: Padding(
             padding: const EdgeInsets.only(left: 15.0, right: 15.0),
             child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const SizedBox(
-                  height: 15.0,
+                staticSpacer(),
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: 25.0,
+                    ),
+                    Image.asset(welcomeHumanImage),
+                    const SizedBox(
+                      height: 25.0,
+                    ),
+                  ],
                 ),
-                Image.asset(welcomeHumanImage),
+                staticSpacer(),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -143,6 +148,7 @@ class Login extends StatelessWidget {
                             child: Text(
                               getString(context).login,
                               style: const TextStyle(
+                                fontSize: 16.0,
                                 color: Colors.white,
                               ),
                             ),
@@ -184,9 +190,12 @@ class Login extends StatelessWidget {
                       const SizedBox(
                         height: 20.0,
                       ),
-                      Text(
-                        getString(context).login_register_with,
-                        textAlign: TextAlign.center,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+                        child: Text(
+                          getString(context).login_register_with,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                       const SizedBox(
                         height: 20.0,
@@ -205,7 +214,7 @@ class Login extends StatelessWidget {
                                     .authenticateUserByGoogleAccount();
                               },
                               child: Padding(
-                                padding: const EdgeInsets.all(10.0),
+                                padding: const EdgeInsets.only(left: 10.0, top: 14.0, right: 10.0, bottom: 14.0,),
                                 child: SvgPicture.asset(
                                   googleIcon,
                                   width: 24,
@@ -226,7 +235,7 @@ class Login extends StatelessWidget {
                                     .authenticateUserByAppleAccount();
                               },
                               child: Padding(
-                                padding: const EdgeInsets.all(5.0),
+                                padding: const EdgeInsets.only(left: 5.0, top: 9.0, right: 5.0, bottom: 9.0,),
                                 child: SvgPicture.asset(
                                   appleIcon,
                                   width: 34,
@@ -242,7 +251,8 @@ class Login extends StatelessWidget {
                       )
                     ],
                   ),
-                )
+                ),
+                staticSpacer(),
               ],
             ),
           ),

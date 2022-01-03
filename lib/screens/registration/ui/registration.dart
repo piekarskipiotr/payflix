@@ -8,6 +8,7 @@ import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/screens/registration/bloc/registration_bloc.dart';
+import 'package:payflix/widgets/static_spacer.dart';
 
 class Registration extends StatelessWidget {
   late final GlobalKey<FormState> _formKey;
@@ -22,33 +23,27 @@ class Registration extends StatelessWidget {
       body: SafeArea(
         top: true,
         bottom: true,
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Container(
-            height: MediaQuery.of(context).size.height -
-                MediaQuery.of(context).padding.top -
-                MediaQuery.of(context).padding.bottom,
-            padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-            child: Stack(
-              children: [
-                Transform.translate(
-                  offset: const Offset(-5, 0),
-                  child: IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      size: 22.0,
-                    ),
-                  ),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                child: Column(
                   children: [
-                    const SizedBox(
-                      height: 15.0,
+                    staticSpacer(),
+                    Column(
+                      children: [
+                        const SizedBox(
+                          height: 25.0,
+                        ),
+                        Image.asset(womenWithLaptop),
+                        const SizedBox(
+                          height: 25.0,
+                        ),
+                      ],
                     ),
-                    Image.asset(womenWithLaptop),
+                    staticSpacer(),
                     Form(
                       key: _formKey,
                       child: Column(
@@ -259,6 +254,7 @@ class Registration extends StatelessWidget {
                                 child: Text(
                                   getString(context).register,
                                   style: const TextStyle(
+                                    fontSize: 16.0,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -267,12 +263,29 @@ class Registration extends StatelessWidget {
                           ),
                         ],
                       ),
-                    )
+                    ),
+                    staticSpacer(),
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: Theme.of(context).scaffoldBackgroundColor,
+              child: Row(
+                children: [
+                  const SizedBox(width: 5.0,),
+                  IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      size: 22.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
