@@ -269,20 +269,14 @@ class Registration extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: Theme.of(context).scaffoldBackgroundColor,
-              child: Row(
-                children: [
-                  const SizedBox(width: 5.0,),
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      size: 22.0,
-                    ),
-                  ),
-                ],
+            Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  size: 22.0,
+                ),
               ),
             ),
           ],
