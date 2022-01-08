@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:payflix/common/constants.dart';
@@ -8,6 +6,7 @@ import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/screens/registration/bloc/registration_bloc.dart';
+import 'package:payflix/screens/registration/ui/terms_and_conditions_dialog.dart';
 import 'package:payflix/widgets/static_spacer.dart';
 
 class Registration extends StatelessWidget {
@@ -203,9 +202,22 @@ class Registration extends StatelessWidget {
                                         text: getString(context)
                                             .terms_and_conditions,
                                         recognizer: TapGestureRecognizer()
-                                          ..onTap = () {
-                                            log('show terms and conditions');
-                                          },
+                                          ..onTap = () => showModalBottomSheet(
+                                                context: context,
+                                                shape: const RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topRight: Radius.circular(
+                                                      32.0,
+                                                    ),
+                                                    topLeft: Radius.circular(
+                                                      32.0,
+                                                    ),
+                                                  ),
+                                                ),
+                                                isScrollControlled: true,
+                                                builder: (builder) => const TermsAndConditionsDialog(),
+                                              ),
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: AppColors.blue,
