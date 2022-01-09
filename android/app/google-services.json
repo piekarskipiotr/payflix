@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "856778330210",
+    "project_id": "payflix-339c8",
+    "storage_bucket": "payflix-339c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856778330210:android:dfd6428d2cbffd976e413b",
+        "android_client_info": {
+          "package_name": "com.piekarskipiotr.payflix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "856778330210-rajqkpjd838d5i8oe3o5ec4uadnjs7k8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb-zZkcWn3lrsIz4N9oal3HuAoJ3LGAXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856778330210-rajqkpjd838d5i8oe3o5ec4uadnjs7k8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "856778330210-htad1cupfrdlf3nl7mfarfun99kuenai.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.piekarskipiotr.payflix"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

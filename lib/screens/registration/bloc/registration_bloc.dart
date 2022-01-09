@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/screens/registration/bloc/registration_state.dart';
 
@@ -43,7 +44,21 @@ class RegistrationBloc extends Cubit<RegistrationState> {
   }
 
   Future<void> registerUser() async {
-    log('should start registration procedure with data: {\nProfileName: $_profileName,\nEmailID: $_emailId,\nPassword: $_password,\nConfirmPassword: $_confirmPassword\n}');
+    emit(CreatingUserAccount());
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailId!,
+        password: _password!,
+      );
+
+      await userCredential.user!.updateDisplayName(_profileName);
+      emit(CreatingUserAccountSucceeded());
+    } on FirebaseAuthException catch (e) {
+      emit(CreatingUserAccountFailed(e.code));
+    } catch (e) {
+      emit(CreatingUserAccountFailed(e as String?));
+    }
   }
 
   @override
