@@ -259,48 +259,45 @@ class Registration extends StatelessWidget {
                                 contentPadding:
                                     const EdgeInsets.only(left: 5.0),
                                 dense: true,
-                                title: Align(
-                                  alignment: const Alignment(-1.3, 0),
-                                  child: ExcludeSemantics(
-                                    child: RichText(
-                                      text: TextSpan(
-                                        text:
-                                            '${getString(context).i_agree_to} ',
-                                        style: const TextStyle(
-                                            color: AppColors.gray),
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text: getString(context)
-                                                .terms_and_conditions,
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () =>
-                                                  showModalBottomSheet(
-                                                    context: context,
-                                                    shape:
-                                                        const RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        topRight:
-                                                            Radius.circular(
-                                                          32.0,
-                                                        ),
-                                                        topLeft:
-                                                            Radius.circular(
-                                                          32.0,
-                                                        ),
+                                title: ExcludeSemantics(
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text:
+                                          '${getString(context).i_agree_to} ',
+                                      style: const TextStyle(
+                                          color: AppColors.gray),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: getString(context)
+                                              .terms_and_conditions,
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () =>
+                                                showModalBottomSheet(
+                                                  context: context,
+                                                  shape:
+                                                      const RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topRight:
+                                                          Radius.circular(
+                                                        32.0,
+                                                      ),
+                                                      topLeft:
+                                                          Radius.circular(
+                                                        32.0,
                                                       ),
                                                     ),
-                                                    isScrollControlled: true,
-                                                    builder: (builder) =>
-                                                        const TermsAndConditionsDialog(),
                                                   ),
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColors.blue,
-                                            ),
+                                                  isScrollControlled: true,
+                                                  builder: (builder) =>
+                                                      const TermsAndConditionsDialog(),
+                                                ),
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.blue,
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
