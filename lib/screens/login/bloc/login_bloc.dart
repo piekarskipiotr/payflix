@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/screens/login/bloc/login_state.dart';
 
@@ -23,8 +24,19 @@ class LoginBloc extends Cubit<LoginState> {
   }
 
   Future<void> authenticateUserByForm() async {
-    // TODO: try to login user by form
-    log('should start form logging procedure with data: {\nEmailID: $_emailId,\nPassword: $_password\n}');
+    emit(LoggingIn());
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailId!,
+          password: _password!,
+      );
+
+      emit(LoggingInSucceeded());
+    } on FirebaseAuthException catch (e) {
+      emit(LoggingInFailed(e.code));
+    } catch (e) {
+      emit(LoggingInFailed(e as String?));
+    }
   }
 
   Future<void> authenticateUserByGoogleAccount() async {

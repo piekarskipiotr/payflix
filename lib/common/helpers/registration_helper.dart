@@ -16,6 +16,8 @@ class RegistrationHelper {
         return getString(context).weak_password;
       case 'email-already-in-use':
         return getString(context).email_already_in_use;
+      default:
+        return errorCode;
     }
   }
 }

@@ -36,5 +36,8 @@
   "network_request_failed" : "The network connection has been lost or is unstable",
   "invalid_email" : "The email address you tried to register for does not exist or is incorrect",
   "please_confirm_email" : "Before you start using the Payflix, please confirm your email address. Check your inbox and follow the instructions in the mail.",
-  "password_is_too_short" : "Password is too short, Length should be at least 6"
+  "password_is_too_short" : "Password is too short, Length should be at least 6",
+  "logging_in_failed" : "Logging in failed",
+  "user_not_found" : "User doesn't exists",
+  "wrong_password" : "Wrong user data"
 }

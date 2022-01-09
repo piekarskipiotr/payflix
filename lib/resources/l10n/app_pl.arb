@@ -35,5 +35,8 @@
   "network_request_failed" : "Połączenie sieciowe zostało zerwane lub jest niestabilne",
   "invalid_email" : "Adres email na który próbowano się zarejestrować nie istnieje lub jest niepoprawny",
   "please_confirm_email" : "Zanim zaczniesz korzystać z Payflix proszę potwierdź swój adres email. Sprawdź swoją skrzynkę i postępuj zgodnie z instrukcją zawartą w mailu.",
-  "password_is_too_short" : "Hasło jest za krótkie. Długość powinna wynosić co najmniej 6"
+  "password_is_too_short" : "Hasło jest za krótkie. Długość powinna wynosić co najmniej 6",
+  "logging_in_failed" : "Logowanie nie powiodło się",
+  "user_not_found" : "Użytkownik nie istnieje",
+  "wrong_password" : "Niepoprawne dane logowania"
 }

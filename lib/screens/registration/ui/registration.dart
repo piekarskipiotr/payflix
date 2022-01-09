@@ -11,7 +11,7 @@ import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/registration/bloc/registration_bloc.dart';
 import 'package:payflix/screens/registration/bloc/registration_state.dart';
 import 'package:payflix/screens/registration/ui/terms_and_conditions_dialog.dart';
-import 'package:payflix/widgets/full_screen_dailog.dart';
+import 'package:payflix/widgets/full_screen_dialog.dart';
 import 'package:payflix/widgets/long_button.dart';
 import 'package:payflix/widgets/static_spacer.dart';
 
@@ -96,9 +96,6 @@ class Registration extends StatelessWidget {
                           key: formKey,
                           child: Column(
                             children: [
-                              const SizedBox(
-                                height: 15.0,
-                              ),
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
@@ -140,7 +137,7 @@ class Registration extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(
-                                height: 10.0,
+                                height: 15.0,
                               ),
                               TextFormField(
                                 enabled: state is! CreatingUserAccount,
@@ -173,7 +170,7 @@ class Registration extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(
-                                height: 10.0,
+                                height: 15.0,
                               ),
                               TextFormField(
                                 enabled: state is! CreatingUserAccount,
@@ -207,13 +204,10 @@ class Registration extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(
-                                height: 10.0,
+                                height: 15.0,
                               ),
                               TextFormField(
                                 enabled: state is! CreatingUserAccount,
-                                onSaved: (value) => context
-                                    .read<RegistrationBloc>()
-                                    .setConfirmPassword(value),
                                 validator: (value) => RegistrationValidation
                                     .validateConfirmPasswordField(
                                         context,

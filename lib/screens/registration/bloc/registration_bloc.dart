@@ -9,7 +9,6 @@ class RegistrationBloc extends Cubit<RegistrationState> {
   String? _profileName;
   String? _emailId;
   String? _password;
-  String? _confirmPassword;
 
   RegistrationBloc() : super(InitRegistrationState());
 
@@ -39,10 +38,6 @@ class RegistrationBloc extends Cubit<RegistrationState> {
     return _password;
   }
 
-  void setConfirmPassword(String? value) {
-    _confirmPassword = value;
-  }
-
   Future<void> registerUser() async {
     emit(CreatingUserAccount());
 
@@ -53,6 +48,7 @@ class RegistrationBloc extends Cubit<RegistrationState> {
       );
 
       await userCredential.user!.updateDisplayName(_profileName);
+      await userCredential.user!.sendEmailVerification();
       emit(CreatingUserAccountSucceeded());
     } on FirebaseAuthException catch (e) {
       emit(CreatingUserAccountFailed(e.code));
