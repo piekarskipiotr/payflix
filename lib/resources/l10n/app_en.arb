@@ -27,5 +27,14 @@
   "confirm_password" : "Confirm password",
   "i_agree_to" : "I agree to",
   "terms_and_conditions" : "Terms and Conditions",
-  "password_doesnt_match" : "Passwords doesn't match"
+  "password_doesnt_match" : "Passwords doesn't match",
+  "weak_password" : "Password is too weak",
+  "email_already_in_use" : "Account with this email already exists",
+  "registration_succeeded" : "You signed up successfully",
+  "close_dialog" : "Close dialog",
+  "registration_failed" : "Signed up failed",
+  "network_request_failed" : "The network connection has been lost or is unstable",
+  "invalid_email" : "The email address you tried to register for does not exist or is incorrect",
+  "please_confirm_email" : "Before you start using the Payflix, please confirm your email address. Check your inbox and follow the instructions in the mail.",
+  "password_is_too_short" : "Password is too short, Length should be at least 6"
 }

@@ -37,6 +37,11 @@ class RegistrationValidation {
       return getString(context).field_cannot_be_empty;
     }
 
+    // case 2: Password has to be at least 6 length
+    if (value.length < 6) {
+      return getString(context).password_is_too_short;
+    }
+
     return null;
   }
 
