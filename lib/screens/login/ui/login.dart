@@ -11,11 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/widgets/static_spacer.dart';
 
 class Login extends StatelessWidget {
-  late final GlobalKey<FormState> _formKey;
-
-  Login({Key? key}) : super(key: key) {
-    _formKey = GlobalKey<FormState>();
-  }
+  final GlobalKey<FormState> formKey;
+  const Login({Key? key, required this.formKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +40,7 @@ class Login extends StatelessWidget {
                 ),
                 staticSpacer(),
                 Form(
-                  key: _formKey,
+                  key: formKey,
                   child: Column(
                     children: [
                       const SizedBox(
@@ -134,8 +131,8 @@ class Login extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              _formKey.currentState!.save();
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
 
                               FocusScope.of(context).unfocus();
                               context

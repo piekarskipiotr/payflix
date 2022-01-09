@@ -20,7 +20,7 @@ class RoutesHandler {
         return buildRoute(
           BlocProvider(
             create: (_) => LoginBloc(),
-            child: Login(),
+            child: Login(formKey: GlobalKey<FormState>(),),
           ),
           settings: settings,
         );
@@ -28,7 +28,7 @@ class RoutesHandler {
         return buildRoute(
           BlocProvider(
             create: (_) => RegistrationBloc(),
-            child: Registration(),
+            child: Registration(formKey: GlobalKey<FormState>(),),
           ),
           settings: settings,
         );

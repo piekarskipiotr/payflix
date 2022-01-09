@@ -10,11 +10,8 @@ import 'package:payflix/screens/registration/ui/terms_and_conditions_dialog.dart
 import 'package:payflix/widgets/static_spacer.dart';
 
 class Registration extends StatelessWidget {
-  late final GlobalKey<FormState> _formKey;
-
-  Registration({Key? key}) : super(key: key) {
-    _formKey = GlobalKey<FormState>();
-  }
+  final GlobalKey<FormState> formKey;
+  const Registration({Key? key, required this.formKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +41,7 @@ class Registration extends StatelessWidget {
                     ),
                     staticSpacer(),
                     Form(
-                      key: _formKey,
+                      key: formKey,
                       child: Column(
                         children: [
                           const SizedBox(
@@ -251,8 +248,8 @@ class Registration extends StatelessWidget {
                                       .watch<RegistrationBloc>()
                                       .isTermsAndConditionsAccepted()
                                   ? () {
-                                      if (_formKey.currentState!.validate()) {
-                                        _formKey.currentState!.save();
+                                      if (formKey.currentState!.validate()) {
+                                        formKey.currentState!.save();
 
                                         FocusScope.of(context).unfocus();
                                         context
