@@ -26,12 +26,13 @@ class LoginBloc extends Cubit<LoginState> {
   Future<void> authenticateUserByForm() async {
     emit(LoggingIn());
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailId!,
           password: _password!,
       );
 
-      emit(LoggingInSucceeded());
+
+      emit(userCredential.user!.emailVerified ? LoggingInSucceeded() : NavigateToWaitingRoom());
     } on FirebaseAuthException catch (e) {
       emit(LoggingInFailed(e.code));
     } catch (e) {

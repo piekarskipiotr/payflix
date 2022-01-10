@@ -48,7 +48,9 @@ class Login extends StatelessWidget {
                 BlocConsumer<LoginBloc, LoginState>(
                   listener: (context, state) {
                     if (state is LoggingInSucceeded) {
-                      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.playground, (route) => false);
+                      formKey.currentState?.reset();
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, AppRoutes.playground, (route) => false);
                     } else if (state is LoggingInFailed) {
                       AppDialogHelper.showFullScreenDialog(
                         context,
@@ -67,6 +69,10 @@ class Login extends StatelessWidget {
                           buttonOnClick: () => Navigator.pop(context),
                         ),
                       );
+                    } else if (state is NavigateToWaitingRoom) {
+                      formKey.currentState?.reset();
+                      Navigator.pushNamed(
+                          context, AppRoutes.emailVerifyWaitingRoom);
                     }
                   },
                   builder: (context, state) {

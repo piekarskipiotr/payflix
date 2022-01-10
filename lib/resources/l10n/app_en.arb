@@ -39,5 +39,11 @@
   "password_is_too_short" : "Password is too short, Length should be at least 6",
   "logging_in_failed" : "Logging in failed",
   "user_not_found" : "User doesn't exists",
-  "wrong_password" : "Wrong user data"
+  "wrong_password" : "Wrong user data",
+  "verify_email" : "Please verify your email",
+  "email_not_verified" : "To log in to the application, you must confirm your email address. If you didn't get any email ",
+  "email_not_verified_verify" : "click here to send another confirmation",
+  "sending" : "Sending...",
+  "sending_email_succeeded" : "Email sent",
+  "sending_email_failed" : "An error occurred while sending"
 }

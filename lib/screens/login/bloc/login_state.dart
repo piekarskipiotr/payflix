@@ -24,3 +24,8 @@ class LoggingInFailed extends LoginState {
   @override
   String toString() => runtimeType.toString();
 }
+
+class NavigateToWaitingRoom extends LoginState {
+  @override
+  String toString() => runtimeType.toString();
+}

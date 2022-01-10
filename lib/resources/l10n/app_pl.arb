@@ -38,5 +38,11 @@
   "password_is_too_short" : "Hasło jest za krótkie. Długość powinna wynosić co najmniej 6",
   "logging_in_failed" : "Logowanie nie powiodło się",
   "user_not_found" : "Użytkownik nie istnieje",
-  "wrong_password" : "Niepoprawne dane logowania"
+  "wrong_password" : "Niepoprawne dane logowania",
+  "verify_email" : "Proszę potwierdź swój adres email",
+  "email_not_verified" : "Aby zalogować się do aplikcji musisz potwierdzić swój adres email. Jeśli nie dostałeś żadnego maila ",
+  "email_not_verified_verify" : "kliknij tutaj aby wysłać kolejne potwierdzenie",
+  "sending" : "Wysyłanie...",
+  "sending_email_succeeded" : "Wysłano Emaila",
+  "sending_email_failed" : "Wystąpił błąd podczas wysyłania"
 }

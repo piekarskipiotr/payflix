@@ -65,7 +65,7 @@ class Registration extends StatelessWidget {
                               buttonOnClick: () =>
                                   Navigator.pushNamedAndRemoveUntil(
                                 context,
-                                AppRoutes.login,
+                                AppRoutes.emailVerifyWaitingRoom,
                                 (route) => false,
                               ),
                             ),
