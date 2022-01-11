@@ -19,3 +19,8 @@ class SendingVerificationEmailFailed extends EmailVerifyWaitingRoomState {
   @override
   String toString() => runtimeType.toString();
 }
+
+class EmailVerifiedMovingToJoinGroupRoom extends EmailVerifyWaitingRoomState {
+  @override
+  String toString() => runtimeType.toString();
+}

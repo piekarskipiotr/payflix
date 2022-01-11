@@ -5,6 +5,7 @@ import 'package:payflix/common/constants.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/email_verify_waiting_room/bloc/email_verify_waiting_room_bloc.dart';
 import 'package:payflix/screens/email_verify_waiting_room/bloc/email_verify_waiting_room_state.dart';
 
@@ -25,8 +26,16 @@ class EmailVerifyWaitingRoom extends StatelessWidget {
                 content: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    const SizedBox(child: CircularProgressIndicator(strokeWidth: 2.0,), height: 24.0, width: 24.0,),
-                    const SizedBox(width: 20.0,),
+                    const SizedBox(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.0,
+                      ),
+                      height: 24.0,
+                      width: 24.0,
+                    ),
+                    const SizedBox(
+                      width: 20.0,
+                    ),
                     Text(getString(context).sending),
                   ],
                 ),
@@ -36,63 +45,32 @@ class EmailVerifyWaitingRoom extends StatelessWidget {
               ),
             );
           } else if (state is SendingVerificationEmailSucceeded) {
-            ScaffoldMessenger.of(context).clearSnackBars();
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            context.read<EmailVerifyWaitingRoomBloc>().clearSnackBars(context);
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    const ClipOval(
-                      child: Material(
-                        color: Colors.white,
-                        child: SizedBox(
-                          width: 24.0,
-                          height: 24.0,
-                          child: Icon(
-                            Icons.done,
-                            color: AppColors.green,
-                            size: 20.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 20.0,),
-                    Text(getString(context).sending_email_succeeded),
-                  ],
-                ),
-                backgroundColor: AppColors.green,
+              resultSnackBar(
+                context,
+                Icons.done,
+                AppColors.green,
+                getString(context).sending_email_succeeded,
+                AppColors.green,
               ),
             );
           } else if (state is SendingVerificationEmailFailed) {
-            ScaffoldMessenger.of(context).clearSnackBars();
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            context.read<EmailVerifyWaitingRoomBloc>().clearSnackBars(context);
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    const ClipOval(
-                      child: Material(
-                        color: Colors.white,
-                        child: SizedBox(
-                          width: 24.0,
-                          height: 24.0,
-                          child: Icon(
-                            Icons.priority_high,
-                            color: Colors.red,
-                            size: 20.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 20.0,),
-                    Text(getString(context).sending_email_failed),
-                  ],
-                ),
-                backgroundColor: Colors.red,
+              resultSnackBar(
+                context,
+                Icons.priority_high,
+                Colors.red,
+                getString(context).sending_email_failed,
+                Colors.red,
               ),
             );
+          } else if (state is EmailVerifiedMovingToJoinGroupRoom) {
+            context.read<EmailVerifyWaitingRoomBloc>().clearSnackBars(context);
+
+            Navigator.pushNamedAndRemoveUntil(
+                context, AppRoutes.joinGroupRoom, (route) => false);
           }
         },
         child: Scaffold(
@@ -172,6 +150,36 @@ class EmailVerifyWaitingRoom extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  SnackBar resultSnackBar(BuildContext context, IconData icon, Color iconColor,
+      String text, Color backgroundColor) {
+    return SnackBar(
+      content: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          ClipOval(
+            child: Material(
+              color: Colors.white,
+              child: SizedBox(
+                width: 24.0,
+                height: 24.0,
+                child: Icon(
+                  icon,
+                  color: iconColor,
+                  size: 20.0,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 20.0,
+          ),
+          Text(text),
+        ],
+      ),
+      backgroundColor: backgroundColor,
     );
   }
 }
