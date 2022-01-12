@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:payflix/screens/login/bloc/login_state.dart';
 
 class LoginBloc extends Cubit<LoginState> {
@@ -26,13 +27,15 @@ class LoginBloc extends Cubit<LoginState> {
   Future<void> authenticateUserByForm() async {
     emit(LoggingIn());
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailId!,
-          password: _password!,
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailId!,
+        password: _password!,
       );
 
-
-      emit(userCredential.user!.emailVerified ? LoggingInSucceeded() : NavigateToWaitingRoom());
+      emit(userCredential.user!.emailVerified
+          ? LoggingInSucceeded()
+          : NavigateToWaitingRoom());
     } on FirebaseAuthException catch (e) {
       emit(LoggingInFailed(e.code));
     } catch (e) {
@@ -41,8 +44,26 @@ class LoginBloc extends Cubit<LoginState> {
   }
 
   Future<void> authenticateUserByGoogleAccount() async {
-    // TODO: try to login user by google account
-    log('should start google logging procedure');
+    try {
+      GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
+      if (googleSignInAccount != null) {
+        emit(LoggingInWithGoogleAccount());
+        GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+
+        AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+
+        await FirebaseAuth.instance.signInWithCredential(credential);
+        emit(LoggingInWithGoogleAccountSucceeded());
+      }
+    } on FirebaseAuthException catch (e) {
+      emit(LoggingInWithGoogleAccountFailed(e.code));
+    } catch (e) {
+      emit(LoggingInWithGoogleAccountFailed(e as String?));
+    }
   }
 
   Future<void> authenticateUserByAppleAccount() async {

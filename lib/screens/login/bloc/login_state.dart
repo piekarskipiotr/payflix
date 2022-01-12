@@ -29,3 +29,21 @@ class NavigateToWaitingRoom extends LoginState {
   @override
   String toString() => runtimeType.toString();
 }
+
+class LoggingInWithGoogleAccount extends LoginState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class LoggingInWithGoogleAccountSucceeded extends LoginState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class LoggingInWithGoogleAccountFailed extends LoginState {
+  final String? errorCode;
+  LoggingInWithGoogleAccountFailed(this.errorCode);
+
+  @override
+  String toString() => runtimeType.toString();
+}

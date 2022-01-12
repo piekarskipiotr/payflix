@@ -19,6 +19,7 @@ dependencies:
   firebase_auth: ^3.3.5
   firebase_core: ^1.11.0
   lottie: ^1.2.1
+  google_sign_in: ^5.2.2
 
 dev_dependencies:
   flutter_test:
