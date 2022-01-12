@@ -35,6 +35,11 @@ class LoggingInWithGoogleAccount extends LoginState {
   String toString() => runtimeType.toString();
 }
 
+class LoggingInWithGoogleAccountCanceled extends LoginState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
 class LoggingInWithGoogleAccountSucceeded extends LoginState {
   @override
   String toString() => runtimeType.toString();

@@ -44,10 +44,11 @@ class LoginBloc extends Cubit<LoginState> {
   }
 
   Future<void> authenticateUserByGoogleAccount() async {
+    emit(LoggingInWithGoogleAccount());
+
     try {
       GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
       if (googleSignInAccount != null) {
-        emit(LoggingInWithGoogleAccount());
         GoogleSignInAuthentication googleSignInAuthentication =
             await googleSignInAccount.authentication;
 
@@ -58,6 +59,8 @@ class LoginBloc extends Cubit<LoginState> {
 
         await FirebaseAuth.instance.signInWithCredential(credential);
         emit(LoggingInWithGoogleAccountSucceeded());
+      } else {
+        emit(LoggingInWithGoogleAccountCanceled());
       }
     } on FirebaseAuthException catch (e) {
       emit(LoggingInWithGoogleAccountFailed(e.code));

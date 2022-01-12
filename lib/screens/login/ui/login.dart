@@ -12,6 +12,7 @@ import 'package:payflix/screens/login/bloc/login_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/screens/login/bloc/login_state.dart';
 import 'package:payflix/widgets/full_screen_dialog.dart';
+import 'package:payflix/widgets/loading_overlay.dart';
 import 'package:payflix/widgets/long_button.dart';
 import 'package:payflix/widgets/static_spacer.dart';
 
@@ -73,6 +74,35 @@ class Login extends StatelessWidget {
                       formKey.currentState?.reset();
                       Navigator.pushNamed(
                           context, AppRoutes.emailVerifyWaitingRoom);
+                    } else if (state is LoggingInWithGoogleAccount) {
+                      Navigator.of(context).push(PageRouteBuilder(
+                          opaque: false,
+                          pageBuilder: (BuildContext context, _, __) {
+                            return const LoadingOverlay();
+                          }
+                      ));
+                    } else if (state is LoggingInWithGoogleAccountSucceeded) {
+                      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.joinGroupRoom, (route) => false);
+                    } else if (state is LoggingInWithGoogleAccountFailed) {
+                      Navigator.pop(context);
+                      AppDialogHelper.showFullScreenDialog(
+                        context,
+                        FullScreenDialog(
+                          headerText: getString(context).logging_in_failed,
+                          secondaryText: LoginHelper.tryConvertErrorCodeToMessage(
+                            context,
+                            state.errorCode,
+                          ),
+                          statusIcon: Icons.sentiment_dissatisfied,
+                          statusIconColor: Colors.white,
+                          statusIconBackgroundColor: Colors.red,
+                          buttonIcon: Icons.close,
+                          buttonText: getString(context).close_dialog,
+                          buttonOnClick: () => Navigator.pop(context),
+                        ),
+                      );
+                    } else if (state is LoggingInWithGoogleAccountCanceled) {
+                      Navigator.pop(context);
                     }
                   },
                   builder: (context, state) {
