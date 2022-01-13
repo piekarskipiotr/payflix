@@ -52,3 +52,21 @@ class LoggingInWithGoogleAccountFailed extends LoginState {
   @override
   String toString() => runtimeType.toString();
 }
+
+class SendingPasswordResetEmail extends LoginState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class SendingPasswordResetEmailSucceeded extends LoginState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class SendingPasswordResetEmailFailed extends LoginState {
+  final String? errorCode;
+  SendingPasswordResetEmailFailed(this.errorCode);
+
+  @override
+  String toString() => runtimeType.toString();
+}

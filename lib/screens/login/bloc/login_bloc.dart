@@ -1,6 +1,6 @@
 import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:payflix/screens/login/bloc/login_state.dart';
@@ -8,12 +8,33 @@ import 'package:payflix/screens/login/bloc/login_state.dart';
 class LoginBloc extends Cubit<LoginState> {
   String? _emailId;
   String? _password;
+  bool _validatePassword = true;
 
   LoginBloc() : super(InitLoginState());
 
+  void clearSnackBars(BuildContext context) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  }
+
   Future<void> restartPassword() async {
-    // TODO: show bottom sheet view dialog with confirmation of sending email & setting new one
-    log('should show bottom sheet view dialog with restarting password procedure');
+    emit(SendingPasswordResetEmail());
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailId!);
+      emit(SendingPasswordResetEmailSucceeded());
+    } on FirebaseAuthException catch (e) {
+      emit(SendingPasswordResetEmailFailed(e.code));
+    } catch (e) {
+      emit(SendingPasswordResetEmailFailed(e as String?));
+    }
+  }
+
+  void changePasswordVerificationStatus() {
+    _validatePassword = !_validatePassword;
+  }
+
+  bool shouldIValidatePasswordFiled() {
+    return _validatePassword;
   }
 
   void setEmailId(String? value) {

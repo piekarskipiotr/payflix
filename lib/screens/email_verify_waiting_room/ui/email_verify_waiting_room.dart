@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/email_verify_waiting_room/bloc/email_verify_waiting_room_bloc.dart';
 import 'package:payflix/screens/email_verify_waiting_room/bloc/email_verify_waiting_room_state.dart';
+import 'package:payflix/widgets/result_snack_bar.dart';
 
 class EmailVerifyWaitingRoom extends StatelessWidget {
   const EmailVerifyWaitingRoom({Key? key}) : super(key: key);
@@ -150,36 +151,6 @@ class EmailVerifyWaitingRoom extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  SnackBar resultSnackBar(BuildContext context, IconData icon, Color iconColor,
-      String text, Color backgroundColor) {
-    return SnackBar(
-      content: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          ClipOval(
-            child: Material(
-              color: Colors.white,
-              child: SizedBox(
-                width: 24.0,
-                height: 24.0,
-                child: Icon(
-                  icon,
-                  color: iconColor,
-                  size: 20.0,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 20.0,
-          ),
-          Text(text),
-        ],
-      ),
-      backgroundColor: backgroundColor,
     );
   }
 }

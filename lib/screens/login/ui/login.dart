@@ -14,6 +14,7 @@ import 'package:payflix/screens/login/bloc/login_state.dart';
 import 'package:payflix/widgets/full_screen_dialog.dart';
 import 'package:payflix/widgets/loading_overlay.dart';
 import 'package:payflix/widgets/long_button.dart';
+import 'package:payflix/widgets/result_snack_bar.dart';
 import 'package:payflix/widgets/static_spacer.dart';
 
 class Login extends StatelessWidget {
@@ -79,17 +80,18 @@ class Login extends StatelessWidget {
                           opaque: false,
                           pageBuilder: (BuildContext context, _, __) {
                             return const LoadingOverlay();
-                          }
-                      ));
+                          }));
                     } else if (state is LoggingInWithGoogleAccountSucceeded) {
-                      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.joinGroupRoom, (route) => false);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, AppRoutes.joinGroupRoom, (route) => false);
                     } else if (state is LoggingInWithGoogleAccountFailed) {
                       Navigator.pop(context);
                       AppDialogHelper.showFullScreenDialog(
                         context,
                         FullScreenDialog(
                           headerText: getString(context).logging_in_failed,
-                          secondaryText: LoginHelper.tryConvertErrorCodeToMessage(
+                          secondaryText:
+                              LoginHelper.tryConvertErrorCodeToMessage(
                             context,
                             state.errorCode,
                           ),
@@ -103,6 +105,54 @@ class Login extends StatelessWidget {
                       );
                     } else if (state is LoggingInWithGoogleAccountCanceled) {
                       Navigator.pop(context);
+                    } else if (state is SendingPasswordResetEmail) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              const SizedBox(
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.0,
+                                ),
+                                height: 24.0,
+                                width: 24.0,
+                              ),
+                              const SizedBox(
+                                width: 20.0,
+                              ),
+                              Text(getString(context).sending),
+                            ],
+                          ),
+                          backgroundColor: AppColors.gray,
+                          duration: const Duration(days: 365),
+                          dismissDirection: DismissDirection.none,
+                        ),
+                      );
+                    } else if (state is SendingPasswordResetEmailSucceeded) {
+                      context.read<LoginBloc>().clearSnackBars(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        resultSnackBar(
+                          context,
+                          Icons.done,
+                          AppColors.green,
+                          getString(context).sending_email_succeeded,
+                          AppColors.green,
+                        ),
+                      );
+                    } else if (state is SendingPasswordResetEmailFailed) {
+                      context.read<LoginBloc>().clearSnackBars(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        resultSnackBar(
+                          context,
+                          Icons.priority_high,
+                          Colors.red,
+                          state.errorCode == 'user-not-found'
+                              ? getString(context).user_not_found
+                              : getString(context).sending_email_failed,
+                          Colors.red,
+                        ),
+                      );
                     }
                   },
                   builder: (context, state) {
@@ -151,9 +201,12 @@ class Login extends StatelessWidget {
                           TextFormField(
                             onSaved: (value) =>
                                 context.read<LoginBloc>().setPassword(value),
-                            validator: (value) =>
-                                LoginValidation.validatePasswordField(
-                                    context, value),
+                            validator: (value) => context
+                                    .read<LoginBloc>()
+                                    .shouldIValidatePasswordFiled()
+                                ? LoginValidation.validatePasswordField(
+                                    context, value)
+                                : null,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             maxLines: 1,
@@ -172,9 +225,23 @@ class Login extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   GestureDetector(
-                                    onTap: () => context
-                                        .read<LoginBloc>()
-                                        .restartPassword(),
+                                    onTap: () {
+                                      context
+                                          .read<LoginBloc>()
+                                          .changePasswordVerificationStatus();
+                                      if (formKey.currentState!.validate()) {
+                                        formKey.currentState!.save();
+
+                                        FocusScope.of(context).unfocus();
+                                        context
+                                            .read<LoginBloc>()
+                                            .restartPassword();
+                                      }
+
+                                      context
+                                          .read<LoginBloc>()
+                                          .changePasswordVerificationStatus();
+                                    },
                                     child: Text(
                                       getString(context).forgot,
                                       style: const TextStyle(
