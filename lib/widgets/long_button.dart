@@ -22,7 +22,7 @@ class LongButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         style: customStyle,
-        onPressed: onClick,
+        onPressed: isLoading ? () {} : onClick,
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: isLoading

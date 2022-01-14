@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/playground.dart';
 import 'package:payflix/screens/email_verify_waiting_room/bloc/email_verify_waiting_room_bloc.dart';
 import 'package:payflix/screens/email_verify_waiting_room/ui/email_verify_waiting_room.dart';
+import 'package:payflix/screens/join_group_room/bloc/join_group_room_bloc.dart';
 import 'package:payflix/screens/join_group_room/ui/join_group_room.dart';
 import 'package:payflix/screens/login/bloc/login_bloc.dart';
 import 'package:payflix/screens/login/ui/login.dart';
@@ -42,15 +43,20 @@ class RoutesHandler {
       case AppRoutes.emailVerifyWaitingRoom:
         return buildRoute(
           BlocProvider(
-            create: (_) => EmailVerifyWaitingRoomBloc()
-              ..emailVerificationListener(),
+            create: (_) =>
+                EmailVerifyWaitingRoomBloc()..emailVerificationListener(),
             child: const EmailVerifyWaitingRoom(),
           ),
           settings: settings,
         );
       case AppRoutes.joinGroupRoom:
         return buildRoute(
-          const JoinGroupRoom(),
+          BlocProvider(
+            create: (_) => JoinGroupRoomBloc(),
+            child: JoinGroupRoom(
+              formKey: GlobalKey<FormState>(),
+            ),
+          ),
           settings: settings,
         );
     }

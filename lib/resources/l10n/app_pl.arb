@@ -44,5 +44,18 @@
   "email_not_verified_verify" : "kliknij tutaj aby wysłać kolejne potwierdzenie",
   "sending" : "Wysyłanie...",
   "sending_email_succeeded" : "Wysłano Emaila",
-  "sending_email_failed" : "Wystąpił błąd podczas wysyłania"
+  "sending_email_failed" : "Wystąpił błąd podczas wysyłania",
+  "welcome_to_payflix" : "Witaj w Payflix",
+  "welcome_to_payflix_subtitle" : "Aby zacząc korzystać z aplikacji musisz wpisać kod grupy",
+  "join_the_group" : "Dołącz do grupy",
+  "where_key" : "Gdzie mogę dostać klucz grupy",
+  "are_your_group_owner" : "Jesteś zarządcą grupy?",
+  "create" : "Utwórz",
+  "first_step_where_key" : "Poproś opiekuna grupy o włączenie klucza grupy",
+  "second_step_where_key" : "Opiekun wygeneruje i przekaże ci klucz o długości 4",
+  "third_step_where_key" : "Teraz możesz wpisać klucz i poczekać na zatwierdzenie dołączenia do grupy",
+  "understand" : "Ok, rozumiem",
+  "fill_all_fields" : "Wypełnij wszystkie pola",
+  "join_the_group_failed" : "Nie udało się dołączyć do grupy",
+  "join_the_group_failed_explanation" : "Upewnij się że wprowadziłeś prawidłowy kod grupy oraz czy ważność kodu nie wygasła"
 }

@@ -55,7 +55,7 @@ class TermsAndConditionsDialog extends StatelessWidget {
               getString(context).terms_and_conditions,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 38.0,
+                fontSize: 32.0,
                 fontWeight: FontWeight.bold,
               ),
             ),

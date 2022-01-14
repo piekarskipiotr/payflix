@@ -45,5 +45,18 @@
   "email_not_verified_verify" : "click here to send another confirmation",
   "sending" : "Sending...",
   "sending_email_succeeded" : "Email sent",
-  "sending_email_failed" : "An error occurred while sending"
+  "sending_email_failed" : "An error occurred while sending",
+  "welcome_to_payflix" : "Welcome to Payflix",
+  "welcome_to_payflix_subtitle" : "To start using the app you have to enter the group key",
+  "join_the_group" : "Join the group",
+  "where_key" : "Where can I get the group key",
+  "are_your_group_owner" : "Are you maintainer of the group?",
+  "create" : "Create",
+  "first_step_where_key" : "Ask your group maintainer to enable group key",
+  "second_step_where_key" : "Maintainer will generate and give you a 4 length key",
+  "third_step_where_key" : "Now you can enter the key and wait for approval to join the group",
+  "understand" : "Ok, I understand",
+  "fill_all_fields" : "Fill all fields",
+  "join_the_group_failed" : "Joining the group failed",
+  "join_the_group_failed_explanation" : "Make sure you entered the correct group code and that the code has not expired"
 }
