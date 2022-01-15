@@ -27,7 +27,8 @@ class JoinGroupRoom extends StatelessWidget {
             context,
             FullScreenDialog(
               headerText: getString(context).join_the_group_failed,
-              secondaryText: getString(context).join_the_group_failed_explanation,
+              secondaryText:
+                  getString(context).join_the_group_failed_explanation,
               statusIcon: Icons.sentiment_dissatisfied,
               statusIconColor: Colors.white,
               statusIconBackgroundColor: Colors.red,
@@ -38,158 +39,185 @@ class JoinGroupRoom extends StatelessWidget {
           );
         }
       },
-      child: Scaffold(
-          body: SafeArea(
-        top: true,
-        bottom: true,
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-            child: Column(
-              children: [
-                staticSpacer(),
-                staticSpacer(),
-                Column(
-                  children: [
-                    Text(
-                      getString(context).welcome_to_payflix,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 42.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 50.0,
-                    ),
-                    Image.asset(
-                      wavingMan,
-                      width: 192.0,
-                      height: 192.0,
-                    ),
-                    const SizedBox(
-                      height: 50.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-                      child: Text(
-                        getString(context).welcome_to_payflix_subtitle,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
+      child: WillPopScope(
+        onWillPop: () =>
+            context.read<JoinGroupRoomBloc>().popAndLogout(context),
+        child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              elevation: 0.0,
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: IconButton(
+                  onPressed: () => context
+                      .read<JoinGroupRoomBloc>()
+                      .popAndLogout(context),
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    size: 22.0,
+                    color: Colors.black,
+                  ),
                 ),
-                staticSpacer(),
-                staticSpacer(),
-                Padding(
+              ),
+            ),
+            body: SafeArea(
+              top: true,
+              bottom: true,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
                   padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                  child: Form(
-                    key: formKey,
-                    child: PinCodeTextField(
-                      length: 4,
-                      animationType: AnimationType.none,
-                      cursorColor: AppColors.gray,
-                      validator: (value) => value?.length != 4 ? getString(context).fill_all_fields : null,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      errorTextSpace: 25.0,
-                      pinTheme: PinTheme(
-                        activeColor: AppColors.gray,
-                        selectedColor: AppColors.gray,
-                        inactiveColor: AppColors.gray,
-                        activeFillColor: AppColors.gray,
-                        selectedFillColor: AppColors.gray,
-                        inactiveFillColor: AppColors.gray,
-                        shape: PinCodeFieldShape.box,
-                        borderRadius: BorderRadius.circular(14),
-                        fieldHeight: 75,
-                        fieldWidth: 60,
+                  child: Column(
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            getString(context).welcome_to_payflix,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 42.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 50.0,
+                          ),
+                          Image.asset(
+                            wavingMan,
+                            width: 192.0,
+                            height: 192.0,
+                          ),
+                          const SizedBox(
+                            height: 50.0,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 30.0, right: 30.0),
+                            child: Text(
+                              getString(context).welcome_to_payflix_subtitle,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
                       ),
-                      keyboardType: TextInputType.number,
-                      boxShadows: [
-                        BoxShadow(
-                          color: AppColors.lightGray.withOpacity(0.8),
-                        )
-                      ],
-                      onCompleted: (code) => context.read<JoinGroupRoomBloc>().joinGroup(code),
-                      onChanged: (_) {},
-                      appContext: context,
-                    ),
-                  ),
-                ),
-                staticSpacer(),
-                BlocBuilder<JoinGroupRoomBloc, JoinGroupRoomState>(
-                  builder: (context, state) {
-                    return LongButton(
-                        text: getString(context).join_the_group,
-                        isLoading: state is JoiningTheGroup,
-                        onClick: () {
-                          if (formKey.currentState!.validate()) {
-                            context.read<JoinGroupRoomBloc>().joinGroup(null);
-                          }
-                        }
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                GestureDetector(
-                  onTap: () => showModalBottomSheet(
-                    context: context,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(
-                          32.0,
-                        ),
-                        topLeft: Radius.circular(
-                          32.0,
+                      staticSpacer(),
+                      staticSpacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                        child: Form(
+                          key: formKey,
+                          child: PinCodeTextField(
+                            length: 4,
+                            animationType: AnimationType.none,
+                            cursorColor: AppColors.gray,
+                            validator: (value) => value?.length != 4
+                                ? getString(context).fill_all_fields
+                                : null,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            errorTextSpace: 25.0,
+                            pinTheme: PinTheme(
+                              activeColor: AppColors.gray,
+                              selectedColor: AppColors.gray,
+                              inactiveColor: AppColors.gray,
+                              activeFillColor: AppColors.gray,
+                              selectedFillColor: AppColors.gray,
+                              inactiveFillColor: AppColors.gray,
+                              shape: PinCodeFieldShape.box,
+                              borderRadius: BorderRadius.circular(14),
+                              fieldHeight: 75,
+                              fieldWidth: 60,
+                            ),
+                            keyboardType: TextInputType.number,
+                            boxShadows: [
+                              BoxShadow(
+                                color: AppColors.lightGray.withOpacity(0.8),
+                              )
+                            ],
+                            onCompleted: (code) => context
+                                .read<JoinGroupRoomBloc>()
+                                .joinGroup(code),
+                            onChanged: (_) {},
+                            appContext: context,
+                          ),
                         ),
                       ),
-                    ),
-                    isScrollControlled: true,
-                    builder: (builder) => const WhereToGetGroupKeyDialog(),
-                  ),
-                  child: Text(
-                    '${getString(context).where_key}?',
-                    style: const TextStyle(
-                      color: AppColors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                const Divider(
-                  height: 1,
-                  thickness: 1,
-                  color: AppColors.lightGray,
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                RichText(
-                  text: TextSpan(
-                    text: '${getString(context).are_your_group_owner} ',
-                    style: const TextStyle(color: Colors.black),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: getString(context).create,
-                        recognizer: TapGestureRecognizer()..onTap = () {},
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.blue,
+                      staticSpacer(),
+                      BlocBuilder<JoinGroupRoomBloc, JoinGroupRoomState>(
+                        builder: (context, state) {
+                          return LongButton(
+                              text: getString(context).join_the_group,
+                              isLoading: state is JoiningTheGroup,
+                              onClick: () {
+                                if (formKey.currentState!.validate()) {
+                                  context
+                                      .read<JoinGroupRoomBloc>()
+                                      .joinGroup(null);
+                                }
+                              });
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      GestureDetector(
+                        onTap: () => showModalBottomSheet(
+                          context: context,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(
+                                32.0,
+                              ),
+                              topLeft: Radius.circular(
+                                32.0,
+                              ),
+                            ),
+                          ),
+                          isScrollControlled: true,
+                          builder: (builder) =>
+                              const WhereToGetGroupKeyDialog(),
+                        ),
+                        child: Text(
+                          '${getString(context).where_key}?',
+                          style: const TextStyle(
+                            color: AppColors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      const Divider(
+                        height: 1,
+                        thickness: 1,
+                        color: AppColors.lightGray,
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: '${getString(context).are_your_group_owner} ',
+                          style: const TextStyle(color: Colors.black),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: getString(context).create,
+                              recognizer: TapGestureRecognizer()..onTap = () {},
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.blue,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
-      )),
+              ),
+            )),
+      ),
     );
   }
 }
