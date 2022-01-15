@@ -232,7 +232,10 @@ class WhereToGetGroupKeyDialog extends StatelessWidget {
                   style: const TextStyle(fontSize: 16.0, color: AppColors.blue, fontWeight: FontWeight.bold),
                 ),
               ),
-            )
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
           ],
         ),
       ),
