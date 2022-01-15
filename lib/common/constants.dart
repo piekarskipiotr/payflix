@@ -4,6 +4,7 @@ const womenWithLaptop = 'assets/humans/women_with_laptop.png';
 const wavingMan = 'assets/humans/waving_man.png';
 const defaultMan = 'assets/humans/avatar_0.png';
 const jumpingWoman = 'assets/humans/jumping_woman.png';
+const familyOnCoach = 'assets/humans/family_on_coach.png';
 
 // social assets
 const googleIcon = 'assets/social/google.svg';

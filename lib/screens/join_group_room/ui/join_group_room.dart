@@ -4,6 +4,7 @@ import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/helpers/app_dialog_helper.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/join_group_room/bloc/join_group_room_bloc.dart';
 import 'package:payflix/screens/join_group_room/bloc/join_group_room_state.dart';
 import 'package:payflix/screens/join_group_room/ui/where_to_get_group_key_dialog.dart';
@@ -49,9 +50,8 @@ class JoinGroupRoom extends StatelessWidget {
               leading: Padding(
                 padding: const EdgeInsets.only(left: 5.0),
                 child: IconButton(
-                  onPressed: () => context
-                      .read<JoinGroupRoomBloc>()
-                      .popAndLogout(context),
+                  onPressed: () =>
+                      context.read<JoinGroupRoomBloc>().popAndLogout(context),
                   icon: const Icon(
                     Icons.arrow_back_ios,
                     size: 22.0,
@@ -96,6 +96,10 @@ class JoinGroupRoom extends StatelessWidget {
                             child: Text(
                               getString(context).welcome_to_payflix_subtitle,
                               textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500
+                              ),
                             ),
                           ),
                         ],
@@ -203,7 +207,9 @@ class JoinGroupRoom extends StatelessWidget {
                           children: <TextSpan>[
                             TextSpan(
                               text: getString(context).create,
-                              recognizer: TapGestureRecognizer()..onTap = () {},
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => Navigator.pushNamed(
+                                    context, AppRoutes.createGroup),
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.blue,
@@ -212,6 +218,7 @@ class JoinGroupRoom extends StatelessWidget {
                           ],
                         ),
                       ),
+                      staticSpacer(),
                     ],
                   ),
                 ),

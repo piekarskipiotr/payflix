@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/playground.dart';
+import 'package:payflix/screens/create_group/bloc/create_group_bloc.dart';
+import 'package:payflix/screens/create_group/ui/create_group.dart';
 import 'package:payflix/screens/email_verify_waiting_room/bloc/email_verify_waiting_room_bloc.dart';
 import 'package:payflix/screens/email_verify_waiting_room/ui/email_verify_waiting_room.dart';
 import 'package:payflix/screens/join_group_room/bloc/join_group_room_bloc.dart';
@@ -54,6 +56,16 @@ class RoutesHandler {
           BlocProvider(
             create: (_) => JoinGroupRoomBloc(),
             child: JoinGroupRoom(
+              formKey: GlobalKey<FormState>(),
+            ),
+          ),
+          settings: settings,
+        );
+      case AppRoutes.createGroup:
+        return buildRoute(
+          BlocProvider(
+            create: (_) => CreateGroupBloc(),
+            child: CreateGroup(
               formKey: GlobalKey<FormState>(),
             ),
           ),

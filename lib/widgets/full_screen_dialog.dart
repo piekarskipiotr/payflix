@@ -75,6 +75,10 @@ class FullScreenDialog extends StatelessWidget {
                         textAlign: TextAlign.center,
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500
+                        ),
                       ),
                     ),
                   ],

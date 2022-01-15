@@ -36,7 +36,7 @@ class LongButton extends StatelessWidget {
               : Text(
                   text,
                   style: const TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 17.0,
                     color: Colors.white,
                   ),
                 ),

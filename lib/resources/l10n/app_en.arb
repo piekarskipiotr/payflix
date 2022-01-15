@@ -46,7 +46,7 @@
   "sending" : "Sending...",
   "sending_email_succeeded" : "Email sent",
   "sending_email_failed" : "An error occurred while sending",
-  "welcome_to_payflix" : "Welcome to Payflix",
+  "welcome_to_payflix" : "Welcome to\nPayflix",
   "welcome_to_payflix_subtitle" : "To start using the app you have to enter the group key",
   "join_the_group" : "Join the group",
   "where_key" : "Where can I get the group key",
@@ -58,5 +58,11 @@
   "understand" : "Ok, I understand",
   "fill_all_fields" : "Fill all fields",
   "join_the_group_failed" : "Joining the group failed",
-  "join_the_group_failed_explanation" : "Make sure you entered the correct group code and that the code has not expired"
+  "join_the_group_failed_explanation" : "Make sure you entered the correct group code and that the code has not expired",
+  "create_group" : "Create\ngroup",
+  "create_group_subtitle" : "After creating group, you will be able to change this settings later in case something change",
+  "monthly_payment" : "Monthly payment",
+  "monthly_payment_description" : "Amount that you paying for account (not for per profile)",
+  "day_of_payment" : "Day of payment",
+  "access_account_data" : "Access account"
 }
