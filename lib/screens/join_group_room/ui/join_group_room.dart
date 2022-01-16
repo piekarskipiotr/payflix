@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/helpers/app_dialog_helper.dart';
+import 'package:payflix/common/helpers/opacity_helper.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
@@ -80,8 +81,8 @@ class JoinGroupRoom extends StatelessWidget {
                           ),
                           title: AnimatedOpacity(
                             duration: const Duration(milliseconds: 300),
-                            opacity: top < 111 || top > 115 ? 1.0 : 0.0,
-                            child: top < 113
+                            opacity: OpacityHelper.calculateHeaderOpacity(top, 81.0, 91.0),
+                            child: top < 86
                                 ? Text(
                                     getString(context)
                                         .welcome_to_payflix

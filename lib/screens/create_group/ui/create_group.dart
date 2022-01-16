@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/common/helpers/opacity_helper.dart';
 import 'package:payflix/common/validators/create_group_validation.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
@@ -52,8 +53,8 @@ class CreateGroup extends StatelessWidget {
                     ),
                     title: AnimatedOpacity(
                       duration: const Duration(milliseconds: 300),
-                      opacity: top < 111 || top > 115 ? 1.0 : 0.0,
-                      child: top < 113
+                      opacity: OpacityHelper.calculateHeaderOpacity(top, 81.0, 91.0),
+                      child: top < 86
                           ? Text(
                               getString(context)
                                   .create_group
@@ -256,7 +257,6 @@ class CreateGroup extends StatelessWidget {
                                         });
                                   },
                                 ),
-                                staticSpacer(),
                               ],
                             ),
                           ),
