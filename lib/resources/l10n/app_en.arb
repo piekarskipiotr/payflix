@@ -64,5 +64,6 @@
   "monthly_payment" : "Monthly payment",
   "monthly_payment_description" : "Amount that you paying for account (not for per profile)",
   "day_of_payment" : "Day of payment",
-  "access_account_data" : "Access account"
+  "access_account_data" : "Access account",
+  "not_in_days_range" : "Day not in days range 1 - 31"
 }

@@ -63,5 +63,6 @@
   "monthly_payment" : "Miesięczna zapłata",
   "monthly_payment_description" : "Kwota, którą płacisz za konto (nie za profil)",
   "day_of_payment" : "Dzień zapłaty",
-  "access_account_data" : "Dane dostępowe"
+  "access_account_data" : "Dane dostępowe",
+  "not_in_days_range" : "Dzień nie mieście sie w przedziale 1 - 31"
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/common/constants.dart';
-import 'package:payflix/common/validators/login_validation.dart';
+import 'package:payflix/common/validators/create_group_validation.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/create_group/bloc/create_group_bloc.dart';
@@ -52,7 +53,7 @@ class CreateGroup extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        height: 50.0,
+                        height: 25.0,
                       ),
                       Image.asset(
                         familyOnCoach,
@@ -75,12 +76,24 @@ class CreateGroup extends StatelessWidget {
                           child: Column(
                             children: [
                               TextFormField(
+                                onSaved: (value) => context
+                                    .read<CreateGroupBloc>()
+                                    .setPayment(value!),
+                                validator: (value) =>
+                                    CreateGroupValidation.validatePayment(
+                                        context, value),
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                                 maxLines: 1,
                                 textAlignVertical: TextAlignVertical.center,
                                 textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      (RegExp(r'^\d+\.?\d{0,2}'))),
+                                ],
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        decimal: true),
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.zero,
                                   prefixIcon: const Icon(
@@ -102,11 +115,16 @@ class CreateGroup extends StatelessWidget {
                                 height: 15.0,
                               ),
                               TextFormField(
+                                onSaved: (value) => context
+                                    .read<CreateGroupBloc>()
+                                    .setDayOfPayment(value!),
+                                validator: (value) =>
+                                    CreateGroupValidation.validateDayOfPayment(
+                                        context, value),
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                                 maxLines: 1,
                                 textAlignVertical: TextAlignVertical.center,
-                                obscureText: true,
                                 textInputAction: TextInputAction.done,
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
@@ -134,8 +152,11 @@ class CreateGroup extends StatelessWidget {
                               ),
                               staticSpacer(),
                               TextFormField(
+                                onSaved: (value) => context
+                                    .read<CreateGroupBloc>()
+                                    .setEmailId(value),
                                 validator: (value) =>
-                                    LoginValidation.validateEmailIdField(
+                                    CreateGroupValidation.validateEmailIdField(
                                         context, value),
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
@@ -161,11 +182,9 @@ class CreateGroup extends StatelessWidget {
                                 height: 15.0,
                               ),
                               TextFormField(
-                                validator: (value) =>
-                                    LoginValidation.validatePasswordField(
-                                        context, value),
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
+                                onSaved: (value) => context
+                                    .read<CreateGroupBloc>()
+                                    .setPassword(value),
                                 maxLines: 1,
                                 textAlignVertical: TextAlignVertical.center,
                                 obscureText: true,
@@ -189,16 +208,20 @@ class CreateGroup extends StatelessWidget {
                               BlocBuilder<CreateGroupBloc, CreateGroupState>(
                                 builder: (context, state) {
                                   return LongButton(
-                                      text: getString(context).create_group.replaceAll('\n', ' '),
-                                      isLoading: false,
+                                      text: getString(context)
+                                          .create_group
+                                          .replaceAll('\n', ' '),
+                                      isLoading: state is CreatingGroup,
                                       onClick: () {
-                                        if (formKey.currentState!.validate()) {}
+                                        if (formKey.currentState!.validate()) {
+                                          context
+                                              .read<CreateGroupBloc>()
+                                              .createGroup();
+                                        }
                                       });
                                 },
                               ),
-                              const SizedBox(
-                                height: 20.0,
-                              ),
+                              staticSpacer(),
                             ],
                           ),
                         ),
