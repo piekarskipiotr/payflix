@@ -54,7 +54,7 @@
   "create" : "Create",
   "first_step_where_key" : "Ask your group maintainer to enable group key",
   "second_step_where_key" : "Maintainer will generate and give you a 4 length key",
-  "third_step_where_key" : "Now you can enter the key and wait for approval to join the group",
+  "third_step_where_key" : "Now you can enter the key and join the group",
   "understand" : "Ok, I understand",
   "fill_all_fields" : "Fill all fields",
   "join_the_group_failed" : "Joining the group failed",
