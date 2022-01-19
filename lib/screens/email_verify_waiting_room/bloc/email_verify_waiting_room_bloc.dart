@@ -37,7 +37,7 @@ class EmailVerifyWaitingRoomBloc extends Cubit<EmailVerifyWaitingRoomState> {
   }
 
   Future<void> emailVerificationListener() async {
-    _timer = Timer.periodic(const Duration(seconds: 10), (timer) async {
+    _timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
       await FirebaseAuth.instance.currentUser!.reload();
       var user = FirebaseAuth.instance.currentUser;
       if (user!.emailVerified) {

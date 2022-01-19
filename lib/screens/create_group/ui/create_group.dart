@@ -257,6 +257,7 @@ class CreateGroup extends StatelessWidget {
                                         });
                                   },
                                 ),
+                                staticSpacer(),
                               ],
                             ),
                           ),

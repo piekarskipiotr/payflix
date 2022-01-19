@@ -69,14 +69,14 @@ class FullScreenDialog extends StatelessWidget {
                   ),
                   if (secondaryText != null) ...[
                     Padding(
-                      padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+                      padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                       child: Text(
                         secondaryText!,
                         textAlign: TextAlign.center,
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 14.0,
                             fontWeight: FontWeight.w500
                         ),
                       ),

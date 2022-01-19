@@ -166,7 +166,6 @@ class JoinGroupRoom extends StatelessWidget {
                                   fieldHeight: 75,
                                   fieldWidth: 60,
                                 ),
-                                keyboardType: TextInputType.number,
                                 boxShadows: [
                                   BoxShadow(
                                     color: AppColors.lightGray.withOpacity(0.8),
