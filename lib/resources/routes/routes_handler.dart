@@ -11,6 +11,7 @@ import 'package:payflix/screens/join_group_room/bloc/join_group_room_bloc.dart';
 import 'package:payflix/screens/join_group_room/ui/join_group_room.dart';
 import 'package:payflix/screens/login/bloc/login_bloc.dart';
 import 'package:payflix/screens/login/ui/login.dart';
+import 'package:payflix/screens/members/ui/members.dart';
 import 'package:payflix/screens/registration/bloc/registration_bloc.dart';
 import 'package:payflix/screens/registration/ui/registration.dart';
 import 'app_routes.dart';
@@ -69,6 +70,11 @@ class RoutesHandler {
               formKey: GlobalKey<FormState>(),
             ),
           ),
+          settings: settings,
+        );
+      case AppRoutes.members:
+        return buildRoute(
+          const Members(),
           settings: settings,
         );
     }

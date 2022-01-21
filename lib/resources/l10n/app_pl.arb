@@ -64,5 +64,7 @@
   "monthly_payment_description" : "Kwota, którą płacisz za konto (nie za profil)",
   "day_of_payment" : "Dzień zapłaty",
   "access_account_data" : "Dane dostępowe",
-  "not_in_days_range" : "Dzień nie mieście sie w przedziale 1 - 31"
+  "not_in_days_range" : "Dzień nie mieście sie w przedziale 1 - 31",
+  "members" : "Członkowie",
+  "group_key" : "Klucz grupy"
 }

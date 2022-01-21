@@ -111,7 +111,7 @@ class WhereToGetGroupKeyDialog extends StatelessWidget {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(
-                              top: 5.0,
+                              top: 10.0,
                             ),
                             child: Text(
                               getString(context).first_step_where_key,
@@ -151,7 +151,7 @@ class WhereToGetGroupKeyDialog extends StatelessWidget {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(
-                              top: 5.0,
+                              top: 10.0,
                             ),
                             child: Text(
                               getString(context).second_step_where_key,
@@ -198,7 +198,7 @@ class WhereToGetGroupKeyDialog extends StatelessWidget {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(
-                              top: 5.0,
+                              top: 10.0,
                             ),
                             child: Text(
                               getString(context).third_step_where_key,
@@ -221,7 +221,7 @@ class WhereToGetGroupKeyDialog extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 20.0,
+              height: 15.0,
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 5.0),
@@ -234,7 +234,7 @@ class WhereToGetGroupKeyDialog extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 20.0,
+              height: 15.0,
             ),
           ],
         ),

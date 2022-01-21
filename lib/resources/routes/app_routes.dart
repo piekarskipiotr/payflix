@@ -5,4 +5,5 @@ class AppRoutes {
   static const emailVerifyWaitingRoom = '/email_verify_waiting_room';
   static const joinGroupRoom = '/join_group_room';
   static const createGroup = '/create_group';
+  static const members = '/members';
 }
