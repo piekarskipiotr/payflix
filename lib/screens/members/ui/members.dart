@@ -1,8 +1,8 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/helpers/opacity_helper.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/members/ui/group_key_tile.dart';
 import 'package:payflix/screens/members/ui/member_tile.dart';
 
@@ -27,7 +27,7 @@ class Members extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 5.0),
                   child: IconButton(
-                    onPressed: () => log('settings'),
+                    onPressed: () => Navigator.pushNamed(context, AppRoutes.groupSettings),
                     icon: const Icon(
                       Icons.settings,
                       size: 22.0,

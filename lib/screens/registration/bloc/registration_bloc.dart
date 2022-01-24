@@ -50,9 +50,10 @@ class RegistrationBloc extends Cubit<RegistrationState> {
       );
 
       await userCredential.user!.updateDisplayName(_profileName);
+      var userUID = FirebaseAuth.instance.currentUser!.uid;
       await FirebaseFirestore.instance
           .collection('users')
-          .doc(userCredential.user!.uid)
+          .doc(userUID)
           .set({
         'email_id': '$_emailId',
         'name': '$_profileName',

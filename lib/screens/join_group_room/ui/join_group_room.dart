@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/helpers/app_dialog_helper.dart';
 import 'package:payflix/common/helpers/opacity_helper.dart';
@@ -8,11 +10,10 @@ import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/join_group_room/bloc/join_group_room_bloc.dart';
 import 'package:payflix/screens/join_group_room/bloc/join_group_room_state.dart';
-import 'package:payflix/screens/join_group_room/ui/where_to_get_group_key_dialog.dart';
 import 'package:payflix/widgets/full_screen_dialog.dart';
-import 'package:payflix/widgets/long_button.dart';
+import 'package:payflix/widgets/long_outlined_button.dart';
+import 'package:payflix/widgets/static_bigger_spacer.dart';
 import 'package:payflix/widgets/static_spacer.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class JoinGroupRoom extends StatelessWidget {
@@ -81,7 +82,8 @@ class JoinGroupRoom extends StatelessWidget {
                           ),
                           title: AnimatedOpacity(
                             duration: const Duration(milliseconds: 300),
-                            opacity: OpacityHelper.calculateHeaderOpacity(top, 81.0, 91.0),
+                            opacity: OpacityHelper.calculateHeaderOpacity(
+                                top, 81.0, 91.0),
                             child: top < 86
                                 ? Text(
                                     getString(context)
@@ -111,120 +113,149 @@ class JoinGroupRoom extends StatelessWidget {
                   SliverFillRemaining(
                     hasScrollBody: false,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                      padding: const EdgeInsets.only(left: 25.0, right: 25.0),
                       child: Column(
                         children: [
-                          Column(
-                            children: [
-                              staticSpacer(),
-                              Image.asset(
-                                wavingMan,
-                                width: 192.0,
-                                height: 192.0,
-                              ),
-                              staticSpacer(),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 30.0, right: 30.0),
-                                child: Text(
-                                  getString(context)
-                                      .welcome_to_payflix_subtitle,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ],
-                          ),
                           staticSpacer(),
-                          staticSpacer(),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 15.0, right: 15.0),
-                            child: Form(
-                              key: formKey,
-                              child: PinCodeTextField(
-                                length: 4,
-                                animationType: AnimationType.none,
-                                cursorColor: AppColors.gray,
-                                validator: (value) => value?.length != 4
-                                    ? getString(context).fill_all_fields
-                                    : null,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                errorTextSpace: 25.0,
-                                pinTheme: PinTheme(
-                                  activeColor: AppColors.gray,
-                                  selectedColor: AppColors.gray,
-                                  inactiveColor: AppColors.gray,
-                                  activeFillColor: AppColors.gray,
-                                  selectedFillColor: AppColors.gray,
-                                  inactiveFillColor: AppColors.gray,
-                                  shape: PinCodeFieldShape.box,
-                                  borderRadius: BorderRadius.circular(14),
-                                  fieldHeight: 75,
-                                  fieldWidth: 60,
-                                ),
-                                boxShadows: [
-                                  BoxShadow(
-                                    color: AppColors.lightGray.withOpacity(0.8),
-                                  )
-                                ],
-                                onCompleted: (code) => context
-                                    .read<JoinGroupRoomBloc>()
-                                    .joinGroup(code),
-                                onChanged: (_) {},
-                                appContext: context,
-                              ),
-                            ),
+                          Image.asset(
+                            wavingMan,
+                            width: 192.0,
+                            height: 192.0,
                           ),
-                          staticSpacer(),
-                          BlocBuilder<JoinGroupRoomBloc, JoinGroupRoomState>(
-                            builder: (context, state) {
-                              return LongButton(
-                                  text: getString(context).join_the_group,
-                                  isLoading: state is JoiningTheGroup,
-                                  onClick: () {
-                                    if (formKey.currentState!.validate()) {
-                                      context
-                                          .read<JoinGroupRoomBloc>()
-                                          .joinGroup(null);
-                                    }
-                                  });
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          GestureDetector(
-                            onTap: () => showModalBottomSheet(
-                              context: context,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(
-                                    32.0,
-                                  ),
-                                  topLeft: Radius.circular(
-                                    32.0,
-                                  ),
-                                ),
-                              ),
-                              isScrollControlled: true,
-                              builder: (builder) =>
-                                  const WhereToGetGroupKeyDialog(),
-                            ),
-                            child: Text(
-                              '${getString(context).where_key}?',
+                          staticBiggerSpacer(),
+                          RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text:
+                                  '${getString(context).welcome_to_payflix_part_1}, ',
                               style: const TextStyle(
-                                color: AppColors.blue,
-                                fontWeight: FontWeight.bold,
+                                color: AppColors.gray,
+                                fontSize: 17.0,
                               ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: FirebaseAuth
+                                          .instance.currentUser?.displayName ??
+                                      'username',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: getString(context)
+                                      .welcome_to_payflix_part_2,
+                                  style: const TextStyle(
+                                    color: AppColors.gray,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: getString(context).create_new_group,
+                                  style: const TextStyle(
+                                    color: AppColors.blue,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: getString(context)
+                                      .welcome_to_payflix_part_3,
+                                  style: const TextStyle(
+                                    color: AppColors.gray,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(
-                            height: 20.0,
+                          staticBiggerSpacer(),
+                          Text(
+                            getString(context).how_to_join,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 32.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                           ),
+                          staticBiggerSpacer(),
+                          Text(
+                            getString(context).how_to_join_desc,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: AppColors.gray,
+                              fontSize: 17.0,
+                            ),
+                          ),
+                          staticBiggerSpacer(),
+                          Container(
+                            width: 92.0,
+                            height: 92.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(21.0),
+                              color: AppColors.primary,
+                            ),
+                            child: const Icon(
+                              Icons.link,
+                              color: Colors.white,
+                              size: 56.0,
+                            ),
+                          ),
+                          staticSpacer(),
+                          Text(
+                            getString(context).via_link,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 22.0),
+                          ),
+                          staticSpacer(),
+                          Text(
+                            getString(context).via_link_desc,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: AppColors.gray,
+                              fontSize: 17.0,
+                            ),
+                          ),
+                          staticBiggerSpacer(),
+                          Container(
+                            width: 92.0,
+                            height: 92.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(21.0),
+                              color: AppColors.primary,
+                            ),
+                            child: const Icon(
+                              Icons.qr_code,
+                              color: Colors.white,
+                              size: 56.0,
+                            ),
+                          ),
+                          staticSpacer(),
+                          Text(
+                            getString(context).scan_qr_code,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 22.0),
+                          ),
+                          staticSpacer(),
+                          Text(
+                            getString(context).scan_qr_code_desc,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: AppColors.gray,
+                              fontSize: 17.0,
+                            ),
+                          ),
+                          SizedBox(
+                            width:
+                                MediaQuery.of(context).size.shortestSide / 1.2,
+                            child: Lottie.asset(qrScan),
+                          ),
+                          LongOutlinedButton(
+                            text: getString(context).scan_now,
+                            onClick: () {},
+                            isLoading: false,
+                          ),
+                          staticSpacer(),
                           const Divider(
                             height: 1,
                             thickness: 1,
@@ -243,7 +274,7 @@ class JoinGroupRoom extends StatelessWidget {
                                   text: getString(context).create,
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () => Navigator.pushNamed(
-                                        context, AppRoutes.createGroup),
+                                        context, AppRoutes.groupSettings),
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: AppColors.blue,

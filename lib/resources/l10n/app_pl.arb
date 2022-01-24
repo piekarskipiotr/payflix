@@ -66,5 +66,17 @@
   "access_account_data" : "Dane dostępowe",
   "not_in_days_range" : "Dzień nie mieście sie w przedziale 1 - 31",
   "members" : "Członkowie",
-  "group_key" : "Klucz grupy"
+  "group_key" : "Klucz grupy",
+  "group_key_dialog_title" : "Sekretny klucz grupy",
+  "welcome_to_payflix_part_1" : "Cześć",
+  "welcome_to_payflix_part_2" : " zacznijmy naszą podróży! Najpierw potrzebujesz grupy. Możesz dołączyć do takiej, która już istnieje lub ",
+  "welcome_to_payflix_part_3" : "grupę, jeśli jesteś zarządcą.",
+  "create_new_group" : "utworzyć nową ",
+  "how_to_join" : "Jak dołączyć do grupy",
+  "how_to_join_desc" : "Proces dołączenia jest bardzo prosty! Są dwa sposoby, aby zostać członkiem grupy.",
+  "via_link" : "przez link z zaproszeniem",
+  "via_link_desc" : "Powinieneś otrzymać link z zaproszeniem od zarządcy grupy. Wystarczy go kliknąć, a zostaniesz automatycznie przekierowany do aplikacji, a następnie zostaniesz członkiem grupy.",
+  "scan_qr_code" : "zeskanuj kod QR",
+  "scan_qr_code_desc" : "Powinieneś otrzymać kod QR od zarządcy twojej grupy. Zeskanuj go, a stanie się magia ✨",
+  "scan_now" : "Zeskanuj teraz"
 }

@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/playground.dart';
-import 'package:payflix/screens/create_group/bloc/create_group_bloc.dart';
-import 'package:payflix/screens/create_group/ui/create_group.dart';
 import 'package:payflix/screens/email_verify_waiting_room/bloc/email_verify_waiting_room_bloc.dart';
 import 'package:payflix/screens/email_verify_waiting_room/ui/email_verify_waiting_room.dart';
+import 'package:payflix/screens/group_settings/bloc/group_settings_bloc.dart';
+import 'package:payflix/screens/group_settings/ui/group_settings.dart';
 import 'package:payflix/screens/join_group_room/bloc/join_group_room_bloc.dart';
 import 'package:payflix/screens/join_group_room/ui/join_group_room.dart';
 import 'package:payflix/screens/login/bloc/login_bloc.dart';
@@ -62,10 +62,10 @@ class RoutesHandler {
           ),
           settings: settings,
         );
-      case AppRoutes.createGroup:
+      case AppRoutes.groupSettings:
         return buildRoute(
           BlocProvider(
-            create: (_) => CreateGroupBloc(),
+            create: (_) => GroupSettingsBloc(),
             child: CreateGroup(
               formKey: GlobalKey<FormState>(),
             ),

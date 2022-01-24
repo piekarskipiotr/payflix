@@ -7,8 +7,8 @@ import 'package:payflix/common/validators/create_group_validation.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
-import 'package:payflix/screens/create_group/bloc/create_group_bloc.dart';
-import 'package:payflix/screens/create_group/bloc/create_group_state.dart';
+import 'package:payflix/screens/group_settings/bloc/group_settings_bloc.dart';
+import 'package:payflix/screens/group_settings/bloc/group_settings_state.dart';
 import 'package:payflix/widgets/long_button.dart';
 import 'package:payflix/widgets/static_spacer.dart';
 
@@ -19,7 +19,7 @@ class CreateGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CreateGroupBloc, CreateGroupState>(
+    return BlocListener<GroupSettingsBloc, GroupSettingsState>(
       listener: (context, state) {
         if (state is CreatingGroupSucceeded) {
           Navigator.pushNamedAndRemoveUntil(
@@ -121,7 +121,7 @@ class CreateGroup extends StatelessWidget {
                                 children: [
                                   TextFormField(
                                     onSaved: (value) => context
-                                        .read<CreateGroupBloc>()
+                                        .read<GroupSettingsBloc>()
                                         .setPayment(value!),
                                     validator: (value) =>
                                         CreateGroupValidation.validatePayment(
@@ -161,7 +161,7 @@ class CreateGroup extends StatelessWidget {
                                   ),
                                   TextFormField(
                                     onSaved: (value) => context
-                                        .read<CreateGroupBloc>()
+                                        .read<GroupSettingsBloc>()
                                         .setDayOfPayment(value!),
                                     validator: (value) => CreateGroupValidation
                                         .validateDayOfPayment(context, value),
@@ -202,7 +202,7 @@ class CreateGroup extends StatelessWidget {
                                   staticSpacer(),
                                   TextFormField(
                                     onSaved: (value) => context
-                                        .read<CreateGroupBloc>()
+                                        .read<GroupSettingsBloc>()
                                         .setEmailId(value),
                                     validator: (value) => CreateGroupValidation
                                         .validateEmailIdField(context, value),
@@ -231,7 +231,7 @@ class CreateGroup extends StatelessWidget {
                                   ),
                                   TextFormField(
                                     onSaved: (value) => context
-                                        .read<CreateGroupBloc>()
+                                        .read<GroupSettingsBloc>()
                                         .setPassword(value),
                                     maxLines: 1,
                                     textAlignVertical: TextAlignVertical.center,
@@ -253,8 +253,8 @@ class CreateGroup extends StatelessWidget {
                                     ),
                                   ),
                                   staticSpacer(),
-                                  BlocBuilder<CreateGroupBloc,
-                                      CreateGroupState>(
+                                  BlocBuilder<GroupSettingsBloc,
+                                      GroupSettingsState>(
                                     builder: (context, state) {
                                       return LongButton(
                                           text: getString(context)
@@ -266,7 +266,7 @@ class CreateGroup extends StatelessWidget {
                                                 .validate()) {
                                               formKey.currentState!.save();
                                               context
-                                                  .read<CreateGroupBloc>()
+                                                  .read<GroupSettingsBloc>()
                                                   .createGroup();
                                             }
                                           });

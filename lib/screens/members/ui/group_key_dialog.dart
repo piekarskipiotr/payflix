@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:payflix/common/constants.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
+import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/widgets/long_button.dart';
+import 'package:payflix/widgets/static_spacer.dart';
 
 class GroupKeyDialog extends StatelessWidget {
   const GroupKeyDialog({Key? key}) : super(key: key);
@@ -11,6 +15,8 @@ class GroupKeyDialog extends StatelessWidget {
         top: true,
         bottom: true,
         child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10.0, bottom: 8.0),
@@ -45,6 +51,36 @@ class GroupKeyDialog extends StatelessWidget {
                   )
                 ],
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 25.0,
+                top: 8.0,
+                right: 25.0,
+                bottom: 15.0,
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    getString(context).group_key_dialog_title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  staticSpacer(),
+                  staticSpacer(),
+                  Image.asset(doorsNeedsAKey),
+                  staticSpacer(),
+                  staticSpacer(),
+                  LongButton(text: 'Enable key', onClick: () {}, isLoading: false),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 15.0,
             ),
           ],
         ),

@@ -2,15 +2,15 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:payflix/screens/create_group/bloc/create_group_state.dart';
+import 'group_settings_state.dart';
 
-class CreateGroupBloc extends Cubit<CreateGroupState> {
+class GroupSettingsBloc extends Cubit<GroupSettingsState> {
   double? _payment;
   int? _dayOfPayment;
   String? _emailId;
   String? _password;
 
-  CreateGroupBloc() : super(InitCreateGroupState());
+  GroupSettingsBloc() : super(InitGroupSettingsState());
 
   void setPayment(String payment) {
     _payment = double.tryParse(payment);
@@ -55,7 +55,7 @@ class CreateGroupBloc extends Cubit<CreateGroupState> {
   }
 
   @override
-  void onChange(Change<CreateGroupState> change) {
+  void onChange(Change<GroupSettingsState> change) {
     super.onChange(change);
     log(change.toString(), name: runtimeType.toString());
   }

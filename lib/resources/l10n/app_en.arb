@@ -67,5 +67,17 @@
   "access_account_data" : "Access account",
   "not_in_days_range" : "Day not in days range 1 - 31",
   "members" : "Members",
-  "group_key" : "Group key"
+  "group_key" : "Group key",
+  "group_key_dialog_title" : "Secret group key",
+  "welcome_to_payflix_part_1" : "Hi",
+  "welcome_to_payflix_part_2" : " let’s start with our journey! First you need a group, You can join to one that already exists or ",
+  "welcome_to_payflix_part_3" : "group if you are maintainer.",
+  "create_new_group" : "create new ",
+  "how_to_join" : "How to join to the group",
+  "how_to_join_desc" : "Process of joining is very simple! There are two way to become a member of group.",
+  "via_link" : "via invite link",
+  "via_link_desc" : "You should receive a invite link from your group maintainer. Just click it and you will be automatically forwarded to the app and then you will become a member of the group.",
+  "scan_qr_code" : "scan QR code",
+  "scan_qr_code_desc" : "You should receive a QR code from your group maintainer. Scan it and magic will happen ✨",
+  "scan_now" : "Scan now"
 }

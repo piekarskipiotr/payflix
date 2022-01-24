@@ -328,6 +328,14 @@ class Login extends StatelessWidget {
                               ),
                               Expanded(
                                 child: OutlinedButton(
+                                  style: ButtonStyle(
+                                    overlayColor: MaterialStateProperty.all(AppColors.lightGray),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(14.0),
+                                      ),
+                                    ),
+                                  ),
                                   onPressed: () {
                                     FocusScope.of(context).unfocus();
                                     context
@@ -354,6 +362,14 @@ class Login extends StatelessWidget {
                               ),
                               Expanded(
                                 child: OutlinedButton(
+                                  style: ButtonStyle(
+                                    overlayColor: MaterialStateProperty.all(AppColors.lightGray),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(14.0),
+                                      ),
+                                    ),
+                                  ),
                                   onPressed: () {
                                     FocusScope.of(context).unfocus();
                                     context

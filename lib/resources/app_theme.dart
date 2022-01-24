@@ -17,15 +17,13 @@ class AppTheme {
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
-        style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(AppColors.lightGray),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
+        style: OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(14.0),
             ),
-          ),
-        ),
-      ));
+            side: const BorderSide(width: 2.0, color: AppColors.primary)),
+      ),
+     );
 
   static final darkTheme = ThemeData(
     primaryColor: AppColors.primary,
@@ -41,14 +39,11 @@ class AppTheme {
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
-      style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all(AppColors.lightGray),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
+      style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14.0),
           ),
-        ),
-      ),
+          side: const BorderSide(width: 2.0, color: AppColors.primary)),
     ),
   );
 }
