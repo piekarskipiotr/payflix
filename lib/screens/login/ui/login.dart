@@ -329,10 +329,20 @@ class Login extends StatelessWidget {
                               Expanded(
                                 child: OutlinedButton(
                                   style: ButtonStyle(
-                                    overlayColor: MaterialStateProperty.all(AppColors.lightGray),
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    overlayColor: MaterialStateProperty.all(
+                                      AppColors.lightGray,
+                                    ),
+                                    side: MaterialStateProperty.all(
+                                      const BorderSide(
+                                        width: 2.0,
+                                        color: AppColors.lightGray,
+                                      ),
+                                    ),
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(14.0),
+                                        borderRadius:
+                                            BorderRadius.circular(14.0),
                                       ),
                                     ),
                                   ),
@@ -363,10 +373,20 @@ class Login extends StatelessWidget {
                               Expanded(
                                 child: OutlinedButton(
                                   style: ButtonStyle(
-                                    overlayColor: MaterialStateProperty.all(AppColors.lightGray),
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    overlayColor: MaterialStateProperty.all(
+                                      AppColors.lightGray,
+                                    ),
+                                    side: MaterialStateProperty.all(
+                                      const BorderSide(
+                                        width: 2.0,
+                                        color: AppColors.lightGray,
+                                      ),
+                                    ),
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(14.0),
+                                        borderRadius:
+                                            BorderRadius.circular(14.0),
                                       ),
                                     ),
                                   ),
