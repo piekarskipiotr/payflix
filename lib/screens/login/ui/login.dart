@@ -19,15 +19,17 @@ class Login extends StatelessWidget {
         bottom: true,
         child: Stack(
           children: [
-            Container(
-              alignment: Alignment.topRight,
-              padding: const EdgeInsets.only(
-                top: 20.0,
-                right: 15.0,
-              ),
-              child: Image.asset(
-                person2,
-                scale: 1.6,
+            SingleChildScrollView(
+              child: Container(
+                alignment: Alignment.topRight,
+                padding: const EdgeInsets.only(
+                  top: 20.0,
+                  right: 15.0,
+                ),
+                child: Image.asset(
+                  person2,
+                  scale: 1.6,
+                ),
               ),
             ),
             CustomScrollView(
@@ -35,7 +37,6 @@ class Login extends StatelessWidget {
               slivers: [
                 SliverAppBar(
                   elevation: 0.0,
-                  pinned: true,
                   expandedHeight: 200.0,
                   backgroundColor: Colors.transparent,
                   flexibleSpace: FlexibleSpaceBar(
@@ -231,6 +232,9 @@ class Login extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
+                      const SizedBox(
+                        height: 25.0,
+                      ),
                       RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
@@ -253,7 +257,7 @@ class Login extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        height: 10.0,
+                        height: 15.0,
                       ),
                     ],
                   ),

@@ -90,6 +90,7 @@ class AppTheme {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
+        statusBarColor: Colors.transparent,
       ),
     );
     SystemChrome.setPreferredOrientations([
