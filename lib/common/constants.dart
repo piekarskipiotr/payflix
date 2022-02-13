@@ -1,16 +1,21 @@
-// humans assets
-const welcomeHumanImage = 'assets/humans/welcome.png';
-const womenWithLaptop = 'assets/humans/women_with_laptop.png';
-const wavingMan = 'assets/humans/waving_man.png';
-const defaultMan = 'assets/humans/avatar_0.png';
-const jumpingWoman = 'assets/humans/jumping_woman.png';
-const familyOnCoach = 'assets/humans/family_on_coach.png';
-const doorsNeedsAKey = 'assets/humans/key_doors.png';
+// humans
+const chat = 'assets/humans/chat.png';
+const person1 = 'assets/humans/person_1.png';
+const person2 = 'assets/humans/person_2.png';
+const person3 = 'assets/humans/person_3.png';
+const person4 = 'assets/humans/person_4.png';
+const person5 = 'assets/humans/person_5.png';
+const happyPerson = 'assets/humans/happy_person.png';
+const friends = 'assets/humans/friends.png';
+const groupFriends = 'assets/humans/group_friends.png';
+const moneyAndCoins = 'assets/humans/money_and_coins.png';
+const money = 'assets/humans/money.png';
 
-// social assets
+// social
 const googleIcon = 'assets/social/google.svg';
 const appleIcon = 'assets/social/apple.svg';
 
 // lottie
-const emailVerify = "assets/lottie/new_mail.json";
-const qrScan = "assets/lottie/qr_scan.json";
+const lottieSuccess = "assets/lottie/success.json";
+const lottieFailure = "assets/lottie/failure.json";
+const lottieEmailVerify = "assets/lottie/new_mail.json";

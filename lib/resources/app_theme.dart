@@ -1,49 +1,100 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'colors/color_helper.dart';
 
 class AppTheme {
-  static final lightTheme = ThemeData(
-      primaryColor: AppColors.primary,
-      primaryColorDark: AppColors.primaryDark,
-      primarySwatch: ColorHelper.toMaterialColor(AppColors.primary),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14.0),
-            ),
-          ),
-        ),
-      ),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14.0),
-            ),
-            side: const BorderSide(width: 2.0, color: AppColors.primary)),
-      ),
-     );
-
   static final darkTheme = ThemeData(
     primaryColor: AppColors.primary,
-    primaryColorDark: AppColors.primaryDark,
+    primaryColorDark: AppColors.secondary,
     primarySwatch: ColorHelper.toMaterialColor(AppColors.primary),
+    colorScheme: const ColorScheme.dark(
+      primary: AppColors.primary,
+      primaryVariant: AppColors.secondary,
+      secondary: AppColors.secondary,
+      onSecondary: AppColors.secondary,
+    ),
+    scaffoldBackgroundColor: AppColors.black,
+    appBarTheme: const AppBarTheme(
+      titleTextStyle: TextStyle(
+        color: AppColors.creamWhite,
+      ),
+      systemOverlayStyle:
+          SystemUiOverlayStyle(statusBarBrightness: Brightness.dark),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14.0),
-          ),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.transparent,
+        shadowColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: buttonBorderRadius,
         ),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14.0),
+        primary: Colors.transparent,
+        shadowColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: buttonBorderRadius,
+        ),
+        side: const BorderSide(width: 2.0, color: AppColors.green),
+      ),
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      filled: true,
+      fillColor: AppColors.fieldBlack,
+      prefixIconColor: AppColors.creamWhite,
+      suffixIconColor: AppColors.creamWhite,
+      errorStyle: TextStyle(
+        color: AppColors.red,
+      ),
+      contentPadding: EdgeInsets.only(
+        left: 15.0,
+        top: 17.0,
+        right: 15.0,
+        bottom: 17.0,
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            18.0,
           ),
-          side: const BorderSide(width: 2.0, color: AppColors.primary)),
+        ),
+      ),
     ),
   );
+
+  // buttons settings
+  static const buttonPadding = EdgeInsets.only(
+    left: 15.0,
+    top: 20.0,
+    right: 15.0,
+    bottom: 20.0,
+  );
+  static final buttonBorderRadius = BorderRadius.circular(
+    28.0,
+  );
+  static const buttonRadius = Radius.circular(
+    28.0,
+  );
+  static final buttonGradient = LinearGradient(
+    colors: [
+      AppColors.primary.withOpacity(0.98),
+      AppColors.secondary.withOpacity(0.92),
+      AppColors.secondaryDarker.withOpacity(0.9),
+    ],
+  );
+
+  static void initSystemChromeSettings() {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.dark,
+      ),
+    );
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
 }

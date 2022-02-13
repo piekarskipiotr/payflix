@@ -44,19 +44,4 @@ class RegistrationValidation {
 
     return null;
   }
-
-  static String? validateConfirmPasswordField(BuildContext context, String? value, String? superiorValue) {
-
-    // case 1: Empty field
-    if (value == null || value.trim() == '') {
-      return getString(context).field_cannot_be_empty;
-    }
-
-    // case 2: Password not matching superior password
-    if (value != superiorValue) {
-      return getString(context).password_doesnt_match;
-    }
-
-    return null;
-  }
 }

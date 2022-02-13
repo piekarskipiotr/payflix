@@ -14,15 +14,18 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   intl: ^0.17.0
-  flutter_svg: ^1.0.0
   flutter_bloc: ^8.0.1
+  lottie: ^1.2.1
+
+  ## firebase:
   firebase_auth: ^3.3.5
   firebase_core: ^1.11.0
-  lottie: ^1.2.1
+  cloud_firestore: ^3.1.6
+
+  ## login / registration helpers
   google_sign_in: ^5.2.2
   sign_in_with_apple: ^3.3.0
-  pin_code_fields: ^7.3.0
-  cloud_firestore: ^3.1.6
+  outline_gradient_button: ^2.0.0+1
 
 dev_dependencies:
   flutter_test:

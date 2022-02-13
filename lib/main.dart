@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/l10n/l10n.dart';
@@ -10,9 +9,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  AppTheme.initSystemChromeSettings();
   await Firebase.initializeApp();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   runApp(const MyApp());
 }
@@ -27,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       // routes
-      initialRoute: AppRoutes.joinGroupRoom,
+      initialRoute: AppRoutes.login,
       onGenerateRoute: RoutesHandler().getRoute,
 
       // localization
@@ -40,8 +38,8 @@ class MyApp extends StatelessWidget {
       ],
 
       // theme
-      themeMode: ThemeMode.system,
-      theme: AppTheme.lightTheme,
+      themeMode: ThemeMode.dark,
+      theme: AppTheme.darkTheme,
       darkTheme: AppTheme.darkTheme,
     );
   }
