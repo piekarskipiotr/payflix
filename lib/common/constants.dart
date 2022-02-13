@@ -12,8 +12,8 @@ const moneyAndCoins = 'assets/humans/money_and_coins.png';
 const money = 'assets/humans/money.png';
 
 // social
-const googleIcon = 'assets/social/google.svg';
-const appleIcon = 'assets/social/apple.svg';
+const googleIcon = 'assets/social/google_icon.png';
+const appleIcon = 'assets/social/apple_icon.png';
 
 // lottie
 const lottieSuccess = "assets/lottie/success.json";

@@ -31,16 +31,6 @@ class AppTheme {
         ),
       ),
     ),
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        primary: Colors.transparent,
-        shadowColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: buttonBorderRadius,
-        ),
-        side: const BorderSide(width: 2.0, color: AppColors.green),
-      ),
-    ),
     inputDecorationTheme: const InputDecorationTheme(
       filled: true,
       fillColor: AppColors.fieldBlack,
@@ -55,6 +45,16 @@ class AppTheme {
         right: 15.0,
         bottom: 17.0,
       ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: AppColors.fieldBlack,
+        ),
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            18.0,
+          ),
+        ),
+      ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(
@@ -68,9 +68,9 @@ class AppTheme {
   // buttons settings
   static const buttonPadding = EdgeInsets.only(
     left: 15.0,
-    top: 20.0,
+    top: 17.0,
     right: 15.0,
-    bottom: 20.0,
+    bottom: 17.0,
   );
   static final buttonBorderRadius = BorderRadius.circular(
     28.0,

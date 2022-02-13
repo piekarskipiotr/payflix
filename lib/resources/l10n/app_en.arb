@@ -20,5 +20,14 @@
   "network_request_failed" : "The network connection has been lost or is unstable",
   "invalid_email" : "The email address you tried to register for does not exist or is incorrect",
   "not_in_days_range" : "Day not in days range 1 - 31",
-  "password_is_too_short" : "Password is too short, Length should be at least 6"
+  "password_is_too_short" : "Password is too short, Length should be at least 6",
+  "log_in" : "Log in",
+  "email_id" : "Email ID",
+  "password" : "Password",
+  "forgot" : "Forgot?",
+  "or" : "or",
+  "continue_with_google" : "Continue z Google",
+  "continue_with_apple" : "Continue z Apple",
+  "no_account_question" : "Don't have an account?",
+  "sign_up" : "Sign up"
 }

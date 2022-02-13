@@ -8,10 +8,9 @@ class AppColors {
 
   static const accent = Color(0xFFFFCF99);
   static const creamWhite = Color(0xFFFFF8F0);
-
   static const black = Color(0xFF1E1E24);
   static const fieldBlack = Color(0xFF1C1C1C);
-  static const containerBlack = Color(0xFF343434);
+  static const containerBlack = Color(0xCC343434);
 
   static const green = Color(0xFF60D394);
   static const red = Color(0xFFFB5D64);

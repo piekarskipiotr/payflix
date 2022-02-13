@@ -19,5 +19,14 @@
   "network_request_failed" : "Połączenie sieciowe zostało zerwane lub jest niestabilne",
   "invalid_email" : "Adres email na który próbowano się zarejestrować nie istnieje lub jest niepoprawny",
   "not_in_days_range" : "Dzień nie mieście sie w przedziale 1 - 31",
-  "password_is_too_short" : "Hasło jest za krótkie. Długość powinna wynosić co najmniej 6"
+  "password_is_too_short" : "Hasło jest za krótkie. Długość powinna wynosić co najmniej 6",
+  "log_in" : "Zaloguj",
+  "email_id" : "Email ID",
+  "password" : "Hasło",
+  "forgot" : "Zapomniałeś?",
+  "or" : "lub",
+  "continue_with_google" : "Kontynuuj z Google",
+  "continue_with_apple" : "Kontynuuj z Apple",
+  "no_account_question" : "Nie masz konta?",
+  "sign_up" : "Zarejestruj się"
 }
