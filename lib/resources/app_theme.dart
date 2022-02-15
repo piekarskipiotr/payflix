@@ -63,6 +63,10 @@ class AppTheme {
         ),
       ),
     ),
+    toggleableActiveColor: AppColors.accent,
+    checkboxTheme: CheckboxThemeData(
+      checkColor: MaterialStateProperty.all<Color>(AppColors.black),
+    ),
   );
 
   // buttons settings
@@ -72,17 +76,27 @@ class AppTheme {
     right: 15.0,
     bottom: 17.0,
   );
+
   static final buttonBorderRadius = BorderRadius.circular(
     28.0,
   );
+
   static const buttonRadius = Radius.circular(
     28.0,
   );
+
   static final buttonGradient = LinearGradient(
     colors: [
       AppColors.primary.withOpacity(0.98),
       AppColors.secondary.withOpacity(0.92),
       AppColors.secondaryDarker.withOpacity(0.9),
+    ],
+  );
+
+  static final disabledButtonGradient = LinearGradient(
+    colors: [
+      AppColors.gray.withOpacity(0.98),
+      AppColors.lighterGray.withOpacity(0.90),
     ],
   );
 

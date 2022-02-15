@@ -18,7 +18,7 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: AppTheme.buttonGradient,
+        gradient: onClick == null ? AppTheme.disabledButtonGradient : AppTheme.buttonGradient,
         borderRadius: AppTheme.buttonBorderRadius,
       ),
       constraints: const BoxConstraints(

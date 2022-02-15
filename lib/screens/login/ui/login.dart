@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/widgets/blur_container.dart';
 import 'package:payflix/widgets/primary_button.dart';
 
@@ -251,7 +252,7 @@ class Login extends StatelessWidget {
                                 color: AppColors.accent,
                               ),
                               recognizer: TapGestureRecognizer()
-                                ..onTap = () => log('signing up'),
+                                ..onTap = () => Navigator.pushNamed(context, AppRoutes.signUp)
                             ),
                           ],
                         ),

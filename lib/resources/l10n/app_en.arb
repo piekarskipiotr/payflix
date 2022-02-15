@@ -29,5 +29,10 @@
   "continue_with_google" : "Continue z Google",
   "continue_with_apple" : "Continue z Apple",
   "no_account_question" : "Don't have an account?",
-  "sign_up" : "Sign up"
+  "sign_up" : "Sign up",
+  "profile_name" : "Profile name",
+  "sign_up_checkbox_text_part_1" : "By selecting, I agree to ",
+  "sign_up_checkbox_text_part_2" : " and ",
+  "terms_and_conditions" : "Terms and Conditions",
+  "privacy_policy" : "Privacy Policy"
 }

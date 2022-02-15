@@ -28,5 +28,10 @@
   "continue_with_google" : "Kontynuuj z Google",
   "continue_with_apple" : "Kontynuuj z Apple",
   "no_account_question" : "Nie masz konta?",
-  "sign_up" : "Zarejestruj się"
+  "sign_up" : "Zarejestruj się",
+  "profile_name" : "Nazwa profilu",
+  "sign_up_checkbox_text_part_1" : "Zaznaczając, oznajmniam że zapoznałem oraz wyrażam zgodę na",
+  "sign_up_checkbox_text_part_2" : " i ",
+  "terms_and_conditions" : "Zasady i Warunki",
+  "privacy_policy" : "Politykę prywatności"
 }
