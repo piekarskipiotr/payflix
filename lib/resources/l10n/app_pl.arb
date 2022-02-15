@@ -30,8 +30,9 @@
   "no_account_question" : "Nie masz konta?",
   "sign_up" : "Zarejestruj się",
   "profile_name" : "Nazwa profilu",
-  "sign_up_checkbox_text_part_1" : "Zaznaczając, oznajmniam że zapoznałem oraz wyrażam zgodę na",
+  "sign_up_checkbox_text_part_1" : "Zaznaczając, oznajmniam że zapoznałem się oraz wyrażam zgodę na ",
   "sign_up_checkbox_text_part_2" : " i ",
   "terms_and_conditions" : "Zasady i Warunki",
-  "privacy_policy" : "Politykę prywatności"
+  "privacy_policy" : "Politykę prywatności",
+  "sign_up_title" : "Dołącz"
 }
