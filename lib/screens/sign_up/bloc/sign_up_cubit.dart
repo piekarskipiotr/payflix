@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:payflix/di/get_it.dart';
 import 'package:payflix/screens/sign_up/bloc/sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
@@ -32,14 +33,14 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(SigningUp());
 
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      var credential =
+          await getIt<FirebaseAuth>().createUserWithEmailAndPassword(
         email: _emailID!,
         password: _password!,
       );
 
-      await userCredential.user!.updateDisplayName(_profileName);
-      //await userCredential.user!.sendEmailVerification();
+      await credential.user!.updateDisplayName(_profileName);
+      await credential.user!.sendEmailVerification();
       emit(SigningUpSucceeded());
     } on FirebaseAuthException catch (e) {
       emit(SigningUpFailed(e.code));

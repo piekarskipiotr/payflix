@@ -26,6 +26,7 @@ dependencies:
   google_sign_in: ^5.2.2
   sign_in_with_apple: ^3.3.0
   outline_gradient_button: ^2.0.0+1
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:

@@ -18,6 +18,8 @@
   "email_already_in_use" : "Istnieje już konto z takim adresem email",
   "network_request_failed" : "Połączenie sieciowe zostało zerwane lub jest niestabilne",
   "invalid_email" : "Adres email na który próbowano się zarejestrować nie istnieje lub jest niepoprawny",
+  "user_not_found" : "Użytkownik nie istnieje",
+  "wrong_password" : "Niepoprawne dane logowania",
   "not_in_days_range" : "Dzień nie mieście sie w przedziale 1 - 31",
   "password_is_too_short" : "Hasło jest za krótkie. Długość powinna wynosić co najmniej 6",
   "log_in" : "Zaloguj",
@@ -34,5 +36,8 @@
   "sign_up_checkbox_text_part_2" : " i ",
   "terms_and_conditions" : "Zasady i Warunki",
   "privacy_policy" : "Politykę prywatności",
-  "sign_up_title" : "Dołącz"
+  "sign_up_title" : "Dołącz",
+  "close_dialog" : "Zamknij dialog",
+  "sign_up_succeeded_title" : "Zarejestrowałeś się pomyślnie",
+  "sign_up_succeeded_secondary" : "Aby sfinalizować proces rejestracji, wysłaliśmy na podany przez Ciebie adres, wiadomość z linkiem do zweryfikowania Email."
 }

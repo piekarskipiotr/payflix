@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
+import 'package:payflix/screens/login/bloc/login_cubit.dart';
 import 'package:payflix/screens/login/ui/login.dart';
 import 'package:payflix/screens/sign_up/bloc/sign_up_cubit.dart';
 import 'package:payflix/screens/sign_up/ui/sign_up.dart';
@@ -13,7 +14,12 @@ class RoutesHandler {
     switch (settings.name) {
       case AppRoutes.login:
         return buildRoute(
-          const Login(),
+          BlocProvider(
+            create: (_) => LoginCubit(),
+            child: Login(
+              formKey: GlobalKey<FormState>(),
+            ),
+          ),
           settings: settings,
         );
       case AppRoutes.signUp:

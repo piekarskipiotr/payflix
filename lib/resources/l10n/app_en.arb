@@ -19,6 +19,8 @@
   "email_already_in_use" : "Account with this email already exists",
   "network_request_failed" : "The network connection has been lost or is unstable",
   "invalid_email" : "The email address you tried to register for does not exist or is incorrect",
+  "user_not_found" : "User doesn't exists",
+  "wrong_password" : "Wrong user data",
   "not_in_days_range" : "Day not in days range 1 - 31",
   "password_is_too_short" : "Password is too short, Length should be at least 6",
   "log_in" : "Log in",
@@ -35,5 +37,8 @@
   "sign_up_checkbox_text_part_2" : " and ",
   "terms_and_conditions" : "Terms and Conditions",
   "privacy_policy" : "Privacy Policy",
-  "sign_up_title" : "Sign up"
+  "sign_up_title" : "Sign up",
+  "close_dialog" : "Close dialog",
+  "sign_up_succeeded_title" : "You signed up successfully",
+  "sign_up_succeeded_secondary" : "To finalize the registration process, we sent a message with a link to verify your Email to the address you provided."
 }

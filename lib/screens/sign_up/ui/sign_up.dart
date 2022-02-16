@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/common/helpers/app_dialog_helper.dart';
 import 'package:payflix/common/helpers/sign_up_helper.dart';
 import 'package:payflix/common/validators/sign_up_validation.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
@@ -9,6 +10,7 @@ import 'package:payflix/screens/sign_up/bloc/sign_up_cubit.dart';
 import 'package:payflix/screens/sign_up/bloc/sign_up_state.dart';
 import 'package:payflix/widgets/blur_container.dart';
 import 'package:payflix/widgets/error_snack_bar.dart';
+import 'package:payflix/widgets/full_screen_dialog.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,6 +34,16 @@ class SignUp extends StatelessWidget {
                 context,
                 state.error,
               ),
+            ),
+          );
+        } else if (state is SigningUpSucceeded) {
+          AppDialogHelper.showFullScreenDialog(
+            context,
+            FullScreenDialog(
+              title: getString(context).sign_up_succeeded_title,
+              secondary:getString(context).sign_up_succeeded_secondary,
+              animation: lottieSuccess,
+              onClick: () => Navigator.pop(context),
             ),
           );
         }
