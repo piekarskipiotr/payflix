@@ -181,64 +181,67 @@ class SignUp extends StatelessWidget {
                                     const SizedBox(
                                       height: 15.0,
                                     ),
-                                    Material(
-                                      color: Colors.transparent,
-                                      child: CheckboxListTile(
-                                        subtitle: RichText(
-                                          textAlign: TextAlign.left,
-                                          text: TextSpan(
-                                            text: getString(context)
-                                                .sign_up_checkbox_text_part_1,
-                                            style: const TextStyle(
-                                              fontSize: 14.0,
-                                              color: AppColors.creamWhite,
-                                            ),
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                text: getString(context)
-                                                    .terms_and_conditions,
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: AppColors.accent,
-                                                ),
-                                                recognizer:
-                                                    TapGestureRecognizer()
-                                                      ..onTap = () => {},
-                                              ),
-                                              TextSpan(
-                                                text: getString(context)
-                                                    .sign_up_checkbox_text_part_2,
-                                                style: const TextStyle(
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Checkbox(
+                                          value: context
+                                              .watch<SignUpCubit>()
+                                              .isTCPPAccepted(),
+                                          onChanged: (_) => context
+                                              .read<SignUpCubit>()
+                                              .changeTCPPStatus(),
+                                        ),
+                                        Expanded(
+                                          child: RichText(
+                                            textAlign: TextAlign.left,
+                                            text: TextSpan(
+                                              text: getString(context)
+                                                  .sign_up_checkbox_text_part_1,
+                                              style: const TextStyle(
+                                                  fontSize: 14.0,
                                                   color: AppColors.creamWhite,
+                                                  height: 1.2),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: getString(context)
+                                                      .terms_and_conditions,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: AppColors.accent,
+                                                  ),
+                                                  recognizer:
+                                                      TapGestureRecognizer()
+                                                        ..onTap = () => {},
                                                 ),
-                                              ),
-                                              TextSpan(
-                                                text: getString(context)
-                                                    .privacy_policy,
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: AppColors.accent,
+                                                TextSpan(
+                                                  text: getString(context)
+                                                      .sign_up_checkbox_text_part_2,
+                                                  style: const TextStyle(
+                                                    color: AppColors.creamWhite,
+                                                  ),
                                                 ),
-                                                recognizer:
-                                                    TapGestureRecognizer()
-                                                      ..onTap = () => {},
-                                              ),
-                                            ],
+                                                TextSpan(
+                                                  text: getString(context)
+                                                      .privacy_policy,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: AppColors.accent,
+                                                  ),
+                                                  recognizer:
+                                                      TapGestureRecognizer()
+                                                        ..onTap = () => {},
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                        contentPadding: EdgeInsets.zero,
-                                        controlAffinity:
-                                            ListTileControlAffinity.leading,
-                                        value: context
-                                            .watch<SignUpCubit>()
-                                            .isTCPPAccepted(),
-                                        onChanged: (_) => context
-                                            .read<SignUpCubit>()
-                                            .changeTCPPStatus(),
-                                      ),
+                                      ],
                                     ),
                                     const SizedBox(
-                                      height: 25.0,
+                                      height: 35.0,
                                     ),
                                     PrimaryButton(
                                       text: getString(context).sign_up,
