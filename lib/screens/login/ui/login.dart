@@ -4,19 +4,17 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
-import 'package:payflix/common/helpers/login_helper.dart';
 import 'package:payflix/common/validators/login_validation.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/login/bloc/login_cubit.dart';
 import 'package:payflix/screens/login/bloc/login_state.dart';
+import 'package:payflix/screens/login/bloc/login_state_listener.dart';
 import 'package:payflix/screens/login/ui/restart_password_dialog.dart';
 import 'package:payflix/widgets/blur_container.dart';
-import 'package:payflix/widgets/error_snack_bar.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:payflix/widgets/success_snack_bar.dart';
 
 class Login extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -25,39 +23,9 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocListener<LoginCubit, LoginState>(
-      listener: (context, state) {
-        if (state is LoggingInFailed) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            errorSnackBar(
-              context,
-              LoginHelper.tryConvertErrorCodeToMessage(
-                context,
-                state.error,
-              ),
-            ),
-          );
-        } else if (state is LoggingInSucceeded) {
-        } else if (state is NavigateToEmailVerificationRoom) {
-        } else if (state is SendingPasswordResetEmailFailed) {
-          Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            errorSnackBar(
-              context,
-              state.error,
-            ),
-          );
-        } else if (state is SendingPasswordResetEmailSucceeded) {
-          Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            successSnackBar(
-              context,
-              getString(context).restart_email_sent_successfully,
-            ),
-          );
-        }
-      },
+      listener: (context, state) =>
+          LoginStateListener.listenToState(context, state),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: SafeArea(
