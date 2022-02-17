@@ -29,6 +29,6 @@ SnackBar successSnackBar(
       ],
     ),
     backgroundColor: AppColors.green,
-    duration: const Duration(seconds: 400000000),
+    duration: const Duration(seconds: 4),
   );
 }
