@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:payflix/common/constants.dart';
-import 'package:payflix/common/helpers/app_dialog_helper.dart';
+import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/common/helpers/login_helper.dart';
 import 'package:payflix/common/validators/login_validation.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
@@ -168,7 +168,7 @@ class Login extends StatelessWidget {
                                             GestureDetector(
                                               onTap: () {
                                                 formKey.currentState!.save();
-                                                AppDialogHelper
+                                                AppDialogController
                                                     .showBottomSheetDialog(
                                                   context,
                                                   BlocProvider.value(

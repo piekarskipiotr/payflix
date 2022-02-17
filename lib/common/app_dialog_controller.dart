@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 
-class AppDialogHelper {
+class AppDialogController {
   static showFullScreenDialog(BuildContext context, Widget dialog) {
     Navigator.of(context).push(
       PageRouteBuilder(opaque: false, pageBuilder: (context, _, __) => dialog),

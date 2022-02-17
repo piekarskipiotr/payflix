@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:payflix/common/constants.dart';
-import 'package:payflix/common/helpers/app_dialog_helper.dart';
+import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/common/helpers/sign_up_helper.dart';
 import 'package:payflix/common/validators/sign_up_validation.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
@@ -37,7 +37,7 @@ class SignUp extends StatelessWidget {
             ),
           );
         } else if (state is SigningUpSucceeded) {
-          AppDialogHelper.showFullScreenDialog(
+          AppDialogController.showFullScreenDialog(
             context,
             FullScreenDialog(
               title: getString(context).sign_up_succeeded_title,
