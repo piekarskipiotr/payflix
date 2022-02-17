@@ -16,8 +16,8 @@ class AppDialogHelper {
       clipBehavior: Clip.antiAlias,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topRight: Radius.circular(28.0),
-          topLeft: Radius.circular(28.0),
+          topRight: Radius.circular(34.0),
+          topLeft: Radius.circular(34.0),
         ),
       ),
       builder: (context) => BackdropFilter(

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 
 SnackBar successSnackBar(
-    BuildContext context,
-    String text,
-    ) {
+  BuildContext context,
+  String text,
+) {
   return SnackBar(
     content: Row(
       mainAxisSize: MainAxisSize.max,
