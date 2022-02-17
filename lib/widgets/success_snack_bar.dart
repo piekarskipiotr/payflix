@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
-import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 
-SnackBar errorSnackBar(
-  BuildContext context,
-  String? text,
-) {
+SnackBar successSnackBar(
+    BuildContext context,
+    String text,
+    ) {
   return SnackBar(
     content: Row(
       mainAxisSize: MainAxisSize.max,
       children: [
         const Icon(
-          Icons.error,
+          Icons.check_circle,
           color: AppColors.creamWhite,
           size: 24.0,
         ),
@@ -20,7 +19,7 @@ SnackBar errorSnackBar(
         ),
         Expanded(
           child: Text(
-            text ?? getString(context).unexpected_error,
+            text,
             style: const TextStyle(
               color: AppColors.creamWhite,
               fontSize: 16.0,
@@ -29,7 +28,7 @@ SnackBar errorSnackBar(
         ),
       ],
     ),
-    backgroundColor: AppColors.red,
-    duration: const Duration(seconds: 4),
+    backgroundColor: AppColors.green,
+    duration: const Duration(seconds: 400000000),
   );
 }

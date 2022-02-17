@@ -84,7 +84,7 @@ class SignUp extends StatelessWidget {
                       ),
                       title: Text(
                         getString(context).sign_up_title,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.left,
                         style: const TextStyle(
                           fontSize: 28.0,
                           fontWeight: FontWeight.bold,

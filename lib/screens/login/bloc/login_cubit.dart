@@ -20,6 +20,8 @@ class LoginCubit extends Cubit<LoginState> {
     _password = password;
   }
 
+  String? getEmailID() => _emailID;
+
   Future<void> authenticateUserByForm() async {
     emit(LoggingIn());
     try {
@@ -59,6 +61,18 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoggingInWithGoogleAccountFailed(e.code));
     } catch (e) {
       emit(LoggingInWithGoogleAccountFailed(e as String?));
+    }
+  }
+
+  Future<void> restartPassword() async {
+    emit(SendingPasswordResetEmail());
+    try {
+      await getIt<FirebaseAuth>().sendPasswordResetEmail(email: _emailID!);
+      emit(SendingPasswordResetEmailSucceeded());
+    } on FirebaseAuthException catch (e) {
+      emit(SendingPasswordResetEmailFailed(e.code));
+    } catch (e) {
+      emit(SendingPasswordResetEmailFailed(e as String?));
     }
   }
 

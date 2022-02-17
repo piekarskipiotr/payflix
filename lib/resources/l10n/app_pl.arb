@@ -39,5 +39,10 @@
   "sign_up_title" : "Dołącz",
   "close_dialog" : "Zamknij dialog",
   "sign_up_succeeded_title" : "Zarejestrowałeś się pomyślnie",
-  "sign_up_succeeded_secondary" : "Aby sfinalizować proces rejestracji, wysłaliśmy na podany przez Ciebie adres, wiadomość z linkiem do zweryfikowania Email."
+  "sign_up_succeeded_secondary" : "Aby sfinalizować proces rejestracji, wysłaliśmy na podany przez Ciebie adres, wiadomość z linkiem do zweryfikowania Email.",
+  "restart_password_header_text" : "Zapomniałeś hasła? Wyślemy na podany poniżej Email ID link, dzięki któremu ustawisz nowe hasło!",
+  "restart" : "Zrestartuj",
+  "cancel" : "Anuluj",
+  "unexpected_error" : "Wystąpił niespodziewany błąd",
+  "restart_email_sent_successfully" : "Wysłano email z linkiem do restartu hasła"
 }

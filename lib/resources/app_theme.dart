@@ -67,6 +67,10 @@ class AppTheme {
     checkboxTheme: CheckboxThemeData(
       checkColor: MaterialStateProperty.all<Color>(AppColors.black),
     ),
+
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: Colors.transparent,
+    )
   );
 
   // buttons settings

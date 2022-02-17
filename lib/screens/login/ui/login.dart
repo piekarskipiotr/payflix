@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/common/helpers/app_dialog_helper.dart';
 import 'package:payflix/common/helpers/login_helper.dart';
 import 'package:payflix/common/validators/login_validation.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
@@ -10,10 +11,12 @@ import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/login/bloc/login_cubit.dart';
 import 'package:payflix/screens/login/bloc/login_state.dart';
+import 'package:payflix/screens/login/ui/restart_password_dialog.dart';
 import 'package:payflix/widgets/blur_container.dart';
 import 'package:payflix/widgets/error_snack_bar.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:payflix/widgets/success_snack_bar.dart';
 
 class Login extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -22,6 +25,7 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoggingInFailed) {
@@ -34,7 +38,25 @@ class Login extends StatelessWidget {
               ),
             ),
           );
-        } else if (state is LoggingInSucceeded) {} else if (state is NavigateToEmailVerificationRoom) {}
+        } else if (state is LoggingInSucceeded) {
+        } else if (state is NavigateToEmailVerificationRoom) {
+        } else if (state is SendingPasswordResetEmailFailed) {
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            errorSnackBar(
+              context,
+              state.error,
+            ),
+          );
+        } else if (state is SendingPasswordResetEmailSucceeded) {
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            successSnackBar(
+              context,
+              getString(context).restart_email_sent_successfully,
+            ),
+          );
+        }
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -72,7 +94,7 @@ class Login extends StatelessWidget {
                       ),
                       title: Text(
                         getString(context).log_in,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.left,
                         style: const TextStyle(
                           fontSize: 28.0,
                           fontWeight: FontWeight.bold,
@@ -144,7 +166,22 @@ class Login extends StatelessWidget {
                                               MainAxisAlignment.center,
                                           children: [
                                             GestureDetector(
-                                              onTap: () {},
+                                              onTap: () {
+                                                formKey.currentState!.save();
+                                                AppDialogHelper
+                                                    .showBottomSheetDialog(
+                                                  context,
+                                                  BlocProvider.value(
+                                                    value: context
+                                                        .read<LoginCubit>(),
+                                                    child:
+                                                        RestartPasswordDialog(
+                                                      formKey: GlobalKey<
+                                                          FormState>(),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                   right: 15.0,
@@ -303,14 +340,17 @@ class Login extends StatelessWidget {
                             children: <TextSpan>[
                               const TextSpan(text: '  '),
                               TextSpan(
-                                  text: getString(context).sign_up,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.accent,
-                                  ),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () => Navigator.pushNamed(
-                                        context, AppRoutes.signUp)),
+                                text: getString(context).sign_up,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.accent,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => Navigator.pushNamed(
+                                        context,
+                                        AppRoutes.signUp,
+                                      ),
+                              ),
                             ],
                           ),
                         ),

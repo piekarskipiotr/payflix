@@ -40,5 +40,10 @@
   "sign_up_title" : "Sign up",
   "close_dialog" : "Close dialog",
   "sign_up_succeeded_title" : "You signed up successfully",
-  "sign_up_succeeded_secondary" : "To finalize the registration process, we sent a message with a link to verify your Email to the address you provided."
+  "sign_up_succeeded_secondary" : "To finalize the registration process, we sent a message with a link to verify your Email to the address you provided.",
+  "restart_password_header_text" : "Have you forgotten your password? We'll send a link to the Email ID provided below, which you can set a new password!",
+  "restart" : "Restart",
+  "cancel" : "Cancel",
+  "unexpected_error" : "Unexpected error occur",
+  "restart_email_sent_successfully" : "An email has been sent with a link to restart the password"
 }
