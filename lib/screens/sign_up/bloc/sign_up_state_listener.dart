@@ -10,7 +10,8 @@ import 'package:payflix/widgets/full_screen_dialog.dart';
 class SignUpStateListener {
   static void listenToState(BuildContext context, SignUpState state) {
     if (state is SigningUpFailed) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      AppDialogController.showSnackBar(
+        context,
         errorSnackBar(
           context,
           SignUpHelper.tryConvertErrorCodeToMessage(

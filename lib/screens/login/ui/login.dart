@@ -137,7 +137,7 @@ class Login extends StatelessWidget {
                                               MainAxisAlignment.center,
                                           children: [
                                             GestureDetector(
-                                              onTap: () {
+                                              onTap: state is! LoggingIn ? () {
                                                 formKey.currentState!.save();
                                                 AppDialogController
                                                     .showBottomSheetDialog(
@@ -152,7 +152,7 @@ class Login extends StatelessWidget {
                                                     ),
                                                   ),
                                                 );
-                                              },
+                                              } : null,
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                   right: 15.0,
@@ -176,14 +176,14 @@ class Login extends StatelessWidget {
                                     ),
                                     PrimaryButton(
                                       text: getString(context).log_in,
-                                      onClick: () {
+                                      onClick: state is! LoggingIn ? () {
                                         if (formKey.currentState!.validate()) {
                                           formKey.currentState!.save();
                                           context
                                               .read<LoginCubit>()
                                               .authenticateUserByForm();
                                         }
-                                      },
+                                      } : null,
                                       isLoading: state is LoggingIn,
                                     ),
                                     const SizedBox(
@@ -206,9 +206,9 @@ class Login extends StatelessWidget {
                                         18.0,
                                       ),
                                       child: InkWell(
-                                        onTap: () => context
+                                        onTap: state is! LoggingIn ? () => context
                                             .read<LoginCubit>()
-                                            .authenticateUserByGoogleAccount(),
+                                            .authenticateUserByGoogleAccount() : null,
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: AppColors.fieldBlack
