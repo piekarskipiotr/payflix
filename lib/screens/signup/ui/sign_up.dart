@@ -238,8 +238,9 @@ class SignUp extends StatelessWidget {
                                     PrimaryButton(
                                       text: getString(context).sign_up,
                                       onClick: context
-                                              .watch<SignUpCubit>()
-                                              .isTCPPAccepted()
+                                                  .watch<SignUpCubit>()
+                                                  .isTCPPAccepted() &&
+                                              state is! SigningUp
                                           ? () {
                                               if (formKey.currentState!
                                                   .validate()) {

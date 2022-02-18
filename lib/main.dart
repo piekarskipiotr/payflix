@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       // routes
-      initialRoute: AppRoutes.welcome,
+      initialRoute: AppRoutes.login,
       onGenerateRoute: RoutesHandler().getRoute,
 
       // localization
