@@ -6,6 +6,8 @@ import 'package:payflix/screens/login/bloc/login_cubit.dart';
 import 'package:payflix/screens/login/ui/login.dart';
 import 'package:payflix/screens/sign_up/bloc/sign_up_cubit.dart';
 import 'package:payflix/screens/sign_up/ui/sign_up.dart';
+import 'package:payflix/screens/verification_room/bloc/ver_room_cubit.dart';
+import 'package:payflix/screens/verification_room/ui/ver_room.dart';
 
 class RoutesHandler {
   Route? getRoute(RouteSettings settings) {
@@ -32,7 +34,17 @@ class RoutesHandler {
           ),
           settings: settings,
         );
+      case AppRoutes.verRoom:
+        return buildRoute(
+          BlocProvider(
+            create: (_) => VerRoomCubit(),
+            child: const VerificationRoom(),
+          ),
+          settings: settings,
+        );
     }
+
+    return null;
   }
 
   MaterialPageRoute buildRoute(Widget child,

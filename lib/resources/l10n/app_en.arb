@@ -1,49 +1,57 @@
 {
-  "language" : "English",
-  "@language" : {
-    "description" : "System language"
+  "language": "English",
+  "@language": {
+    "description": "System language"
   },
-
-  "test_message" : "Hello {username}",
-  "@test_message" : {
-    "description" : "Hello message with argument",
-    "placeholders" : {
-      "username" : {
-        "type" : "String"
+  "test_message": "Hello {username}",
+  "@test_message": {
+    "description": "Hello message with argument",
+    "placeholders": {
+      "username": {
+        "type": "String"
       }
     }
   },
-  "field_cannot_be_empty" : "Field cannot be empty",
-  "not_email" : "Incorrect email address pattern",
-  "weak_password" : "Password is too weak",
-  "email_already_in_use" : "Account with this email already exists",
-  "network_request_failed" : "The network connection has been lost or is unstable",
-  "invalid_email" : "The email address you tried to register for does not exist or is incorrect",
-  "user_not_found" : "User doesn't exists",
-  "wrong_password" : "Wrong user data",
-  "not_in_days_range" : "Day not in days range 1 - 31",
-  "password_is_too_short" : "Password is too short, Length should be at least 6",
-  "log_in" : "Log in",
-  "email_id" : "Email ID",
-  "password" : "Password",
-  "forgot" : "Forgot?",
-  "or" : "or",
-  "continue_with_google" : "Continue z Google",
-  "continue_with_apple" : "Continue z Apple",
-  "no_account_question" : "Don't have an account?",
-  "sign_up" : "Sign up",
-  "profile_name" : "Profile name",
-  "sign_up_checkbox_text_part_1" : "By selecting, I agree to ",
-  "sign_up_checkbox_text_part_2" : " and ",
-  "terms_and_conditions" : "Terms and Conditions",
-  "privacy_policy" : "Privacy Policy",
-  "sign_up_title" : "Sign up",
-  "close_dialog" : "Close dialog",
-  "sign_up_succeeded_title" : "You signed up successfully",
-  "sign_up_succeeded_secondary" : "To finalize the registration process, we sent a message with a link to verify your Email to the address you provided.",
-  "restart_password_header_text" : "Have you forgotten your password? We'll send a link to the Email ID provided below, which you can set a new password!",
-  "restart" : "Restart",
-  "cancel" : "Cancel",
-  "unexpected_error" : "Unexpected error occur",
-  "restart_email_sent_successfully" : "An email has been sent with a link to restart the password"
+  "field_cannot_be_empty": "Field cannot be empty",
+  "not_email": "Incorrect email address pattern",
+  "weak_password": "Password is too weak",
+  "email_already_in_use": "Account with this email already exists",
+  "network_request_failed": "The network connection has been lost or is unstable",
+  "invalid_email": "The email address you tried to register for does not exist or is incorrect",
+  "user_not_found": "User doesn't exists",
+  "wrong_password": "Wrong user data",
+  "not_in_days_range": "Day not in days range 1 - 31",
+  "password_is_too_short": "Password is too short, Length should be at least 6",
+  "log_in": "Log in",
+  "login": "Login",
+  "log_out" : "Log out",
+  "email_id": "Email ID",
+  "password": "Password",
+  "forgot": "Forgot?",
+  "or": "or",
+  "continue_with_google": "Continue z Google",
+  "continue_with_apple": "Continue z Apple",
+  "no_account_question": "Don't have an account?",
+  "sign_up": "Sign up",
+  "signup": "Signup",
+  "profile_name": "Profile name",
+  "sign_up_checkbox_text_part_1": "By selecting, I agree to ",
+  "sign_up_checkbox_text_part_2": " and ",
+  "terms_and_conditions": "Terms and Conditions",
+  "privacy_policy": "Privacy Policy",
+  "close_dialog": "Close dialog",
+  "sign_up_succeeded_title": "You signed up successfully",
+  "sign_up_succeeded_secondary": "To finalize the registration process, we sent a message with a link to verify your Email to the address you provided.",
+  "restart_password_header_text": "Have you forgotten your password? We'll send a link to the Email ID provided below, which you can set a new password!",
+  "restart": "Restart",
+  "cancel": "Cancel",
+  "unexpected_error": "Unexpected error occur",
+  "restart_email_sent_successfully": "An email has been sent with a link to restart the password",
+  "email_verification_room_title": "Just one more step!",
+  "email_verification_room_secondary_part_1": "A message with a link verifying your Email ID should be sent to the address you provided. If you don't see our message ",
+  "email_verification_room_secondary_part_2": " and we'll send it again.",
+  "click_here" : "click here",
+  "sending_verification_email" : "Sending email...",
+  "sending_verification_email_succeeded" : "Email has been sent!",
+  "too_many_requests" : "Ło ło ło, we are not keeping up with sending, please wait a moment before asking us to resend your email"
 }

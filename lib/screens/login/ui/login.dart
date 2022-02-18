@@ -62,7 +62,7 @@ class Login extends StatelessWidget {
                         bottom: 13.0,
                       ),
                       title: Text(
-                        getString(context).log_in,
+                        getString(context).login,
                         textAlign: TextAlign.left,
                         style: GoogleFonts.oxygen(
                           fontSize: 28.0,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/common/constants.dart';
-import 'package:payflix/common/helpers/sign_up_helper.dart';
+import 'package:payflix/common/helpers/signup_helper.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/sign_up/bloc/sign_up_state.dart';
 import 'package:payflix/widgets/error_snack_bar.dart';
@@ -14,7 +14,7 @@ class SignUpStateListener {
         context,
         errorSnackBar(
           context,
-          SignUpHelper.tryConvertErrorCodeToMessage(
+          SignupHelper.tryConvertErrorCodeToMessage(
             context,
             state.error,
           ),

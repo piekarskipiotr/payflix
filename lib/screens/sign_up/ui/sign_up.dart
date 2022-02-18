@@ -60,7 +60,7 @@ class SignUp extends StatelessWidget {
                         bottom: 13.0,
                       ),
                       title: Text(
-                        getString(context).sign_up_title,
+                        getString(context).signup,
                         textAlign: TextAlign.left,
                         style: GoogleFonts.oxygen(
                           fontSize: 28.0,

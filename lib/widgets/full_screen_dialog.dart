@@ -28,9 +28,12 @@ class FullScreenDialog extends StatelessWidget {
           padding: const EdgeInsets.only(left: 15.0, right: 15.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              const SizedBox(
+                height: 30.0,
+              ),
               Column(
                 children: [
                   const SizedBox(
@@ -77,41 +80,18 @@ class FullScreenDialog extends StatelessWidget {
                   ]
                 ],
               ),
-              const SizedBox(
-                height: 25.0,
-              ),
-              Column(
-                children: [
-                  Material(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12.0),
-                    child: InkWell(
-                      onTap: onClick,
-                      borderRadius: BorderRadius.circular(12.0),
-                      child: const SizedBox(
-                        width: 48.0,
-                        height: 48.0,
-                        child: Center(
-                          child: Icon(
-                            Icons.close,
-                            color: AppColors.black,
-                            size: 24.0,
-                          ),
-                        ),
-                      ),
-                    ),
+              const Spacer(),
+              ListTile(
+                onTap: onClick,
+                title: Text(
+                  getString(context).close_dialog,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.oxygen(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0,
+                    color: AppColors.creamWhite,
                   ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  Text(
-                    getString(context).close_dialog,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.oxygen(
-                      color: AppColors.creamWhite,
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           ),
