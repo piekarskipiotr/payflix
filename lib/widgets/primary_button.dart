@@ -40,7 +40,7 @@ class PrimaryButton extends StatelessWidget {
                 )
               : Text(
                   text,
-                  style: GoogleFonts.nunito(
+                  style: GoogleFonts.oxygen(
                     fontSize: 18.0,
                     color: AppColors.creamWhite,
                   ),

@@ -39,7 +39,7 @@ class RestartPasswordDialog extends StatelessWidget {
               ),
               Text(
                 getString(context).restart_password_header_text,
-                style: GoogleFonts.nunito(
+                style: GoogleFonts.oxygen(
                   color: AppColors.creamWhite,
                   fontSize: 16.0,
                 ),
@@ -56,7 +56,7 @@ class RestartPasswordDialog extends StatelessWidget {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 maxLines: 1,
                 textInputAction: TextInputAction.done,
-                style: GoogleFonts.nunito(),
+                style: GoogleFonts.oxygen(),
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.zero,
                   prefixIcon: const Icon(

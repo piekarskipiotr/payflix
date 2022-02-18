@@ -44,7 +44,7 @@ class SecondaryButton extends StatelessWidget {
             : Text(
                 text,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.nunito(
+                style: GoogleFonts.oxygen(
                   fontSize: 18.0,
                   color: AppColors.creamWhite,
                 ),

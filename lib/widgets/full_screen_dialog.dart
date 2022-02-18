@@ -41,7 +41,7 @@ class FullScreenDialog extends StatelessWidget {
                     child: Text(
                       title,
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.nunito(
+                      style: GoogleFonts.oxygen(
                         fontSize: 38.0,
                         fontWeight: FontWeight.bold,
                         color: AppColors.creamWhite,
@@ -68,7 +68,7 @@ class FullScreenDialog extends StatelessWidget {
                       child: Text(
                         secondary!,
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.nunito(
+                        style: GoogleFonts.oxygen(
                           color: AppColors.creamWhite,
                           fontSize: 16.0,
                         ),
@@ -107,7 +107,7 @@ class FullScreenDialog extends StatelessWidget {
                   Text(
                     getString(context).close_dialog,
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.nunito(
+                    style: GoogleFonts.oxygen(
                       color: AppColors.creamWhite,
                     ),
                   ),

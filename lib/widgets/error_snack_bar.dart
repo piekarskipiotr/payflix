@@ -22,7 +22,7 @@ SnackBar errorSnackBar(
         Expanded(
           child: Text(
             text ?? getString(context).unexpected_error,
-            style: GoogleFonts.nunito(
+            style: GoogleFonts.oxygen(
               color: AppColors.creamWhite,
               fontSize: 16.0,
             ),

@@ -21,7 +21,7 @@ SnackBar successSnackBar(
         Expanded(
           child: Text(
             text,
-            style: GoogleFonts.nunito(
+            style: GoogleFonts.oxygen(
               color: AppColors.creamWhite,
               fontSize: 16.0,
             ),

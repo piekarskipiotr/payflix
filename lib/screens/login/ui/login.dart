@@ -64,7 +64,7 @@ class Login extends StatelessWidget {
                       title: Text(
                         getString(context).log_in,
                         textAlign: TextAlign.left,
-                        style: GoogleFonts.nunito(
+                        style: GoogleFonts.oxygen(
                           fontSize: 28.0,
                           fontWeight: FontWeight.bold,
                           color: AppColors.creamWhite,
@@ -97,7 +97,7 @@ class Login extends StatelessWidget {
                                           AutovalidateMode.onUserInteraction,
                                       maxLines: 1,
                                       textInputAction: TextInputAction.next,
-                                      style: GoogleFonts.nunito(),
+                                      style: GoogleFonts.oxygen(),
                                       decoration: InputDecoration(
                                         contentPadding: EdgeInsets.zero,
                                         prefixIcon: const Icon(
@@ -123,7 +123,7 @@ class Login extends StatelessWidget {
                                       maxLines: 1,
                                       textInputAction: TextInputAction.done,
                                       obscureText: true,
-                                      style: GoogleFonts.nunito(),
+                                      style: GoogleFonts.oxygen(),
                                       decoration: InputDecoration(
                                         contentPadding: const EdgeInsets.only(right: 10.0),
                                         prefixIcon: const Icon(
@@ -159,7 +159,7 @@ class Login extends StatelessWidget {
                                                 ),
                                                 child: Text(
                                                   getString(context).forgot,
-                                                  style: GoogleFonts.nunito(
+                                                  style: GoogleFonts.oxygen(
                                                     fontSize: 14.0,
                                                     fontWeight: FontWeight.w500,
                                                     color: AppColors.accent,
@@ -191,7 +191,7 @@ class Login extends StatelessWidget {
                                     ),
                                     Text(
                                       getString(context).or,
-                                      style: GoogleFonts.nunito(
+                                      style: GoogleFonts.oxygen(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -233,7 +233,7 @@ class Login extends StatelessWidget {
                                                   getString(context)
                                                       .continue_with_google,
                                                   maxLines: 1,
-                                                  style: GoogleFonts.nunito(
+                                                  style: GoogleFonts.oxygen(
                                                     color: AppColors.creamWhite,
                                                     fontSize: 16.0,
                                                   ),
@@ -280,7 +280,7 @@ class Login extends StatelessWidget {
                                                   getString(context)
                                                       .continue_with_apple,
                                                   maxLines: 1,
-                                                  style: GoogleFonts.nunito(
+                                                  style: GoogleFonts.oxygen(
                                                     color: AppColors.creamWhite,
                                                     fontSize: 16.0,
                                                   ),
@@ -305,14 +305,14 @@ class Login extends StatelessWidget {
                           textAlign: TextAlign.center,
                           text: TextSpan(
                             text: getString(context).no_account_question,
-                            style: GoogleFonts.nunito(
+                            style: GoogleFonts.oxygen(
                               fontSize: 16.0,
                             ),
                             children: <TextSpan>[
                               const TextSpan(text: '  '),
                               TextSpan(
                                 text: getString(context).sign_up,
-                                style: GoogleFonts.nunito(
+                                style: GoogleFonts.oxygen(
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.accent,
                                 ),
