@@ -3,15 +3,15 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/di/get_it.dart';
-import 'package:payflix/screens/sign_up/bloc/sign_up_state.dart';
+import 'package:payflix/screens/signup/bloc/signup_state.dart';
 
-class SignUpCubit extends Cubit<SignUpState> {
+class SignUpCubit extends Cubit<SignupState> {
   bool _tcppStatus = false;
   String? _profileName;
   String? _emailID;
   String? _password;
 
-  SignUpCubit() : super(InitSignUpState());
+  SignUpCubit() : super(InitSignupState());
 
   bool isTCPPAccepted() {
     return _tcppStatus;
@@ -50,7 +50,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   @override
-  void onChange(Change<SignUpState> change) {
+  void onChange(Change<SignupState> change) {
     log('$change', name: '$runtimeType');
     super.onChange(change);
   }

@@ -5,9 +5,9 @@ import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/validators/sign_up_validation.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
-import 'package:payflix/screens/sign_up/bloc/sign_up_cubit.dart';
-import 'package:payflix/screens/sign_up/bloc/sign_up_state.dart';
-import 'package:payflix/screens/sign_up/bloc/sign_up_state_listener.dart';
+import 'package:payflix/screens/signup/bloc/signup_cubit.dart';
+import 'package:payflix/screens/signup/bloc/signup_state.dart';
+import 'package:payflix/screens/signup/bloc/signup_state_listener.dart';
 import 'package:payflix/widgets/blur_container.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,9 +22,9 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SignUpCubit, SignUpState>(
+    return BlocListener<SignUpCubit, SignupState>(
       listener: (context, state) =>
-          SignUpStateListener.listenToState(context, state),
+          SignupStateListener.listenToState(context, state),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: SafeArea(
@@ -80,7 +80,7 @@ class SignUp extends StatelessWidget {
                         BlurContainer(
                           body: Form(
                             key: formKey,
-                            child: BlocBuilder<SignUpCubit, SignUpState>(
+                            child: BlocBuilder<SignUpCubit, SignupState>(
                               builder: (context, state) {
                                 return Column(
                                   children: [
