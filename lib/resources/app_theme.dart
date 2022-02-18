@@ -88,10 +88,50 @@ class AppTheme {
   );
 
   static final buttonGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
     colors: [
       AppColors.primary.withOpacity(0.98),
       AppColors.secondary.withOpacity(0.92),
       AppColors.secondaryDarker.withOpacity(0.9),
+    ],
+  );
+
+  static final welcomeGradientExperimental = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      AppColors.black.withOpacity(0.0),
+      AppColors.black.withOpacity(0.02),
+      AppColors.black.withOpacity(0.04),
+      AppColors.black.withOpacity(0.06),
+      AppColors.black.withOpacity(0.08),
+      AppColors.black.withOpacity(0.10),
+      AppColors.black.withOpacity(0.20),
+      AppColors.black.withOpacity(0.30),
+      AppColors.black.withOpacity(0.40),
+      AppColors.black.withOpacity(0.50),
+      AppColors.black.withOpacity(0.60),
+      AppColors.black.withOpacity(0.70),
+      AppColors.black.withOpacity(0.80),
+      AppColors.black.withOpacity(0.90),
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
+      AppColors.black,
     ],
   );
 

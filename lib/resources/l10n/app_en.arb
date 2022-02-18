@@ -53,5 +53,10 @@
   "click_here" : "click here",
   "sending_verification_email" : "Sending email...",
   "sending_verification_email_succeeded" : "Email has been sent!",
-  "too_many_requests" : "Ło ło ło, we are not keeping up with sending, please wait a moment before asking us to resend your email"
+  "too_many_requests" : "Ło ło ło, we are not keeping up with sending, please wait a moment before asking us to resend your email",
+  "welcome" : "Welcome\nto Payflix",
+  "welcome_info_text" : "Thank you for joining to our community! Now you can join to your group or create new one!",
+  "create" : "Create",
+  "scan" : "Scan QR",
+  "welcome_bottom_text" : "Join to the group with invite link"
 }

@@ -306,6 +306,7 @@ class Login extends StatelessWidget {
                           text: TextSpan(
                             text: getString(context).no_account_question,
                             style: GoogleFonts.oxygen(
+                              color: AppColors.creamWhite,
                               fontSize: 16.0,
                             ),
                             children: <TextSpan>[

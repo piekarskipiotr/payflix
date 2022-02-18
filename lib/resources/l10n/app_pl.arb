@@ -53,5 +53,10 @@
   "click_here" : "kliknij tutaj",
   "sending_verification_email" : "Wysyłanie emaila...",
   "sending_verification_email_succeeded" : "Wysłano!",
-  "too_many_requests" : "Ło ło ło, nie nadążamy z wysyłką, odczekaj chwilę zanim poprosisz nas o ponowne przesłanie emaila"
+  "too_many_requests" : "Ło ło ło, nie nadążamy z wysyłką, odczekaj chwilę zanim poprosisz nas o ponowne przesłanie emaila",
+  "welcome" : "Witaj w\nPayflix",
+  "welcome_info_text" : "Dziękujemy za bycie częścią naszej społeczności! Teraz możesz dołączyć do swojej grupy lub utworzyć nową!",
+  "create" : "Utwórz",
+  "scan" : "Zeskanuj QR",
+  "welcome_bottom_text" : "Dołącz do grupy poprzez linkiem z zaproszeniem"
 }
