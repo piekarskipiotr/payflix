@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/validators/sign_up_validation.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
@@ -61,7 +62,7 @@ class SignUp extends StatelessWidget {
                       title: Text(
                         getString(context).sign_up_title,
                         textAlign: TextAlign.left,
-                        style: const TextStyle(
+                        style: GoogleFonts.nunito(
                           fontSize: 28.0,
                           fontWeight: FontWeight.bold,
                           color: AppColors.creamWhite,
@@ -98,6 +99,7 @@ class SignUp extends StatelessWidget {
                                           AutovalidateMode.onUserInteraction,
                                       maxLines: 1,
                                       textInputAction: TextInputAction.next,
+                                      style: GoogleFonts.nunito(),
                                       decoration: InputDecoration(
                                         contentPadding: EdgeInsets.zero,
                                         prefixIcon: const Icon(
@@ -127,6 +129,7 @@ class SignUp extends StatelessWidget {
                                           AutovalidateMode.onUserInteraction,
                                       maxLines: 1,
                                       textInputAction: TextInputAction.next,
+                                      style: GoogleFonts.nunito(),
                                       decoration: InputDecoration(
                                         contentPadding: EdgeInsets.zero,
                                         prefixIcon: const Icon(
@@ -156,6 +159,7 @@ class SignUp extends StatelessWidget {
                                       maxLines: 1,
                                       textInputAction: TextInputAction.done,
                                       obscureText: true,
+                                      style: GoogleFonts.nunito(),
                                       decoration: InputDecoration(
                                         contentPadding: EdgeInsets.zero,
                                         prefixIcon: const Icon(
@@ -188,7 +192,7 @@ class SignUp extends StatelessWidget {
                                             text: TextSpan(
                                               text: getString(context)
                                                   .sign_up_checkbox_text_part_1,
-                                              style: const TextStyle(
+                                              style: GoogleFonts.nunito(
                                                   fontSize: 14.0,
                                                   color: AppColors.creamWhite,
                                                   height: 1.2),
@@ -196,7 +200,7 @@ class SignUp extends StatelessWidget {
                                                 TextSpan(
                                                   text: getString(context)
                                                       .terms_and_conditions,
-                                                  style: const TextStyle(
+                                                  style: GoogleFonts.nunito(
                                                     fontWeight: FontWeight.bold,
                                                     color: AppColors.accent,
                                                   ),
@@ -207,14 +211,14 @@ class SignUp extends StatelessWidget {
                                                 TextSpan(
                                                   text: getString(context)
                                                       .sign_up_checkbox_text_part_2,
-                                                  style: const TextStyle(
+                                                  style: GoogleFonts.nunito(
                                                     color: AppColors.creamWhite,
                                                   ),
                                                 ),
                                                 TextSpan(
                                                   text: getString(context)
                                                       .privacy_policy,
-                                                  style: const TextStyle(
+                                                  style: GoogleFonts.nunito(
                                                     fontWeight: FontWeight.bold,
                                                     color: AppColors.accent,
                                                   ),

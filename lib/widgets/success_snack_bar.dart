@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 
 SnackBar successSnackBar(
@@ -20,7 +21,7 @@ SnackBar successSnackBar(
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(
+            style: GoogleFonts.nunito(
               color: AppColors.creamWhite,
               fontSize: 16.0,
             ),

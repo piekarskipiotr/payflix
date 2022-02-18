@@ -16,6 +16,7 @@ dependencies:
   intl: ^0.17.0
   flutter_bloc: ^8.0.1
   lottie: ^1.2.1
+  google_fonts: 2.3.1
 
   ## firebase:
   firebase_auth: ^3.3.5

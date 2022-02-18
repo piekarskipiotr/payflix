@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
@@ -40,7 +41,7 @@ class FullScreenDialog extends StatelessWidget {
                     child: Text(
                       title,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
+                      style: GoogleFonts.nunito(
                         fontSize: 38.0,
                         fontWeight: FontWeight.bold,
                         color: AppColors.creamWhite,
@@ -67,7 +68,7 @@ class FullScreenDialog extends StatelessWidget {
                       child: Text(
                         secondary!,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: GoogleFonts.nunito(
                           color: AppColors.creamWhite,
                           fontSize: 16.0,
                         ),
@@ -106,7 +107,7 @@ class FullScreenDialog extends StatelessWidget {
                   Text(
                     getString(context).close_dialog,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: GoogleFonts.nunito(
                       color: AppColors.creamWhite,
                     ),
                   ),

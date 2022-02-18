@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/common/validators/login_validation.dart';
@@ -63,7 +64,7 @@ class Login extends StatelessWidget {
                       title: Text(
                         getString(context).log_in,
                         textAlign: TextAlign.left,
-                        style: const TextStyle(
+                        style: GoogleFonts.nunito(
                           fontSize: 28.0,
                           fontWeight: FontWeight.bold,
                           color: AppColors.creamWhite,
@@ -96,6 +97,7 @@ class Login extends StatelessWidget {
                                           AutovalidateMode.onUserInteraction,
                                       maxLines: 1,
                                       textInputAction: TextInputAction.next,
+                                      style: GoogleFonts.nunito(),
                                       decoration: InputDecoration(
                                         contentPadding: EdgeInsets.zero,
                                         prefixIcon: const Icon(
@@ -121,8 +123,9 @@ class Login extends StatelessWidget {
                                       maxLines: 1,
                                       textInputAction: TextInputAction.done,
                                       obscureText: true,
+                                      style: GoogleFonts.nunito(),
                                       decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.zero,
+                                        contentPadding: const EdgeInsets.only(right: 10.0),
                                         prefixIcon: const Icon(
                                           Icons.lock,
                                           size: 22.0,
@@ -156,7 +159,7 @@ class Login extends StatelessWidget {
                                                 ),
                                                 child: Text(
                                                   getString(context).forgot,
-                                                  style: const TextStyle(
+                                                  style: GoogleFonts.nunito(
                                                     fontSize: 14.0,
                                                     fontWeight: FontWeight.w500,
                                                     color: AppColors.accent,
@@ -188,7 +191,7 @@ class Login extends StatelessWidget {
                                     ),
                                     Text(
                                       getString(context).or,
-                                      style: const TextStyle(
+                                      style: GoogleFonts.nunito(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -230,7 +233,7 @@ class Login extends StatelessWidget {
                                                   getString(context)
                                                       .continue_with_google,
                                                   maxLines: 1,
-                                                  style: const TextStyle(
+                                                  style: GoogleFonts.nunito(
                                                     color: AppColors.creamWhite,
                                                     fontSize: 16.0,
                                                   ),
@@ -277,7 +280,7 @@ class Login extends StatelessWidget {
                                                   getString(context)
                                                       .continue_with_apple,
                                                   maxLines: 1,
-                                                  style: const TextStyle(
+                                                  style: GoogleFonts.nunito(
                                                     color: AppColors.creamWhite,
                                                     fontSize: 16.0,
                                                   ),
@@ -302,14 +305,14 @@ class Login extends StatelessWidget {
                           textAlign: TextAlign.center,
                           text: TextSpan(
                             text: getString(context).no_account_question,
-                            style: const TextStyle(
+                            style: GoogleFonts.nunito(
                               fontSize: 16.0,
                             ),
                             children: <TextSpan>[
                               const TextSpan(text: '  '),
                               TextSpan(
                                 text: getString(context).sign_up,
-                                style: const TextStyle(
+                                style: GoogleFonts.nunito(
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.accent,
                                 ),

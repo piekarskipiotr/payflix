@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 
@@ -39,7 +40,7 @@ class PrimaryButton extends StatelessWidget {
                 )
               : Text(
                   text,
-                  style: const TextStyle(
+                  style: GoogleFonts.nunito(
                     fontSize: 18.0,
                     color: AppColors.creamWhite,
                   ),

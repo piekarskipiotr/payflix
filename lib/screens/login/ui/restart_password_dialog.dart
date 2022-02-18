@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/validators/login_validation.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
@@ -38,7 +39,7 @@ class RestartPasswordDialog extends StatelessWidget {
               ),
               Text(
                 getString(context).restart_password_header_text,
-                style: const TextStyle(
+                style: GoogleFonts.nunito(
                   color: AppColors.creamWhite,
                   fontSize: 16.0,
                 ),
@@ -55,6 +56,7 @@ class RestartPasswordDialog extends StatelessWidget {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 maxLines: 1,
                 textInputAction: TextInputAction.done,
+                style: GoogleFonts.nunito(),
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.zero,
                   prefixIcon: const Icon(

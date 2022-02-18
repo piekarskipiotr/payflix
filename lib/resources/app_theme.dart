@@ -10,7 +10,6 @@ class AppTheme {
     primarySwatch: ColorHelper.toMaterialColor(AppColors.primary),
     colorScheme: const ColorScheme.dark(
       primary: AppColors.primary,
-      primaryVariant: AppColors.secondary,
       secondary: AppColors.secondary,
       onSecondary: AppColors.secondary,
     ),
@@ -67,10 +66,9 @@ class AppTheme {
     checkboxTheme: CheckboxThemeData(
       checkColor: MaterialStateProperty.all<Color>(AppColors.black),
     ),
-
     bottomSheetTheme: const BottomSheetThemeData(
       backgroundColor: Colors.transparent,
-    )
+    ),
   );
 
   // buttons settings
