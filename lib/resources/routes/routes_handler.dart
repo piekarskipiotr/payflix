@@ -2,12 +2,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
+import 'package:payflix/screens/group_settings/ui/group_settings.dart';
 import 'package:payflix/screens/login/bloc/login_cubit.dart';
 import 'package:payflix/screens/login/ui/login.dart';
 import 'package:payflix/screens/signup/bloc/signup_cubit.dart';
 import 'package:payflix/screens/signup/ui/sign_up.dart';
 import 'package:payflix/screens/verification_room/bloc/ver_room_cubit.dart';
 import 'package:payflix/screens/verification_room/ui/ver_room.dart';
+import 'package:payflix/screens/welcome/bloc/welcome_cubit.dart';
 import 'package:payflix/screens/welcome/ui/welcome.dart';
 
 class RoutesHandler {
@@ -45,7 +47,20 @@ class RoutesHandler {
         );
       case AppRoutes.welcome:
         return buildRoute(
-          const Welcome(),
+          BlocProvider(
+            create: (_) => WelcomeCubit(),
+            child: const Welcome(),
+          ),
+          settings: settings,
+        );
+      case AppRoutes.groupSettings:
+        return buildRoute(
+          BlocProvider(
+            create: (_) => WelcomeCubit(),
+            child: GroupSettings(
+              formKey: GlobalKey<FormState>(),
+            ),
+          ),
           settings: settings,
         );
     }

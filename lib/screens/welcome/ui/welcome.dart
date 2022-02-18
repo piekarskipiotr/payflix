@@ -4,6 +4,7 @@ import 'package:payflix/common/constants.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:payflix/widgets/secondary_button.dart';
 
@@ -93,7 +94,11 @@ class Welcome extends StatelessWidget {
                                   Expanded(
                                     child: SecondaryButton(
                                       text: getString(context).create,
-                                      onClick: () => {},
+                                      onClick: () => Navigator.pushNamed(
+                                        context,
+                                        AppRoutes.groupSettings,
+                                        arguments: true,
+                                      ),
                                       isLoading: false,
                                     ),
                                   ),

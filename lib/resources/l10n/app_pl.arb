@@ -58,5 +58,13 @@
   "welcome_info_text" : "Dziękujemy za bycie częścią naszej społeczności! Teraz możesz dołączyć do swojej grupy lub utworzyć nową!",
   "create" : "Utwórz",
   "scan" : "Zeskanuj QR",
-  "welcome_bottom_text" : "Dołącz do grupy poprzez linkiem z zaproszeniem"
+  "welcome_bottom_text" : "Dołącz do grupy poprzez linkiem z zaproszeniem",
+  "create_group" : "Utwórz\ngrupę",
+  "group_settings" : "Ustawienia\ngrupy",
+  "create_group_form_header" : "Dziękujemy za rozszerzenie naszej społeczności! Wszystkie poniższe ustawienia możesz później zmienić",
+  "group_settings_form_header" : "Ustawienia Twojej grupy możesz zmienić w każdym momencie jednak na wprowadzenie niektórych z nich może potrwać trochę czasu",
+  "save" : "Zapisz",
+  "account_access_optional" : "Dane dostępowe (opcjonalne)",
+  "monthly_payment" : "Opłata miesięczna",
+  "day_of_the_month" : "Dzień miesiąca"
 }

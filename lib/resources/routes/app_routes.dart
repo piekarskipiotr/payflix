@@ -3,4 +3,5 @@ class AppRoutes {
   static const signUp = '/signup';
   static const verRoom = '/ver_room';
   static const welcome = '/welcome';
+  static const groupSettings = '/group_settings';
 }
