@@ -4,8 +4,10 @@ import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/validators/group_settings_validation.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/screens/group_settings/bloc/group_settings_cubit.dart';
 import 'package:payflix/widgets/blur_container.dart';
 import 'package:payflix/widgets/primary_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GroupSettings extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -92,6 +94,9 @@ class GroupSettings extends StatelessWidget {
                                 height: 20.0,
                               ),
                               TextFormField(
+                                onSaved: (mPayment) => context
+                                    .read<GroupSettingsCubit>()
+                                    .setMonthlyPayment(mPayment),
                                 validator: (mPayment) =>
                                     GroupSettingsValidation.validatePayment(
                                   context,
@@ -116,6 +121,9 @@ class GroupSettings extends StatelessWidget {
                                 height: 15.0,
                               ),
                               TextFormField(
+                                onSaved: (dayOfPayment) => context
+                                    .read<GroupSettingsCubit>()
+                                    .setDayOfTheMonth(dayOfPayment),
                                 validator: (dayOfPayment) =>
                                     GroupSettingsValidation
                                         .validateDayOfPayment(
@@ -157,6 +165,9 @@ class GroupSettings extends StatelessWidget {
                                 height: 20.0,
                               ),
                               TextFormField(
+                                onSaved: (emailID) => context
+                                    .read<GroupSettingsCubit>()
+                                    .setEmailID(emailID),
                                 validator: (emailID) => GroupSettingsValidation
                                     .validateEmailIdField(
                                   context,
@@ -181,6 +192,9 @@ class GroupSettings extends StatelessWidget {
                                 height: 15.0,
                               ),
                               TextFormField(
+                                onSaved: (password) => context
+                                    .read<GroupSettingsCubit>()
+                                    .setPassword(password),
                                 maxLines: 1,
                                 textInputAction: TextInputAction.done,
                                 obscureText: true,
