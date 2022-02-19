@@ -40,7 +40,7 @@ class RoutesHandler {
       case AppRoutes.verRoom:
         return buildRoute(
           BlocProvider(
-            create: (_) => VerRoomCubit(),
+            create: (_) => VerRoomCubit()..listenToVerificationStatus(),
             child: const VerificationRoom(),
           ),
           settings: settings,

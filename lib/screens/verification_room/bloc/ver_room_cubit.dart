@@ -32,7 +32,7 @@ class VerRoomCubit extends Cubit<VerRoomState> {
     }
   }
 
-  Future<void> emailVerificationListener() async {
+  Future<void> listenToVerificationStatus() async {
     _timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
       try {
         await getIt<FirebaseAuth>().currentUser!.reload();
