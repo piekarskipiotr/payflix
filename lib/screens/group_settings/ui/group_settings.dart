@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/common/validators/group_settings_validation.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/widgets/blur_container.dart';
@@ -91,8 +92,13 @@ class GroupSettings extends StatelessWidget {
                                 height: 20.0,
                               ),
                               TextFormField(
+                                validator: (mPayment) =>
+                                    GroupSettingsValidation.validatePayment(
+                                  context,
+                                  mPayment,
+                                ),
                                 autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                                    AutovalidateMode.onUserInteraction,
                                 maxLines: 1,
                                 textInputAction: TextInputAction.next,
                                 style: GoogleFonts.oxygen(),
@@ -110,15 +116,21 @@ class GroupSettings extends StatelessWidget {
                                 height: 15.0,
                               ),
                               TextFormField(
+                                validator: (dayOfPayment) =>
+                                    GroupSettingsValidation
+                                        .validateDayOfPayment(
+                                  context,
+                                  dayOfPayment,
+                                ),
                                 autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                                    AutovalidateMode.onUserInteraction,
                                 maxLines: 1,
                                 textInputAction: TextInputAction.next,
                                 obscureText: true,
                                 style: GoogleFonts.oxygen(),
                                 decoration: InputDecoration(
                                   contentPadding:
-                                  const EdgeInsets.only(right: 10.0),
+                                      const EdgeInsets.only(right: 10.0),
                                   prefixIcon: const Icon(
                                     Icons.today,
                                     size: 22.0,
@@ -133,8 +145,7 @@ class GroupSettings extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  getString(context)
-                                      .account_access_optional,
+                                  getString(context).account_access_optional,
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.oxygen(
                                     color: AppColors.creamWhite,
@@ -146,6 +157,11 @@ class GroupSettings extends StatelessWidget {
                                 height: 20.0,
                               ),
                               TextFormField(
+                                validator: (emailID) => GroupSettingsValidation
+                                    .validateEmailIdField(
+                                  context,
+                                  emailID,
+                                ),
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                                 maxLines: 1,
@@ -165,8 +181,6 @@ class GroupSettings extends StatelessWidget {
                                 height: 15.0,
                               ),
                               TextFormField(
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
                                 maxLines: 1,
                                 textInputAction: TextInputAction.done,
                                 obscureText: true,

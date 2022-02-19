@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 
-class CreateGroupValidation {
+class GroupSettingsValidation {
   static String? validatePayment(BuildContext context, String? value) {
 
     // case 1: Empty field
