@@ -28,6 +28,8 @@ dependencies:
   sign_in_with_apple: ^3.3.0
   outline_gradient_button: ^2.0.0+1
   get_it: ^7.2.0
+  json_serializable: ^6.1.4
+  json_annotation: ^4.4.0
 
 dev_dependencies:
   flutter_test:

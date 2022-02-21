@@ -17,5 +17,6 @@ const appleIcon = 'assets/social/apple_icon.png';
 
 // lottie
 const lottieSuccess = "assets/lottie/success.json";
+const lottieSuccess2 = "assets/lottie/success_2.json";
 const lottieFailure = "assets/lottie/failure.json";
 const lottieEmailVerify = "assets/lottie/mail_message.json";

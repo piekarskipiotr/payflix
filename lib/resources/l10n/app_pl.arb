@@ -66,5 +66,9 @@
   "save" : "Zapisz",
   "account_access_optional" : "Dane dostępowe (opcjonalne)",
   "monthly_payment" : "Opłata miesięczna",
-  "day_of_the_month" : "Dzień miesiąca"
+  "day_of_the_month" : "Dzień miesiąca",
+  "saved" : "Zapisano!",
+  "group_created" : "Grupa została utworzona",
+  "group_created_secondary" : "Teraz możesz dodać członków do Twojej grupy, możesz to zrobić po przez link z zaproszeniem lub pokaż im kod QR do zeskanowania",
+  "user_id_not_found_error_message" : "Nie możemy uzyskać twojego ID, proszę zaloguj się jeszcze raz"
 }

@@ -21,7 +21,8 @@ class LoginStateListener {
         ),
       );
     } else if (state is LoggingInSucceeded) {
-
+      Navigator.pushNamedAndRemoveUntil(
+          context, AppRoutes.welcome, (route) => false);
     } else if (state is NavigateToEmailVerificationRoom) {
       Navigator.pushNamedAndRemoveUntil(
           context, AppRoutes.verRoom, (route) => false);

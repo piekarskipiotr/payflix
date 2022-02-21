@@ -24,17 +24,20 @@ class FullScreenDialog extends StatelessWidget {
       body: SafeArea(
         top: true,
         bottom: true,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(left: 15.0, right: 15.0),
+              child: SizedBox(
                 height: 30.0,
               ),
-              Column(
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Column(
                 children: [
                   const SizedBox(
                     height: 35.0,
@@ -54,11 +57,7 @@ class FullScreenDialog extends StatelessWidget {
                   const SizedBox(
                     height: 30.0,
                   ),
-                  SizedBox(
-                    width: 162.0,
-                    height: 162.0,
-                    child: Lottie.asset(animation, repeat: false),
-                  ),
+                  _lottieWidget(animation),
                   if (secondary != null) ...[
                     const SizedBox(
                       height: 30.0,
@@ -80,23 +79,50 @@ class FullScreenDialog extends StatelessWidget {
                   ]
                 ],
               ),
-              const Spacer(),
-              ListTile(
-                onTap: onClick,
-                title: Text(
-                  getString(context).close_dialog,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.oxygen(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
-                    color: AppColors.creamWhite,
-                  ),
+            ),
+            const Spacer(),
+            ListTile(
+              onTap: onClick,
+              title: Text(
+                getString(context).close_dialog,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.oxygen(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.0,
+                  color: AppColors.creamWhite,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
+}
+
+Widget _lottieWidget(String animation) {
+  var listOfAnimationsThatShouldUseFixedWidget = [
+    'assets/lottie/success_2.json'
+  ];
+
+  return listOfAnimationsThatShouldUseFixedWidget.contains(animation)
+      ? SizedBox(
+          width: 162.0 * 1.8,
+          height: 162.0,
+          child: FittedBox(
+            fit: BoxFit.cover,
+            child: Lottie.asset(
+              animation,
+              repeat: false,
+              width: 320.0,
+              height: 320.0,
+            ),
+          ),
+        )
+      : Lottie.asset(
+          animation,
+          repeat: false,
+          width: 162.0,
+          height: 162.0,
+        );
 }

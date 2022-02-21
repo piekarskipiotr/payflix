@@ -66,5 +66,9 @@
   "save" : "Save",
   "account_access_optional" : "Account access (optional)",
   "monthly_payment" : "Monthly payment",
-  "day_of_the_month" : "Day of the month"
+  "day_of_the_month" : "Day of the month",
+  "saved" : "Saved!",
+  "group_created" : "The group has been created",
+  "group_created_secondary" : "Now you can add members to your group, you can do it via the invite link or show them the QR code to be scanned",
+  "user_id_not_found_error_message" : "We can't get your ID, please log in again"
 }
