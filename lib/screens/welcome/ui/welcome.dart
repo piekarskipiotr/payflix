@@ -117,12 +117,32 @@ class Welcome extends StatelessWidget {
                               const SizedBox(
                                 height: 25.0,
                               ),
-                              Text(
-                                getString(context).or,
-                                style: GoogleFonts.oxygen(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                              Row(
+                                children: [
+                                  const Expanded(
+                                    child: Divider(
+                                      height: 1.0,
+                                      color: AppColors.gray,
+                                      thickness: 1.0,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12.0,),
+                                  Text(
+                                    getString(context).or,
+                                    style: GoogleFonts.oxygen(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12.0,),
+                                  const Expanded(
+                                    child: Divider(
+                                      height: 1.0,
+                                      color: AppColors.gray,
+                                      thickness: 1.0,
+                                    ),
+                                  ),
+                                ],
                               ),
                               const SizedBox(
                                 height: 25.0,
@@ -132,7 +152,7 @@ class Welcome extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.oxygen(
                                   color: AppColors.creamWhite,
-                                  fontSize: 16.0,
+                                  fontSize: 18.0,
                                 ),
                               ),
                               const SizedBox(

@@ -6,7 +6,6 @@ import 'package:payflix/resources/l10n/l10n.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/resources/routes/routes_handler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'di/get_it.dart';
 
 void main() async {

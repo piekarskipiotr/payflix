@@ -189,12 +189,32 @@ class Login extends StatelessWidget {
                                     const SizedBox(
                                       height: 25.0,
                                     ),
-                                    Text(
-                                      getString(context).or,
-                                      style: GoogleFonts.oxygen(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                    Row(
+                                      children: [
+                                        const Expanded(
+                                          child: Divider(
+                                            height: 1.0,
+                                            color: AppColors.gray,
+                                            thickness: 1.0,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 12.0,),
+                                        Text(
+                                          getString(context).or,
+                                          style: GoogleFonts.oxygen(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 12.0,),
+                                        const Expanded(
+                                          child: Divider(
+                                            height: 1.0,
+                                            color: AppColors.gray,
+                                            thickness: 1.0,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(
                                       height: 25.0,
