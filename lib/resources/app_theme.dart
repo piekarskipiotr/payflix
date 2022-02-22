@@ -135,6 +135,33 @@ class AppTheme {
     ],
   );
 
+  static final memberTextOverlayGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Colors.black.withOpacity(0.0),
+      Colors.black.withOpacity(0.01),
+      Colors.black.withOpacity(0.02),
+      Colors.black.withOpacity(0.04),
+      Colors.black.withOpacity(0.06),
+      Colors.black.withOpacity(0.08),
+      Colors.black.withOpacity(0.10),
+      Colors.black.withOpacity(0.20),
+      Colors.black.withOpacity(0.30),
+      Colors.black.withOpacity(0.40),
+      Colors.black.withOpacity(0.50),
+      Colors.black.withOpacity(0.60),
+      Colors.black.withOpacity(0.70),
+      Colors.black.withOpacity(0.80),
+      Colors.black.withOpacity(0.90),
+      Colors.black.withOpacity(0.92),
+      Colors.black.withOpacity(0.94),
+      Colors.black.withOpacity(0.96),
+      Colors.black.withOpacity(0.98),
+      Colors.black,
+    ],
+  );
+
   static final disabledButtonGradient = LinearGradient(
     colors: [
       AppColors.gray.withOpacity(0.98),

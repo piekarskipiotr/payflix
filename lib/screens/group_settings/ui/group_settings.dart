@@ -21,6 +21,7 @@ class GroupSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isGroupCreator = ModalRoute.of(context)!.settings.arguments as bool;
+
     return BlocListener<GroupSettingsCubit, GroupSettingsState>(
       listener: (context, state) =>
           GroupSettingsStateListener.listenToState(context, state),
@@ -56,8 +57,8 @@ class GroupSettings extends StatelessWidget {
                     flexibleSpace: FlexibleSpaceBar(
                       centerTitle: false,
                       titlePadding: const EdgeInsets.only(
-                        left: 25.0,
-                        right: 25.0,
+                        left: 15.0,
+                        right: 15.0,
                         bottom: 13.0,
                       ),
                       title: Text(

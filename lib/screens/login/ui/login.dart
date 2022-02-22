@@ -57,8 +57,8 @@ class Login extends StatelessWidget {
                     flexibleSpace: FlexibleSpaceBar(
                       centerTitle: false,
                       titlePadding: const EdgeInsets.only(
-                        left: 25.0,
-                        right: 25.0,
+                        left: 15.0,
+                        right: 15.0,
                         bottom: 13.0,
                       ),
                       title: Text(

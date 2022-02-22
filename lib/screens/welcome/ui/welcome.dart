@@ -43,8 +43,8 @@ class Welcome extends StatelessWidget {
                   flexibleSpace: FlexibleSpaceBar(
                     centerTitle: false,
                     titlePadding: const EdgeInsets.only(
-                      left: 25.0,
-                      right: 25.0,
+                      left: 15.0,
+                      right: 15.0,
                       bottom: 13.0,
                     ),
                     title: Text(
@@ -60,18 +60,18 @@ class Welcome extends StatelessWidget {
                 ),
                 SliverFillRemaining(
                   hasScrollBody: false,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 15.0,
-                      right: 15.0,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: AppTheme.welcomeGradientExperimental,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: AppTheme.welcomeGradientExperimental,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 15.0,
+                            right: 15.0,
                           ),
                           child: Column(
                             children: [
@@ -160,9 +160,9 @@ class Welcome extends StatelessWidget {
                               ),
                             ],
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 )
               ],

@@ -42,5 +42,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/humans/
+    - assets/humans/avatars/
     - assets/social/
     - assets/lottie/

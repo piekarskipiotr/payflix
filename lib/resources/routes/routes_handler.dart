@@ -9,6 +9,7 @@ import 'package:payflix/screens/group_settings/bloc/group_settings_cubit.dart';
 import 'package:payflix/screens/group_settings/ui/group_settings.dart';
 import 'package:payflix/screens/login/bloc/login_cubit.dart';
 import 'package:payflix/screens/login/ui/login.dart';
+import 'package:payflix/screens/members/ui/members.dart';
 import 'package:payflix/screens/signup/bloc/signup_cubit.dart';
 import 'package:payflix/screens/signup/ui/sign_up.dart';
 import 'package:payflix/screens/verification_room/bloc/ver_room_cubit.dart';
@@ -76,6 +77,11 @@ class RoutesHandler {
               formKey: GlobalKey<FormState>(),
             ),
           ),
+          settings: settings,
+        );
+      case AppRoutes.members:
+        return buildRoute(
+          const Members(),
           settings: settings,
         );
     }
