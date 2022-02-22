@@ -20,12 +20,19 @@ class LoginStateListener {
           ),
         ),
       );
-    } else if (state is LoggingInSucceeded) {
+    } else if (state is LoggingInSucceeded ||
+        state is LoggingInWithGoogleAccountSucceeded) {
       Navigator.pushNamedAndRemoveUntil(
-          context, AppRoutes.welcome, (route) => false);
+        context,
+        AppRoutes.welcome,
+        (route) => false,
+      );
     } else if (state is NavigateToEmailVerificationRoom) {
       Navigator.pushNamedAndRemoveUntil(
-          context, AppRoutes.verRoom, (route) => false);
+        context,
+        AppRoutes.verRoom,
+        (route) => false,
+      );
     } else if (state is SendingPasswordResetEmailFailed) {
       Navigator.pop(context);
       AppDialogController.showSnackBar(

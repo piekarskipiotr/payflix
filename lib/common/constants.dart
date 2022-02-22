@@ -23,3 +23,4 @@ const lottieEmailVerify = 'assets/lottie/mail_message.json';
 
 // firebase names
 const groupsCollectionName = 'groups';
+const usersCollectionName = 'users';

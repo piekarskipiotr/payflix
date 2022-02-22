@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/screens/login/bloc/login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -58,6 +60,10 @@ class LoginCubit extends Cubit<LoginState> {
         );
 
         await _firebaseAuth.signInWithCredential(credential);
+
+        var user = _firebaseAuth.currentUser!;
+        await _createUserData(user);
+
         emit(LoggingInWithGoogleAccountSucceeded());
       } else {
         emit(LoggingInWithGoogleAccountCanceled());
@@ -79,6 +85,26 @@ class LoginCubit extends Cubit<LoginState> {
     } catch (e) {
       emit(SendingPasswordResetEmailFailed(e as String?));
     }
+  }
+
+  Future<void> _createUserData(User user) async {
+    var userId = user.uid;
+    var userData = _generateUserData(user);
+
+    await _firebaseFirestore
+        .collection(usersCollectionName)
+        .doc(userId)
+        .set(userData);
+  }
+
+  Map<String, dynamic> _generateUserData(User user) {
+    var userInfo = PayflixUser(
+      user.uid,
+      user.displayName!,
+      List.empty(),
+    );
+
+    return userInfo.toJson();
   }
 
   @override

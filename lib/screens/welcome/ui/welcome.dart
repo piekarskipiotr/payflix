@@ -152,11 +152,11 @@ class Welcome extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.oxygen(
                                   color: AppColors.creamWhite,
-                                  fontSize: 18.0,
+                                  fontSize: 16.0,
                                 ),
                               ),
                               const SizedBox(
-                                height: 15.0,
+                                height: 25.0,
                               ),
                             ],
                           ),
