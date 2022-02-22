@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
-import 'package:payflix/common/helpers/login_helper.dart';
+import 'package:payflix/common/helpers/error_code_helper.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/login/bloc/login_state.dart';
@@ -14,7 +14,7 @@ class LoginStateListener {
         context,
         errorSnackBar(
           context,
-          LoginHelper.tryConvertErrorCodeToMessage(
+          ErrorCodeHelper.tryConvertErrorCodeToMessage(
             context,
             state.error,
           ),

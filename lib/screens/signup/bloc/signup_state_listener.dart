@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/common/constants.dart';
-import 'package:payflix/common/helpers/signup_helper.dart';
+import 'package:payflix/common/helpers/error_code_helper.dart';
 import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
@@ -17,7 +17,7 @@ class SignupStateListener {
         context,
         errorSnackBar(
           context,
-          SignupHelper.tryConvertErrorCodeToMessage(
+          ErrorCodeHelper.tryConvertErrorCodeToMessage(
             context,
             state.error,
           ),

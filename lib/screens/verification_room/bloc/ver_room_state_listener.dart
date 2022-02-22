@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
-import 'package:payflix/common/helpers/ver_helper.dart';
+import 'package:payflix/common/helpers/error_code_helper.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/verification_room/bloc/ver_room_state.dart';
@@ -40,7 +40,7 @@ class VerRoomStateListener {
         context,
         errorSnackBar(
           context,
-          VerHelper.tryConvertErrorCodeToMessage(
+          ErrorCodeHelper.tryConvertErrorCodeToMessage(
             context,
             state.error,
           ),
