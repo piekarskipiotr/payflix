@@ -1,16 +1,20 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:payflix/di/get_it.dart';
 import 'package:payflix/screens/login/bloc/login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
+  final FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _firebaseFirestore;
+
   String? _emailID;
   String? _password;
 
-  LoginCubit() : super(InitLoginState());
+  LoginCubit(this._firebaseAuth, this._firebaseFirestore)
+      : super(InitLoginState());
 
   void saveEmailID(String? emailID) {
     _emailID = emailID;
@@ -25,13 +29,14 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> authenticateUserByForm() async {
     emit(LoggingIn());
     try {
-      var credential =
-      await getIt<FirebaseAuth>().signInWithEmailAndPassword(
+      var credential = await _firebaseAuth.signInWithEmailAndPassword(
         email: _emailID!,
         password: _password!,
       );
 
-      emit(credential.user!.emailVerified ? LoggingInSucceeded() : NavigateToEmailVerificationRoom());
+      emit(credential.user!.emailVerified
+          ? LoggingInSucceeded()
+          : NavigateToEmailVerificationRoom());
     } on FirebaseAuthException catch (e) {
       emit(LoggingInFailed(e.code));
     } catch (e) {
@@ -52,7 +57,7 @@ class LoginCubit extends Cubit<LoginState> {
           idToken: googleSignInAuth.idToken,
         );
 
-        await getIt<FirebaseAuth>().signInWithCredential(credential);
+        await _firebaseAuth.signInWithCredential(credential);
         emit(LoggingInWithGoogleAccountSucceeded());
       } else {
         emit(LoggingInWithGoogleAccountCanceled());
@@ -67,7 +72,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> restartPassword() async {
     emit(SendingPasswordResetEmail());
     try {
-      await getIt<FirebaseAuth>().sendPasswordResetEmail(email: _emailID!);
+      await _firebaseAuth.sendPasswordResetEmail(email: _emailID!);
       emit(SendingPasswordResetEmailSucceeded());
     } on FirebaseAuthException catch (e) {
       emit(SendingPasswordResetEmailFailed(e.code));

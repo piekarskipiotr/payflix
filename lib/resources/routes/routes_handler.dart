@@ -1,6 +1,9 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_cubit.dart';
 import 'package:payflix/screens/group_settings/ui/group_settings.dart';
@@ -21,7 +24,10 @@ class RoutesHandler {
       case AppRoutes.login:
         return buildRoute(
           BlocProvider(
-            create: (_) => LoginCubit(),
+            create: (_) => LoginCubit(
+              getIt<FirebaseAuth>(),
+              getIt<FirebaseFirestore>(),
+            ),
             child: Login(
               formKey: GlobalKey<FormState>(),
             ),
@@ -31,7 +37,10 @@ class RoutesHandler {
       case AppRoutes.signUp:
         return buildRoute(
           BlocProvider(
-            create: (_) => SignUpCubit(),
+            create: (_) => SignUpCubit(
+              getIt<FirebaseAuth>(),
+              getIt<FirebaseFirestore>(),
+            ),
             child: SignUp(
               formKey: GlobalKey<FormState>(),
             ),
@@ -41,7 +50,9 @@ class RoutesHandler {
       case AppRoutes.verRoom:
         return buildRoute(
           BlocProvider(
-            create: (_) => VerRoomCubit()..listenToVerificationStatus(),
+            create: (_) => VerRoomCubit(
+              getIt<FirebaseAuth>(),
+            )..listenToVerificationStatus(),
             child: const VerificationRoom(),
           ),
           settings: settings,
@@ -57,7 +68,10 @@ class RoutesHandler {
       case AppRoutes.groupSettings:
         return buildRoute(
           BlocProvider(
-            create: (_) => GroupSettingsCubit(),
+            create: (_) => GroupSettingsCubit(
+              getIt<FirebaseAuth>(),
+              getIt<FirebaseFirestore>(),
+            ),
             child: GroupSettings(
               formKey: GlobalKey<FormState>(),
             ),

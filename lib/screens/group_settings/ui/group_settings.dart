@@ -5,6 +5,7 @@ import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/helpers/group_helper.dart';
 import 'package:payflix/common/validators/group_settings_validation.dart';
+import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
@@ -300,11 +301,15 @@ class GroupSettings extends StatelessWidget {
                                                     ? context
                                                         .read<
                                                             GroupSettingsCubit>()
-                                                        .createGroup()
+                                                        .createGroup(
+                                                          GroupType.netflix,
+                                                        )
                                                     : context
                                                         .read<
                                                             GroupSettingsCubit>()
-                                                        .saveSettings();
+                                                        .saveSettings(
+                                                          GroupType.netflix,
+                                                        );
                                               }
                                             }
                                           : null,

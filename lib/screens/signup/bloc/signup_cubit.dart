@@ -1,17 +1,21 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:payflix/di/get_it.dart';
 import 'package:payflix/screens/signup/bloc/signup_state.dart';
 
 class SignUpCubit extends Cubit<SignupState> {
+  final FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _firebaseFirestore;
+
   bool _tcppStatus = false;
   String? _profileName;
   String? _emailID;
   String? _password;
 
-  SignUpCubit() : super(InitSignupState());
+  SignUpCubit(this._firebaseAuth, this._firebaseFirestore)
+      : super(InitSignupState());
 
   bool isTCPPAccepted() {
     return _tcppStatus;
@@ -33,8 +37,7 @@ class SignUpCubit extends Cubit<SignupState> {
     emit(SigningUp());
 
     try {
-      var credential =
-          await getIt<FirebaseAuth>().createUserWithEmailAndPassword(
+      var credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: _emailID!,
         password: _password!,
       );
