@@ -73,9 +73,9 @@ class AppTheme {
 
   // buttons settings
   static const buttonPadding = EdgeInsets.only(
-    left: 15.0,
+    left: 10.0,
     top: 17.0,
-    right: 15.0,
+    right: 10.0,
     bottom: 17.0,
   );
 

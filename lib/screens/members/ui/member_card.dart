@@ -40,18 +40,16 @@ class MemberCard extends StatelessWidget {
                 ),
                 child: Stack(
                   children: [
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.only(
-                          left: 15.0,
-                          top: 15.0,
-                          right: 15.0,
-                          bottom: 5.0,
-                        ),
-                        child: Image.asset(
-                          avatar1,
-                        ),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.only(
+                        left: 15.0,
+                        top: 15.0,
+                        right: 15.0,
+                        bottom: 5.0,
+                      ),
+                      child: Image.asset(
+                        avatar1,
                       ),
                     ),
                     Align(
@@ -68,18 +66,16 @@ class MemberCard extends StatelessWidget {
                             right: 15.0,
                             bottom: 15.0,
                           ),
-                          child: Expanded(
-                            child: Text(
-                              'Piotr',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.oxygen(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.creamWhite,
-                                letterSpacing: 0.2,
-                              ),
+                          child: Text(
+                            'Piotr',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.oxygen(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.creamWhite,
+                              letterSpacing: 0.2,
                             ),
                           ),
                         ),

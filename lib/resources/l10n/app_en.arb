@@ -70,5 +70,12 @@
   "saved" : "Saved!",
   "group_created" : "The group has been created",
   "group_created_secondary" : "Now you can add members to your group, you can do it via the invite link or show them the QR code to be scanned",
-  "user_id_not_found_error_message" : "We can't get your ID, please log in again"
+  "user_id_not_found_error_message" : "We can't get your ID, please log in again",
+  "members" : "Members",
+  "invite_dialog_header_text" : "Woohoo are you adding new members?\nSend them this invite link or generate QR code.",
+  "invite_dialog_2_header_text" : "QR code is ready for your new members! You can share it to chat applications",
+  "show_qr" : "Show QR",
+  "back" : "Return",
+  "share" : "Share",
+  "copied" : "Copied!"
 }

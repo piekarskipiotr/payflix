@@ -1,7 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
+import 'package:payflix/screens/members/bloc/invite_dialog_cubit.dart';
+import 'package:payflix/screens/members/ui/invite_dialog.dart';
 
 class InviteCard extends StatelessWidget {
   const InviteCard({Key? key}) : super(key: key);
@@ -14,7 +18,13 @@ class InviteCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           24.0,
         ),
-        onTap: () => {},
+        onTap: () => AppDialogController.showBottomSheetDialog(
+          context,
+          BlocProvider(
+            create: (_) => InviteDialogCubit(),
+            child: const InviteDialog(),
+          ),
+        ),
         child: SizedBox(
           height: 162.0,
           width: 162.0,
