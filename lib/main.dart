@@ -12,7 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AppTheme.initSystemChromeSettings();
   await Firebase.initializeApp();
-  initializeDependencies();
+  configureDependencies();
 
   runApp(const MyApp());
 }

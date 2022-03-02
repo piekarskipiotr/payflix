@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/di/get_it.dart';
@@ -25,10 +23,7 @@ class RoutesHandler {
       case AppRoutes.login:
         return buildRoute(
           BlocProvider(
-            create: (_) => LoginCubit(
-              getIt<FirebaseAuth>(),
-              getIt<FirebaseFirestore>(),
-            ),
+            create: (_) => getIt<LoginCubit>(),
             child: Login(
               formKey: GlobalKey<FormState>(),
             ),
@@ -38,10 +33,7 @@ class RoutesHandler {
       case AppRoutes.signUp:
         return buildRoute(
           BlocProvider(
-            create: (_) => SignUpCubit(
-              getIt<FirebaseAuth>(),
-              getIt<FirebaseFirestore>(),
-            ),
+            create: (_) => getIt<SignUpCubit>(),
             child: SignUp(
               formKey: GlobalKey<FormState>(),
             ),
@@ -51,9 +43,7 @@ class RoutesHandler {
       case AppRoutes.verRoom:
         return buildRoute(
           BlocProvider(
-            create: (_) => VerRoomCubit(
-              getIt<FirebaseAuth>(),
-            )..listenToVerificationStatus(),
+            create: (_) => getIt<VerRoomCubit>()..listenToVerificationStatus(),
             child: const VerificationRoom(),
           ),
           settings: settings,
@@ -69,10 +59,7 @@ class RoutesHandler {
       case AppRoutes.groupSettings:
         return buildRoute(
           BlocProvider(
-            create: (_) => GroupSettingsCubit(
-              getIt<FirebaseAuth>(),
-              getIt<FirebaseFirestore>(),
-            ),
+            create: (_) => getIt<GroupSettingsCubit>(),
             child: GroupSettings(
               formKey: GlobalKey<FormState>(),
             ),

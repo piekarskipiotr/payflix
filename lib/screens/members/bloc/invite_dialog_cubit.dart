@@ -1,14 +1,18 @@
 import 'dart:developer';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
+import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/repository/firebase_repository.dart';
 import 'package:payflix/screens/members/bloc/invite_dialog_state.dart';
 
+@injectable
 class InviteDialogCubit extends Cubit<InviteDialogState> {
+  final FirebaseRepository _firebaseRepo;
   bool _showSecondary = false;
   bool _showCopiedText = false;
 
-  InviteDialogCubit() : super(InitInviteDialogState());
+  InviteDialogCubit(this._firebaseRepo) : super(InitInviteDialogState());
 
   bool showSecondary() => _showSecondary;
 

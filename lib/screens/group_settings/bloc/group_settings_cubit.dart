@@ -1,26 +1,25 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/access_data.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/payment_info.dart';
+import 'package:payflix/data/repository/firebase_repository.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_state.dart';
 
+@injectable
 class GroupSettingsCubit extends Cubit<GroupSettingsState> {
-  final FirebaseAuth _firebaseAuth;
-  final FirebaseFirestore _firebaseFirestore;
+  final FirebaseRepository _firebaseRepo;
 
   double? _monthlyPayment;
   int? _dayOfTheMonth;
   String? _emailID;
   String? _password;
 
-  GroupSettingsCubit(this._firebaseAuth, this._firebaseFirestore)
-      : super(InitGroupSettingsState());
+  GroupSettingsCubit(this._firebaseRepo) : super(InitGroupSettingsState());
 
   void setMonthlyPayment(String? monthlyPayment) {
     if (monthlyPayment != null) {
@@ -45,14 +44,15 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   Future<void> saveSettings(GroupType groupType) async {
     emit(SavingSettings());
     try {
-      var userId = _firebaseAuth.currentUser?.uid.toString();
+      var userId = _firebaseRepo.auth().currentUser?.uid.toString();
       if (userId == null) {
         throw 'user-id-not-found';
       }
 
       var groupId = _generateGroupId(userId, groupType);
       var groupData = _generateGroupData();
-      await _firebaseFirestore
+      await _firebaseRepo
+          .firestore()
           .collection(groupsCollectionName)
           .doc(groupId)
           .update(groupData);
@@ -66,14 +66,15 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   Future<void> createGroup(GroupType groupType) async {
     emit(CreatingGroup());
     try {
-      var userId = _firebaseAuth.currentUser?.uid.toString();
+      var userId = _firebaseRepo.auth().currentUser?.uid.toString();
       if (userId == null) {
         throw 'user-id-not-found';
       }
 
       var groupId = _generateGroupId(userId, groupType);
       var groupData = _generateGroupData();
-      await _firebaseFirestore
+      await _firebaseRepo
+          .firestore()
           .collection(groupsCollectionName)
           .doc(groupId)
           .set(groupData);
