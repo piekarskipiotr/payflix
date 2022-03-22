@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
@@ -65,11 +64,7 @@ class SignUpCubit extends Cubit<SignupState> {
     var userId = user.uid;
     var userData = _generateUserData(user, profileName);
 
-    await _firestoreRepo
-        .instance()
-        .collection(usersCollectionName)
-        .doc(userId)
-        .set(userData);
+    await _firestoreRepo.setUserData(docReference: userId, data: userData);
   }
 
   Map<String, dynamic> _generateUserData(User user, String profileName) {

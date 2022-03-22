@@ -62,11 +62,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
 
       var groupId = _generateGroupId(userId, groupType);
       var groupData = await _generateGroupData();
-      await _firestoreRepo
-          .instance()
-          .collection(groupsCollectionName)
-          .doc(groupId)
-          .update(groupData);
+      await _firestoreRepo.updateGroupData(docReference: groupId, data: groupData);
 
       emit(CreatingGroupSucceeded());
     } catch (e) {
@@ -85,21 +81,11 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       var groupId = _generateGroupId(userId, groupType);
       var groupData = await _generateGroupData();
 
-      await _firestoreRepo
-          .instance()
-          .collection(groupsCollectionName)
-          .doc(groupId)
-          .set(groupData);
-
-      await _firestoreRepo
-          .instance()
-          .collection(usersCollectionName)
-          .doc(userId)
-          .update(
-        {
-          "groups": FieldValue.arrayUnion(
-            [groupId],
-          ),
+      await _firestoreRepo.setGroupData(docReference: groupId, data: groupData);
+      await _firestoreRepo.updateGroupData(
+        docReference: userId,
+        data: {
+          "groups": FieldValue.arrayUnion([groupId])
         },
       );
 
@@ -124,11 +110,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
     );
 
     var json = inviteInfo.toJson();
-    await _firestoreRepo
-        .instance()
-        .collection(groupsInviteCollectionName)
-        .doc(uuid)
-        .set(json);
+    await _firestoreRepo.setGroupInviteData(docReference: uuid, data: json);
 
     await invitesBox.put(inviteInfoKey, inviteInfo);
     return inviteInfo;

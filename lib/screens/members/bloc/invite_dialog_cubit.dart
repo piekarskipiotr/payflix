@@ -83,12 +83,7 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
       var uid = _authRepo.getUID();
       var groupId = '${uid}_${GroupType.netflix.codeName}';
 
-      var json = await _firestoreRepo
-          .instance()
-          .collection(groupsCollectionName)
-          .doc(groupId)
-          .get();
-
+      var json = await _firestoreRepo.getGroupData(docReference: groupId);
       Group group = Group.fromJson(json.data()!);
       await invitesBox.put(inviteInfoKey, group.inviteInfo);
 
@@ -113,12 +108,7 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
     );
 
     var json = inviteInfo.toJson();
-    await _firestoreRepo
-        .instance()
-        .collection(groupsInviteCollectionName)
-        .doc(uuid)
-        .set(json);
-
+    await _firestoreRepo.setGroupInviteData(docReference: uuid, data: json);
     await invitesBox.put(inviteInfoKey, inviteInfo);
   }
 
