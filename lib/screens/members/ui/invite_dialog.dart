@@ -51,7 +51,8 @@ class InviteDialog extends StatelessWidget {
               BlocBuilder<InviteDialogCubit, InviteDialogState>(
                 builder: (context, state) {
                   return TextFormField(
-                    initialValue: 'https://payflix.com/invite?=fsadw',
+                    controller:
+                        context.read<InviteDialogCubit>().linkFieldController,
                     maxLines: 1,
                     readOnly: true,
                     style: GoogleFonts.oxygen(),
@@ -64,20 +65,33 @@ class InviteDialog extends StatelessWidget {
                       helperStyle: GoogleFonts.oxygen(
                         color: AppColors.green,
                       ),
-                      suffixIcon: Material(
-                        color: Colors.transparent,
-                        child: IconButton(
-                          splashRadius: 20.0,
-                          onPressed: () => context
-                              .read<InviteDialogCubit>()
-                              .copyInviteLink(),
-                          icon: const Icon(
-                            Icons.copy,
-                            size: 22.0,
-                            color: AppColors.creamWhite,
-                          ),
-                        ),
-                      ),
+                      suffixIcon: state is GettingInviteLink
+                          ? null
+                          : Material(
+                              color: Colors.transparent,
+                              child: IconButton(
+                                splashRadius: 20.0,
+                                onPressed: () => context
+                                    .read<InviteDialogCubit>()
+                                    .copyInviteLink(),
+                                icon: const Icon(
+                                  Icons.copy,
+                                  size: 22.0,
+                                  color: AppColors.creamWhite,
+                                ),
+                              ),
+                            ),
+                      prefixIcon: state is GettingInviteLink
+                          ? const Center(
+                              child: SizedBox(
+                                width: 22.0,
+                                height: 22.0,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.0,
+                                ),
+                              ),
+                            )
+                          : null,
                     ),
                   );
                 },

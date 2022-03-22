@@ -43,7 +43,7 @@ class GroupSettingsStateListener {
           animation: lottieSuccess2,
           onClick: () => Navigator.pushNamedAndRemoveUntil(
             context,
-            AppRoutes.welcome,
+            AppRoutes.members,
                 (route) => false,
           ),
         ),

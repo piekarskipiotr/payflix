@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
+import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/screens/members/bloc/invite_dialog_cubit.dart';
@@ -22,7 +23,10 @@ class InviteCard extends StatelessWidget {
         onTap: () => AppDialogController.showBottomSheetDialog(
           context,
           BlocProvider(
-            create: (_) => getIt<InviteDialogCubit>(),
+            create: (_) => getIt<InviteDialogCubit>()
+              ..getInviteLink(
+                groupType: GroupType.netflix,
+              ),
             child: const InviteDialog(),
           ),
         ),

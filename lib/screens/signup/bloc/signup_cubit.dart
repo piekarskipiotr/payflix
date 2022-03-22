@@ -2,20 +2,24 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/model/payflix_user.dart';
-import 'package:payflix/data/repository/firebase_repository.dart';
+import 'package:payflix/data/repository/auth_repository.dart';
+import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/screens/signup/bloc/signup_state.dart';
 
+@injectable
 class SignUpCubit extends Cubit<SignupState> {
-  final FirebaseRepository _firebaseRepo;
+  final AuthRepository _authRepo;
+  final FirestoreRepository _firestoreRepo;
 
   bool _tcppStatus = false;
   String? _profileName;
   String? _emailID;
   String? _password;
 
-  SignUpCubit(this._firebaseRepo) : super(InitSignupState());
+  SignUpCubit(this._authRepo, this._firestoreRepo) : super(InitSignupState());
 
   bool isTCPPAccepted() {
     return _tcppStatus;
@@ -38,7 +42,7 @@ class SignUpCubit extends Cubit<SignupState> {
 
     try {
       var credential =
-          await _firebaseRepo.auth().createUserWithEmailAndPassword(
+          await _authRepo.instance().createUserWithEmailAndPassword(
                 email: _emailID!,
                 password: _password!,
               );
@@ -61,8 +65,8 @@ class SignUpCubit extends Cubit<SignupState> {
     var userId = user.uid;
     var userData = _generateUserData(user, profileName);
 
-    await _firebaseRepo
-        .firestore()
+    await _firestoreRepo
+        .instance()
         .collection(usersCollectionName)
         .doc(userId)
         .set(userData);

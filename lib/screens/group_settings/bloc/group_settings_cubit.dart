@@ -1,25 +1,36 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/app_hive.dart';
 import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/access_data.dart';
 import 'package:payflix/data/model/group.dart';
+import 'package:payflix/data/model/invite_info.dart';
 import 'package:payflix/data/model/payment_info.dart';
-import 'package:payflix/data/repository/firebase_repository.dart';
+import 'package:payflix/data/repository/auth_repository.dart';
+import 'package:payflix/data/repository/dynamic_links_repository.dart';
+import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_state.dart';
 
 @injectable
 class GroupSettingsCubit extends Cubit<GroupSettingsState> {
-  final FirebaseRepository _firebaseRepo;
+  final AuthRepository _authRepo;
+  final FirestoreRepository _firestoreRepo;
+  final DynamicLinksRepository _dynamicLinksRepo;
 
   double? _monthlyPayment;
   int? _dayOfTheMonth;
   String? _emailID;
   String? _password;
 
-  GroupSettingsCubit(this._firebaseRepo) : super(InitGroupSettingsState());
+  GroupSettingsCubit(
+    this._authRepo,
+    this._firestoreRepo,
+    this._dynamicLinksRepo,
+  ) : super(InitGroupSettingsState());
 
   void setMonthlyPayment(String? monthlyPayment) {
     if (monthlyPayment != null) {
@@ -44,15 +55,15 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   Future<void> saveSettings(GroupType groupType) async {
     emit(SavingSettings());
     try {
-      var userId = _firebaseRepo.auth().currentUser?.uid.toString();
+      var userId = _authRepo.getUID();
       if (userId == null) {
         throw 'user-id-not-found';
       }
 
       var groupId = _generateGroupId(userId, groupType);
-      var groupData = _generateGroupData();
-      await _firebaseRepo
-          .firestore()
+      var groupData = await _generateGroupData();
+      await _firestoreRepo
+          .instance()
           .collection(groupsCollectionName)
           .doc(groupId)
           .update(groupData);
@@ -66,18 +77,31 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   Future<void> createGroup(GroupType groupType) async {
     emit(CreatingGroup());
     try {
-      var userId = _firebaseRepo.auth().currentUser?.uid.toString();
+      var userId = _authRepo.getUID();
       if (userId == null) {
         throw 'user-id-not-found';
       }
 
       var groupId = _generateGroupId(userId, groupType);
-      var groupData = _generateGroupData();
-      await _firebaseRepo
-          .firestore()
+      var groupData = await _generateGroupData();
+
+      await _firestoreRepo
+          .instance()
           .collection(groupsCollectionName)
           .doc(groupId)
           .set(groupData);
+
+      await _firestoreRepo
+          .instance()
+          .collection(usersCollectionName)
+          .doc(userId)
+          .update(
+        {
+          "groups": FieldValue.arrayUnion(
+            [groupId],
+          ),
+        },
+      );
 
       emit(CreatingGroupSucceeded());
     } catch (e) {
@@ -85,10 +109,35 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
     }
   }
 
+  Future<InviteInfo> _createInviteLink({required GroupType groupType}) async {
+    var uid = _authRepo.getUID();
+    var uuid = _firestoreRepo.getUUID(collection: groupsInviteCollectionName);
+    var expirationDate = DateTime.now().add(const Duration(days: 7));
+    var groupId = '$uid${groupType.codeName}';
+
+    var link = (await _dynamicLinksRepo.createInviteLink(uuid)).toString();
+
+    var inviteInfo = InviteInfo(
+      link,
+      expirationDate,
+      groupId,
+    );
+
+    var json = inviteInfo.toJson();
+    await _firestoreRepo
+        .instance()
+        .collection(groupsInviteCollectionName)
+        .doc(uuid)
+        .set(json);
+
+    await invitesBox.put(inviteInfoKey, inviteInfo);
+    return inviteInfo;
+  }
+
   String _generateGroupId(String userId, GroupType groupType) =>
       '${userId}_${groupType.codeName}';
 
-  Map<String, dynamic> _generateGroupData() {
+  Future<Map<String, dynamic>> _generateGroupData() async {
     var paymentInfo = PaymentInfo(
       monthlyPayment: _monthlyPayment!,
       dayOfTheMonth: _dayOfTheMonth!,
@@ -99,9 +148,12 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       password: _password,
     );
 
+    var inviteInfo = await _createInviteLink(groupType: GroupType.netflix);
+
     var group = Group(
       paymentInfo: paymentInfo,
       accessData: accessData,
+      inviteInfo: inviteInfo,
     );
 
     return group.toJson();

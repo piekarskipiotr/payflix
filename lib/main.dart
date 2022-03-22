@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:payflix/data/app_hive.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/l10n/l10n.dart';
-import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/resources/routes/routes_handler.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'di/get_it.dart';
@@ -12,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AppTheme.initSystemChromeSettings();
   await Firebase.initializeApp();
+  await AppHive().initHive();
   configureDependencies();
 
   runApp(const MyApp());
@@ -27,8 +28,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       // routes
-      initialRoute: AppRoutes.members,
-      onGenerateRoute: RoutesHandler().getRoute,
+      initialRoute: getIt<RoutesHandler>().getInitialRoute(),
+      onGenerateRoute: getIt<RoutesHandler>().getRoute,
 
       // localization
       supportedLocales: L10n.all,

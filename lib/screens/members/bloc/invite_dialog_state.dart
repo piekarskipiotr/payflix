@@ -24,3 +24,13 @@ class CopiedTextVisibilityChanged extends InviteDialogState {
   @override
   String toString() => runtimeType.toString();
 }
+
+class GettingInviteLink extends InviteDialogState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class GettingInviteLinkSucceeded extends InviteDialogState {
+  @override
+  String toString() => runtimeType.toString();
+}

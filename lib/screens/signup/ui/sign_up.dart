@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/validators/sign_up_validation.dart';
+import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/signup/bloc/signup_cubit.dart';
@@ -24,7 +25,7 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SignUpCubit, SignupState>(
       listener: (context, state) =>
-          SignupStateListener.listenToState(context, state),
+          getIt<SignupStateListener>().listenToState(context, state),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: SafeArea(

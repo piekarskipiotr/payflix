@@ -3,19 +3,20 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:payflix/data/repository/firebase_repository.dart';
+import 'package:injectable/injectable.dart';
+import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/screens/verification_room/bloc/ver_room_state.dart';
 
+@injectable
 class VerRoomCubit extends Cubit<VerRoomState> {
-  final FirebaseRepository _firebaseRepo;
-
+  final AuthRepository _authRepo;
   Timer? _timer;
 
-  VerRoomCubit(this._firebaseRepo) : super(InitVerRoomState());
+  VerRoomCubit(this._authRepo) : super(InitVerRoomState());
 
   Future<bool> logOut() async {
     emit(LoggingOut());
-    await _firebaseRepo.auth().signOut();
+    await _authRepo.instance().signOut();
     emit(LoggingOutFinished());
 
     // for onWillPop
@@ -25,7 +26,7 @@ class VerRoomCubit extends Cubit<VerRoomState> {
   Future<void> resendVerificationEmail() async {
     emit(ResendingVerificationEmail());
     try {
-      await _firebaseRepo.auth().currentUser!.sendEmailVerification();
+      await _authRepo.instance().currentUser!.sendEmailVerification();
       emit(ResendingVerificationEmailSucceeded());
     } on FirebaseAuthException catch (e) {
       emit(ResendingVerificationEmailFailed(e.code));
@@ -37,8 +38,8 @@ class VerRoomCubit extends Cubit<VerRoomState> {
   Future<void> listenToVerificationStatus() async {
     _timer = Timer.periodic(const Duration(seconds: 5), (timer) async {
       try {
-        await _firebaseRepo.auth().currentUser!.reload();
-        var user = _firebaseRepo.auth().currentUser;
+        await _authRepo.instance().currentUser!.reload();
+        var user = _authRepo.instance().currentUser;
         if (user!.emailVerified) {
           timer.cancel();
           emit(EmailVerificationSucceeded());

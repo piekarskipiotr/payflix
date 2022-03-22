@@ -1,17 +1,22 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/helpers/error_code_helper.dart';
-import 'package:payflix/di/get_it.dart';
+import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/signup/bloc/signup_state.dart';
 import 'package:payflix/widgets/error_snack_bar.dart';
 import 'package:payflix/widgets/full_screen_dialog.dart';
 
+@injectable
 class SignupStateListener {
-  static void listenToState(BuildContext context, SignupState state) {
+  final AuthRepository _authRepo;
+
+  SignupStateListener(this._authRepo);
+
+  void listenToState(BuildContext context, SignupState state) {
     if (state is SigningUpFailed) {
       AppDialogController.showSnackBar(
         context,
@@ -24,8 +29,6 @@ class SignupStateListener {
         ),
       );
     } else if (state is SigningUpSucceeded) {
-      var firebaseAuth = getIt<FirebaseAuth>();
-
       AppDialogController.showFullScreenDialog(
         context,
         FullScreenDialog(
@@ -34,7 +37,7 @@ class SignupStateListener {
           animation: lottieSuccess,
           onClick: () => Navigator.pushNamedAndRemoveUntil(
             context,
-            firebaseAuth.currentUser?.emailVerified == true
+            _authRepo.instance().currentUser?.emailVerified == true
                 ? AppRoutes.welcome
                 : AppRoutes.verRoom,
             (route) => false,

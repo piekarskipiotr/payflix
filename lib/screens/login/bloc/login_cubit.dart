@@ -3,18 +3,22 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/model/payflix_user.dart';
-import 'package:payflix/data/repository/firebase_repository.dart';
+import 'package:payflix/data/repository/auth_repository.dart';
+import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/screens/login/bloc/login_state.dart';
 
+@injectable
 class LoginCubit extends Cubit<LoginState> {
-  final FirebaseRepository _firebaseRepo;
+  final AuthRepository _authRepo;
+  final FirestoreRepository _firestoreRepository;
 
   String? _emailID;
   String? _password;
 
-  LoginCubit(this._firebaseRepo) : super(InitLoginState());
+  LoginCubit(this._authRepo, this._firestoreRepository) : super(InitLoginState());
 
   void saveEmailID(String? emailID) {
     _emailID = emailID;
@@ -29,7 +33,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> authenticateUserByForm() async {
     emit(LoggingIn());
     try {
-      var credential = await _firebaseRepo.auth().signInWithEmailAndPassword(
+      var credential = await _authRepo.instance().signInWithEmailAndPassword(
             email: _emailID!,
             password: _password!,
           );
@@ -57,9 +61,9 @@ class LoginCubit extends Cubit<LoginState> {
           idToken: googleSignInAuth.idToken,
         );
 
-        await _firebaseRepo.auth().signInWithCredential(credential);
+        await _authRepo.instance().signInWithCredential(credential);
 
-        var user = _firebaseRepo.auth().currentUser!;
+        var user = _authRepo.instance().currentUser!;
         await _createUserData(user);
 
         emit(LoggingInWithGoogleAccountSucceeded());
@@ -76,7 +80,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> restartPassword() async {
     emit(SendingPasswordResetEmail());
     try {
-      await _firebaseRepo.auth().sendPasswordResetEmail(email: _emailID!);
+      await _authRepo.instance().sendPasswordResetEmail(email: _emailID!);
       emit(SendingPasswordResetEmailSucceeded());
     } on FirebaseAuthException catch (e) {
       emit(SendingPasswordResetEmailFailed(e.code));
@@ -89,8 +93,8 @@ class LoginCubit extends Cubit<LoginState> {
     var userId = user.uid;
     var userData = _generateUserData(user);
 
-    await _firebaseRepo
-        .firestore()
+    await _firestoreRepository
+        .instance()
         .collection(usersCollectionName)
         .doc(userId)
         .set(userData);

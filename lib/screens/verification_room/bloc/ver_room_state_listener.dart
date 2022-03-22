@@ -50,7 +50,7 @@ class VerRoomStateListener {
       _clearSnackBars(context);
       Navigator.pushNamedAndRemoveUntil(
         context,
-        AppRoutes.login,
+        AppRoutes.welcome,
         (route) => false,
       );
     }
