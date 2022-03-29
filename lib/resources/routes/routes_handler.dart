@@ -59,7 +59,7 @@ class RoutesHandler {
       case AppRoutes.welcome:
         return buildRoute(
           BlocProvider(
-            create: (_) => WelcomeCubit(),
+            create: (_) => getIt<WelcomeCubit>()..isAlreadyInGroup(),
             child: const Welcome(),
           ),
           settings: settings,

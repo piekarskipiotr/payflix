@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/model/payflix_user.dart';
 
 @injectable
 class FirestoreRepository {
@@ -22,32 +23,39 @@ class FirestoreRepository {
     required String docReference,
     required Map<String, dynamic> data,
   }) =>
-      _firestore.collection(groupsCollectionName).doc(docReference).update(data);
+      _firestore
+          .collection(groupsCollectionName)
+          .doc(docReference)
+          .update(data);
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getGroupData({
     required String docReference,
   }) =>
       _firestore.collection(groupsCollectionName).doc(docReference).get();
 
-
   // group invite
   Future setGroupInviteData({
     required String docReference,
     required Map<String, dynamic> data,
   }) =>
-      _firestore.collection(groupsInviteCollectionName).doc(docReference).set(data);
+      _firestore
+          .collection(groupsInviteCollectionName)
+          .doc(docReference)
+          .set(data);
 
   Future updateGroupInviteData({
     required String docReference,
     required Map<String, dynamic> data,
   }) =>
-      _firestore.collection(groupsInviteCollectionName).doc(docReference).update(data);
+      _firestore
+          .collection(groupsInviteCollectionName)
+          .doc(docReference)
+          .update(data);
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getGroupInviteData({
     required String docReference,
   }) =>
       _firestore.collection(groupsInviteCollectionName).doc(docReference).get();
-
 
   // user
   Future setUserData({
@@ -62,8 +70,12 @@ class FirestoreRepository {
   }) =>
       _firestore.collection(usersCollectionName).doc(docReference).update(data);
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getUserData({
+  Future<PayflixUser> getUserData({
     required String docReference,
-  }) =>
-      _firestore.collection(usersCollectionName).doc(docReference).get();
+  }) async =>
+      PayflixUser.fromJson((await _firestore
+              .collection(usersCollectionName)
+              .doc(docReference)
+              .get())
+          .data()!);
 }
