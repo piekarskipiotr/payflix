@@ -9,6 +9,7 @@ class WelcomeStateListener {
         context,
         AppRoutes.members,
         (route) => false,
+        arguments: state.group
       );
     }
   }

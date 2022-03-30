@@ -6,7 +6,6 @@ import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/app_hive.dart';
 import 'package:payflix/data/enum/group_type.dart';
-import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/invite_info.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/dynamic_links_repository.dart';
@@ -83,8 +82,7 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
       var uid = _authRepo.getUID();
       var groupId = '${uid}_${GroupType.netflix.codeName}';
 
-      var json = await _firestoreRepo.getGroupData(docReference: groupId);
-      Group group = Group.fromJson(json.data()!);
+      var group = await _firestoreRepo.getGroupData(docReference: groupId);
       await invitesBox.put(inviteInfoKey, group.inviteInfo);
 
       getInviteLink(groupType: groupType);

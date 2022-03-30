@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 
 @injectable
@@ -28,10 +29,14 @@ class FirestoreRepository {
           .doc(docReference)
           .update(data);
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getGroupData({
+  Future<Group> getGroupData({
     required String docReference,
-  }) =>
-      _firestore.collection(groupsCollectionName).doc(docReference).get();
+  }) async =>
+      Group.fromJson((await _firestore
+          .collection(groupsCollectionName)
+          .doc(docReference)
+          .get())
+          .data()!);
 
   // group invite
   Future setGroupInviteData({

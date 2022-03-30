@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/model/group.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
+import 'package:payflix/screens/members/bloc/members_cubit.dart';
 import 'package:payflix/screens/members/ui/invite_card.dart';
 import 'package:payflix/screens/members/ui/member_card.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Members extends StatelessWidget {
+class Members extends StatefulWidget {
   const Members({Key? key}) : super(key: key);
+
+  @override
+  State<Members> createState() => _MembersState();
+}
+
+class _MembersState extends State<Members> {
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () async {
+      var group = ModalRoute.of(context)!.settings.arguments as Group;
+      context.read<MembersCubit>().initialize(group);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,13 +97,13 @@ class Members extends StatelessWidget {
                   ),
                   sliver: SliverGrid(
                     gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
+                    const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 25.0,
                       crossAxisSpacing: 25.0,
                     ),
                     delegate: SliverChildBuilderDelegate(
-                      (context, index) {
+                          (context, index) {
                         return index == 0
                             ? const InviteCard()
                             : const MemberCard();
@@ -102,3 +120,4 @@ class Members extends StatelessWidget {
     );
   }
 }
+

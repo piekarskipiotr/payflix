@@ -61,7 +61,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       }
 
       var groupId = _generateGroupId(userId, groupType);
-      var groupData = await _generateGroupData();
+      var groupData = await _generateGroupData(userId);
       await _firestoreRepo.updateGroupData(docReference: groupId, data: groupData);
 
       emit(CreatingGroupSucceeded());
@@ -79,7 +79,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       }
 
       var groupId = _generateGroupId(userId, groupType);
-      var groupData = await _generateGroupData();
+      var groupData = await _generateGroupData(userId);
 
       await _firestoreRepo.setGroupData(docReference: groupId, data: groupData);
       await _firestoreRepo.updateGroupData(
@@ -119,7 +119,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   String _generateGroupId(String userId, GroupType groupType) =>
       '${userId}_${groupType.codeName}';
 
-  Future<Map<String, dynamic>> _generateGroupData() async {
+  Future<Map<String, dynamic>> _generateGroupData(String uid) async {
     var paymentInfo = PaymentInfo(
       monthlyPayment: _monthlyPayment!,
       dayOfTheMonth: _dayOfTheMonth!,
@@ -136,6 +136,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       paymentInfo: paymentInfo,
       accessData: accessData,
       inviteInfo: inviteInfo,
+      users: [uid]
     );
 
     return group.toJson();

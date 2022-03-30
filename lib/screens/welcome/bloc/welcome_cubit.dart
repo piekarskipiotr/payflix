@@ -17,7 +17,8 @@ class WelcomeCubit extends Cubit<WelcomeState> {
     var uid = _authRepo.getUID();
     var user = await _firestoreRepository.getUserData(docReference: uid!);
     if (user.groups.isNotEmpty) {
-      emit(NavigateToGroup());
+      var groupData = await _firestoreRepository.getGroupData(docReference: user.groups.first);
+      emit(NavigateToGroup(groupData));
     }
   }
 

@@ -16,11 +16,16 @@ class Group {
   @JsonKey(name: 'invite_info')
   InviteInfo inviteInfo;
 
+  List<String> users;
+
   Group({
     required this.paymentInfo,
     required this.accessData,
     required this.inviteInfo,
+    required this.users,
   });
+
+  String getGroupId() => inviteInfo.groupId;
 
   @override
   String toString() =>
@@ -30,6 +35,7 @@ class Group {
         paymentInfo: PaymentInfo.fromJson(json["payment_info"]),
         accessData: AccessData.fromJson(json["access_data"]),
         inviteInfo: InviteInfo.fromJson(json["invite_info"]),
+        users: json["users"]
       );
 
   Map<String, dynamic> toJson() => {
