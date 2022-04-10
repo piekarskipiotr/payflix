@@ -1,3 +1,5 @@
+import 'package:payflix/data/model/payflix_user.dart';
+
 abstract class MembersState {}
 
 class InitMembersState extends MembersState {
@@ -11,7 +13,7 @@ class FetchingMembers extends MembersState {
 }
 
 class FetchingMembersSucceeded extends MembersState {
-  final List<String> members;
+  final List<PayflixUser> members;
 
   FetchingMembersSucceeded(this.members);
 

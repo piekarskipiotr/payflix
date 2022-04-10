@@ -3,11 +3,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 
 class MemberCard extends StatelessWidget {
-  const MemberCard({Key? key}) : super(key: key);
+  final PayflixUser user;
+
+  const MemberCard({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +70,7 @@ class MemberCard extends StatelessWidget {
                             bottom: 15.0,
                           ),
                           child: Text(
-                            'Piotr',
+                            user.displayName,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,

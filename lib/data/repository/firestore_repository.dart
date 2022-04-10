@@ -33,9 +33,9 @@ class FirestoreRepository {
     required String docReference,
   }) async =>
       Group.fromJson((await _firestore
-          .collection(groupsCollectionName)
-          .doc(docReference)
-          .get())
+              .collection(groupsCollectionName)
+              .doc(docReference)
+              .get())
           .data()!);
 
   // group invite
@@ -83,4 +83,19 @@ class FirestoreRepository {
               .doc(docReference)
               .get())
           .data()!);
+
+  Future<List<PayflixUser>> getMembers({
+    required List<String> ids,
+  }) async {
+    var members = List<PayflixUser>.empty(growable: true);
+    for (var id in ids) {
+      var user = PayflixUser.fromJson(
+          (await _firestore.collection(usersCollectionName).doc(id).get())
+              .data()!);
+
+      members.add(user);
+    }
+
+    return members;
+  }
 }

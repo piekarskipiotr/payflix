@@ -16,7 +16,14 @@ class MembersCubit extends Cubit<MembersState> {
   MembersCubit(this._authRepo, this._firestoreRepository)
       : super(InitMembersState());
 
-  Future _fetchMembers(Group group) async {}
+  Future _fetchMembers(Group group) async {
+    emit(FetchingMembers());
+
+    var ids = group.users!;
+    var members = await _firestoreRepository.getMembers(ids: ids);
+
+    emit(FetchingMembersSucceeded(members));
+  }
 
   Future initialize(Group? group) async {
     if (group == null) {

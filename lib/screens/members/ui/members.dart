@@ -6,6 +6,7 @@ import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/members/bloc/members_cubit.dart';
+import 'package:payflix/screens/members/bloc/members_state.dart';
 import 'package:payflix/screens/members/ui/invite_card.dart';
 import 'package:payflix/screens/members/ui/member_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +19,6 @@ class Members extends StatefulWidget {
 }
 
 class _MembersState extends State<Members> {
-
   @override
   void initState() {
     super.initState();
@@ -64,7 +64,10 @@ class _MembersState extends State<Members> {
                       onPressed: () => Navigator.pushNamed(
                         context,
                         AppRoutes.groupSettings,
-                        arguments: [false, context.read<MembersCubit>().getGroup()],
+                        arguments: [
+                          false,
+                          context.read<MembersCubit>().getGroup()
+                        ],
                       ),
                       icon: const Icon(
                         Icons.settings,
@@ -95,21 +98,48 @@ class _MembersState extends State<Members> {
                     right: 25.0,
                     left: 25.0,
                   ),
-                  sliver: SliverGrid(
-                    gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 25.0,
-                      crossAxisSpacing: 25.0,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                          (context, index) {
-                        return index == 0
-                            ? const InviteCard()
-                            : const MemberCard();
-                      },
-                      childCount: 5,
-                    ),
+                  sliver: BlocBuilder<MembersCubit, MembersState>(
+                    builder: (context, state) {
+                      if (state is FetchingMembersSucceeded) {
+                        var members = state.members;
+
+                        return SliverGrid(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 25.0,
+                            crossAxisSpacing: 25.0,
+                          ),
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return index == 0
+                                  ? const InviteCard()
+                                  : MemberCard(
+                                      user: members[index - 1],
+                                    );
+                            },
+
+                            childCount: members.length + 1,
+                          ),
+                        );
+                      } else {
+                        return SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Center(
+                            child: Text(
+                              'smth went wrong :(',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.oxygen(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.creamWhite,
+                                letterSpacing: 0.2,
+                              ),
+                            ),
+                          )
+                        );
+                      }
+                    },
                   ),
                 ),
               ],
@@ -120,4 +150,3 @@ class _MembersState extends State<Members> {
     );
   }
 }
-
