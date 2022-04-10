@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/validators/group_settings_validation.dart';
 import 'package:payflix/data/enum/group_type.dart';
+import 'package:payflix/data/model/group.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_cubit.dart';
@@ -20,7 +21,9 @@ class GroupSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isGroupCreator = ModalRoute.of(context)!.settings.arguments as bool;
+    final args = ModalRoute.of(context)!.settings.arguments as List<dynamic>;
+    final bool isGroupCreator = args[0];
+    final Group? group = args[1];
 
     return BlocListener<GroupSettingsCubit, GroupSettingsState>(
       listener: (context, state) =>
@@ -102,6 +105,9 @@ class GroupSettings extends StatelessWidget {
                                   height: 20.0,
                                 ),
                                 TextFormField(
+                                  initialValue: group
+                                      ?.paymentInfo.monthlyPayment
+                                      .toString(),
                                   onSaved: (mPayment) => context
                                       .read<GroupSettingsCubit>()
                                       .setMonthlyPayment(mPayment),
@@ -137,6 +143,8 @@ class GroupSettings extends StatelessWidget {
                                   height: 15.0,
                                 ),
                                 TextFormField(
+                                  initialValue: group?.paymentInfo.dayOfTheMonth
+                                      .toString(),
                                   onSaved: (dayOfPayment) => context
                                       .read<GroupSettingsCubit>()
                                       .setDayOfTheMonth(dayOfPayment),
@@ -186,6 +194,8 @@ class GroupSettings extends StatelessWidget {
                                   height: 20.0,
                                 ),
                                 TextFormField(
+                                  initialValue:
+                                      group?.accessData.emailID.toString(),
                                   onSaved: (emailID) => context
                                       .read<GroupSettingsCubit>()
                                       .setEmailID(emailID),
@@ -213,24 +223,47 @@ class GroupSettings extends StatelessWidget {
                                 const SizedBox(
                                   height: 15.0,
                                 ),
-                                TextFormField(
-                                  onSaved: (password) => context
-                                      .read<GroupSettingsCubit>()
-                                      .setPassword(password),
-                                  maxLines: 1,
-                                  textInputAction: TextInputAction.done,
-                                  obscureText: true,
-                                  style: GoogleFonts.oxygen(),
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        const EdgeInsets.only(right: 10.0),
-                                    prefixIcon: const Icon(
-                                      Icons.lock,
-                                      size: 22.0,
-                                      color: AppColors.creamWhite,
-                                    ),
-                                    hintText: getString(context).password,
-                                  ),
+                                BlocBuilder<GroupSettingsCubit,
+                                    GroupSettingsState>(
+                                  builder: (context, state) {
+                                    return TextFormField(
+                                      initialValue:
+                                          group?.accessData.password.toString(),
+                                      onSaved: (password) => context
+                                          .read<GroupSettingsCubit>()
+                                          .setPassword(password),
+                                      maxLines: 1,
+                                      textInputAction: TextInputAction.done,
+                                      obscureText: context
+                                          .watch<GroupSettingsCubit>()
+                                          .isPasswordVisible(),
+                                      style: GoogleFonts.oxygen(),
+                                      decoration: InputDecoration(
+                                        contentPadding:
+                                            const EdgeInsets.only(right: 10.0),
+                                        hintText: getString(context).password,
+                                        prefixIcon: const Icon(
+                                          Icons.lock,
+                                          size: 22.0,
+                                          color: AppColors.creamWhite,
+                                        ),
+                                        suffixIcon: Material(
+                                          color: Colors.transparent,
+                                          child: IconButton(
+                                            onPressed: () => context
+                                                .read<GroupSettingsCubit>()
+                                                .changePasswordVisibility(),
+                                            splashRadius: 20.0,
+                                            icon: const Icon(
+                                              Icons.visibility_off,
+                                              size: 22.0,
+                                              color: AppColors.creamWhite,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                                 const SizedBox(
                                   height: 25.0,

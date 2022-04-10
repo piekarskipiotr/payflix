@@ -25,12 +25,21 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   int? _dayOfTheMonth;
   String? _emailID;
   String? _password;
+  bool _isPasswordObscure = true;
 
   GroupSettingsCubit(
     this._authRepo,
     this._firestoreRepo,
     this._dynamicLinksRepo,
   ) : super(InitGroupSettingsState());
+
+  bool isPasswordVisible() => _isPasswordObscure;
+
+  void changePasswordVisibility() {
+    emit(ChangingPasswordVisibility());
+    _isPasswordObscure = !_isPasswordObscure;
+    emit(PasswordVisibilityChanged());
+  }
 
   void setMonthlyPayment(String? monthlyPayment) {
     if (monthlyPayment != null) {
@@ -91,6 +100,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
 
       emit(CreatingGroupSucceeded());
     } catch (e) {
+      log(e.toString());
       emit(CreatingGroupFailed(e as String?));
     }
   }

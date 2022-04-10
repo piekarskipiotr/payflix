@@ -23,8 +23,8 @@ class _MembersState extends State<Members> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () async {
-      var group = ModalRoute.of(context)!.settings.arguments as Group;
-      context.read<MembersCubit>().initialize(group);
+      var group = ModalRoute.of(context)!.settings.arguments as Group?;
+      await context.read<MembersCubit>().initialize(group);
     });
   }
 
@@ -64,7 +64,7 @@ class _MembersState extends State<Members> {
                       onPressed: () => Navigator.pushNamed(
                         context,
                         AppRoutes.groupSettings,
-                        arguments: false,
+                        arguments: [false, context.read<MembersCubit>().getGroup()],
                       ),
                       icon: const Icon(
                         Icons.settings,

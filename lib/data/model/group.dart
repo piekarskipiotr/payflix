@@ -16,7 +16,7 @@ class Group {
   @JsonKey(name: 'invite_info')
   InviteInfo inviteInfo;
 
-  List<String> users;
+  List<String>? users;
 
   Group({
     required this.paymentInfo,
@@ -35,12 +35,13 @@ class Group {
         paymentInfo: PaymentInfo.fromJson(json["payment_info"]),
         accessData: AccessData.fromJson(json["access_data"]),
         inviteInfo: InviteInfo.fromJson(json["invite_info"]),
-        users: json["users"]
+        users: (json['users'] as List<dynamic>).map((e) => e as String).toList(),
       );
 
   Map<String, dynamic> toJson() => {
         "payment_info": paymentInfo.toJson(),
         "access_data": accessData.toJson(),
         "invite_info": inviteInfo.toJson(),
+        "users": users,
       };
 }

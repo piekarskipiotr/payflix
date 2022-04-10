@@ -104,7 +104,7 @@ class Welcome extends StatelessWidget {
                                         onClick: () => Navigator.pushNamed(
                                           context,
                                           AppRoutes.groupSettings,
-                                          arguments: true,
+                                          arguments: [true, null],
                                         ),
                                         isLoading: false,
                                       ),

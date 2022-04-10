@@ -42,3 +42,13 @@ class CreatingGroupFailed extends GroupSettingsState {
   @override
   String toString() => runtimeType.toString();
 }
+
+class ChangingPasswordVisibility extends GroupSettingsState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class PasswordVisibilityChanged extends GroupSettingsState {
+  @override
+  String toString() => runtimeType.toString();
+}
