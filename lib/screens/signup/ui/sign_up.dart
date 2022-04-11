@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/validators/sign_up_validation.dart';
 import 'package:payflix/di/get_it.dart';
@@ -9,6 +10,7 @@ import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/signup/bloc/signup_cubit.dart';
 import 'package:payflix/screens/signup/bloc/signup_state.dart';
 import 'package:payflix/screens/signup/bloc/signup_state_listener.dart';
+import 'package:payflix/screens/signup/ui/picking_avatar_dialog.dart';
 import 'package:payflix/widgets/blur_container.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,8 +85,118 @@ class SignUp extends StatelessWidget {
                             key: formKey,
                             child: BlocBuilder<SignUpCubit, SignupState>(
                               builder: (context, state) {
+                                String? avatar;
+                                Color? color;
+                                if (state is AvatarChanged) {
+                                  avatar = state.avatar;
+                                  color = state.color;
+                                }
+
                                 return Column(
                                   children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: 64.0,
+                                          height: 64.0,
+                                          child: Material(
+                                            elevation: 0,
+                                            clipBehavior: Clip.hardEdge,
+                                            type: MaterialType.circle,
+                                            color: color ?? AppColors.creamWhite,
+                                            child: Stack(
+                                              children: [
+                                                if (avatar != null) ...[
+                                                  Column(
+                                                    children: [
+                                                      const SizedBox(
+                                                        height: 4.0,
+                                                      ),
+                                                      Expanded(
+                                                        child: Center(
+                                                          child: Image.asset(
+                                                            avatar,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                                Positioned.fill(
+                                                  child: Material(
+                                                    color: Colors.transparent,
+                                                    child: InkWell(
+                                                      child: avatar == null
+                                                          ? Center(
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        5.0),
+                                                                child: Text(
+                                                                  getString(
+                                                                          context)
+                                                                      .tap_to_choose,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style:
+                                                                      GoogleFonts
+                                                                          .oxygen(
+                                                                    fontSize:
+                                                                        10.0,
+                                                                    color: AppColors
+                                                                        .black,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            )
+                                                          : null,
+                                                      onTap: () =>
+                                                          AppDialogController
+                                                              .showBottomSheetDialog(
+                                                        context,
+                                                        BlocProvider.value(
+                                                          value: context
+                                                              .read<
+                                                                  SignUpCubit>()
+                                                              .getDialogCubit(),
+                                                          child:
+                                                              const PickingAvatarDialog(),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10.0,
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                              top: 6.0,
+                                            ),
+                                            child: Text(
+                                              getString(context)
+                                                  .picking_avatar_desc,
+                                              style: GoogleFonts.oxygen(
+                                                fontSize: 12.0,
+                                                color: AppColors.creamWhite,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 15.0,
+                                    ),
                                     TextFormField(
                                       onSaved: (profileName) => context
                                           .read<SignUpCubit>()

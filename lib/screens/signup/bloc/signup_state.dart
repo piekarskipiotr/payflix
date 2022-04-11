@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 abstract class SignupState {}
 
 class InitSignupState extends SignupState {
@@ -12,6 +14,21 @@ class ChangingTCPPStatus extends SignupState {
 }
 
 class TCPPStatusChanged extends SignupState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class ChangingAvatar extends SignupState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class AvatarChanged extends SignupState {
+  final String avatar;
+  final Color color;
+
+  AvatarChanged(this.avatar, this.color);
+
   @override
   String toString() => runtimeType.toString();
 }

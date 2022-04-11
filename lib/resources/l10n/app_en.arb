@@ -77,5 +77,8 @@
   "show_qr" : "Show QR",
   "back" : "Return",
   "share" : "Share",
-  "copied" : "Copied!"
+  "copied" : "Copied!",
+  "tap_to_choose" : "Tap to choose",
+  "picking_avatar_desc" : "Pick avatar, which will represent you in the app. You can change it later.",
+  "picking_avatar_header" : "Pick your avatar"
 }

@@ -1,7 +1,11 @@
 // humans
 const chat = 'assets/humans/chat.png';
-const person1 = 'assets/humans/person_1.png';
 const avatar1 = 'assets/humans/avatars/avatar_person_1.png';
+const avatar2 = 'assets/humans/avatars/avatar_person_2.png';
+const avatar3 = 'assets/humans/avatars/avatar_person_3.png';
+const avatar4 = 'assets/humans/avatars/avatar_person_4.png';
+const avatar5 = 'assets/humans/avatars/avatar_person_5.png';
+const person1 = 'assets/humans/person_1.png';
 const person2 = 'assets/humans/person_2.png';
 const person3 = 'assets/humans/person_3.png';
 const person4 = 'assets/humans/person_4.png';

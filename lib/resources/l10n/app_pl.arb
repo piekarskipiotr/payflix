@@ -77,5 +77,8 @@
   "show_qr" : "Pokaż QR",
   "back" : "Wróć",
   "share" : "Udostępnij",
-  "copied" : "Skopiowano!"
+  "copied" : "Skopiowano!",
+  "tap_to_choose" : "Kliknij aby wybrać",
+  "picking_avatar_desc" : "Wybierz awatar, który będzie reprezentować twoje konto w aplikacji. Możesz go później zmienić.",
+  "picking_avatar_header" : "Wybierz swój awatar"
 }
