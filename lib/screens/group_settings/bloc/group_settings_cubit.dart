@@ -91,7 +91,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       var groupData = await _generateGroupData(userId);
 
       await _firestoreRepo.setGroupData(docReference: groupId, data: groupData);
-      await _firestoreRepo.updateGroupData(
+      await _firestoreRepo.updateUserData(
         docReference: userId,
         data: {
           "groups": FieldValue.arrayUnion([groupId])
@@ -100,8 +100,11 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
 
       emit(CreatingGroupSucceeded());
     } catch (e) {
-      log(e.toString());
-      emit(CreatingGroupFailed(e as String?));
+      if (e is FirebaseException) {
+        emit(CreatingGroupFailed(e.message));
+      } else {
+        emit(CreatingGroupFailed(e as String?));
+      }
     }
   }
 
@@ -109,7 +112,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
     var uid = _authRepo.getUID();
     var uuid = _firestoreRepo.getUUID(collection: groupsInviteCollectionName);
     var expirationDate = DateTime.now().add(const Duration(days: 7));
-    var groupId = '$uid${groupType.codeName}';
+    var groupId = '${uid}_${groupType.codeName}';
 
     var link = (await _dynamicLinksRepo.createInviteLink(uuid)).toString();
 

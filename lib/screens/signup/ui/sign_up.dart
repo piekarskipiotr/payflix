@@ -85,7 +85,8 @@ class SignUp extends StatelessWidget {
                             key: formKey,
                             child: BlocBuilder<SignUpCubit, SignupState>(
                               builder: (context, state) {
-                                var avatar = context.watch<SignUpCubit>().avatar;
+                                var avatar =
+                                    context.watch<SignUpCubit>().avatar;
                                 var color = context.watch<SignUpCubit>().color;
 
                                 return Column(
@@ -101,7 +102,8 @@ class SignUp extends StatelessWidget {
                                             elevation: 0,
                                             clipBehavior: Clip.hardEdge,
                                             type: MaterialType.circle,
-                                            color: color ?? AppColors.creamWhite,
+                                            color:
+                                                color ?? AppColors.creamWhite,
                                             child: Stack(
                                               children: [
                                                 if (avatar != null) ...[
@@ -124,46 +126,47 @@ class SignUp extends StatelessWidget {
                                                   child: Material(
                                                     color: Colors.transparent,
                                                     child: InkWell(
-                                                      child: avatar == null
-                                                          ? Center(
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        5.0),
-                                                                child: Text(
-                                                                  getString(
-                                                                          context)
-                                                                      .tap_to_choose,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .oxygen(
-                                                                    fontSize:
-                                                                        10.0,
-                                                                    color: AppColors
-                                                                        .black,
+                                                        child: avatar == null
+                                                            ? Center(
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          5.0),
+                                                                  child: Text(
+                                                                    getString(
+                                                                            context)
+                                                                        .tap_to_choose,
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: GoogleFonts
+                                                                        .oxygen(
+                                                                      fontSize:
+                                                                          10.0,
+                                                                      color: AppColors
+                                                                          .black,
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            )
-                                                          : null,
-                                                      onTap: () =>
+                                                              )
+                                                            : null,
+                                                        onTap: () {
+                                                          FocusScope.of(context)
+                                                              .unfocus();
                                                           AppDialogController
                                                               .showBottomSheetDialog(
-                                                        context,
-                                                        BlocProvider.value(
-                                                          value: context
-                                                              .read<
-                                                                  SignUpCubit>()
-                                                              .getDialogCubit(),
-                                                          child:
-                                                              const PickingAvatarDialog(),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                            context,
+                                                            BlocProvider.value(
+                                                              value: context
+                                                                  .read<
+                                                                      SignUpCubit>()
+                                                                  .getDialogCubit(),
+                                                              child:
+                                                                  const PickingAvatarDialog(),
+                                                            ),
+                                                          );
+                                                        }),
                                                   ),
                                                 ),
                                               ],
@@ -291,9 +294,12 @@ class SignUp extends StatelessWidget {
                                           value: context
                                               .watch<SignUpCubit>()
                                               .isTCPPAccepted(),
-                                          onChanged: (_) => context
-                                              .read<SignUpCubit>()
-                                              .changeTCPPStatus(),
+                                          onChanged: (_) {
+                                            FocusScope.of(context).unfocus();
+                                            context
+                                                .read<SignUpCubit>()
+                                                .changeTCPPStatus();
+                                          },
                                         ),
                                         Expanded(
                                           child: RichText(
@@ -348,12 +354,14 @@ class SignUp extends StatelessWidget {
                                       text: getString(context).sign_up,
                                       onClick: context
                                                   .watch<SignUpCubit>()
-                                                  .isTCPPAccepted() &&
+                                                  .isAllFilledUp() &&
                                               state is! SigningUp
                                           ? () {
                                               if (formKey.currentState!
                                                   .validate()) {
                                                 formKey.currentState!.save();
+                                                FocusScope.of(context)
+                                                    .unfocus();
                                                 context
                                                     .read<SignUpCubit>()
                                                     .signUp();

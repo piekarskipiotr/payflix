@@ -26,8 +26,11 @@ class SignUpCubit extends Cubit<SignupState> {
   String? avatar;
   Color? color;
 
-  SignUpCubit(this._authRepo, this._firestoreRepo, this._pickingAvatarDialogBloc) : super(InitSignupState()) {
-    _pickingAvatarDialogBlocSubscription = _pickingAvatarDialogBloc.stream.listen((state) {
+  SignUpCubit(
+      this._authRepo, this._firestoreRepo, this._pickingAvatarDialogBloc)
+      : super(InitSignupState()) {
+    _pickingAvatarDialogBlocSubscription =
+        _pickingAvatarDialogBloc.stream.listen((state) {
       if (state is AvatarPicked) {
         emit(ChangingAvatar());
         _avatarID = state.avatarID;
@@ -40,9 +43,9 @@ class SignUpCubit extends Cubit<SignupState> {
 
   PickingAvatarDialogCubit getDialogCubit() => _pickingAvatarDialogBloc;
 
-  bool isTCPPAccepted() {
-    return _tcppStatus;
-  }
+  bool isTCPPAccepted() => _tcppStatus;
+
+  bool isAllFilledUp() => _tcppStatus && (_avatarID != null);
 
   void changeTCPPStatus() {
     emit(ChangingTCPPStatus());
@@ -81,12 +84,14 @@ class SignUpCubit extends Cubit<SignupState> {
     }
   }
 
-  Future<void> _createUserData(String uid, int avatarID, String profileName) async {
+  Future<void> _createUserData(
+      String uid, int avatarID, String profileName) async {
     var userData = _generateUserData(uid, avatarID, profileName);
     await _firestoreRepo.setUserData(docReference: uid, data: userData);
   }
 
-  Map<String, dynamic> _generateUserData(String uid, int avatarID, String profileName) {
+  Map<String, dynamic> _generateUserData(
+      String uid, int avatarID, String profileName) {
     var userInfo = PayflixUser(
       uid,
       avatarID,

@@ -14,6 +14,14 @@ class MemberCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _avatars = [
+      avatar1,
+      avatar2,
+      avatar3,
+      avatar4,
+      avatar5,
+    ];
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -52,7 +60,7 @@ class MemberCard extends StatelessWidget {
                         bottom: 5.0,
                       ),
                       child: Image.asset(
-                        avatar1,
+                        _avatars[user.avatarID],
                       ),
                     ),
                     Align(
