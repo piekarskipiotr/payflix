@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
-import 'package:payflix/screens/signup/bloc/picking_avatar_dialog_bloc.dart';
+import 'package:payflix/screens/signup/bloc/picking_avatar_dialog_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/screens/signup/bloc/picking_avatar_dialog_state.dart';
 
@@ -11,8 +11,8 @@ class PickingAvatarDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var avatars = context.read<PickingAvatarDialogBloc>().getAvatars();
-    var colors = context.read<PickingAvatarDialogBloc>().getColors();
+    var avatars = context.read<PickingAvatarDialogCubit>().getAvatars();
+    var colors = context.read<PickingAvatarDialogCubit>().getColors();
 
     return SingleChildScrollView(
       child: Padding(
@@ -48,7 +48,7 @@ class PickingAvatarDialog extends StatelessWidget {
                 top: 10.0,
                 right: 15.0,
               ),
-              child: BlocBuilder<PickingAvatarDialogBloc,
+              child: BlocBuilder<PickingAvatarDialogCubit,
                   PickingAvatarDialogState>(
                 builder: (context, state) {
                   int? selectedId;
@@ -111,7 +111,7 @@ class PickingAvatarDialog extends StatelessWidget {
                                               )
                                             : null,
                                         onTap: () => context
-                                            .read<PickingAvatarDialogBloc>()
+                                            .read<PickingAvatarDialogCubit>()
                                             .pickAvatar(index),
                                       ),
                                     ),

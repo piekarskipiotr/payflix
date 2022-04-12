@@ -7,7 +7,7 @@ import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/screens/signup/bloc/picking_avatar_dialog_state.dart';
 
 @injectable
-class PickingAvatarDialogBloc extends Cubit<PickingAvatarDialogState> {
+class PickingAvatarDialogCubit extends Cubit<PickingAvatarDialogState> {
   int? _avatarID;
 
   final _avatars = [
@@ -26,7 +26,7 @@ class PickingAvatarDialogBloc extends Cubit<PickingAvatarDialogState> {
     Colors.pink,
   ];
 
-  PickingAvatarDialogBloc() : super(InitPickingAvatarDialogState());
+  PickingAvatarDialogCubit() : super(InitPickingAvatarDialogState());
 
   List<String> getAvatars() => _avatars;
 

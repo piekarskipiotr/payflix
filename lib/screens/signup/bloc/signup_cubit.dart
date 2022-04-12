@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
-import 'package:payflix/screens/signup/bloc/picking_avatar_dialog_bloc.dart';
+import 'package:payflix/screens/signup/bloc/picking_avatar_dialog_cubit.dart';
 import 'package:payflix/screens/signup/bloc/picking_avatar_dialog_state.dart';
 import 'package:payflix/screens/signup/bloc/signup_state.dart';
 
@@ -14,7 +15,7 @@ import 'package:payflix/screens/signup/bloc/signup_state.dart';
 class SignUpCubit extends Cubit<SignupState> {
   final AuthRepository _authRepo;
   final FirestoreRepository _firestoreRepo;
-  final PickingAvatarDialogBloc _pickingAvatarDialogBloc;
+  final PickingAvatarDialogCubit _pickingAvatarDialogBloc;
   late StreamSubscription _pickingAvatarDialogBlocSubscription;
 
   bool _tcppStatus = false;
@@ -22,20 +23,22 @@ class SignUpCubit extends Cubit<SignupState> {
   String? _profileName;
   String? _emailID;
   String? _password;
+  String? avatar;
+  Color? color;
 
   SignUpCubit(this._authRepo, this._firestoreRepo, this._pickingAvatarDialogBloc) : super(InitSignupState()) {
     _pickingAvatarDialogBlocSubscription = _pickingAvatarDialogBloc.stream.listen((state) {
       if (state is AvatarPicked) {
         emit(ChangingAvatar());
         _avatarID = state.avatarID;
-        var avatar = _pickingAvatarDialogBloc.getAvatars()[state.avatarID];
-        var color = _pickingAvatarDialogBloc.getColors()[state.avatarID];
-        emit(AvatarChanged(avatar, color));
+        avatar = _pickingAvatarDialogBloc.getAvatars()[state.avatarID];
+        color = _pickingAvatarDialogBloc.getColors()[state.avatarID];
+        emit(AvatarChanged());
       }
     });
   }
 
-  PickingAvatarDialogBloc getDialogCubit() => _pickingAvatarDialogBloc;
+  PickingAvatarDialogCubit getDialogCubit() => _pickingAvatarDialogBloc;
 
   bool isTCPPAccepted() {
     return _tcppStatus;
@@ -64,9 +67,10 @@ class SignUpCubit extends Cubit<SignupState> {
               );
 
       var user = credential.user!;
+      var uid = user.uid;
 
+      await _createUserData(uid, _avatarID!, _profileName!);
       await user.updateDisplayName(_profileName);
-      await _createUserData(user, _profileName!);
       await user.sendEmailVerification();
 
       emit(SigningUpSucceeded());
@@ -77,16 +81,15 @@ class SignUpCubit extends Cubit<SignupState> {
     }
   }
 
-  Future<void> _createUserData(User user, String profileName) async {
-    var userId = user.uid;
-    var userData = _generateUserData(user, profileName);
-
-    await _firestoreRepo.setUserData(docReference: userId, data: userData);
+  Future<void> _createUserData(String uid, int avatarID, String profileName) async {
+    var userData = _generateUserData(uid, avatarID, profileName);
+    await _firestoreRepo.setUserData(docReference: uid, data: userData);
   }
 
-  Map<String, dynamic> _generateUserData(User user, String profileName) {
+  Map<String, dynamic> _generateUserData(String uid, int avatarID, String profileName) {
     var userInfo = PayflixUser(
-      user.uid,
+      uid,
+      avatarID,
       profileName,
       List.empty(),
     );

@@ -7,19 +7,23 @@ class PayflixUser {
   @JsonKey(name: 'id')
   String id;
 
+  @JsonKey(name: 'avatar_id')
+  int avatarID;
+
   @JsonKey(name: 'display_name')
   String displayName;
 
   @JsonKey(name: 'groups')
   List<String> groups;
 
-  PayflixUser(this.id, this.displayName, this.groups);
+  PayflixUser(this.id, this.avatarID, this.displayName, this.groups);
 
-  factory PayflixUser.fromJson(Map<String, dynamic> json) => _$PayflixUserFromJson(json);
+  factory PayflixUser.fromJson(Map<String, dynamic> json) =>
+      _$PayflixUserFromJson(json);
 
   Map<String, dynamic> toJson() => _$PayflixUserToJson(this);
 
   @override
   String toString() =>
-      'User{id: $id, displayName: $displayName, groups: $groups}';
+      'User{id: $id, avatarID: $avatarID, displayName: $displayName, groups: $groups}';
 }

@@ -85,12 +85,8 @@ class SignUp extends StatelessWidget {
                             key: formKey,
                             child: BlocBuilder<SignUpCubit, SignupState>(
                               builder: (context, state) {
-                                String? avatar;
-                                Color? color;
-                                if (state is AvatarChanged) {
-                                  avatar = state.avatar;
-                                  color = state.color;
-                                }
+                                var avatar = context.watch<SignUpCubit>().avatar;
+                                var color = context.watch<SignUpCubit>().color;
 
                                 return Column(
                                   children: [
