@@ -90,6 +90,15 @@ class FirestoreRepository {
       (await _firestore.collection(usersCollectionName).doc(docReference).get())
           .exists;
 
+  Future<bool> doesUserIsInGroup({
+    required String docReference,
+  }) async =>
+      PayflixUser.fromJson((await _firestore
+          .collection(usersCollectionName)
+          .doc(docReference)
+          .get())
+          .data()!).groups.isNotEmpty;
+
   Future<List<PayflixUser>> getMembers({
     required List<String> ids,
     required String uid,

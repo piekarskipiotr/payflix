@@ -1,4 +1,5 @@
 class AppRoutes {
+  static const launch = '/launch_screen';
   static const login = '/login';
   static const signUp = '/signup';
   static const verRoom = '/ver_room';
