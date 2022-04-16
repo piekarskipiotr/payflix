@@ -84,8 +84,15 @@ class FirestoreRepository {
               .get())
           .data()!);
 
+  Future<bool> doesUserExist({
+    required String docReference,
+  }) async =>
+      (await _firestore.collection(usersCollectionName).doc(docReference).get())
+          .exists;
+
   Future<List<PayflixUser>> getMembers({
     required List<String> ids,
+    required String uid,
   }) async {
     var members = List<PayflixUser>.empty(growable: true);
     for (var id in ids) {
@@ -93,6 +100,7 @@ class FirestoreRepository {
           (await _firestore.collection(usersCollectionName).doc(id).get())
               .data()!);
 
+      user.isCurrentUser = user.id == uid;
       members.add(user);
     }
 

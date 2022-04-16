@@ -7,6 +7,11 @@ class InitMembersState extends MembersState {
   String toString() => runtimeType.toString();
 }
 
+class InitializingGroup extends MembersState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
 class FetchingMembers extends MembersState {
   @override
   String toString() => runtimeType.toString();

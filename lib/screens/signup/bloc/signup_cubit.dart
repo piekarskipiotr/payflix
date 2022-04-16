@@ -7,8 +7,8 @@ import 'package:injectable/injectable.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
-import 'package:payflix/screens/signup/bloc/picking_avatar_dialog_cubit.dart';
-import 'package:payflix/screens/signup/bloc/picking_avatar_dialog_state.dart';
+import 'package:payflix/screens/picking_avatar_dialog/bloc/picking_avatar_dialog_cubit.dart';
+import 'package:payflix/screens/picking_avatar_dialog/bloc/picking_avatar_dialog_state.dart';
 import 'package:payflix/screens/signup/bloc/signup_state.dart';
 
 @injectable

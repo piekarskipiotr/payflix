@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,16 +9,34 @@ import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/screens/login/bloc/login_state.dart';
+import 'package:payflix/screens/picking_avatar_dialog/bloc/picking_avatar_dialog_cubit.dart';
+import 'package:payflix/screens/picking_avatar_dialog/bloc/picking_avatar_dialog_state.dart';
 
 @injectable
 class LoginCubit extends Cubit<LoginState> {
   final AuthRepository _authRepo;
   final FirestoreRepository _firestoreRepository;
+  final PickingAvatarDialogCubit _pickingAvatarDialogBloc;
+  late StreamSubscription _pickingAvatarDialogBlocSubscription;
 
   String? _emailID;
   String? _password;
+  int avatarID = -1;
 
-  LoginCubit(this._authRepo, this._firestoreRepository) : super(InitLoginState());
+  LoginCubit(this._authRepo, this._firestoreRepository, this._pickingAvatarDialogBloc) : super(InitLoginState()) {
+    _pickingAvatarDialogBlocSubscription =
+        _pickingAvatarDialogBloc.stream.listen((state) {
+          if (state is AvatarPicked) {
+            emit(PopDialog());
+            avatarID = state.avatarID;
+            var user = _authRepo.instance().currentUser;
+            _createUserData(user!);
+            emit(LoggingInWithGoogleAccountSucceeded());
+          }
+        });
+  }
+
+  PickingAvatarDialogCubit getDialogCubit() => _pickingAvatarDialogBloc;
 
   void saveEmailID(String? emailID) {
     _emailID = emailID;
@@ -63,9 +82,12 @@ class LoginCubit extends Cubit<LoginState> {
         await _authRepo.instance().signInWithCredential(credential);
 
         var user = _authRepo.instance().currentUser!;
-        await _createUserData(user);
+        if (!await _firestoreRepository.doesUserExist(docReference: user.uid)) {
+          emit(SignInWithGoogleAccountSucceeded());
+        } else {
+          emit(LoggingInWithGoogleAccountSucceeded());
+        }
 
-        emit(LoggingInWithGoogleAccountSucceeded());
       } else {
         emit(LoggingInWithGoogleAccountCanceled());
       }
@@ -98,7 +120,7 @@ class LoginCubit extends Cubit<LoginState> {
   Map<String, dynamic> _generateUserData(User user) {
     var userInfo = PayflixUser(
       user.uid,
-      0,
+      avatarID,
       user.displayName!,
       List.empty(),
     );
@@ -110,5 +132,11 @@ class LoginCubit extends Cubit<LoginState> {
   void onChange(Change<LoginState> change) {
     log('$change', name: '$runtimeType');
     super.onChange(change);
+  }
+
+  @override
+  Future<void> close() {
+    _pickingAvatarDialogBlocSubscription.cancel();
+    return super.close();
   }
 }

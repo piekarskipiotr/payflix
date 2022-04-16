@@ -69,7 +69,7 @@
   "day_of_the_month" : "Dzień miesiąca",
   "saved" : "Zapisano!",
   "group_created" : "Grupa została utworzona",
-  "group_created_secondary" : "Teraz możesz dodać członków do Twojej grupy, możesz to zrobić po przez link z zaproszeniem lub pokaż im kod QR do zeskanowania",
+  "group_created_secondary" : "Teraz możesz dodać członków do Twojej grupy, możesz to zrobić przez link z zaproszeniem lub pokaż im kod QR do zeskanowania",
   "user_id_not_found_error_message" : "Nie możemy uzyskać twojego ID, proszę zaloguj się jeszcze raz",
   "members" : "Członkowie",
   "invite_dialog_header_text" : "Woohoo dodajesz nowych członków?\nWyślij im ten link z zaproszeniem lub wygeneruj kod QR.",
@@ -80,5 +80,6 @@
   "copied" : "Skopiowano!",
   "tap_to_choose" : "Kliknij aby wybrać",
   "picking_avatar_desc" : "Wybierz awatar, który będzie reprezentować twoje konto w aplikacji. Możesz go później zmienić.",
-  "picking_avatar_header" : "Wybierz swój awatar"
+  "picking_avatar_header" : "Wybierz swój awatar",
+  "current_user_tag" : "(ty)"
 }

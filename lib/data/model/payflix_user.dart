@@ -16,6 +16,9 @@ class PayflixUser {
   @JsonKey(name: 'groups')
   List<String> groups;
 
+  @JsonKey(ignore: true)
+  bool? isCurrentUser;
+
   PayflixUser(this.id, this.avatarID, this.displayName, this.groups);
 
   factory PayflixUser.fromJson(Map<String, dynamic> json) =>

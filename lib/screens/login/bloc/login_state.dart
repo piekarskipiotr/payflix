@@ -5,6 +5,11 @@ class InitLoginState extends LoginState {
   String toString() => runtimeType.toString();
 }
 
+class PopDialog extends LoginState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
 class LoggingIn extends LoginState {
   @override
   String toString() => runtimeType.toString();
@@ -35,6 +40,11 @@ class LoggingInWithGoogleAccount extends LoginState {
 }
 
 class LoggingInWithGoogleAccountSucceeded extends LoginState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class SignInWithGoogleAccountSucceeded extends LoginState {
   @override
   String toString() => runtimeType.toString();
 }

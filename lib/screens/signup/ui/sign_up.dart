@@ -10,7 +10,7 @@ import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/signup/bloc/signup_cubit.dart';
 import 'package:payflix/screens/signup/bloc/signup_state.dart';
 import 'package:payflix/screens/signup/bloc/signup_state_listener.dart';
-import 'package:payflix/screens/signup/ui/picking_avatar_dialog.dart';
+import 'package:payflix/screens/picking_avatar_dialog/ui/picking_avatar_dialog.dart';
 import 'package:payflix/widgets/blur_container.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

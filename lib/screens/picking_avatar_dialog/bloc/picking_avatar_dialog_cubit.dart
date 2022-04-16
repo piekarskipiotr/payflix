@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
-import 'package:payflix/screens/signup/bloc/picking_avatar_dialog_state.dart';
+import 'package:payflix/screens/picking_avatar_dialog/bloc/picking_avatar_dialog_state.dart';
 
 @injectable
 class PickingAvatarDialogCubit extends Cubit<PickingAvatarDialogState> {

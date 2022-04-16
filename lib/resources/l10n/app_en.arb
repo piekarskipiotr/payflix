@@ -80,5 +80,6 @@
   "copied" : "Copied!",
   "tap_to_choose" : "Tap to choose",
   "picking_avatar_desc" : "Pick avatar, which will represent you in the app. You can change it later.",
-  "picking_avatar_header" : "Pick your avatar"
+  "picking_avatar_header" : "Pick your avatar",
+  "current_user_tag" : "(you)"
 }

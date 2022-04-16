@@ -20,12 +20,14 @@ class MembersCubit extends Cubit<MembersState> {
     emit(FetchingMembers());
 
     var ids = group.users!;
-    var members = await _firestoreRepository.getMembers(ids: ids);
+    var uid = _authRepo.getUID()!;
+    var members = await _firestoreRepository.getMembers(ids: ids, uid: uid);
 
     emit(FetchingMembersSucceeded(members));
   }
 
   Future initialize(Group? group) async {
+    emit(InitializingGroup());
     if (group == null) {
       var uid = _authRepo.getUID();
       var user = await _firestoreRepository.getUserData(docReference: uid!);

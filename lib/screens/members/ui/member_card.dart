@@ -6,6 +6,7 @@ import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
+import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 
 class MemberCard extends StatelessWidget {
   final PayflixUser user;
@@ -78,7 +79,7 @@ class MemberCard extends StatelessWidget {
                             bottom: 15.0,
                           ),
                           child: Text(
-                            user.displayName,
+                            '${user.displayName} ${user.isCurrentUser! ? getString(context).current_user_tag : ''}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,

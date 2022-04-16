@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
-import 'package:payflix/screens/signup/bloc/picking_avatar_dialog_cubit.dart';
+import 'package:payflix/screens/picking_avatar_dialog/bloc/picking_avatar_dialog_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:payflix/screens/signup/bloc/picking_avatar_dialog_state.dart';
+import 'package:payflix/screens/picking_avatar_dialog/bloc/picking_avatar_dialog_state.dart';
 
 class PickingAvatarDialog extends StatelessWidget {
   const PickingAvatarDialog({Key? key}) : super(key: key);

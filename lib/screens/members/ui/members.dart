@@ -118,8 +118,15 @@ class _MembersState extends State<Members> {
                                       user: members[index - 1],
                                     );
                             },
-
                             childCount: members.length + 1,
+                          ),
+                        );
+                      } else if (state is InitializingGroup ||
+                          state is FetchingMembers) {
+                        return const SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Center(
+                            child: CircularProgressIndicator(),
                           ),
                         );
                       } else {
@@ -136,7 +143,7 @@ class _MembersState extends State<Members> {
                                 letterSpacing: 0.2,
                               ),
                             ),
-                          )
+                          ),
                         );
                       }
                     },
