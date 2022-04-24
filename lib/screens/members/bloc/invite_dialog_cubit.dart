@@ -72,11 +72,15 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
 
         _inviteLink = link;
         linkFieldController.text = link;
-        emit(GettingInviteLinkSucceeded());
 
-        return;
+        emit(GettingInviteLinkSucceeded());
       } else {
-        _createInviteLink(groupType: groupType);
+        var link = await _createInviteLink(groupType: groupType);
+
+        _inviteLink = link;
+        linkFieldController.text = link;
+
+        emit(GettingInviteLinkSucceeded());
       }
     } else {
       var uid = _authRepo.getUID();
@@ -89,7 +93,7 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
     }
   }
 
-  Future<void> _createInviteLink({required GroupType groupType}) async {
+  Future<String> _createInviteLink({required GroupType groupType}) async {
     var uid = _authRepo.getUID();
     var uuid = _firestoreRepo.getUUID(collection: groupsInviteCollectionName);
     var expirationDate = DateTime.now().add(const Duration(days: 7));
@@ -108,6 +112,8 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
     var json = inviteInfo.toJson();
     await _firestoreRepo.setGroupInviteData(docReference: uuid, data: json);
     await invitesBox.put(inviteInfoKey, inviteInfo);
+
+    return link;
   }
 
   @override
