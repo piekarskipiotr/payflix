@@ -24,6 +24,7 @@ class DynamicLinksRepository {
     );
 
     final dynamicLink = await _dynamicLinks.buildShortLink(parameters);
+
     return dynamicLink.shortUrl;
   }
 }
