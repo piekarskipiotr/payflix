@@ -111,6 +111,7 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
 
     var json = inviteInfo.toJson();
     await _firestoreRepo.setGroupInviteData(docReference: uuid, data: json);
+    await _firestoreRepo.updateGroupInviteData(docReference: uuid, data: json);
     await invitesBox.put(inviteInfoKey, inviteInfo);
 
     return link;
