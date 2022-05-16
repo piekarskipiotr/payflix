@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
@@ -25,6 +26,7 @@ class SignUpCubit extends Cubit<SignupState> {
   String? _password;
   String? avatar;
   Color? color;
+  bool _showRegularTitle = false;
 
   SignUpCubit(
       this._authRepo, this._firestoreRepo, this._pickingAvatarDialogBloc)
@@ -46,6 +48,21 @@ class SignUpCubit extends Cubit<SignupState> {
   bool isTCPPAccepted() => _tcppStatus;
 
   bool isAllFilledUp() => _tcppStatus && (_avatarID != null);
+
+  bool showRegularTitle() => _showRegularTitle;
+
+  void handleTitle(double top) {
+    if (top < minTitleTopValue - 5.0 && !showRegularTitle()) {
+      emit(ChangingVisibilityOfRegularTitle());
+      _showRegularTitle = true;
+      emit(VisibilityOfRegularTitleChanged());
+
+    } else if (top > minTitleTopValue && showRegularTitle()) {
+      emit(ChangingVisibilityOfRegularTitle());
+      _showRegularTitle = false;
+      emit(VisibilityOfRegularTitleChanged());
+    }
+  }
 
   void changeTCPPStatus() {
     emit(ChangingTCPPStatus());

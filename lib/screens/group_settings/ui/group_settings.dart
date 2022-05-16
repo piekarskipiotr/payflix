@@ -5,6 +5,7 @@ import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/validators/group_settings_validation.dart';
 import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/group.dart';
+import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_cubit.dart';
@@ -41,7 +42,7 @@ class GroupSettings extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.topRight,
                     padding: const EdgeInsets.only(
-                      top: 30.0,
+                      top: 40.0,
                     ),
                     child: Image.asset(
                       groupFriends,
@@ -54,27 +55,64 @@ class GroupSettings extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 slivers: [
                   SliverAppBar(
+                    pinned: true,
                     elevation: 0.0,
                     expandedHeight: 200.0,
                     backgroundColor: Colors.transparent,
-                    flexibleSpace: FlexibleSpaceBar(
-                      centerTitle: false,
-                      titlePadding: const EdgeInsets.only(
-                        left: 15.0,
-                        right: 15.0,
-                        bottom: 13.0,
-                      ),
-                      title: Text(
-                        isGroupCreator
+                    title: AnimatedOpacity(
+                      duration: const Duration(milliseconds: 300),
+                      opacity: context
+                          .watch<GroupSettingsCubit>()
+                          .showRegularTitle()
+                          ? 1.0
+                          : 0.0,
+                      child: Text(
+                        (isGroupCreator
                             ? getString(context).create_group
-                            : getString(context).group_settings,
-                        textAlign: TextAlign.left,
+                            : getString(context).group_settings)
+                            .replaceAll('\n', ' '),
+                        maxLines: 1,
                         style: GoogleFonts.oxygen(
-                          fontSize: 28.0,
+                          fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                           color: AppColors.creamWhite,
                         ),
                       ),
+                    ),
+                    flexibleSpace: LayoutBuilder(
+                      builder: (context, constraints) {
+                        var top = constraints.biggest.height;
+                        context.read<GroupSettingsCubit>().handleTitle(top);
+
+                        return Container(
+                          decoration: BoxDecoration(
+                            gradient: top <= 56.0 ? AppTheme.appBarGradientExperimental : null,
+                          ),
+                          child: FlexibleSpaceBar(
+                            centerTitle: false,
+                            titlePadding: const EdgeInsets.only(
+                              left: 15.0,
+                              right: 15.0,
+                              bottom: 13.0,
+                            ),
+                            title: AnimatedOpacity(
+                              duration: const Duration(milliseconds: 300),
+                              opacity: top > regularTitleTopValue ? 1.0 : 0.0,
+                              child: Text(
+                                isGroupCreator
+                                    ? getString(context).create_group
+                                    : getString(context).group_settings,
+                                textAlign: TextAlign.left,
+                                style: GoogleFonts.oxygen(
+                                  fontSize: 28.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.creamWhite,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                   SliverFillRemaining(

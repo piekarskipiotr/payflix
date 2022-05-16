@@ -44,3 +44,13 @@ class SigningUpFailed extends SignupState {
   @override
   String toString() => runtimeType.toString();
 }
+
+class ChangingVisibilityOfRegularTitle extends SignupState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class VisibilityOfRegularTitleChanged extends SignupState {
+  @override
+  String toString() => runtimeType.toString();
+}

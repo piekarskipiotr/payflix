@@ -84,7 +84,7 @@ class MemberCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.oxygen(
-                              fontSize: 18.0,
+                              fontSize: 16.0,
                               fontWeight: FontWeight.w500,
                               color: AppColors.creamWhite,
                               letterSpacing: 0.2,
