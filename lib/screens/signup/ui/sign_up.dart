@@ -92,7 +92,7 @@ class SignUp extends StatelessWidget {
                             ),
                             title: AnimatedOpacity(
                               duration: const Duration(milliseconds: 300),
-                              opacity: top > minTitleTopValue ? 1.0 : 0.0,
+                              opacity: top > minTitleTopValue + 10.0 ? 1.0 : 0.0,
                               child: Text(
                                 getString(context).signup,
                                 textAlign: TextAlign.left,

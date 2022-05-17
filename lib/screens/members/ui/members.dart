@@ -96,7 +96,7 @@ class _MembersState extends State<Members> {
                             getString(context).members,
                             textAlign: TextAlign.left,
                             style: GoogleFonts.oxygen(
-                              fontSize: 28.0,
+                              fontSize: 18.0,
                               fontWeight: FontWeight.bold,
                               color: AppColors.creamWhite,
                             ),

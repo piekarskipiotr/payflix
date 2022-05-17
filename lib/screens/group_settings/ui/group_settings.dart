@@ -97,7 +97,7 @@ class GroupSettings extends StatelessWidget {
                             ),
                             title: AnimatedOpacity(
                               duration: const Duration(milliseconds: 300),
-                              opacity: top > regularTitleTopValue ? 1.0 : 0.0,
+                              opacity: top > regularTitleTopValue + 10.0 ? 1.0 : 0.0,
                               child: Text(
                                 isGroupCreator
                                     ? getString(context).create_group
