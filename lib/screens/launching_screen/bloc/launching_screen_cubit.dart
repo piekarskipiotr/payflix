@@ -74,10 +74,12 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
 
   Future initialize() async {
     emit(CheckingUserData());
-    final initialLink = await _dynamicLinksRepo.instance().getInitialLink();
+    var initialLink = await _dynamicLinksRepo.instance().getInitialLink();
+
+    Uri? link;
     if (initialLink != null) {
-      final deepLink = initialLink.link;
-      await _saveDynamicLink(deepLink);
+      link = initialLink.link;
+      await _saveDynamicLink(link);
     }
 
     String? route;
@@ -92,8 +94,11 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
           await _firestoreRepo.doesUserExist(docReference: uid);
 
       if (doesUserExistsInDatabase) {
-        var doesUserIsInGroup =
-            await _firestoreRepo.doesUserHasAGroup(docReference: uid);
+        if (link != null) {
+          await _addUserToGroup(uid, link);
+        }
+
+        var doesUserIsInGroup = await _firestoreRepo.doesUserHasAGroup(docReference: uid);
         route = doesUserIsInGroup ? AppRoutes.members : AppRoutes.welcome;
       } else {
         await _authRepo.instance().signOut();
