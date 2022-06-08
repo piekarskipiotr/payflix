@@ -59,6 +59,13 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
         },
       );
 
+      await _firestoreRepo.updateGroupData(
+        docReference: uid,
+        data: {
+          "users": FieldValue.arrayUnion([uid])
+        },
+      );
+
       emit(AddingUserToGroupCompleted());
     }
   }
