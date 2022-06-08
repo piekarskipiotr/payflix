@@ -1,6 +1,9 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/app_hive.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/dynamic_links_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
@@ -19,7 +22,6 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
     _dynamicLinksRepo.instance().onLink.listen((dynamicLinkData) async {
       emit(ReceivingLink());
       var link = dynamicLinkData.link;
-      log('listener: $link');
       var user = _authRepo.instance().currentUser;
 
       bool isAuth = user != null;
@@ -30,22 +32,45 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
             await _firestoreRepo.doesUserExist(docReference: uid);
 
         if (doesUserExistsInDatabase) {
-          emit(HandlingLink(link));
+          await _addUserToGroup(uid, link);
         } else {
-          emit(HoldingLink(link));
+          await _saveDynamicLink(link);
         }
       } else {
-        emit(HoldingLink(link));
+        await _saveDynamicLink(link);
       }
     });
   }
+
+  Future _addUserToGroup(String uid, Uri link) async {
+    emit(AddingUserToGroup());
+    var inviteId = link.queryParametersAll['id']!.first;
+    var inviteInfo = await _firestoreRepo.getGroupInviteData(docReference: inviteId);
+    var groupId = inviteInfo!.groupId;
+
+    if (await _firestoreRepo.doesUserIsInGroup(docReference: uid, groupId: groupId)) {
+      emit(UserIsAlreadyInThisGroup());
+
+    } else {
+      await _firestoreRepo.updateUserData(
+        docReference: uid,
+        data: {
+          "groups": FieldValue.arrayUnion([groupId])
+        },
+      );
+
+      emit(AddingUserToGroupCompleted());
+    }
+  }
+
+  Future _saveDynamicLink(Uri link) async => await invitesBox.put(dynamicLinkKey, link);
 
   Future initialize() async {
     emit(CheckingUserData());
     final initialLink = await _dynamicLinksRepo.instance().getInitialLink();
     if (initialLink != null) {
-      final Uri deepLink = initialLink.link;
-      log(deepLink.toString());
+      final deepLink = initialLink.link;
+      await _saveDynamicLink(deepLink);
     }
 
     String? route;
@@ -61,7 +86,7 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
 
       if (doesUserExistsInDatabase) {
         var doesUserIsInGroup =
-            await _firestoreRepo.doesUserIsInGroup(docReference: uid);
+            await _firestoreRepo.doesUserHasAGroup(docReference: uid);
         route = doesUserIsInGroup ? AppRoutes.members : AppRoutes.welcome;
       } else {
         await _authRepo.instance().signOut();

@@ -27,8 +27,8 @@ class RoutesHandler {
     switch (settings.name) {
       case AppRoutes.launch:
         return buildRoute(
-          BlocProvider(
-            create: (_) => getIt<LaunchingScreenCubit>()..initialize(),
+          BlocProvider.value(
+            value: getIt<LaunchingScreenCubit>()..initialize(),
             child: const LaunchingScreen(),
           ),
           settings: settings,

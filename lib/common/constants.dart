@@ -34,6 +34,7 @@ const groupsInviteCollectionName = 'groups_invite';
 // hive keys
 const invitesBoxKey = 'invites_box_key';
 const inviteInfoKey = 'invite_info_key';
+const dynamicLinkKey = 'dynamic_link_key';
 
 // values
 const regularTitleTopValue = 145.0;

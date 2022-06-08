@@ -15,7 +15,11 @@ class AppHive {
   }
   
   Future _initBoxes() async {
-    invitesBox = await Hive.openBox(invitesBoxKey);
+    invitesBox = await Hive.openBox(invitesBoxKey).then((value) {
+      // clear dynamic link on app re-launch
+      value.put(dynamicLinkKey, null);
+      return value;
+    });
   }
 
   Future _initAdapters() async {

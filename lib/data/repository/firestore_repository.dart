@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/model/group.dart';
+import 'package:payflix/data/model/invite_info.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 
 @injectable
@@ -57,10 +58,14 @@ class FirestoreRepository {
           .doc(docReference)
           .update(data);
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getGroupInviteData({
+  Future<InviteInfo?> getGroupInviteData({
     required String docReference,
-  }) =>
-      _firestore.collection(groupsInviteCollectionName).doc(docReference).get();
+  }) async =>
+      InviteInfo.fromJson((await _firestore
+              .collection(groupsInviteCollectionName)
+              .doc(docReference)
+              .get())
+          .data()!);
 
   // user
   Future setUserData({
@@ -90,14 +95,28 @@ class FirestoreRepository {
       (await _firestore.collection(usersCollectionName).doc(docReference).get())
           .exists;
 
-  Future<bool> doesUserIsInGroup({
+  Future<bool> doesUserHasAGroup({
     required String docReference,
   }) async =>
       PayflixUser.fromJson((await _firestore
-          .collection(usersCollectionName)
-          .doc(docReference)
-          .get())
-          .data()!).groups.isNotEmpty;
+                  .collection(usersCollectionName)
+                  .doc(docReference)
+                  .get())
+              .data()!)
+          .groups
+          .isNotEmpty;
+
+  Future<bool> doesUserIsInGroup({
+    required String docReference,
+    required String groupId,
+  }) async =>
+      PayflixUser.fromJson((await _firestore
+                  .collection(usersCollectionName)
+                  .doc(docReference)
+                  .get())
+              .data()!)
+          .groups
+          .contains(groupId);
 
   Future<List<PayflixUser>> getMembers({
     required List<String> ids,

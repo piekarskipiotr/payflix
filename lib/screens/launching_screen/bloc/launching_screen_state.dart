@@ -24,20 +24,17 @@ class ReceivingLink extends LaunchingScreenState {
   String toString() => runtimeType.toString();
 }
 
-class HandlingLink extends LaunchingScreenState {
-  final Uri link;
-
-  HandlingLink(this.link);
-
+class AddingUserToGroup extends LaunchingScreenState {
   @override
   String toString() => runtimeType.toString();
 }
 
-class HoldingLink extends LaunchingScreenState {
-  final Uri link;
+class UserIsAlreadyInThisGroup extends LaunchingScreenState {
+  @override
+  String toString() => runtimeType.toString();
+}
 
-  HoldingLink(this.link);
-
+class AddingUserToGroupCompleted extends LaunchingScreenState {
   @override
   String toString() => runtimeType.toString();
 }

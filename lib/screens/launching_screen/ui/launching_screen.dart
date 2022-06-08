@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/launching_screen/bloc/launching_screen_cubit.dart';
+import 'package:payflix/screens/launching_screen/bloc/launching_screen_listener.dart';
 import 'package:payflix/screens/launching_screen/bloc/launching_screen_state.dart';
 
 class LaunchingScreen extends StatelessWidget {
@@ -12,12 +13,8 @@ class LaunchingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LaunchingScreenCubit, LaunchingScreenState>(
-      listener: (context, state) {
-        if (state is StartingApp) {
-          var route = state.route;
-          Navigator.pushNamedAndRemoveUntil(context, route, (route) => false);
-        }
-      },
+      listener: (context, state) =>
+          LaunchingScreenListener.listenToState(context, state),
       builder: (context, state) {
         return Scaffold(
           body: Center(
