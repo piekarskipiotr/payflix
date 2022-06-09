@@ -82,5 +82,7 @@
   "picking_avatar_desc" : "Pick avatar, which will represent you in the app. You can change it later.",
   "picking_avatar_header" : "Pick your avatar",
   "current_user_tag" : "(you)",
-  "initializing_app" : "Initializing the app"
+  "initializing_app" : "Initializing the app",
+  "groups" : "Groups",
+  "profile" : "Profile"
 }

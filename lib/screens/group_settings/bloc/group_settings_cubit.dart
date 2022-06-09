@@ -166,7 +166,8 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       paymentInfo: paymentInfo,
       accessData: accessData,
       inviteInfo: inviteInfo,
-      users: [uid]
+      users: [uid],
+      groupType: GroupType.netflix,
     );
 
     return group.toJson();

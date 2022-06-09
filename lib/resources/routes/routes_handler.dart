@@ -6,6 +6,8 @@ import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_cubit.dart';
 import 'package:payflix/screens/group_settings/ui/group_settings.dart';
+import 'package:payflix/screens/home/bloc/home_cubit.dart';
+import 'package:payflix/screens/home/ui/home.dart';
 import 'package:payflix/screens/launching_screen/bloc/launching_screen_cubit.dart';
 import 'package:payflix/screens/launching_screen/ui/launching_screen.dart';
 import 'package:payflix/screens/login/bloc/login_cubit.dart';
@@ -84,6 +86,14 @@ class RoutesHandler {
           BlocProvider(
             create: (_) => getIt<MembersCubit>(),
             child: const Members(),
+          ),
+          settings: settings,
+        );
+      case AppRoutes.home:
+        return buildRoute(
+          BlocProvider(
+            create: (_) => getIt<HomeCubit>(),
+            child: const Home(),
           ),
           settings: settings,
         );

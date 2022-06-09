@@ -99,7 +99,7 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
         }
 
         var doesUserIsInGroup = await _firestoreRepo.doesUserHasAGroup(docReference: uid);
-        route = doesUserIsInGroup ? AppRoutes.members : AppRoutes.welcome;
+        route = doesUserIsInGroup ? AppRoutes.home : AppRoutes.welcome;
       } else {
         await _authRepo.instance().signOut();
         route = AppRoutes.login;

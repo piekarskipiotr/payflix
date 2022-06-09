@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/access_data.dart';
 import 'package:payflix/data/model/invite_info.dart';
 import 'package:payflix/data/model/payment_info.dart';
@@ -18,11 +19,15 @@ class Group {
 
   List<String>? users;
 
+  @JsonKey(name: 'group_type')
+  GroupType groupType;
+
   Group({
     required this.paymentInfo,
     required this.accessData,
     required this.inviteInfo,
     required this.users,
+    required this.groupType,
   });
 
   String getGroupId() => inviteInfo.groupId;
@@ -36,6 +41,7 @@ class Group {
         accessData: AccessData.fromJson(json["access_data"]),
         inviteInfo: InviteInfo.fromJson(json["invite_info"]),
         users: (json['users'] as List<dynamic>).map((e) => e as String).toList(),
+        groupType: GroupTypeHelper.getGroupTypeByCode(json["group_type"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,5 +49,6 @@ class Group {
         "access_data": accessData.toJson(),
         "invite_info": inviteInfo.toJson(),
         "users": users,
+        "group_type": GroupTypeHelper.getCodeByGroupType(groupType),
       };
 }

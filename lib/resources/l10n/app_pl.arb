@@ -82,5 +82,7 @@
   "picking_avatar_desc" : "Wybierz awatar, który będzie reprezentować twoje konto w aplikacji. Możesz go później zmienić.",
   "picking_avatar_header" : "Wybierz swój awatar",
   "current_user_tag" : "(ty)",
-  "initializing_app" : "Inicjalizuję aplikację"
+  "initializing_app" : "Inicjalizuję aplikację",
+  "groups" : "Grupy",
+  "profile" : "Profil"
 }

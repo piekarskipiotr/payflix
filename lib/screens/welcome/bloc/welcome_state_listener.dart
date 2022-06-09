@@ -7,7 +7,7 @@ class WelcomeStateListener {
     if (state is NavigateToGroup) {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        AppRoutes.members,
+        AppRoutes.home,
         (route) => false,
         arguments: state.group
       );

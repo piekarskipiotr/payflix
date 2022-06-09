@@ -6,4 +6,5 @@ class AppRoutes {
   static const welcome = '/welcome';
   static const groupSettings = '/group_settings';
   static const members = '/members';
+  static const home = '/home';
 }

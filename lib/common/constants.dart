@@ -26,6 +26,13 @@ const lottieSuccess2 = 'assets/lottie/success_2.json';
 const lottieFailure = 'assets/lottie/failure.json';
 const lottieEmailVerify = 'assets/lottie/mail_message.json';
 
+// video on demand platforms
+const netflixLogo = 'assets/vod/nflix.png';
+const hboLogo = 'assets/vod/hmax.png';
+const primeLogo = 'assets/vod/pvideo.png';
+const disneyLogo = 'assets/vod/dplus.png';
+const huluLogo = 'assets/vod/hulu.png';
+
 // firebase names
 const groupsCollectionName = 'groups';
 const usersCollectionName = 'users';
