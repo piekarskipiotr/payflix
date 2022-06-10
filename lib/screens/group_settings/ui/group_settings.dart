@@ -369,15 +369,11 @@ class GroupSettings extends StatelessWidget {
                                                     ? context
                                                         .read<
                                                             GroupSettingsCubit>()
-                                                        .createGroup(
-                                                          GroupType.netflix,
-                                                        )
+                                                        .createGroup()
                                                     : context
                                                         .read<
                                                             GroupSettingsCubit>()
-                                                        .saveSettings(
-                                                          GroupType.netflix,
-                                                        );
+                                                        .saveSettings();
                                               }
                                             }
                                           : null,

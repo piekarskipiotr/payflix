@@ -20,11 +20,13 @@ class Members extends StatefulWidget {
 }
 
 class _MembersState extends State<Members> {
+  late Group? group;
+
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () async {
-      var group = ModalRoute.of(context)!.settings.arguments as Group?;
+      group = ModalRoute.of(context)!.settings.arguments as Group?;
       await context.read<MembersCubit>().initialize(group);
     });
   }
@@ -82,7 +84,9 @@ class _MembersState extends State<Members> {
 
                       return Container(
                         decoration: BoxDecoration(
-                          gradient: top <= 56.0 ? AppTheme.appBarGradientExperimental : null,
+                          gradient: top <= 56.0
+                              ? AppTheme.appBarGradientExperimental
+                              : null,
                         ),
                         child: FlexibleSpaceBar(
                           expandedTitleScale: 2.44,
@@ -127,7 +131,9 @@ class _MembersState extends State<Members> {
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
                               return index == 0
-                                  ? const InviteCard()
+                                  ? InviteCard(
+                                      groupType: group!.groupType,
+                                    )
                                   : MemberCard(
                                       user: members[index - 1],
                                     );

@@ -129,7 +129,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
 
   void setPassword(String? password) => _password = password;
 
-  Future<void> saveSettings(GroupType groupType) async {
+  Future<void> saveSettings() async {
     emit(SavingSettings());
     try {
       var userId = _authRepo.getUID();
@@ -137,8 +137,9 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
         throw 'user-id-not-found';
       }
 
+      var groupType = getVod();
       var groupId = _generateGroupId(userId, groupType);
-      var groupData = await _generateGroupData(userId);
+      var groupData = await _generateGroupData(userId, groupType);
       await _firestoreRepo.updateGroupData(
           docReference: groupId, data: groupData);
 
@@ -148,7 +149,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
     }
   }
 
-  Future<void> createGroup(GroupType groupType) async {
+  Future<void> createGroup() async {
     emit(CreatingGroup());
     try {
       var userId = _authRepo.getUID();
@@ -156,8 +157,9 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
         throw 'user-id-not-found';
       }
 
+      var groupType = getVod();
       var groupId = _generateGroupId(userId, groupType);
-      var groupData = await _generateGroupData(userId);
+      var groupData = await _generateGroupData(userId, groupType);
 
       await _firestoreRepo.setGroupData(docReference: groupId, data: groupData);
       await _firestoreRepo.updateUserData(
@@ -202,7 +204,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   String _generateGroupId(String userId, GroupType groupType) =>
       '${userId}_${groupType.codeName}';
 
-  Future<Map<String, dynamic>> _generateGroupData(String uid) async {
+  Future<Map<String, dynamic>> _generateGroupData(String uid, GroupType groupType) async {
     var paymentInfo = PaymentInfo(
       monthlyPayment: _monthlyPayment!,
       dayOfTheMonth: _dayOfTheMonth!,
@@ -213,14 +215,15 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       password: _password,
     );
 
-    var inviteInfo = await _createInviteLink(groupType: GroupType.netflix);
+
+    var inviteInfo = await _createInviteLink(groupType: groupType);
 
     var group = Group(
       paymentInfo: paymentInfo,
       accessData: accessData,
       inviteInfo: inviteInfo,
       users: [uid],
-      groupType: GroupType.netflix,
+      groupType: groupType,
     );
 
     return group.toJson();

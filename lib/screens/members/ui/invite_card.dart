@@ -10,7 +10,8 @@ import 'package:payflix/screens/members/bloc/invite_dialog_cubit.dart';
 import 'package:payflix/screens/members/ui/invite_dialog.dart';
 
 class InviteCard extends StatelessWidget {
-  const InviteCard({Key? key}) : super(key: key);
+  final GroupType groupType;
+  const InviteCard({Key? key, required this.groupType,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class InviteCard extends StatelessWidget {
           BlocProvider(
             create: (_) => getIt<InviteDialogCubit>()
               ..getInviteLink(
-                groupType: GroupType.netflix,
+                groupType: groupType,
               ),
             child: const InviteDialog(),
           ),

@@ -84,7 +84,7 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
       }
     } else {
       var uid = _authRepo.getUID();
-      var groupId = '${uid}_${GroupType.netflix.codeName}';
+      var groupId = '${uid}_${groupType.codeName}';
 
       var group = await _firestoreRepo.getGroupData(docReference: groupId);
       await invitesBox.put(inviteInfoKey, group.inviteInfo);
