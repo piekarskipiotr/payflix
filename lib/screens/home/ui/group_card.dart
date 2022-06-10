@@ -21,7 +21,11 @@ class GroupCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           24.0,
         ),
-        onTap: () => Navigator.pushNamed(context, AppRoutes.members),
+        onTap: () => Navigator.pushNamed(
+          context,
+          AppRoutes.members,
+          arguments: group,
+        ),
         child: SizedBox(
           height: 162.0,
           width: 162.0,
