@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
-import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
 import 'package:payflix/screens/home/ui/group_card.dart';
 import 'package:payflix/screens/picking_vod_dialog/ui/picking_vod_dialog.dart';
+import 'package:payflix/widgets/app_bar_with_fixed_title.dart';
 
 class Groups extends StatelessWidget {
   const Groups({Key? key}) : super(key: key);
@@ -18,54 +18,30 @@ class Groups extends StatelessWidget {
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
       slivers: [
-        SliverAppBar(
-          pinned: true,
-          elevation: 0.0,
-          expandedHeight: 200.0,
-          backgroundColor: Colors.transparent,
-          actions: [
-            IconButton(
-              onPressed: () => AppDialogController.showBottomSheetDialog(
-                context,
-                BlocProvider.value(
-                  value: context.read<HomeCubit>().getVodDialogCubit(),
-                  child: const PickingVodDialog(),
-                ),
-              ),
-              icon: const Icon(
-                Icons.add,
-              ),
-            ),
-          ],
-          flexibleSpace: LayoutBuilder(
-            builder: (context, constraints) {
-              var top = constraints.biggest.height;
-
-              return Container(
-                decoration: BoxDecoration(
-                  gradient:
-                      top <= 56.0 ? AppTheme.appBarGradientExperimental : null,
-                ),
-                child: FlexibleSpaceBar(
-                  expandedTitleScale: 2.44,
-                  centerTitle: false,
-                  titlePadding: const EdgeInsets.only(
-                    left: 15.0,
-                    right: 15.0,
-                    bottom: 13.0,
-                  ),
-                  title: Text(
-                    getString(context).groups,
-                    textAlign: TextAlign.left,
-                    style: GoogleFonts.oxygen(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.creamWhite,
-                    ),
+        BlocProvider.value(
+          value: context.read<HomeCubit>(),
+          child: AppBarWithFixedTitle(
+            title: getString(context).groups,
+            actions: [
+              IconButton(
+                onPressed: () => AppDialogController.showBottomSheetDialog(
+                  context,
+                  BlocProvider.value(
+                    value: context.read<HomeCubit>().getVodDialogCubit(),
+                    child: const PickingVodDialog(),
                   ),
                 ),
-              );
-            },
+                icon: const Icon(
+                  Icons.add,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.qr_code,
+                ),
+              ),
+            ],
           ),
         ),
         SliverPadding(

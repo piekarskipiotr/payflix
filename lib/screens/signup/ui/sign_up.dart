@@ -5,13 +5,14 @@ import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/validators/sign_up_validation.dart';
 import 'package:payflix/di/get_it.dart';
-import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/signup/bloc/signup_cubit.dart';
 import 'package:payflix/screens/signup/bloc/signup_state.dart';
 import 'package:payflix/screens/signup/bloc/signup_state_listener.dart';
 import 'package:payflix/screens/picking_avatar_dialog/ui/picking_avatar_dialog.dart';
+import 'package:payflix/widgets/app_bar_with_moved_title/bloc/app_bar_cubit.dart';
+import 'package:payflix/widgets/app_bar_with_moved_title/ui/app_bar_with_moved_title.dart';
 import 'package:payflix/widgets/blur_container.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,60 +53,12 @@ class SignUp extends StatelessWidget {
               CustomScrollView(
                 physics: const BouncingScrollPhysics(),
                 slivers: [
-                  SliverAppBar(
-                    pinned: true,
-                    elevation: 0.0,
-                    expandedHeight: 200.0,
-                    backgroundColor: Colors.transparent,
-                    title: AnimatedOpacity(
-                      duration: const Duration(milliseconds: 300),
-                      opacity: context.watch<SignUpCubit>().showRegularTitle()
-                          ? 1.0
-                          : 0.0,
-                      child: Text(
-                        getString(context).signup,
-                        maxLines: 1,
-                        style: GoogleFonts.oxygen(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.creamWhite,
-                        ),
-                      ),
+                  BlocProvider.value(
+                    value: getIt<AppBarCubit>(),
+                    child: AppBarWithMovedTitle(
+                      title: getString(context).signup,
+                      actions: null,
                     ),
-                    flexibleSpace:
-                        LayoutBuilder(builder: (context, constraints) {
-                      var top = constraints.biggest.height;
-                      context.read<SignUpCubit>().handleTitle(top);
-
-                      return Container(
-                        decoration: BoxDecoration(
-                          gradient: top <= 56.0
-                              ? AppTheme.appBarGradientExperimental
-                              : null,
-                        ),
-                        child: FlexibleSpaceBar(
-                          centerTitle: false,
-                          titlePadding: const EdgeInsets.only(
-                            left: 15.0,
-                            right: 15.0,
-                            bottom: 13.0,
-                          ),
-                          title: AnimatedOpacity(
-                            duration: const Duration(milliseconds: 300),
-                            opacity: top > minTitleTopValue + 10.0 ? 1.0 : 0.0,
-                            child: Text(
-                              getString(context).signup,
-                              textAlign: TextAlign.left,
-                              style: GoogleFonts.oxygen(
-                                fontSize: 28.0,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.creamWhite,
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
                   ),
                   SliverFillRemaining(
                     hasScrollBody: false,

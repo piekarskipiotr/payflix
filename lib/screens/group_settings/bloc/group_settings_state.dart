@@ -53,16 +53,6 @@ class PasswordVisibilityChanged extends GroupSettingsState {
   String toString() => runtimeType.toString();
 }
 
-class ChangingVisibilityOfRegularTitle extends GroupSettingsState {
-  @override
-  String toString() => runtimeType.toString();
-}
-
-class VisibilityOfRegularTitleChanged extends GroupSettingsState {
-  @override
-  String toString() => runtimeType.toString();
-}
-
 class ChangingVod extends GroupSettingsState {
   @override
   String toString() => runtimeType.toString();

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
-import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/group.dart';
-import 'package:payflix/resources/app_theme.dart';
+import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
@@ -12,6 +11,8 @@ import 'package:payflix/screens/members/bloc/members_state.dart';
 import 'package:payflix/screens/members/ui/invite_card.dart';
 import 'package:payflix/screens/members/ui/member_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:payflix/widgets/app_bar_with_moved_title/bloc/app_bar_cubit.dart';
+import 'package:payflix/widgets/app_bar_with_moved_title/ui/app_bar_with_moved_title.dart';
 
 class Members extends StatefulWidget {
   const Members({Key? key}) : super(key: key);
@@ -51,56 +52,28 @@ class _MembersState extends State<Members> {
             CustomScrollView(
               physics: const BouncingScrollPhysics(),
               slivers: [
-                SliverAppBar(
-                  pinned: true,
-                  elevation: 0.0,
-                  expandedHeight: 200.0,
-                  backgroundColor: Colors.transparent,
-                  actions: [
-                    IconButton(
-                      onPressed: () => Navigator.pushNamed(
-                        context,
-                        AppRoutes.groupSettings,
-                        arguments: [
-                          false,
-                          context.read<MembersCubit>().getGroup()
-                        ],
-                      ),
-                      icon: const Icon(
-                        Icons.settings,
-                      ),
-                    )
+                MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(value: getIt<AppBarCubit>()),
+                    BlocProvider.value(value: context.read<MembersCubit>()),
                   ],
-                  flexibleSpace: LayoutBuilder(
-                    builder: (context, constraints) {
-                      var top = constraints.biggest.height;
-
-                      return Container(
-                        decoration: BoxDecoration(
-                          gradient: top <= 56.0
-                              ? AppTheme.appBarGradientExperimental
-                              : null,
+                  child: AppBarWithMovedTitle(
+                    title: getString(context).members,
+                    actions: [
+                      IconButton(
+                        onPressed: () => Navigator.pushNamed(
+                          context,
+                          AppRoutes.groupSettings,
+                          arguments: [
+                            false,
+                            context.read<MembersCubit>().getGroup()
+                          ],
                         ),
-                        child: FlexibleSpaceBar(
-                          expandedTitleScale: 2.44,
-                          centerTitle: false,
-                          titlePadding: const EdgeInsets.only(
-                            left: 15.0,
-                            right: 15.0,
-                            bottom: 13.0,
-                          ),
-                          title: Text(
-                            '${group!.groupType.vodName}\n${getString(context).members}',
-                            textAlign: TextAlign.left,
-                            style: GoogleFonts.oxygen(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.creamWhite,
-                            ),
-                          ),
+                        icon: const Icon(
+                          Icons.settings,
                         ),
-                      );
-                    },
+                      )
+                    ],
                   ),
                 ),
                 SliverPadding(
@@ -113,6 +86,11 @@ class _MembersState extends State<Members> {
                     builder: (context, state) {
                       if (state is FetchingMembersSucceeded) {
                         var members = state.members;
+                        members.add(members[0]);
+                        members.add(members[0]);
+                        members.add(members[0]);
+                        members.add(members[0]);
+                        members.add(members[0]);
 
                         return SliverGrid(
                           gridDelegate:

@@ -8,6 +8,7 @@ import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/welcome/bloc/welcome_cubit.dart';
 import 'package:payflix/screens/welcome/bloc/welcome_state.dart';
 import 'package:payflix/screens/welcome/bloc/welcome_state_listener.dart';
+import 'package:payflix/widgets/app_bar_with_fixed_title.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:payflix/widgets/secondary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,27 +44,9 @@ class Welcome extends StatelessWidget {
               CustomScrollView(
                 physics: const NeverScrollableScrollPhysics(),
                 slivers: [
-                  SliverAppBar(
-                    elevation: 0.0,
-                    expandedHeight: 250.0,
-                    backgroundColor: Colors.transparent,
-                    flexibleSpace: FlexibleSpaceBar(
-                      centerTitle: false,
-                      titlePadding: const EdgeInsets.only(
-                        left: 15.0,
-                        right: 15.0,
-                        bottom: 13.0,
-                      ),
-                      title: Text(
-                        getString(context).welcome,
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.oxygen(
-                          fontSize: 28.0,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.creamWhite,
-                        ),
-                      ),
-                    ),
+                  AppBarWithFixedTitle(
+                    title: getString(context).welcome,
+                    actions: null,
                   ),
                   SliverFillRemaining(
                     hasScrollBody: false,

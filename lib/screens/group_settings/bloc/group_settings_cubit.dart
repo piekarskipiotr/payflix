@@ -31,7 +31,6 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   String? _emailID;
   String? _password;
   bool _isPasswordObscure = true;
-  bool _showRegularTitle = false;
   GroupType? _groupType;
 
   GroupSettingsCubit(
@@ -88,20 +87,6 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   GroupType getVod() => _groupType!;
 
   bool isPasswordVisible() => _isPasswordObscure;
-
-  bool showRegularTitle() => _showRegularTitle;
-
-  void handleTitle(double top) {
-    if (top < regularTitleTopValue - 5.0 && !showRegularTitle()) {
-      emit(ChangingVisibilityOfRegularTitle());
-      _showRegularTitle = true;
-      emit(VisibilityOfRegularTitleChanged());
-    } else if (top > regularTitleTopValue && showRegularTitle()) {
-      emit(ChangingVisibilityOfRegularTitle());
-      _showRegularTitle = false;
-      emit(VisibilityOfRegularTitleChanged());
-    }
-  }
 
   void changePasswordVisibility() {
     emit(ChangingPasswordVisibility());
