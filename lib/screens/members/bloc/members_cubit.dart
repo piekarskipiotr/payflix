@@ -27,19 +27,21 @@ class MembersCubit extends Cubit<MembersState> {
   }
 
   Future initialize(Group? group) async {
-    emit(InitializingGroup());
-    if (group == null) {
-      var uid = _authRepo.getUID();
-      var user = await _firestoreRepository.getUserData(docReference: uid!);
-      if (user.groups.isNotEmpty) {
-        group = await _firestoreRepository.getGroupData(
-            docReference: user.groups.first);
-        await initialize(group);
+    if (_group == null) {
+      emit(InitializingGroup());
+      if (group == null) {
+        var uid = _authRepo.getUID();
+        var user = await _firestoreRepository.getUserData(docReference: uid!);
+        if (user.groups.isNotEmpty) {
+          group = await _firestoreRepository.getGroupData(
+              docReference: user.groups.first);
+          await initialize(group);
+        }
+      } else {
+        log('group: ${group.toString()}');
+        _group = group;
+        await _fetchMembers(_group!);
       }
-    } else {
-      log('group: ${group.toString()}');
-      _group = group;
-      await _fetchMembers(_group!);
     }
   }
 

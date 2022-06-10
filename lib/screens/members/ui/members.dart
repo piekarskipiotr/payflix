@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
@@ -20,19 +21,11 @@ class Members extends StatefulWidget {
 }
 
 class _MembersState extends State<Members> {
-  late Group? group;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration.zero, () async {
-      group = ModalRoute.of(context)!.settings.arguments as Group?;
-      await context.read<MembersCubit>().initialize(group);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final group = ModalRoute.of(context)!.settings.arguments as Group?;
+    context.read<MembersCubit>().initialize(group);
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -97,7 +90,7 @@ class _MembersState extends State<Members> {
                             bottom: 13.0,
                           ),
                           title: Text(
-                            getString(context).members,
+                            '${group!.groupType.vodName}\n${getString(context).members}',
                             textAlign: TextAlign.left,
                             style: GoogleFonts.oxygen(
                               fontSize: 18.0,
