@@ -59,9 +59,7 @@ class SignUp extends StatelessWidget {
                     backgroundColor: Colors.transparent,
                     title: AnimatedOpacity(
                       duration: const Duration(milliseconds: 300),
-                      opacity: context
-                          .watch<SignUpCubit>()
-                          .showRegularTitle()
+                      opacity: context.watch<SignUpCubit>().showRegularTitle()
                           ? 1.0
                           : 0.0,
                       child: Text(
@@ -74,39 +72,40 @@ class SignUp extends StatelessWidget {
                         ),
                       ),
                     ),
-                    flexibleSpace: LayoutBuilder(
-                      builder: (context, constraints) {
-                        var top = constraints.biggest.height;
-                        context.read<SignUpCubit>().handleTitle(top);
+                    flexibleSpace:
+                        LayoutBuilder(builder: (context, constraints) {
+                      var top = constraints.biggest.height;
+                      context.read<SignUpCubit>().handleTitle(top);
 
-                        return Container(
-                          decoration: BoxDecoration(
-                            gradient: top <= 56.0 ? AppTheme.appBarGradientExperimental : null,
+                      return Container(
+                        decoration: BoxDecoration(
+                          gradient: top <= 56.0
+                              ? AppTheme.appBarGradientExperimental
+                              : null,
+                        ),
+                        child: FlexibleSpaceBar(
+                          centerTitle: false,
+                          titlePadding: const EdgeInsets.only(
+                            left: 15.0,
+                            right: 15.0,
+                            bottom: 13.0,
                           ),
-                          child: FlexibleSpaceBar(
-                            centerTitle: false,
-                            titlePadding: const EdgeInsets.only(
-                              left: 15.0,
-                              right: 15.0,
-                              bottom: 13.0,
-                            ),
-                            title: AnimatedOpacity(
-                              duration: const Duration(milliseconds: 300),
-                              opacity: top > minTitleTopValue + 10.0 ? 1.0 : 0.0,
-                              child: Text(
-                                getString(context).signup,
-                                textAlign: TextAlign.left,
-                                style: GoogleFonts.oxygen(
-                                  fontSize: 28.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.creamWhite,
-                                ),
+                          title: AnimatedOpacity(
+                            duration: const Duration(milliseconds: 300),
+                            opacity: top > minTitleTopValue + 10.0 ? 1.0 : 0.0,
+                            child: Text(
+                              getString(context).signup,
+                              textAlign: TextAlign.left,
+                              style: GoogleFonts.oxygen(
+                                fontSize: 28.0,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.creamWhite,
                               ),
                             ),
                           ),
-                        );
-                      }
-                    ),
+                        ),
+                      );
+                    }),
                   ),
                   SliverFillRemaining(
                     hasScrollBody: false,
@@ -161,47 +160,49 @@ class SignUp extends StatelessWidget {
                                                   child: Material(
                                                     color: Colors.transparent,
                                                     child: InkWell(
-                                                        child: avatar == null
-                                                            ? Center(
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                              .all(
-                                                                          5.0),
-                                                                  child: Text(
-                                                                    getString(
-                                                                            context)
-                                                                        .tap_to_choose,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: GoogleFonts
-                                                                        .oxygen(
-                                                                      fontSize:
-                                                                          10.0,
-                                                                      color: AppColors
-                                                                          .black,
-                                                                    ),
+                                                      child: avatar == null
+                                                          ? Center(
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        5.0),
+                                                                child: Text(
+                                                                  getString(
+                                                                          context)
+                                                                      .tap_to_choose,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style:
+                                                                      GoogleFonts
+                                                                          .oxygen(
+                                                                    fontSize:
+                                                                        10.0,
+                                                                    color: AppColors
+                                                                        .black,
                                                                   ),
                                                                 ),
-                                                              )
-                                                            : null,
-                                                        onTap: () {
-                                                          FocusScope.of(context)
-                                                              .unfocus();
-                                                          AppDialogController
-                                                              .showBottomSheetDialog(
-                                                            context,
-                                                            BlocProvider.value(
-                                                              value: context
-                                                                  .read<
-                                                                      SignUpCubit>()
-                                                                  .getDialogCubit(),
-                                                              child:
-                                                                  const PickingAvatarDialog(),
-                                                            ),
-                                                          );
-                                                        }),
+                                                              ),
+                                                            )
+                                                          : null,
+                                                      onTap: () {
+                                                        FocusScope.of(context)
+                                                            .unfocus();
+                                                        AppDialogController
+                                                            .showBottomSheetDialog(
+                                                          context,
+                                                          BlocProvider.value(
+                                                            value: context
+                                                                .read<
+                                                                    SignUpCubit>()
+                                                                .getDialogCubit(),
+                                                            child:
+                                                                const PickingAvatarDialog(),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
                                                   ),
                                                 ),
                                               ],

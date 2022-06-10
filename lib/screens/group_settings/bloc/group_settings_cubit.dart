@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,12 +15,17 @@ import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/dynamic_links_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_state.dart';
+import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_cubit.dart';
+import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_state.dart';
 
 @injectable
 class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   final AuthRepository _authRepo;
   final FirestoreRepository _firestoreRepo;
   final DynamicLinksRepository _dynamicLinksRepo;
+  final PickingVodDialogCubit _pickingVodDialogCubit;
+  late StreamSubscription _pickingVodDialogCubitSubscription;
+
 
   double? _monthlyPayment;
   int? _dayOfTheMonth;
@@ -27,12 +33,41 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   String? _password;
   bool _isPasswordObscure = true;
   bool _showRegularTitle = false;
+  GroupType? _groupType;
 
   GroupSettingsCubit(
     this._authRepo,
     this._firestoreRepo,
-    this._dynamicLinksRepo,
-  ) : super(InitGroupSettingsState());
+    this._dynamicLinksRepo, this._pickingVodDialogCubit,
+  ) : super(InitGroupSettingsState()) {
+    _pickingVodDialogCubitSubscription = _pickingVodDialogCubit.stream.listen(
+          (state) {
+        if (state is VodPicked) {
+          emit(ChangingVod());
+          var vod = state.groupType;
+          _groupType = vod;
+          emit(VodChanged());
+        }
+      },
+    );
+  }
+
+
+  void initializeVod(dynamic arg) {
+    if (_groupType == null) {
+      if (arg is GroupType) {
+        _groupType = arg;
+      } else if (arg is Group) {
+        _groupType = arg.groupType;
+      }
+
+      getVodDialogCubit().pickVod(_groupType!);
+    }
+  }
+
+  PickingVodDialogCubit getVodDialogCubit() => _pickingVodDialogCubit;
+
+  GroupType getVod() => _groupType!;
 
   bool isPasswordVisible() => _isPasswordObscure;
 
@@ -43,7 +78,6 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       emit(ChangingVisibilityOfRegularTitle());
       _showRegularTitle = true;
       emit(VisibilityOfRegularTitleChanged());
-
     } else if (top > regularTitleTopValue && showRegularTitle()) {
       emit(ChangingVisibilityOfRegularTitle());
       _showRegularTitle = false;
@@ -87,7 +121,8 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
 
       var groupId = _generateGroupId(userId, groupType);
       var groupData = await _generateGroupData(userId);
-      await _firestoreRepo.updateGroupData(docReference: groupId, data: groupData);
+      await _firestoreRepo.updateGroupData(
+          docReference: groupId, data: groupData);
 
       emit(CreatingGroupSucceeded());
     } catch (e) {
@@ -171,6 +206,12 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
     );
 
     return group.toJson();
+  }
+
+  @override
+  Future<void> close() async {
+    await _pickingVodDialogCubitSubscription.cancel();
+    return super.close();
   }
 
   @override

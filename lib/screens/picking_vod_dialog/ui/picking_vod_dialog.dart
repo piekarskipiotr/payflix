@@ -50,10 +50,8 @@ class PickingVodDialog extends StatelessWidget {
               ),
               child: BlocBuilder<PickingVodDialogCubit, PickingVodDialogState>(
                 builder: (context, state) {
-                  GroupType? selectedVod;
-                  if (state is VodPicked) {
-                    selectedVod = state.groupType;
-                  }
+                  final selectedVod = context
+                      .read<PickingVodDialogCubit>().getPickedVod();
 
                   return GridView(
                     shrinkWrap: true,

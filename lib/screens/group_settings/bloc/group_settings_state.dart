@@ -62,3 +62,13 @@ class VisibilityOfRegularTitleChanged extends GroupSettingsState {
   @override
   String toString() => runtimeType.toString();
 }
+
+class ChangingVod extends GroupSettingsState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class VodChanged extends GroupSettingsState {
+  @override
+  String toString() => runtimeType.toString();
+}

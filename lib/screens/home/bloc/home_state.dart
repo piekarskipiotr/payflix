@@ -1,4 +1,4 @@
-import 'package:payflix/data/model/group.dart';
+import 'package:payflix/data/enum/group_type.dart';
 
 abstract class HomeState {}
 
@@ -13,15 +13,25 @@ class FetchingGroups extends HomeState {
 }
 
 class FetchingGroupsSucceeded extends HomeState {
-  List<Group> groups;
-
-  FetchingGroupsSucceeded(this.groups);
-
-  @override
+    @override
   String toString() => runtimeType.toString();
 }
 
 class FetchingGroupsFailed extends HomeState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class VodSelected extends HomeState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class NavigateToGroupCreator extends HomeState {
+  final GroupType groupType;
+
+  NavigateToGroupCreator(this.groupType);
+
   @override
   String toString() => runtimeType.toString();
 }

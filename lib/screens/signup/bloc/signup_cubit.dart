@@ -16,8 +16,8 @@ import 'package:payflix/screens/signup/bloc/signup_state.dart';
 class SignUpCubit extends Cubit<SignupState> {
   final AuthRepository _authRepo;
   final FirestoreRepository _firestoreRepo;
-  final PickingAvatarDialogCubit _pickingAvatarDialogBloc;
-  late StreamSubscription _pickingAvatarDialogBlocSubscription;
+  final PickingAvatarDialogCubit _pickingAvatarDialogCubit;
+  late StreamSubscription _pickingAvatarDialogCubitSubscription;
 
   bool _tcppStatus = false;
   int? _avatarID;
@@ -29,21 +29,21 @@ class SignUpCubit extends Cubit<SignupState> {
   bool _showRegularTitle = false;
 
   SignUpCubit(
-      this._authRepo, this._firestoreRepo, this._pickingAvatarDialogBloc)
+      this._authRepo, this._firestoreRepo, this._pickingAvatarDialogCubit)
       : super(InitSignupState()) {
-    _pickingAvatarDialogBlocSubscription =
-        _pickingAvatarDialogBloc.stream.listen((state) {
+    _pickingAvatarDialogCubitSubscription =
+        _pickingAvatarDialogCubit.stream.listen((state) {
       if (state is AvatarPicked) {
         emit(ChangingAvatar());
         _avatarID = state.avatarID;
-        avatar = _pickingAvatarDialogBloc.getAvatars()[state.avatarID];
-        color = _pickingAvatarDialogBloc.getColors()[state.avatarID];
+        avatar = _pickingAvatarDialogCubit.getAvatars()[state.avatarID];
+        color = _pickingAvatarDialogCubit.getColors()[state.avatarID];
         emit(AvatarChanged());
       }
     });
   }
 
-  PickingAvatarDialogCubit getDialogCubit() => _pickingAvatarDialogBloc;
+  PickingAvatarDialogCubit getDialogCubit() => _pickingAvatarDialogCubit;
 
   bool isTCPPAccepted() => _tcppStatus;
 
@@ -121,7 +121,7 @@ class SignUpCubit extends Cubit<SignupState> {
 
   @override
   Future<void> close() async {
-    await _pickingAvatarDialogBlocSubscription.cancel();
+    await _pickingAvatarDialogCubitSubscription.cancel();
     return super.close();
   }
 

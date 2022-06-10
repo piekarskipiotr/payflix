@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/validators/group_settings_validation.dart';
 import 'package:payflix/data/enum/group_type.dart';
@@ -11,6 +14,7 @@ import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_cubit.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_state.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_state_listener.dart';
+import 'package:payflix/screens/picking_vod_dialog/ui/picking_vod_dialog.dart';
 import 'package:payflix/widgets/blur_container.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +28,8 @@ class GroupSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as List<dynamic>;
     final bool isGroupCreator = args[0];
-    final Group? group = args[1];
+    final Group? group = isGroupCreator ? null : args[1];
+    context.read<GroupSettingsCubit>().initializeVod(args[1]);
 
     return BlocListener<GroupSettingsCubit, GroupSettingsState>(
       listener: (context, state) =>
@@ -59,17 +64,55 @@ class GroupSettings extends StatelessWidget {
                     elevation: 0.0,
                     expandedHeight: 200.0,
                     backgroundColor: Colors.transparent,
+                    actions: [
+                      IconButton(
+                        onPressed: group == null
+                            ? () => AppDialogController.showBottomSheetDialog(
+                                  context,
+                                  BlocProvider.value(
+                                    value: context
+                                        .read<GroupSettingsCubit>()
+                                        .getVodDialogCubit(),
+                                    child: const PickingVodDialog(),
+                                  ),
+                                )
+                            : null,
+                        iconSize: 38.0,
+                        icon: Material(
+                          elevation: 0,
+                          clipBehavior: Clip.hardEdge,
+                          color: AppColors.containerBlack,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(
+                              16.0,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Center(
+                              child: Image.asset(
+                                context
+                                    .read<GroupSettingsCubit>()
+                                    .getVod()
+                                    .logo,
+                                width: 38.0,
+                                height: 38.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                     title: AnimatedOpacity(
                       duration: const Duration(milliseconds: 300),
-                      opacity: context
-                          .watch<GroupSettingsCubit>()
-                          .showRegularTitle()
-                          ? 1.0
-                          : 0.0,
+                      opacity:
+                          context.watch<GroupSettingsCubit>().showRegularTitle()
+                              ? 1.0
+                              : 0.0,
                       child: Text(
                         (isGroupCreator
-                            ? getString(context).create_group
-                            : getString(context).group_settings)
+                                ? getString(context).create_group
+                                : getString(context).group_settings)
                             .replaceAll('\n', ' '),
                         maxLines: 1,
                         style: GoogleFonts.oxygen(
@@ -86,7 +129,9 @@ class GroupSettings extends StatelessWidget {
 
                         return Container(
                           decoration: BoxDecoration(
-                            gradient: top <= 56.0 ? AppTheme.appBarGradientExperimental : null,
+                            gradient: top <= 56.0
+                                ? AppTheme.appBarGradientExperimental
+                                : null,
                           ),
                           child: FlexibleSpaceBar(
                             centerTitle: false,
@@ -97,7 +142,8 @@ class GroupSettings extends StatelessWidget {
                             ),
                             title: AnimatedOpacity(
                               duration: const Duration(milliseconds: 300),
-                              opacity: top > regularTitleTopValue + 10.0 ? 1.0 : 0.0,
+                              opacity:
+                                  top > regularTitleTopValue + 10.0 ? 1.0 : 0.0,
                               child: Text(
                                 isGroupCreator
                                     ? getString(context).create_group

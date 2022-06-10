@@ -20,6 +20,8 @@ class PickingVodDialogCubit extends Cubit<PickingVodDialogState> {
     emit(VodPicked(groupType));
   }
 
+  void clearPick() => _groupType = null;
+
   @override
   void onChange(Change<PickingVodDialogState> change) {
     log('$change', name: '$runtimeType');

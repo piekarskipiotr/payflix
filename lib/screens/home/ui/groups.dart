@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
 import 'package:payflix/screens/home/ui/group_card.dart';
+import 'package:payflix/screens/picking_vod_dialog/ui/picking_vod_dialog.dart';
 
 class Groups extends StatelessWidget {
   const Groups({Key? key}) : super(key: key);
@@ -23,7 +25,13 @@ class Groups extends StatelessWidget {
           backgroundColor: Colors.transparent,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () => AppDialogController.showBottomSheetDialog(
+                context,
+                BlocProvider.value(
+                  value: context.read<HomeCubit>().getVodDialogCubit(),
+                  child: const PickingVodDialog(),
+                ),
+              ),
               icon: const Icon(
                 Icons.add,
               ),
@@ -68,30 +76,14 @@ class Groups extends StatelessWidget {
           ),
           sliver: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
-              if (state is FetchingGroupsSucceeded) {
-                var groups = state.groups;
-
-                return SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 25.0,
-                    crossAxisSpacing: 25.0,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) => GroupCard(
-                      group: groups[index],
-                    ),
-                    childCount: groups.length,
-                  ),
-                );
-              } else if (state is FetchingGroups) {
+              if (state is FetchingGroups) {
                 return const SliverFillRemaining(
                   hasScrollBody: false,
                   child: Center(
                     child: CircularProgressIndicator(),
                   ),
                 );
-              } else {
+              } else if (state is FetchingGroupsFailed) {
                 return SliverFillRemaining(
                   hasScrollBody: false,
                   child: Center(
@@ -105,6 +97,22 @@ class Groups extends StatelessWidget {
                         letterSpacing: 0.2,
                       ),
                     ),
+                  ),
+                );
+              } else {
+                var groups = context.read<HomeCubit>().getFetchedGroups();
+
+                return SliverGrid(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 25.0,
+                    crossAxisSpacing: 25.0,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                        (context, index) => GroupCard(
+                      group: groups[index],
+                    ),
+                    childCount: groups.length,
                   ),
                 );
               }
