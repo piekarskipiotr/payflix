@@ -50,20 +50,20 @@ class PickingVodDialog extends StatelessWidget {
               ),
               child: BlocBuilder<PickingVodDialogCubit, PickingVodDialogState>(
                 builder: (context, state) {
-                  final selectedVod = context
-                      .read<PickingVodDialogCubit>().getPickedVod();
+                  final selectedVod =
+                      context.read<PickingVodDialogCubit>().getPickedVod();
 
                   return GridView(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       mainAxisSpacing: 35.0,
                       crossAxisSpacing: 35.0,
                     ),
                     children: [
-                      for (var vod in vods)
+                      for (var vod in vods) ...[
                         Material(
                           elevation: 0,
                           clipBehavior: Clip.hardEdge,
@@ -71,12 +71,16 @@ class PickingVodDialog extends StatelessWidget {
                           color: AppColors.creamWhite,
                           child: Padding(
                             padding:
-                            EdgeInsets.all(vod == selectedVod ? 4.0 : 0.0),
+                                EdgeInsets.all(vod == selectedVod ? 4.0 : 0.0),
                             child: Material(
                               elevation: 0,
                               clipBehavior: Clip.hardEdge,
                               type: MaterialType.circle,
-                              color: AppColors.containerBlack,
+                              color: context
+                                      .read<PickingVodDialogCubit>()
+                                      .doesUserHasVodGroupAlready(vod)
+                                  ? AppColors.containerBlack.withOpacity(0.6)
+                                  : AppColors.containerBlack,
                               child: Stack(
                                 children: [
                                   Padding(
@@ -84,6 +88,13 @@ class PickingVodDialog extends StatelessWidget {
                                     child: Center(
                                       child: Image.asset(
                                         vod.logo,
+                                        color: context
+                                                .read<PickingVodDialogCubit>()
+                                                .doesUserHasVodGroupAlready(vod)
+                                            ? AppColors.creamWhite
+                                                .withOpacity(0.4)
+                                            : null,
+                                        colorBlendMode: BlendMode.modulate,
                                       ),
                                     ),
                                   ),
@@ -91,19 +102,36 @@ class PickingVodDialog extends StatelessWidget {
                                     child: Material(
                                       color: Colors.transparent,
                                       child: InkWell(
-                                        child: vod == selectedVod
+                                        child: context
+                                                .read<PickingVodDialogCubit>()
+                                                .doesUserHasVodGroupAlready(vod)
                                             ? Container(
-                                          alignment: Alignment.center,
-                                          child: const Icon(
-                                            Icons.done,
-                                            size: 36.0,
-                                            color: AppColors.creamWhite,
-                                          ),
-                                        )
-                                            : null,
-                                        onTap: () => context
-                                            .read<PickingVodDialogCubit>()
-                                            .pickVod(vod),
+                                                alignment: Alignment.center,
+                                                child: Icon(
+                                                  Icons.lock_person,
+                                                  size: 36.0,
+                                                  color: AppColors.creamWhite
+                                                      .withOpacity(0.6),
+                                                ),
+                                              )
+                                            : (vod == selectedVod
+                                                ? Container(
+                                                    alignment: Alignment.center,
+                                                    child: const Icon(
+                                                      Icons.done,
+                                                      size: 36.0,
+                                                      color:
+                                                          AppColors.creamWhite,
+                                                    ),
+                                                  )
+                                                : null),
+                                        onTap: context
+                                                .read<PickingVodDialogCubit>()
+                                                .doesUserHasVodGroupAlready(vod)
+                                            ? null
+                                            : () => context
+                                                .read<PickingVodDialogCubit>()
+                                                .pickVod(vod),
                                       ),
                                     ),
                                   ),
@@ -112,6 +140,7 @@ class PickingVodDialog extends StatelessWidget {
                             ),
                           ),
                         ),
+                      ],
                     ],
                   );
                 },

@@ -35,7 +35,7 @@ class Groups extends StatelessWidget {
               icon: const Icon(
                 Icons.add,
               ),
-            )
+            ),
           ],
           flexibleSpace: LayoutBuilder(
             builder: (context, constraints) {

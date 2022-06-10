@@ -66,6 +66,7 @@ class HomeCubit extends Cubit<HomeState> {
         _groups.add(groupData);
       }
 
+      getVodDialogCubit().setUserGroup(_groups);
       emit(FetchingGroupsSucceeded());
     } else {
       emit(FetchingGroupsFailed());

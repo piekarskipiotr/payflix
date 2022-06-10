@@ -26,7 +26,6 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   final PickingVodDialogCubit _pickingVodDialogCubit;
   late StreamSubscription _pickingVodDialogCubitSubscription;
 
-
   double? _monthlyPayment;
   int? _dayOfTheMonth;
   String? _emailID;
@@ -40,6 +39,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
     this._firestoreRepo,
     this._dynamicLinksRepo, this._pickingVodDialogCubit,
   ) : super(InitGroupSettingsState()) {
+    getGroups();
     _pickingVodDialogCubitSubscription = _pickingVodDialogCubit.stream.listen(
           (state) {
         if (state is VodPicked) {
@@ -52,7 +52,6 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
     );
   }
 
-
   void initializeVod(dynamic arg) {
     if (_groupType == null) {
       if (arg is GroupType) {
@@ -62,6 +61,25 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       }
 
       getVodDialogCubit().pickVod(_groupType!);
+    }
+  }
+
+  Future getGroups() async {
+    var user = _authRepo.instance().currentUser;
+    var groups = List<Group>.empty(growable: true);
+
+    if (user != null) {
+      var uid = user.uid;
+      var userData = await _firestoreRepo.getUserData(docReference: uid);
+      var userGroups = userData.groups;
+
+      for (var id in userGroups) {
+        var groupData =
+        await _firestoreRepo.getGroupData(docReference: id);
+        groups.add(groupData);
+      }
+
+      getVodDialogCubit().setUserGroup(groups);
     }
   }
 
