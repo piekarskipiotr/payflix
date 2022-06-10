@@ -84,5 +84,6 @@
   "current_user_tag" : "(ty)",
   "initializing_app" : "Inicjalizuję aplikację",
   "groups" : "Grupy",
-  "profile" : "Profil"
+  "profile" : "Profil",
+  "picking_vod_header" : "Wybierz platformę VOD grupy"
 }
