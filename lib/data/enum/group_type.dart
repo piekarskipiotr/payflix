@@ -16,9 +16,9 @@ extension GroupTypeExtension on GroupType {
       case GroupType.hboMax:
         return 'HBO Max';
       case GroupType.primeVideo:
-        return 'Prime Video';
+        return 'Prime Vid.';
       case GroupType.disneyPlus:
-        return 'Dinsey+';
+        return 'Disney+';
       case GroupType.hulu:
         return 'Hulu';
     }

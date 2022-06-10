@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
@@ -58,7 +59,8 @@ class _MembersState extends State<Members> {
                     BlocProvider.value(value: context.read<MembersCubit>()),
                   ],
                   child: AppBarWithMovedTitle(
-                    title: getString(context).members,
+                    title:
+                        '${group?.groupType.vodName}\n${getString(context).members}',
                     actions: [
                       IconButton(
                         onPressed: () => Navigator.pushNamed(
@@ -86,11 +88,6 @@ class _MembersState extends State<Members> {
                     builder: (context, state) {
                       if (state is FetchingMembersSucceeded) {
                         var members = state.members;
-                        members.add(members[0]);
-                        members.add(members[0]);
-                        members.add(members[0]);
-                        members.add(members[0]);
-                        members.add(members[0]);
 
                         return SliverGrid(
                           gridDelegate:
