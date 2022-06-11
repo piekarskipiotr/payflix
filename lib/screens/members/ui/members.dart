@@ -25,7 +25,7 @@ class Members extends StatefulWidget {
 class _MembersState extends State<Members> {
   @override
   Widget build(BuildContext context) {
-    final group = ModalRoute.of(context)!.settings.arguments as Group?;
+    final group = ModalRoute.of(context)!.settings.arguments as Group;
     context.read<MembersCubit>().initialize(group);
 
     return Scaffold(
@@ -60,7 +60,7 @@ class _MembersState extends State<Members> {
                   ],
                   child: AppBarWithMovedTitle(
                     title:
-                        '${group?.groupType.vodName}\n${getString(context).members}',
+                        '${group.groupType.vodName}\n${getString(context).members}',
                     actions: [
                       IconButton(
                         onPressed: () => Navigator.pushNamed(
@@ -100,7 +100,7 @@ class _MembersState extends State<Members> {
                             (context, index) {
                               return index == 0
                                   ? InviteCard(
-                                      groupType: group!.groupType,
+                                      groupType: group.groupType,
                                     )
                                   : MemberCard(
                                       user: members[index - 1],
