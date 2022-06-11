@@ -30,7 +30,7 @@ class RoutesHandler {
       case AppRoutes.launch:
         return buildRoute(
           BlocProvider.value(
-            value: getIt<LaunchingScreenCubit>()..initialize(),
+            value: getIt<LaunchingScreenCubit>(),
             child: const LaunchingScreen(),
           ),
           settings: settings,

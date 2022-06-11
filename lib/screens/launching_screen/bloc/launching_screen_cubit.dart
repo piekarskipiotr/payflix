@@ -19,6 +19,8 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
   LaunchingScreenCubit(
       this._authRepo, this._firestoreRepo, this._dynamicLinksRepo)
       : super(InitLaunchingScreenState()) {
+    _initialize();
+
     _dynamicLinksRepo.instance().onLink.listen((dynamicLinkData) async {
       emit(ReceivingLink());
       var link = dynamicLinkData.link;
@@ -72,7 +74,7 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
 
   Future _saveDynamicLink(Uri link) async => await invitesBox.put(dynamicLinkKey, link);
 
-  Future initialize() async {
+  Future _initialize() async {
     emit(CheckingUserData());
     var initialLink = await _dynamicLinksRepo.instance().getInitialLink();
 
@@ -110,12 +112,6 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
       route = AppRoutes.login;
     }
 
-    /*
-    this await Future delayed is cuz there is case that app emit this state
-    when app isn't launched yet???? and cubit listener won't respond to that
-    emit
-     */
-    await Future.delayed(const Duration(milliseconds: 30));
     emit(StartingApp(route));
   }
 
