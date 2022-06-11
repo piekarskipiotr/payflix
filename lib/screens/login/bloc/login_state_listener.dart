@@ -31,11 +31,18 @@ class LoginStateListener {
           child: const PickingAvatarDialog(),
         ),
       );
-    } else if (state is LoggingInSucceeded ||
-        state is LoggingInWithGoogleAccountSucceeded) {
+    } else if (state is LoggingInSucceeded) {
+      var route = state.doesUserHasGroup ? AppRoutes.home : AppRoutes.welcome;
       Navigator.pushNamedAndRemoveUntil(
         context,
-        AppRoutes.welcome,
+        route,
+        (route) => false,
+      );
+    } else if (state is LoggingInWithGoogleAccountSucceeded) {
+      var route = state.doesUserHasGroup ? AppRoutes.home : AppRoutes.welcome;
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        route,
         (route) => false,
       );
     } else if (state is NavigateToEmailVerificationRoom) {

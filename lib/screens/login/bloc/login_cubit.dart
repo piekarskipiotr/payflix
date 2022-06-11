@@ -31,7 +31,7 @@ class LoginCubit extends Cubit<LoginState> {
             avatarID = state.avatarID;
             var user = _authRepo.instance().currentUser;
             _createUserData(user!);
-            emit(LoggingInWithGoogleAccountSucceeded());
+            emit(LoggingInWithGoogleAccountSucceeded(false));
           }
         });
   }
@@ -56,14 +56,32 @@ class LoginCubit extends Cubit<LoginState> {
             password: _password!,
           );
 
-      emit(credential.user!.emailVerified
-          ? LoggingInSucceeded()
-          : NavigateToEmailVerificationRoom());
+      if (credential.user!.emailVerified) {
+        await _onLoggingInSucceeded('form');
+      } else {
+        emit(NavigateToEmailVerificationRoom());
+      }
     } on FirebaseAuthException catch (e) {
       emit(LoggingInFailed(e.code));
     } catch (e) {
       emit(LoggingInFailed(e as String?));
     }
+  }
+
+  Future<void> _onLoggingInSucceeded(String loginForm) async {
+    var uid = _authRepo.getUID();
+    var doesUserHasGroup = await _firestoreRepository.doesUserHasAGroup
+      (docReference: uid!);
+
+    switch (loginForm) {
+      case 'form':
+        emit(LoggingInSucceeded(doesUserHasGroup));
+        break;
+      case 'google':
+        emit(LoggingInWithGoogleAccountSucceeded(doesUserHasGroup));
+        break;
+    }
+
   }
 
   Future<void> authenticateUserByGoogleAccount() async {
@@ -85,7 +103,7 @@ class LoginCubit extends Cubit<LoginState> {
         if (!await _firestoreRepository.doesUserExist(docReference: user.uid)) {
           emit(SignInWithGoogleAccountSucceeded());
         } else {
-          emit(LoggingInWithGoogleAccountSucceeded());
+          await _onLoggingInSucceeded('google');
         }
 
       } else {

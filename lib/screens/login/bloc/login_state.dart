@@ -16,6 +16,10 @@ class LoggingIn extends LoginState {
 }
 
 class LoggingInSucceeded extends LoginState {
+  final bool doesUserHasGroup;
+
+  LoggingInSucceeded(this.doesUserHasGroup);
+
   @override
   String toString() => runtimeType.toString();
 }
@@ -40,6 +44,10 @@ class LoggingInWithGoogleAccount extends LoginState {
 }
 
 class LoggingInWithGoogleAccountSucceeded extends LoginState {
+  final bool doesUserHasGroup;
+
+  LoggingInWithGoogleAccountSucceeded(this.doesUserHasGroup);
+
   @override
   String toString() => runtimeType.toString();
 }
