@@ -52,14 +52,14 @@ class Groups extends StatelessWidget {
           ),
           sliver: BlocBuilder<HomeCubit, HomeState>(
             builder: (context, state) {
-              if (state is FetchingGroups) {
+              if (state is FetchingData) {
                 return const SliverFillRemaining(
                   hasScrollBody: false,
                   child: Center(
                     child: CircularProgressIndicator(),
                   ),
                 );
-              } else if (state is FetchingGroupsFailed) {
+              } else if (state is FetchingDataFailed) {
                 return SliverFillRemaining(
                   hasScrollBody: false,
                   child: Center(
@@ -76,7 +76,7 @@ class Groups extends StatelessWidget {
                   ),
                 );
               } else {
-                var groups = context.read<HomeCubit>().getFetchedGroups();
+                var groups = context.read<HomeCubit>().getGroups();
 
                 return SliverGrid(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

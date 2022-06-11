@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
           top: true,
           bottom: true,
           child: BlocProvider.value(
-            value: context.read<HomeCubit>()..fetchPageData(_pageIndex),
+            value: context.read<HomeCubit>(),
             child: _pages[_pageIndex],
           ),
         ),

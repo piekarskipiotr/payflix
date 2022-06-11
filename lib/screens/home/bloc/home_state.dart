@@ -7,17 +7,17 @@ class InitHomeState extends HomeState {
   String toString() => runtimeType.toString();
 }
 
-class FetchingGroups extends HomeState {
+class FetchingData extends HomeState {
   @override
   String toString() => runtimeType.toString();
 }
 
-class FetchingGroupsSucceeded extends HomeState {
+class FetchingDataSucceeded extends HomeState {
     @override
   String toString() => runtimeType.toString();
 }
 
-class FetchingGroupsFailed extends HomeState {
+class FetchingDataFailed extends HomeState {
   @override
   String toString() => runtimeType.toString();
 }

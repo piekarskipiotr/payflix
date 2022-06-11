@@ -85,5 +85,25 @@
   "initializing_app" : "Initializing the app",
   "groups" : "Groups",
   "profile" : "Profile",
-  "picking_vod_header" : "Pick group VOD platform"
+  "picking_vod_header" : "Pick group VOD platform",
+  "edit_profile" : "Edit profile",
+  "manage_account" : "Manage account",
+  "change_password" : "Change password",
+  "app_latest_information" : "App information - {version} update from {date}",
+  "@app_latest_information": {
+    "description": "App latest information header, pass version and date of release",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "change_log" : "Change log",
+  "support" : "Support",
+  "acknowledgments" : "Acknowledgments",
+  "others" : "Others",
+  "delete_account" : "Delete account"
 }

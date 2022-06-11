@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/model/group.dart';
+import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
+import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
 import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_cubit.dart';
 import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_state.dart';
@@ -16,12 +20,29 @@ class HomeCubit extends Cubit<HomeState> {
   final FirestoreRepository _firestoreRepository;
   final PickingVodDialogCubit _pickingVodDialogCubit;
   late StreamSubscription _pickingVodDialogCubitSubscription;
+  final _avatars = [
+    avatar1,
+    avatar2,
+    avatar3,
+    avatar4,
+    avatar5,
+  ];
+
+  final _colors = [
+    AppColors.primary,
+    Colors.greenAccent,
+    Colors.blue,
+    Colors.orange,
+    Colors.pink,
+  ];
 
   final _groups = List<Group>.empty(growable: true);
+  PayflixUser? _payflixUser;
 
   HomeCubit(
       this._authRepo, this._firestoreRepository, this._pickingVodDialogCubit)
       : super(InitHomeState()) {
+    fetchData();
     _pickingVodDialogCubitSubscription = _pickingVodDialogCubit.stream.listen(
       (state) {
         if (state is VodPicked) {
@@ -35,30 +56,25 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  List<Group> getFetchedGroups() => _groups;
+  List<Group> getGroups() => _groups;
+
+  PayflixUser? getPayflixUser() => _payflixUser;
+
+  String getAvatar(int index) => _avatars[index];
+
+  Color getColor(int index) => _colors[index];
 
   PickingVodDialogCubit getVodDialogCubit() => _pickingVodDialogCubit;
 
-  Future fetchPageData(int pageIndex) async {
-    switch (pageIndex) {
-      case 0:
-        await getGroups();
-        break;
-      case 1:
-        await getUserProfile();
-        break;
-    }
-  }
-
-  Future getGroups() async {
-    emit(FetchingGroups());
+  Future fetchData() async {
+    emit(FetchingData());
     _groups.clear();
     var user = _authRepo.instance().currentUser;
 
     if (user != null) {
       var uid = user.uid;
-      var userData = await _firestoreRepository.getUserData(docReference: uid);
-      var userGroups = userData.groups;
+      _payflixUser = await _firestoreRepository.getUserData(docReference: uid);
+      var userGroups = _payflixUser!.groups;
 
       for (var id in userGroups) {
         var groupData =
@@ -67,13 +83,11 @@ class HomeCubit extends Cubit<HomeState> {
       }
 
       getVodDialogCubit().setUserGroup(_groups);
-      emit(FetchingGroupsSucceeded());
+      emit(FetchingDataSucceeded());
     } else {
-      emit(FetchingGroupsFailed());
+      emit(FetchingDataFailed());
     }
   }
-
-  Future getUserProfile() async {}
 
   @override
   Future<void> close() async {

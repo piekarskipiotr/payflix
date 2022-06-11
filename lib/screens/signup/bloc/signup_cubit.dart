@@ -70,9 +70,8 @@ class SignUpCubit extends Cubit<SignupState> {
               );
 
       var user = credential.user!;
-      var uid = user.uid;
 
-      await _createUserData(uid, _avatarID!, _profileName!);
+      await _createUserData(user);
       await user.updateDisplayName(_profileName);
       await user.sendEmailVerification();
 
@@ -84,18 +83,17 @@ class SignUpCubit extends Cubit<SignupState> {
     }
   }
 
-  Future<void> _createUserData(
-      String uid, int avatarID, String profileName) async {
-    var userData = _generateUserData(uid, avatarID, profileName);
-    await _firestoreRepo.setUserData(docReference: uid, data: userData);
+  Future<void> _createUserData(User user) async {
+    var userData = _generateUserData(user);
+    await _firestoreRepo.setUserData(docReference: user.uid, data: userData);
   }
 
-  Map<String, dynamic> _generateUserData(
-      String uid, int avatarID, String profileName) {
+  Map<String, dynamic> _generateUserData(User user) {
     var userInfo = PayflixUser(
-      uid,
-      avatarID,
-      profileName,
+      user.uid,
+      user.email!,
+      _avatarID!,
+      _profileName!,
       List.empty(),
     );
 

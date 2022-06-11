@@ -138,6 +138,7 @@ class LoginCubit extends Cubit<LoginState> {
   Map<String, dynamic> _generateUserData(User user) {
     var userInfo = PayflixUser(
       user.uid,
+      user.email!,
       avatarID,
       user.displayName!,
       List.empty(),

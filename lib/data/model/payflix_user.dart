@@ -7,6 +7,9 @@ class PayflixUser {
   @JsonKey(name: 'id')
   String id;
 
+  @JsonKey(name: 'address_email')
+  String email;
+
   @JsonKey(name: 'avatar_id')
   int avatarID;
 
@@ -19,7 +22,13 @@ class PayflixUser {
   @JsonKey(ignore: true)
   bool? isCurrentUser;
 
-  PayflixUser(this.id, this.avatarID, this.displayName, this.groups);
+  PayflixUser(
+    this.id,
+    this.email,
+    this.avatarID,
+    this.displayName,
+    this.groups,
+  );
 
   factory PayflixUser.fromJson(Map<String, dynamic> json) =>
       _$PayflixUserFromJson(json);
