@@ -71,7 +71,7 @@ class PickingAvatarDialog extends StatelessWidget {
                           elevation: 0,
                           clipBehavior: Clip.hardEdge,
                           type: MaterialType.circle,
-                          color: AppColors.creamWhite,
+                          color: colors[index],
                           child: Padding(
                             padding:
                                 EdgeInsets.all(index == selectedId ? 4.0 : 0.0),
