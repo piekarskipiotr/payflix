@@ -66,6 +66,12 @@ class HomeCubit extends Cubit<HomeState> {
 
   PickingVodDialogCubit getVodDialogCubit() => _pickingVodDialogCubit;
 
+  Future logOut() async {
+    emit(LoggingOut());
+    await _authRepo.instance().signOut();
+    emit(LoggingOutCompleted());
+  }
+
   Future fetchData() async {
     emit(FetchingData());
     _groups.clear();

@@ -270,7 +270,7 @@ class Profile extends StatelessWidget {
                         height: 15.0,
                       ),
                       ListTile(
-                        onTap: () {},
+                        onTap: () => context.read<HomeCubit>().logOut(),
                         contentPadding: const EdgeInsets.only(left: 25.0),
                         title: Text(
                           getString(context).log_out,

@@ -27,6 +27,16 @@ class VodSelected extends HomeState {
   String toString() => runtimeType.toString();
 }
 
+class LoggingOut extends HomeState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class LoggingOutCompleted extends HomeState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
 class NavigateToGroupCreator extends HomeState {
   final GroupType groupType;
 

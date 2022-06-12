@@ -13,6 +13,12 @@ class HomeCubitListener {
         AppRoutes.groupSettings,
         arguments: [true, vod],
       );
+    } else if (state is LoggingOutCompleted) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutes.login,
+        (route) => false,
+      );
     }
   }
 }
