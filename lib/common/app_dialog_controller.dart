@@ -6,9 +6,7 @@ import 'package:payflix/resources/colors/app_colors.dart';
 class AppDialogController {
   static showSnackBar(BuildContext context, SnackBar snackBar) {
     ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      snackBar
-    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   static showFullScreenDialog(BuildContext context, Widget dialog) {
@@ -21,6 +19,7 @@ class AppDialogController {
     showModalBottomSheet(
       context: context,
       clipBehavior: Clip.antiAlias,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(34.0),

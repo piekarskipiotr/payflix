@@ -18,6 +18,7 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       decoration: BoxDecoration(
         gradient: onClick == null && !isLoading ? AppTheme.disabledButtonGradient : AppTheme.buttonGradient,
         borderRadius: AppTheme.buttonBorderRadius,

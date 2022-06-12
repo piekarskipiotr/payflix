@@ -26,6 +26,7 @@ class SecondaryButton extends StatelessWidget {
       inkWell: true,
       onTap: isLoading ? null : onClick,
       child: Container(
+        width: double.infinity,
         constraints: const BoxConstraints(
           minWidth: 110.0,
         ),

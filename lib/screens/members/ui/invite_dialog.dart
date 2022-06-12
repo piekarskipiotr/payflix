@@ -99,27 +99,19 @@ class InviteDialog extends StatelessWidget {
               const SizedBox(
                 height: 80.0,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: SecondaryButton(
-                      text: getString(context).cancel,
-                      isLoading: false,
-                      onClick: () => Navigator.pop(context),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 25.0,
-                  ),
-                  Expanded(
-                    child: PrimaryButton(
-                      text: getString(context).show_qr,
-                      onClick: () =>
-                          context.read<InviteDialogCubit>().changeView(),
-                      isLoading: false,
-                    ),
-                  ),
-                ],
+              PrimaryButton(
+                text: getString(context).show_qr,
+                onClick: () =>
+                    context.read<InviteDialogCubit>().changeView(),
+                isLoading: false,
+              ),
+              const SizedBox(
+                height: 18.0,
+              ),
+              SecondaryButton(
+                text: getString(context).cancel,
+                isLoading: false,
+                onClick: () => Navigator.pop(context),
               ),
             ],
           ),
@@ -146,38 +138,30 @@ class InviteDialog extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 20.0,
+                height: 40.0,
               ),
               QrImage(
                 data: 'https://github.com/piekarskipiotr/',
                 version: QrVersions.auto,
-                size: 200.0,
+                size: 256.0,
                 backgroundColor: AppColors.creamWhite,
               ),
               const SizedBox(
-                height: 40.0,
+                height: 60.0,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: SecondaryButton(
-                      text: getString(context).back,
-                      isLoading: false,
-                      onClick: () =>
-                          context.read<InviteDialogCubit>().changeView(),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 25.0,
-                  ),
-                  Expanded(
-                    child: PrimaryButton(
-                      text: getString(context).share,
-                      onClick: () {},
-                      isLoading: false,
-                    ),
-                  ),
-                ],
+              PrimaryButton(
+                text: getString(context).share,
+                onClick: () {},
+                isLoading: false,
+              ),
+              const SizedBox(
+                height: 18.0,
+              ),
+              SecondaryButton(
+                text: getString(context).back,
+                isLoading: false,
+                onClick: () =>
+                    context.read<InviteDialogCubit>().changeView(),
               ),
             ],
           ),
