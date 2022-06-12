@@ -86,7 +86,7 @@
   "groups" : "Groups",
   "profile" : "Profile",
   "picking_vod_header" : "Pick group VOD platform",
-  "edit_profile" : "Edit profile",
+  "edit_profile" : "Edit",
   "manage_account" : "Manage account",
   "change_password" : "Change password",
   "app_latest_information" : "App information - {version} update from {date}",
