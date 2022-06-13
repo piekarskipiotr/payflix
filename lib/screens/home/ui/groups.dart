@@ -85,8 +85,11 @@ class Groups extends StatelessWidget {
                     crossAxisSpacing: 25.0,
                   ),
                   delegate: SliverChildBuilderDelegate(
-                        (context, index) => GroupCard(
+                    (context, index) => GroupCard(
                       group: groups[index],
+                      isAdmin: context.read<HomeCubit>().isUserGroupAdmin(
+                            groups[index],
+                          ),
                     ),
                     childCount: groups.length,
                   ),

@@ -10,8 +10,9 @@ import 'package:payflix/resources/routes/app_routes.dart';
 
 class GroupCard extends StatelessWidget {
   final Group group;
+  final bool isAdmin;
 
-  const GroupCard({Key? key, required this.group}) : super(key: key);
+  const GroupCard({Key? key, required this.group, required this.isAdmin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +92,28 @@ class GroupCard extends StatelessWidget {
                         ),
                       ),
                     ),
+                    if (isAdmin) ...[
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withOpacity(0.7),
+                            borderRadius: BorderRadius.circular(
+                              12.0,
+                            ),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.only(
+                              left: 9.0,
+                              top: 4.0,
+                              right: 9.0,
+                              bottom: 4.0,
+                            ),
+                            child: Text('Admin'),
+                          ),
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),

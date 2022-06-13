@@ -58,6 +58,15 @@ class HomeCubit extends Cubit<HomeState> {
 
   List<Group> getGroups() => _groups;
 
+  bool isUserGroupAdmin(Group group) {
+    var uid = _authRepo.getUID();
+    var groupId = group.getGroupId();
+    var indexOfSuffix = groupId.indexOf('_');
+    var pureGroupId = groupId.substring(0, indexOfSuffix);
+
+    return uid == pureGroupId;
+  }
+
   PayflixUser? getPayflixUser() => _payflixUser;
 
   String getAvatar(int index) => _avatars[index];
