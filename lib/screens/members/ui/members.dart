@@ -104,6 +104,9 @@ class _MembersState extends State<Members> {
                                     )
                                   : MemberCard(
                                       user: members[index - 1],
+                                      isCurrentUser: context
+                                          .read<MembersCubit>()
+                                          .isCurrentUser(members[index - 1]),
                                     );
                             },
                             childCount: members.length + 1,

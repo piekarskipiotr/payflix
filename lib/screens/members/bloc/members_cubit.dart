@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/data/model/group.dart';
+import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/screens/members/bloc/members_state.dart';
@@ -15,6 +16,8 @@ class MembersCubit extends Cubit<MembersState> {
 
   MembersCubit(this._authRepo, this._firestoreRepository)
       : super(InitMembersState());
+
+  bool isCurrentUser(PayflixUser user) => _authRepo.getUID() == user.id;
 
   Future _fetchMembers(Group group) async {
     emit(FetchingMembers());

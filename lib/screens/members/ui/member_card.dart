@@ -10,8 +10,10 @@ import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 
 class MemberCard extends StatelessWidget {
   final PayflixUser user;
+  final bool isCurrentUser;
 
-  const MemberCard({Key? key, required this.user}) : super(key: key);
+  const MemberCard({Key? key, required this.user, required this.isCurrentUser})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +81,7 @@ class MemberCard extends StatelessWidget {
                             bottom: 15.0,
                           ),
                           child: Text(
-                            '${user.displayName} ${user.isCurrentUser! ? getString(context).current_user_tag : ''}',
+                            user.displayName,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
@@ -93,6 +95,28 @@ class MemberCard extends StatelessWidget {
                         ),
                       ),
                     ),
+                    if (isCurrentUser) ...[
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.green.withOpacity(0.7),
+                            borderRadius: BorderRadius.circular(
+                              12.0,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 9.0,
+                              top: 4.0,
+                              right: 9.0,
+                              bottom: 4.0,
+                            ),
+                            child: Text(getString(context).current_user_tag),
+                          ),
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
