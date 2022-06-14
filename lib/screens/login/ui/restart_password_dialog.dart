@@ -70,35 +70,27 @@ class RestartPasswordDialog extends StatelessWidget {
               const SizedBox(
                 height: 80.0,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: SecondaryButton(
-                      text: getString(context).cancel,
-                      isLoading: false,
-                      onClick: () => Navigator.pop(context),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 25.0,
-                  ),
-                  Expanded(
-                    child: BlocBuilder<LoginCubit, LoginState>(
-                      builder: (context, state) {
-                        return PrimaryButton(
-                          text: getString(context).restart,
-                          onClick: () {
-                            if (formKey.currentState!.validate()) {
-                              formKey.currentState!.save();
-                              context.read<LoginCubit>().restartPassword();
-                            }
-                          },
-                          isLoading: state is SendingPasswordResetEmail,
-                        );
-                      },
-                    ),
-                  ),
-                ],
+              BlocBuilder<LoginCubit, LoginState>(
+                builder: (context, state) {
+                  return PrimaryButton(
+                    text: getString(context).restart,
+                    onClick: () {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        context.read<LoginCubit>().restartPassword();
+                      }
+                    },
+                    isLoading: state is SendingPasswordResetEmail,
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 18.0,
+              ),
+              SecondaryButton(
+                text: getString(context).cancel,
+                isLoading: false,
+                onClick: () => Navigator.pop(context),
               ),
             ],
           ),
