@@ -74,88 +74,96 @@ class Profile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                width: 15.0,
-                              ),
-                              SizedBox(
-                                width: 72.0,
-                                height: 72.0,
-                                child: Material(
-                                  elevation: 0,
-                                  clipBehavior: Clip.hardEdge,
-                                  type: MaterialType.circle,
-                                  color: context
-                                      .read<HomeCubit>()
-                                      .getColor(user.avatarID),
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 4.0,
-                                      ),
-                                      Expanded(
-                                        child: Center(
-                                          child: Image.asset(
-                                            context
-                                                .read<HomeCubit>()
-                                                .getAvatar(user.avatarID),
+                          Expanded(
+                            flex: 2,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  width: 15.0,
+                                ),
+                                SizedBox(
+                                  width: 72.0,
+                                  height: 72.0,
+                                  child: Material(
+                                    elevation: 0,
+                                    clipBehavior: Clip.hardEdge,
+                                    type: MaterialType.circle,
+                                    color: context
+                                        .read<HomeCubit>()
+                                        .getColor(user.avatarID),
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 4.0,
+                                        ),
+                                        Expanded(
+                                          child: Center(
+                                            child: Image.asset(
+                                              context
+                                                  .read<HomeCubit>()
+                                                  .getAvatar(user.avatarID),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 10.0,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 4.0,
-                                  top: 4.0,
+                                const SizedBox(
+                                  width: 10.0,
                                 ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      user.displayName,
-                                      style: GoogleFonts.oxygen(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.creamWhite,
-                                      ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 4.0,
+                                      top: 4.0,
                                     ),
-                                    const SizedBox(
-                                      height: 1.0,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          user.displayName,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.oxygen(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.creamWhite,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 1.0,
+                                        ),
+                                        Text(
+                                          user.email,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.oxygen(
+                                            fontSize: 13.0,
+                                            color: AppColors.gray,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      user.email,
-                                      style: GoogleFonts.oxygen(
-                                        fontSize: 13.0,
-                                        color: AppColors.gray,
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            width: 15.0,
-                          ),
-                          Text(
-                            getString(context).edit_profile,
-                            style: GoogleFonts.oxygen(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.primary,
+                              ],
                             ),
                           ),
-                          const SizedBox(
-                            width: 15.0,
+                          Expanded(
+                            flex: 1,
+                            child: Center(
+                              child: Text(
+                                getString(context).edit_profile,
+                                style: GoogleFonts.oxygen(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primary,
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),
