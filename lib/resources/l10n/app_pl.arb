@@ -105,5 +105,9 @@
   "support" : "Wsparcie",
   "acknowledgments" : "Podziękowania",
   "others" : "Inne",
-  "delete_account" : "Usuń konto"
+  "delete_account" : "Usuń konto",
+  "profile_user_null" : "Mamy problem z pobraniem danych Twojego profilu :(",
+  "fetching_groups_failed" : "Mamy problem z pobraniem Twoich grup :(",
+  "fetching_members_error" : "Mamy problem z pobraniem członków grupy :(",
+  "reload" : "Ponów"
 }

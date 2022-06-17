@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
-import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
 import 'package:payflix/screens/home/ui/group_card.dart';
 import 'package:payflix/screens/picking_vod_dialog/ui/picking_vod_dialog.dart';
 import 'package:payflix/widgets/app_bar_with_fixed_title.dart';
+import 'package:payflix/widgets/state_failed_view.dart';
 
 class Groups extends StatelessWidget {
   const Groups({Key? key}) : super(key: key);
@@ -62,17 +61,9 @@ class Groups extends StatelessWidget {
               } else if (state is FetchingDataFailed) {
                 return SliverFillRemaining(
                   hasScrollBody: false,
-                  child: Center(
-                    child: Text(
-                      'smth went wrong :(',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.oxygen(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.creamWhite,
-                        letterSpacing: 0.2,
-                      ),
-                    ),
+                  child: StateFailedView(
+                    text: getString(context).fetching_groups_failed,
+                    onClick: () => context.read<HomeCubit>().fetchData(),
                   ),
                 );
               } else {

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/di/get_it.dart';
-import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/members/bloc/members_cubit.dart';
@@ -14,6 +12,7 @@ import 'package:payflix/screens/members/ui/member_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/widgets/app_bar_with_moved_title/bloc/app_bar_cubit.dart';
 import 'package:payflix/widgets/app_bar_with_moved_title/ui/app_bar_with_moved_title.dart';
+import 'package:payflix/widgets/state_failed_view.dart';
 
 class Members extends StatefulWidget {
   const Members({Key? key}) : super(key: key);
@@ -123,17 +122,10 @@ class _MembersState extends State<Members> {
                       } else {
                         return SliverFillRemaining(
                           hasScrollBody: false,
-                          child: Center(
-                            child: Text(
-                              'smth went wrong :(',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.oxygen(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.creamWhite,
-                                letterSpacing: 0.2,
-                              ),
-                            ),
+                          child: StateFailedView(
+                            text: getString(context).fetching_members_error,
+                            onClick: () =>
+                                context.read<MembersCubit>().initialize(group),
                           ),
                         );
                       }

@@ -105,5 +105,9 @@
   "support" : "Support",
   "acknowledgments" : "Acknowledgments",
   "others" : "Others",
-  "delete_account" : "Delete account"
+  "delete_account" : "Delete account",
+  "profile_user_null" : "We are having problem with fetching your profile data :(",
+  "fetching_groups_failed" : "We are having problem with fetching your groups :(",
+  "fetching_members_error" : "We are having problem with fetching group members :(",
+  "reload" : "Reload"
 }

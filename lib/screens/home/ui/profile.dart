@@ -6,6 +6,7 @@ import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
 import 'package:payflix/widgets/app_bar_with_fixed_title.dart';
+import 'package:payflix/widgets/state_failed_view.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -35,33 +36,17 @@ class Profile extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               } else if (state is FetchingDataFailed) {
-                return Center(
-                  child: Text(
-                    'smth went wrong :(',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.oxygen(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.creamWhite,
-                      letterSpacing: 0.2,
-                    ),
-                  ),
+                return StateFailedView(
+                  text: getString(context).profile_user_null,
+                  onClick: () => context.read<HomeCubit>().fetchData(),
                 );
               } else {
                 var user = context.read<HomeCubit>().getPayflixUser();
 
                 if (user == null) {
-                  return Center(
-                    child: Text(
-                      'smth went wrong :(',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.oxygen(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.creamWhite,
-                        letterSpacing: 0.2,
-                      ),
-                    ),
+                  return StateFailedView(
+                    text: getString(context).profile_user_null,
+                    onClick: () => context.read<HomeCubit>().fetchData(),
                   );
                 } else {
                   return Column(
@@ -121,7 +106,8 @@ class Profile extends StatelessWidget {
                                     ),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           user.displayName,
