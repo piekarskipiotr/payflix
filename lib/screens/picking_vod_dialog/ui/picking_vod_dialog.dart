@@ -66,6 +66,7 @@ class PickingVodDialog extends StatelessWidget {
                       for (var vod in vods) ...[
                         Material(
                           elevation: 0,
+                          clipBehavior: Clip.antiAlias,
                           type: MaterialType.circle,
                           color: vod == selectedVod
                               ? AppColors.creamWhite
@@ -75,6 +76,7 @@ class PickingVodDialog extends StatelessWidget {
                                 EdgeInsets.all(vod == selectedVod ? 4.0 : 0.0),
                             child: Material(
                               elevation: 0,
+                              clipBehavior: Clip.antiAlias,
                               type: MaterialType.circle,
                               color: context
                                       .read<PickingVodDialogCubit>()

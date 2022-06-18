@@ -69,15 +69,17 @@ class PickingAvatarDialog extends StatelessWidget {
                       for (var index = 0; index < avatars.length; index++)
                         Material(
                           elevation: 0,
-                          clipBehavior: Clip.hardEdge,
+                          clipBehavior: Clip.antiAlias,
                           type: MaterialType.circle,
-                          color: colors[index],
+                          color: index == selectedId
+                              ? AppColors.creamWhite
+                              : colors[index],
                           child: Padding(
                             padding:
                                 EdgeInsets.all(index == selectedId ? 4.0 : 0.0),
                             child: Material(
                               elevation: 0,
-                              clipBehavior: Clip.hardEdge,
+                              clipBehavior: Clip.antiAlias,
                               type: MaterialType.circle,
                               color: colors[index],
                               child: Stack(
