@@ -144,7 +144,7 @@ class Profile extends StatelessWidget {
                               child: Text(
                                 getString(context).edit_profile,
                                 style: GoogleFonts.oxygen(
-                                  fontSize: 12.0,
+                                  fontSize: 13.0,
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.primary,
                                 ),

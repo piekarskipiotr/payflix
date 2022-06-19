@@ -110,7 +110,7 @@ class PickingVodDialog extends StatelessWidget {
                                             ? Container(
                                                 alignment: Alignment.center,
                                                 child: Icon(
-                                                  Icons.lock_person,
+                                                  Icons.lock,
                                                   size: 36.0,
                                                   color: AppColors.creamWhite
                                                       .withOpacity(0.6),
