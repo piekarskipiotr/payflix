@@ -70,8 +70,8 @@ class GroupSettings extends StatelessWidget {
                           ? getString(context).create_group
                           : getString(context).group_settings,
                       secondaryText: (isGroupCreator
-                          ? getString(context).create_group
-                          : getString(context).group_settings)
+                              ? getString(context).create_group
+                              : getString(context).group_settings)
                           .replaceAll('\n', ' '),
                       actions: [
                         IconButton(
@@ -291,8 +291,13 @@ class GroupSettings extends StatelessWidget {
                                                 .read<GroupSettingsCubit>()
                                                 .changePasswordVisibility(),
                                             splashRadius: 20.0,
-                                            icon: const Icon(
-                                              Icons.visibility_off,
+                                            icon: Icon(
+                                              context
+                                                      .watch<
+                                                          GroupSettingsCubit>()
+                                                      .isPasswordVisible()
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off,
                                               size: 22.0,
                                               color: AppColors.creamWhite,
                                             ),

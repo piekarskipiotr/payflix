@@ -4,7 +4,7 @@ import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
-import 'package:payflix/screens/home/ui/group_card.dart';
+import 'package:payflix/screens/home/ui/groups/group_card.dart';
 import 'package:payflix/screens/picking_vod_dialog/ui/picking_vod_dialog.dart';
 import 'package:payflix/widgets/app_bar_with_fixed_title.dart';
 import 'package:payflix/widgets/state_failed_view.dart';
@@ -37,7 +37,7 @@ class Groups extends StatelessWidget {
               IconButton(
                 onPressed: () {},
                 icon: const Icon(
-                  Icons.qr_code,
+                  Icons.qr_code_scanner,
                 ),
               ),
             ],

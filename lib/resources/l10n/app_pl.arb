@@ -109,5 +109,13 @@
   "profile_user_null" : "Mamy problem z pobraniem danych Twojego profilu :(",
   "fetching_groups_failed" : "Mamy problem z pobraniem Twoich grup :(",
   "fetching_members_error" : "Mamy problem z pobraniem członków grupy :(",
-  "reload" : "Ponów"
+  "reload" : "Ponów",
+  "previous_password" : "Poprzednie hasło",
+  "new_password" : "Nowe hasło",
+  "confirm_password" : "Potwierdź hasło",
+  "change" : "Zmień",
+  "password_cannot_be_same_as_previous" : "Hasło nie może być takie samo jak poprzednie",
+  "passwords_not_the_same" : "Hasło nie jest takie samo",
+  "password_changed_successfully" : "Zmiana Twojego hasła powiodła się!",
+  "wrong_previous_password" : "Aktualne hasło nie jest poprawne!"
 }

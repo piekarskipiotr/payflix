@@ -4,8 +4,8 @@ import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/bloc/home_cubit_listener.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
-import 'package:payflix/screens/home/ui/groups.dart';
-import 'package:payflix/screens/home/ui/profile.dart';
+import 'package:payflix/screens/home/ui/groups/groups.dart';
+import 'package:payflix/screens/home/ui/profile/profile.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

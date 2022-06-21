@@ -109,5 +109,13 @@
   "profile_user_null" : "We are having problem with fetching your profile data :(",
   "fetching_groups_failed" : "We are having problem with fetching your groups :(",
   "fetching_members_error" : "We are having problem with fetching group members :(",
-  "reload" : "Reload"
+  "reload" : "Reload",
+  "previous_password" : "Previous password",
+  "new_password" : "New password",
+  "confirm_password" : "Confirm password",
+  "change" : "Change",
+  "password_cannot_be_same_as_previous" : "Password can't be same as the previous",
+  "passwords_not_the_same" : "Password is not the same",
+  "password_changed_successfully" : "Password has been changed successfully!",
+  "wrong_previous_password" : "Current password is incorrect!"
 }
