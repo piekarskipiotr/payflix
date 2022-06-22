@@ -70,21 +70,14 @@ class ChangePasswordDialogCubit extends Cubit<ChangePasswordDialogState> {
         );
 
         await user.updatePassword(getNewPassword()!);
-
-        // check if update succeeded
-        await user.reauthenticateWithCredential(
-          EmailAuthProvider.credential(
-            email: user.email!,
-            password: getNewPassword()!,
-          ),
-        );
-
         emit(ChangingUserPasswordSucceeded());
       } on FirebaseAuthException catch (e) {
         emit(ChangingUserPasswordFailed(e.code));
       } catch (_) {
         emit(ChangingUserPasswordFailed('other'));
       }
+    } else {
+      emit(ChangingUserPasswordFailed('user-not-found'));
     }
   }
 

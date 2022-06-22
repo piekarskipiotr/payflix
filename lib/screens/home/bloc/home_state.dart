@@ -13,7 +13,7 @@ class FetchingData extends HomeState {
 }
 
 class FetchingDataSucceeded extends HomeState {
-    @override
+  @override
   String toString() => runtimeType.toString();
 }
 
@@ -42,6 +42,16 @@ class NavigateToGroupCreator extends HomeState {
 
   NavigateToGroupCreator(this.groupType);
 
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class RefreshingView extends HomeState {
+  @override
+  String toString() => runtimeType.toString();
+}
+
+class ViewRefreshed extends HomeState {
   @override
   String toString() => runtimeType.toString();
 }

@@ -9,6 +9,7 @@ import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
 import 'package:payflix/screens/home/ui/profile/bloc/change_password_dialog_cubit.dart';
 import 'package:payflix/screens/home/ui/profile/change_password_dialog.dart';
+import 'package:payflix/screens/home/ui/profile/edit_profile_dialog.dart';
 import 'package:payflix/widgets/app_bar_with_fixed_title.dart';
 import 'package:payflix/widgets/state_failed_view.dart';
 
@@ -46,6 +47,10 @@ class Profile extends StatelessWidget {
                     onClick: () => context.read<HomeCubit>().fetchData(),
                   );
                 } else {
+                  var color = context.read<HomeCubit>().getColor(user.avatarID);
+                  var avatar =
+                      context.read<HomeCubit>().getAvatar(user.avatarID);
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -71,9 +76,7 @@ class Profile extends StatelessWidget {
                                     elevation: 0,
                                     clipBehavior: Clip.hardEdge,
                                     type: MaterialType.circle,
-                                    color: context
-                                        .read<HomeCubit>()
-                                        .getColor(user.avatarID),
+                                    color: color,
                                     child: Column(
                                       children: [
                                         const SizedBox(
@@ -82,9 +85,7 @@ class Profile extends StatelessWidget {
                                         Expanded(
                                           child: Center(
                                             child: Image.asset(
-                                              context
-                                                  .read<HomeCubit>()
-                                                  .getAvatar(user.avatarID),
+                                              avatar,
                                             ),
                                           ),
                                         ),
@@ -138,12 +139,32 @@ class Profile extends StatelessWidget {
                           Expanded(
                             flex: 1,
                             child: Center(
-                              child: Text(
-                                getString(context).edit_profile,
-                                style: GoogleFonts.oxygen(
-                                  fontSize: 13.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.primary,
+                              child: GestureDetector(
+                                onTap: () =>
+                                    AppDialogController.showFullScreenDialog(
+                                  context,
+                                  BlocProvider.value(
+                                    value: context
+                                        .read<HomeCubit>()
+                                        .getProfileEditCubit()
+                                      ..initVariables(
+                                        avatar,
+                                        color,
+                                        user,
+                                      ),
+                                    child: EditProfileDialog(
+                                      user: user,
+                                      formKey: GlobalKey<FormState>(),
+                                    ),
+                                  ),
+                                ),
+                                child: Text(
+                                  getString(context).edit,
+                                  style: GoogleFonts.oxygen(
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary,
+                                  ),
                                 ),
                               ),
                             ),

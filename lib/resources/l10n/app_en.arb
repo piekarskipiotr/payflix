@@ -86,7 +86,8 @@
   "groups" : "Groups",
   "profile" : "Profile",
   "picking_vod_header" : "Pick group VOD platform",
-  "edit_profile" : "Edit",
+  "edit_profile" : "Edit profile",
+  "edit" : "Edit",
   "manage_account" : "Manage account",
   "change_password" : "Change password",
   "app_latest_information" : "App information - {version} update from {date}",
@@ -117,5 +118,8 @@
   "password_cannot_be_same_as_previous" : "Password can't be same as the previous",
   "passwords_not_the_same" : "Password is not the same",
   "password_changed_successfully" : "Password has been changed successfully!",
-  "wrong_previous_password" : "Current password is incorrect!"
+  "wrong_previous_password" : "Current password is incorrect!",
+  "edit_profile_email_id_info_1" : "Your current email ID is ",
+  "edit_profile_email_id_info_2" : " and Payflix doesn't allow to change it, the only way is to create new account with desire email ID",
+  "user_profile_updated_successfully" : "User profile updated successfully!"
 }

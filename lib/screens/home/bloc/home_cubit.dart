@@ -11,6 +11,8 @@ import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
+import 'package:payflix/screens/home/ui/profile/bloc/edit_profile_dialog_cubit.dart';
+import 'package:payflix/screens/home/ui/profile/bloc/edit_profile_dialog_state.dart';
 import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_cubit.dart';
 import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_state.dart';
 
@@ -20,6 +22,9 @@ class HomeCubit extends Cubit<HomeState> {
   final FirestoreRepository _firestoreRepository;
   final PickingVodDialogCubit _pickingVodDialogCubit;
   late StreamSubscription _pickingVodDialogCubitSubscription;
+  final EditProfileDialogCubit _editProfileDialogCubit;
+  late StreamSubscription _editProfileDialogCubitSubscription;
+
   final _avatars = [
     avatar1,
     avatar2,
@@ -40,9 +45,21 @@ class HomeCubit extends Cubit<HomeState> {
   PayflixUser? _payflixUser;
 
   HomeCubit(
-      this._authRepo, this._firestoreRepository, this._pickingVodDialogCubit)
-      : super(InitHomeState()) {
+    this._authRepo,
+    this._firestoreRepository,
+    this._pickingVodDialogCubit,
+    this._editProfileDialogCubit,
+  ) : super(InitHomeState()) {
     fetchData();
+
+    _editProfileDialogCubitSubscription =
+        _editProfileDialogCubit.stream.listen((state) {
+      if (state is SavingUserProfileChangesSucceeded) {
+        emit(RefreshingView());
+        emit(ViewRefreshed());
+      }
+    });
+
     _pickingVodDialogCubitSubscription = _pickingVodDialogCubit.stream.listen(
       (state) {
         if (state is VodPicked) {
@@ -74,6 +91,8 @@ class HomeCubit extends Cubit<HomeState> {
   Color getColor(int index) => _colors[index];
 
   PickingVodDialogCubit getVodDialogCubit() => _pickingVodDialogCubit;
+
+  EditProfileDialogCubit getProfileEditCubit() => _editProfileDialogCubit;
 
   Future logOut() async {
     emit(LoggingOut());
@@ -107,6 +126,7 @@ class HomeCubit extends Cubit<HomeState> {
   @override
   Future<void> close() async {
     await _pickingVodDialogCubitSubscription.cancel();
+    await _editProfileDialogCubitSubscription.cancel();
     return super.close();
   }
 
