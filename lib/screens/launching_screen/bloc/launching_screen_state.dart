@@ -1,40 +1,22 @@
-abstract class LaunchingScreenState {}
-
-class InitLaunchingScreenState extends LaunchingScreenState {
+abstract class LaunchingScreenState {
   @override
   String toString() => runtimeType.toString();
 }
+
+class InitLaunchingScreenState extends LaunchingScreenState {}
 
 class StartingApp extends LaunchingScreenState {
   final String route;
 
   StartingApp(this.route);
-
-  @override
-  String toString() => runtimeType.toString();
 }
 
-class CheckingUserData extends LaunchingScreenState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class CheckingUserData extends LaunchingScreenState {}
 
-class ReceivingLink extends LaunchingScreenState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class ReceivingLink extends LaunchingScreenState {}
 
-class AddingUserToGroup extends LaunchingScreenState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class AddingUserToGroup extends LaunchingScreenState {}
 
-class UserIsAlreadyInThisGroup extends LaunchingScreenState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class UserIsAlreadyInThisGroup extends LaunchingScreenState {}
 
-class AddingUserToGroupCompleted extends LaunchingScreenState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class AddingUserToGroupCompleted extends LaunchingScreenState {}

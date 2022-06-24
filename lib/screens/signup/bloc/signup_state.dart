@@ -1,46 +1,25 @@
-abstract class SignupState {}
-
-class InitSignupState extends SignupState {
+abstract class SignupState {
   @override
   String toString() => runtimeType.toString();
 }
+
+class InitSignupState extends SignupState {}
 
 // TCPP -> Terms and Conditions and Privacy Policy
-class ChangingTCPPStatus extends SignupState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class ChangingTCPPStatus extends SignupState {}
 
-class TCPPStatusChanged extends SignupState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class TCPPStatusChanged extends SignupState {}
 
-class ChangingAvatar extends SignupState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class ChangingAvatar extends SignupState {}
 
-class AvatarChanged extends SignupState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class AvatarChanged extends SignupState {}
 
-class SigningUp extends SignupState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class SigningUp extends SignupState {}
 
-class SigningUpSucceeded extends SignupState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class SigningUpSucceeded extends SignupState {}
 
 class SigningUpFailed extends SignupState {
   final String? error;
 
   SigningUpFailed(this.error);
-
-  @override
-  String toString() => runtimeType.toString();
 }

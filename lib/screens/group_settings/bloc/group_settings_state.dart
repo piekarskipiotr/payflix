@@ -1,64 +1,34 @@
-abstract class GroupSettingsState {}
-
-class InitGroupSettingsState extends GroupSettingsState {
+abstract class GroupSettingsState {
   @override
   String toString() => runtimeType.toString();
 }
 
-class SavingSettings extends GroupSettingsState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class InitGroupSettingsState extends GroupSettingsState {}
 
-class SavingSettingsSucceeded extends GroupSettingsState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class SavingSettings extends GroupSettingsState {}
+
+class SavingSettingsSucceeded extends GroupSettingsState {}
 
 class SavingSettingsFailed extends GroupSettingsState {
   final String? error;
 
   SavingSettingsFailed(this.error);
-
-  @override
-  String toString() => runtimeType.toString();
 }
 
-class CreatingGroup extends GroupSettingsState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class CreatingGroup extends GroupSettingsState {}
 
-class CreatingGroupSucceeded extends GroupSettingsState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class CreatingGroupSucceeded extends GroupSettingsState {}
 
 class CreatingGroupFailed extends GroupSettingsState {
   final String? error;
 
   CreatingGroupFailed(this.error);
-
-  @override
-  String toString() => runtimeType.toString();
 }
 
-class ChangingPasswordVisibility extends GroupSettingsState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class ChangingPasswordVisibility extends GroupSettingsState {}
 
-class PasswordVisibilityChanged extends GroupSettingsState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class PasswordVisibilityChanged extends GroupSettingsState {}
 
-class ChangingVod extends GroupSettingsState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class ChangingVod extends GroupSettingsState {}
 
-class VodChanged extends GroupSettingsState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class VodChanged extends GroupSettingsState {}

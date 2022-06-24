@@ -1,40 +1,22 @@
-abstract class VerRoomState {}
-
-class InitVerRoomState extends VerRoomState {
+abstract class VerRoomState {
   @override
   String toString() => runtimeType.toString();
 }
 
-class ResendingVerificationEmail extends VerRoomState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class InitVerRoomState extends VerRoomState {}
 
-class ResendingVerificationEmailSucceeded extends VerRoomState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class ResendingVerificationEmail extends VerRoomState {}
+
+class ResendingVerificationEmailSucceeded extends VerRoomState {}
 
 class ResendingVerificationEmailFailed extends VerRoomState {
   String? error;
 
   ResendingVerificationEmailFailed(this.error);
-
-  @override
-  String toString() => runtimeType.toString();
 }
 
-class EmailVerificationSucceeded extends VerRoomState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class EmailVerificationSucceeded extends VerRoomState {}
 
-class LoggingOut extends VerRoomState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class LoggingOut extends VerRoomState {}
 
-class LoggingOutFinished extends VerRoomState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class LoggingOutFinished extends VerRoomState {}

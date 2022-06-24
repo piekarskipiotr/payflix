@@ -1,17 +1,14 @@
 import 'package:payflix/data/model/group.dart';
 
-abstract class WelcomeState {}
-
-class InitWelcomeState extends WelcomeState {
+abstract class WelcomeState {
   @override
   String toString() => runtimeType.toString();
 }
+
+class InitWelcomeState extends WelcomeState {}
 
 class NavigateToGroup extends WelcomeState {
   final Group group;
 
   NavigateToGroup(this.group);
-
-  @override
-  String toString() => runtimeType.toString();
 }

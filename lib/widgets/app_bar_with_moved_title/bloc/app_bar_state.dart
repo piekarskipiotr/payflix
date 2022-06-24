@@ -1,16 +1,10 @@
-abstract class AppBarState {}
-
-class InitAppBarState extends AppBarState {
+abstract class AppBarState {
   @override
   String toString() => runtimeType.toString();
 }
 
-class ChangingVisibilityOfRegularTitle extends AppBarState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class InitAppBarState extends AppBarState {}
 
-class VisibilityOfRegularTitleChanged extends AppBarState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class ChangingVisibilityOfRegularTitle extends AppBarState {}
+
+class VisibilityOfRegularTitleChanged extends AppBarState {}

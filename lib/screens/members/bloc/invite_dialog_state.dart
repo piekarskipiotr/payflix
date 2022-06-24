@@ -1,36 +1,18 @@
-abstract class InviteDialogState {}
-
-class InitInviteDialogState extends InviteDialogState {
+abstract class InviteDialogState {
   @override
   String toString() => runtimeType.toString();
 }
 
-class ChangingDialogView extends InviteDialogState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class InitInviteDialogState extends InviteDialogState {}
 
-class DialogViewChanged extends InviteDialogState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class ChangingDialogView extends InviteDialogState {}
 
-class ChangingCopiedTextVisibility extends InviteDialogState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class DialogViewChanged extends InviteDialogState {}
 
-class CopiedTextVisibilityChanged extends InviteDialogState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class ChangingCopiedTextVisibility extends InviteDialogState {}
 
-class GettingInviteLink extends InviteDialogState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class CopiedTextVisibilityChanged extends InviteDialogState {}
 
-class GettingInviteLinkSucceeded extends InviteDialogState {
-  @override
-  String toString() => runtimeType.toString();
-}
+class GettingInviteLink extends InviteDialogState {}
+
+class GettingInviteLinkSucceeded extends InviteDialogState {}
