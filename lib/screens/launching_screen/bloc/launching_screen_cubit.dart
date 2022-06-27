@@ -75,7 +75,8 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
   Future _saveDynamicLink(Uri link) async => await invitesBox.put(dynamicLinkKey, link);
 
   Future _initialize() async {
-    emit(CheckingUserData());
+    emit(InitializingApp());
+
     var initialLink = await _dynamicLinksRepo.instance().getInitialLink();
 
     Uri? link;

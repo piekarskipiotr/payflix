@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:payflix/data/model/avatar.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/picking_avatar_dialog/bloc/picking_avatar_dialog_cubit.dart';
@@ -7,12 +8,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/screens/picking_avatar_dialog/bloc/picking_avatar_dialog_state.dart';
 
 class PickingAvatarDialog extends StatelessWidget {
-  const PickingAvatarDialog({Key? key}) : super(key: key);
+  final Avatar? initialAvatar;
+  const PickingAvatarDialog({Key? key, this.initialAvatar}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var avatars = context.read<PickingAvatarDialogCubit>().getAvatars();
-    var colors = context.read<PickingAvatarDialogCubit>().getColors();
 
     return SingleChildScrollView(
       child: Padding(
@@ -51,10 +52,12 @@ class PickingAvatarDialog extends StatelessWidget {
               child: BlocBuilder<PickingAvatarDialogCubit,
                   PickingAvatarDialogState>(
                 builder: (context, state) {
-                  int? selectedId;
+                  Avatar? selectedAvatar;
                   if (state is AvatarPicked) {
-                    selectedId = state.avatarID;
+                    selectedAvatar = state.avatar;
                   }
+
+                  Avatar? getAvatar() => selectedAvatar ?? initialAvatar;
 
                   return GridView(
                     shrinkWrap: true,
@@ -67,21 +70,22 @@ class PickingAvatarDialog extends StatelessWidget {
                     ),
                     children: [
                       for (var index = 0; index < avatars.length; index++)
+
                         Material(
                           elevation: 0,
                           clipBehavior: Clip.antiAlias,
                           type: MaterialType.circle,
-                          color: index == selectedId
+                          color: avatars[index] == getAvatar()
                               ? AppColors.creamWhite
-                              : colors[index],
+                              : avatars[index].background,
                           child: Padding(
-                            padding:
-                                EdgeInsets.all(index == selectedId ? 4.0 : 0.0),
+                            padding: EdgeInsets.all(
+                                avatars[index] == getAvatar() ? 4.0 : 0.0),
                             child: Material(
                               elevation: 0,
                               clipBehavior: Clip.antiAlias,
                               type: MaterialType.circle,
-                              color: colors[index],
+                              color: avatars[index].background,
                               child: Stack(
                                 children: [
                                   Column(
@@ -91,8 +95,8 @@ class PickingAvatarDialog extends StatelessWidget {
                                       ),
                                       Expanded(
                                         child: Center(
-                                          child: Image.asset(
-                                            avatars[index],
+                                          child: Image.network(
+                                            avatars[index].url,
                                           ),
                                         ),
                                       ),
@@ -102,7 +106,7 @@ class PickingAvatarDialog extends StatelessWidget {
                                     child: Material(
                                       color: Colors.transparent,
                                       child: InkWell(
-                                        child: index == selectedId
+                                        child: avatars[index] == getAvatar()
                                             ? Container(
                                                 alignment: Alignment.center,
                                                 child: const Icon(
@@ -114,7 +118,7 @@ class PickingAvatarDialog extends StatelessWidget {
                                             : null,
                                         onTap: () => context
                                             .read<PickingAvatarDialogCubit>()
-                                            .pickAvatar(index),
+                                            .pickAvatar(avatars[index]),
                                       ),
                                     ),
                                   ),

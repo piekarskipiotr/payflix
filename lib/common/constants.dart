@@ -1,10 +1,5 @@
 // humans
 const chat = 'assets/humans/chat.png';
-const avatar1 = 'assets/humans/avatars/avatar_person_1.png';
-const avatar2 = 'assets/humans/avatars/avatar_person_2.png';
-const avatar3 = 'assets/humans/avatars/avatar_person_3.png';
-const avatar4 = 'assets/humans/avatars/avatar_person_4.png';
-const avatar5 = 'assets/humans/avatars/avatar_person_5.png';
 const person1 = 'assets/humans/person_1.png';
 const person2 = 'assets/humans/person_2.png';
 const person3 = 'assets/humans/person_3.png';
@@ -37,8 +32,12 @@ const huluLogo = 'assets/vod/hulu.png';
 const groupsCollectionName = 'groups';
 const usersCollectionName = 'users';
 const groupsInviteCollectionName = 'groups_invite';
+const avatarsCollectionName = 'avatars';
 
 // hive keys
+const assetsBoxKey = 'assets_box_key';
+const avatarsKey = 'avatars_key';
+const colorsKey = 'colors_key';
 const invitesBoxKey = 'invites_box_key';
 const inviteInfoKey = 'invite_info_key';
 const dynamicLinkKey = 'dynamic_link_key';

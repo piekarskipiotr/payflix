@@ -72,9 +72,9 @@ class SignUp extends StatelessWidget {
                             key: formKey,
                             child: BlocBuilder<SignUpCubit, SignupState>(
                               builder: (context, state) {
-                                var avatar =
-                                    context.watch<SignUpCubit>().avatar;
-                                var color = context.watch<SignUpCubit>().color;
+                                var avatar = context
+                                    .read<SignUpCubit>()
+                                    .getSelectedAvatar();
 
                                 return Column(
                                   children: [
@@ -89,8 +89,8 @@ class SignUp extends StatelessWidget {
                                             elevation: 0,
                                             clipBehavior: Clip.hardEdge,
                                             type: MaterialType.circle,
-                                            color:
-                                                color ?? AppColors.creamWhite,
+                                            color: avatar?.background ??
+                                                AppColors.creamWhite,
                                             child: Stack(
                                               children: [
                                                 if (avatar != null) ...[
@@ -101,8 +101,8 @@ class SignUp extends StatelessWidget {
                                                       ),
                                                       Expanded(
                                                         child: Center(
-                                                          child: Image.asset(
-                                                            avatar,
+                                                          child: Image.network(
+                                                            avatar.url,
                                                           ),
                                                         ),
                                                       ),

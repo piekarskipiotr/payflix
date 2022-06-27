@@ -1,15 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
-import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
 import 'package:payflix/screens/home/ui/profile/bloc/edit_profile_dialog_cubit.dart';
 import 'package:payflix/screens/home/ui/profile/bloc/edit_profile_dialog_state.dart';
@@ -24,22 +21,6 @@ class HomeCubit extends Cubit<HomeState> {
   late StreamSubscription _pickingVodDialogCubitSubscription;
   final EditProfileDialogCubit _editProfileDialogCubit;
   late StreamSubscription _editProfileDialogCubitSubscription;
-
-  final _avatars = [
-    avatar1,
-    avatar2,
-    avatar3,
-    avatar4,
-    avatar5,
-  ];
-
-  final _colors = [
-    AppColors.primary,
-    Colors.greenAccent,
-    Colors.blue,
-    Colors.orange,
-    Colors.pink,
-  ];
 
   final _groups = List<Group>.empty(growable: true);
   PayflixUser? _payflixUser;
@@ -85,10 +66,6 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   PayflixUser? getPayflixUser() => _payflixUser;
-
-  String getAvatar(int index) => _avatars[index];
-
-  Color getColor(int index) => _colors[index];
 
   PickingVodDialogCubit getVodDialogCubit() => _pickingVodDialogCubit;
 

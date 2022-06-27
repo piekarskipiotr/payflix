@@ -47,9 +47,6 @@ class Profile extends StatelessWidget {
                     onClick: () => context.read<HomeCubit>().fetchData(),
                   );
                 } else {
-                  var color = context.read<HomeCubit>().getColor(user.avatarID);
-                  var avatar =
-                      context.read<HomeCubit>().getAvatar(user.avatarID);
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +73,7 @@ class Profile extends StatelessWidget {
                                     elevation: 0,
                                     clipBehavior: Clip.hardEdge,
                                     type: MaterialType.circle,
-                                    color: color,
+                                    color: user.avatar.background,
                                     child: Column(
                                       children: [
                                         const SizedBox(
@@ -84,8 +81,8 @@ class Profile extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: Center(
-                                            child: Image.asset(
-                                              avatar,
+                                            child: Image.network(
+                                              user.avatar.url,
                                             ),
                                           ),
                                         ),
@@ -147,9 +144,7 @@ class Profile extends StatelessWidget {
                                     value: context
                                         .read<HomeCubit>()
                                         .getProfileEditCubit()
-                                      ..initVariables(
-                                        avatar,
-                                        color,
+                                      ..initUser(
                                         user,
                                       ),
                                     child: EditProfileDialog(

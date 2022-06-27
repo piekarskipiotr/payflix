@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/data/model/avatar.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
@@ -19,12 +19,10 @@ class SignUpCubit extends Cubit<SignupState> {
   late StreamSubscription _pickingAvatarDialogCubitSubscription;
 
   bool _tcppStatus = false;
-  int? _avatarID;
+  Avatar? _avatar;
   String? _profileName;
   String? _emailID;
   String? _password;
-  String? avatar;
-  Color? color;
 
   SignUpCubit(
       this._authRepo, this._firestoreRepo, this._pickingAvatarDialogCubit)
@@ -33,19 +31,19 @@ class SignUpCubit extends Cubit<SignupState> {
         _pickingAvatarDialogCubit.stream.listen((state) {
       if (state is AvatarPicked) {
         emit(ChangingAvatar());
-        _avatarID = state.avatarID;
-        avatar = _pickingAvatarDialogCubit.getAvatars()[state.avatarID];
-        color = _pickingAvatarDialogCubit.getColors()[state.avatarID];
+        _avatar = state.avatar;
         emit(AvatarChanged());
       }
     });
   }
 
+  Avatar? getSelectedAvatar() => _avatar;
+
   PickingAvatarDialogCubit getDialogCubit() => _pickingAvatarDialogCubit;
 
   bool isTCPPAccepted() => _tcppStatus;
 
-  bool isAllFilledUp() => _tcppStatus && (_avatarID != null);
+  bool isAllFilledUp() => _tcppStatus && (_avatar != null);
 
   void changeTCPPStatus() {
     emit(ChangingTCPPStatus());
@@ -92,7 +90,7 @@ class SignUpCubit extends Cubit<SignupState> {
     var userInfo = PayflixUser(
       user.uid,
       user.email!,
-      _avatarID!,
+      _avatar!,
       _profileName!,
       List.empty(),
     );

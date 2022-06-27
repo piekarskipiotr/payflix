@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/data/model/avatar.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
@@ -21,14 +22,14 @@ class LoginCubit extends Cubit<LoginState> {
 
   String? _emailID;
   String? _password;
-  int avatarID = -1;
+  Avatar? _avatar;
 
   LoginCubit(this._authRepo, this._firestoreRepository, this._pickingAvatarDialogBloc) : super(InitLoginState()) {
     _pickingAvatarDialogBlocSubscription =
         _pickingAvatarDialogBloc.stream.listen((state) {
           if (state is AvatarPicked) {
             emit(PopDialog());
-            avatarID = state.avatarID;
+            _avatar = state.avatar;
             var user = _authRepo.instance().currentUser;
             _createUserData(user!);
             emit(LoggingInWithGoogleAccountSucceeded(false));
@@ -139,7 +140,7 @@ class LoginCubit extends Cubit<LoginState> {
     var userInfo = PayflixUser(
       user.uid,
       user.email!,
-      avatarID,
+      _avatar!,
       user.displayName!,
       List.empty(),
     );

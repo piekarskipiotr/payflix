@@ -11,7 +11,7 @@ class StartingApp extends LaunchingScreenState {
   StartingApp(this.route);
 }
 
-class CheckingUserData extends LaunchingScreenState {}
+class InitializingApp extends LaunchingScreenState {}
 
 class ReceivingLink extends LaunchingScreenState {}
 

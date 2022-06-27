@@ -54,11 +54,8 @@ class EditProfileDialog extends StatelessWidget {
                           EditProfileDialogState>(
                         builder: (context, state) {
                           var avatar = context
-                              .watch<EditProfileDialogCubit>()
+                              .read<EditProfileDialogCubit>()
                               .getAvatar();
-                          var color = context
-                              .watch<EditProfileDialogCubit>()
-                              .getColor();
 
                           return Center(
                             child: SizedBox(
@@ -75,7 +72,7 @@ class EditProfileDialog extends StatelessWidget {
                                     elevation: 0,
                                     clipBehavior: Clip.antiAlias,
                                     type: MaterialType.circle,
-                                    color: color,
+                                    color: avatar.background,
                                     child: Stack(
                                       children: [
                                         Column(
@@ -85,8 +82,8 @@ class EditProfileDialog extends StatelessWidget {
                                             ),
                                             Expanded(
                                               child: Center(
-                                                child: Image.asset(
-                                                  avatar,
+                                                child: Image.network(
+                                                  avatar.url,
                                                 ),
                                               ),
                                             ),
@@ -115,8 +112,10 @@ class EditProfileDialog extends StatelessWidget {
                                                         .read<
                                                             EditProfileDialogCubit>()
                                                         .getDialogCubit(),
-                                                    child:
-                                                        const PickingAvatarDialog(),
+                                                    child: PickingAvatarDialog(
+                                                      initialAvatar:
+                                                          user.avatar,
+                                                    ),
                                                   ),
                                                 );
                                               },

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/model/avatar.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/invite_info.dart';
 import 'package:payflix/data/model/payflix_user.dart';
@@ -13,6 +14,19 @@ class FirestoreRepository {
 
   String getUUID({required String collection}) =>
       _firestore.collection(collection).doc().id;
+
+  Future<List<Avatar>> getAvatars() async {
+    var avatarsRef = (await _firestore
+                .collection(avatarsCollectionName)
+                .doc(avatarsCollectionName)
+                .get())
+            .data();
+
+    if (avatarsRef == null) return [];
+
+    var json = avatarsRef['avatars'] as List;
+    return json.map((e) => Avatar.fromJson(e)).toList();
+  }
 
   // group
   Future setGroupData({

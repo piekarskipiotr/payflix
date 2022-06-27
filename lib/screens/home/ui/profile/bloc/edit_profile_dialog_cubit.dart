@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/data/model/avatar.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
@@ -20,9 +20,7 @@ class EditProfileDialogCubit extends Cubit<EditProfileDialogState> {
 
   PayflixUser? _payflixUser;
   String? _displayName;
-  int? _avatarID;
-  String? _avatar;
-  Color? _color;
+  Avatar? _avatar;
 
   EditProfileDialogCubit(this._authRepository, this._firestoreRepository,
       this._pickingAvatarDialogCubit)
@@ -31,34 +29,26 @@ class EditProfileDialogCubit extends Cubit<EditProfileDialogState> {
         _pickingAvatarDialogCubit.stream.listen((state) {
       if (state is AvatarPicked) {
         emit(ChangingAvatar());
-        _avatarID = state.avatarID;
-        _avatar = _pickingAvatarDialogCubit.getAvatars()[state.avatarID];
-        _color = _pickingAvatarDialogCubit.getColors()[state.avatarID];
+        _avatar = state.avatar;
         emit(AvatarChanged());
       }
     });
   }
 
-  PickingAvatarDialogCubit getDialogCubit() => _pickingAvatarDialogCubit;
-
-  void initVariables(String avatar, Color bg, PayflixUser user) {
-    _avatar = avatar;
-    _color = bg;
+  void initUser(PayflixUser user) {
     _payflixUser = user;
-
-    _pickingAvatarDialogCubit.pickAvatar(_payflixUser!.avatarID);
   }
 
+  Avatar getAvatar() => _avatar ?? _payflixUser!.avatar;
+
+  PickingAvatarDialogCubit getDialogCubit() => _pickingAvatarDialogCubit;
+
   void setUserDisplayName(String value) => _displayName = value;
-
-  String getAvatar() => _avatar!;
-
-  Color getColor() => _color!;
 
   Future saveUserProfileChanges() async {
     emit(SavingUserProfileChanges());
     if (_payflixUser!.displayName == _displayName! &&
-        _payflixUser!.avatarID == _avatarID!) {
+        _payflixUser!.avatar == _avatar) {
       emit(UserDataSameAsPrevious());
     }
 
@@ -72,13 +62,13 @@ class EditProfileDialogCubit extends Cubit<EditProfileDialogState> {
         await _firestoreRepository.updateUserData(
           docReference: uid,
           data: {
-            "avatar_id": _avatarID,
+            "avatar": _avatar!.toJson(),
             "display_name": _displayName,
           },
         );
 
         _payflixUser!.displayName = _displayName!;
-        _payflixUser!.avatarID = _avatarID!;
+        _payflixUser!.avatar = _avatar!;
         emit(SavingUserProfileChangesSucceeded());
       } on FirebaseAuthException catch (e) {
         emit(SavingUserProfileChangesFailed(e.code));

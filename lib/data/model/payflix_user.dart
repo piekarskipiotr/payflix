@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'avatar.dart';
+
 part 'payflix_user.g.dart';
 
 @JsonSerializable()
@@ -10,8 +12,8 @@ class PayflixUser {
   @JsonKey(name: 'address_email')
   String email;
 
-  @JsonKey(name: 'avatar_id')
-  int avatarID;
+  @JsonKey(name: 'avatar')
+  Avatar avatar;
 
   @JsonKey(name: 'display_name')
   String displayName;
@@ -25,17 +27,22 @@ class PayflixUser {
   PayflixUser(
     this.id,
     this.email,
-    this.avatarID,
+    this.avatar,
     this.displayName,
     this.groups,
   );
 
-  factory PayflixUser.fromJson(Map<String, dynamic> json) =>
-      _$PayflixUserFromJson(json);
+  factory PayflixUser.fromJson(Map<String, dynamic> json) => PayflixUser(
+        json['id'] as String,
+        json['address_email'] as String,
+        Avatar.fromJson(json['avatar']),
+        json['display_name'] as String,
+        (json['groups'] as List<dynamic>).map((e) => e as String).toList(),
+      );
 
   Map<String, dynamic> toJson() => _$PayflixUserToJson(this);
 
   @override
   String toString() =>
-      'User{id: $id, avatarID: $avatarID, displayName: $displayName, groups: $groups}';
+      'User{id: $id, avatar: $avatar, displayName: $displayName, groups: $groups}';
 }

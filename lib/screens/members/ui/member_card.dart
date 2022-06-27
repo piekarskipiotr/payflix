@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
@@ -17,14 +16,6 @@ class MemberCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _avatars = [
-      avatar1,
-      avatar2,
-      avatar3,
-      avatar4,
-      avatar5,
-    ];
-
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -62,8 +53,8 @@ class MemberCard extends StatelessWidget {
                         right: 15.0,
                         bottom: 5.0,
                       ),
-                      child: Image.asset(
-                        _avatars[user.avatarID],
+                      child: Image.network(
+                        user.avatar.url,
                       ),
                     ),
                     Align(
