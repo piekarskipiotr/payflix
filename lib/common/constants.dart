@@ -11,6 +11,7 @@ const friends = 'assets/humans/friends.png';
 const groupFriends = 'assets/humans/group_friends.png';
 const moneyAndCoins = 'assets/humans/money_and_coins.png';
 const money = 'assets/humans/money.png';
+const defVOD = 'assets/vod/nflix.png';
 
 // social
 const googleIcon = 'assets/social/google_icon.png';
@@ -23,11 +24,11 @@ const lottieFailure = 'assets/lottie/failure.json';
 const lottieEmailVerify = 'assets/lottie/mail_message.json';
 
 // video on demand platforms
-const netflixLogo = 'assets/vod/nflix.png';
-const hboLogo = 'assets/vod/hmax.png';
-const primeLogo = 'assets/vod/pvideo.png';
-const disneyLogo = 'assets/vod/dplus.png';
-const huluLogo = 'assets/vod/hulu.png';
+const netflixLogo = 'https://firebasestorage.googleapis.com/v0/b/payflix-339c8.appspot.com/o/vods%2Fnflix.png?alt=media';
+const hboLogo = 'https://firebasestorage.googleapis.com/v0/b/payflix-339c8.appspot.com/o/vods%2Fhmax.png?alt=media';
+const primeLogo = 'https://firebasestorage.googleapis.com/v0/b/payflix-339c8.appspot.com/o/vods%2Fpvideo.png?alt=media';
+const disneyLogo = 'https://firebasestorage.googleapis.com/v0/b/payflix-339c8.appspot.com/o/vods%2Fdplus.png?alt=media';
+const huluLogo = 'https://firebasestorage.googleapis.com/v0/b/payflix-339c8.appspot.com/o/vods%2Fhulu.png?alt=media';
 
 // firebase names
 const groupsCollectionName = 'groups';

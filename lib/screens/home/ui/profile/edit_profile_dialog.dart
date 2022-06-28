@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
+import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/validators/edit_profile_validation.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
@@ -85,6 +86,7 @@ class EditProfileDialog extends StatelessWidget {
                                               child: Center(
                                                 child: AppCachedNetworkImage(
                                                   url: avatar.url,
+                                                  placeholder: defAvatar,
                                                 ),
                                               ),
                                             ),

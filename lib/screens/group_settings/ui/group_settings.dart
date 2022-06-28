@@ -15,6 +15,7 @@ import 'package:payflix/screens/group_settings/bloc/group_settings_state_listene
 import 'package:payflix/screens/picking_vod_dialog/ui/picking_vod_dialog.dart';
 import 'package:payflix/widgets/app_bar_with_moved_title/bloc/app_bar_cubit.dart';
 import 'package:payflix/widgets/app_bar_with_moved_title/ui/app_bar_with_moved_title.dart';
+import 'package:payflix/widgets/app_cached_network_image.dart';
 import 'package:payflix/widgets/blur_container.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -99,14 +100,14 @@ class GroupSettings extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Center(
-                                child: Image.asset(
-                                  context
+                                child: AppCachedNetworkImage(
+                                  url: context
                                       .read<GroupSettingsCubit>()
                                       .getVod()
                                       .logo,
-                                  width: 38.0,
-                                  height: 38.0,
-                                ),
+                                  placeholder: defVOD,
+                                  size: 38.0,
+                                )
                               ),
                             ),
                           ),

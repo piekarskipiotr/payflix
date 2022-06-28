@@ -2,11 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
+import 'package:payflix/widgets/app_cached_network_image.dart';
 
 class GroupCard extends StatelessWidget {
   final Group group;
@@ -59,8 +61,9 @@ class GroupCard extends StatelessWidget {
                             ? 30.0
                             : 15.0,
                       ),
-                      child: Image.asset(
-                        group.groupType.logo,
+                      child: AppCachedNetworkImage(
+                        url: group.groupType.logo,
+                        placeholder: defVOD,
                       ),
                     ),
                     Align(

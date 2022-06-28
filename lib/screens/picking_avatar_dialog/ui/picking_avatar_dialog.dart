@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/model/avatar.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
@@ -98,6 +99,7 @@ class PickingAvatarDialog extends StatelessWidget {
                                         child: Center(
                                           child: AppCachedNetworkImage(
                                             url: avatars[index].url,
+                                            placeholder: defAvatar,
                                           ),
                                         ),
                                       ),

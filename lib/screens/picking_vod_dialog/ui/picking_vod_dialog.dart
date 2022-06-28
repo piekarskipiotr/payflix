@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/enum/group_type.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_cubit.dart';
 import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_state.dart';
+import 'package:payflix/widgets/app_cached_network_image.dart';
 
 class PickingVodDialog extends StatelessWidget {
   const PickingVodDialog({Key? key}) : super(key: key);
@@ -88,15 +90,16 @@ class PickingVodDialog extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
-                                      child: Image.asset(
-                                        vod.logo,
+                                      child: AppCachedNetworkImage(
+                                        url: vod.logo,
+                                        placeholder: defVOD,
                                         color: context
                                                 .read<PickingVodDialogCubit>()
                                                 .doesUserHasVodGroupAlready(vod)
                                             ? AppColors.creamWhite
                                                 .withOpacity(0.2)
                                             : null,
-                                        colorBlendMode: BlendMode.modulate,
+                                        blendMode: BlendMode.modulate,
                                       ),
                                     ),
                                   ),

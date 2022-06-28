@@ -104,6 +104,7 @@ class SignUp extends StatelessWidget {
                                                         child: Center(
                                                           child: AppCachedNetworkImage(
                                                             url: avatar.url,
+                                                            placeholder: defAvatar,
                                                           ),
                                                         ),
                                                       ),
