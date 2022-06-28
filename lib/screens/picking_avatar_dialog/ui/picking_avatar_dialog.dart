@@ -6,9 +6,11 @@ import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/picking_avatar_dialog/bloc/picking_avatar_dialog_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/screens/picking_avatar_dialog/bloc/picking_avatar_dialog_state.dart';
+import 'package:payflix/widgets/app_cached_network_image.dart';
 
 class PickingAvatarDialog extends StatelessWidget {
   final Avatar? initialAvatar;
+
   const PickingAvatarDialog({Key? key, this.initialAvatar}) : super(key: key);
 
   @override
@@ -70,7 +72,6 @@ class PickingAvatarDialog extends StatelessWidget {
                     ),
                     children: [
                       for (var index = 0; index < avatars.length; index++)
-
                         Material(
                           elevation: 0,
                           clipBehavior: Clip.antiAlias,
@@ -95,8 +96,8 @@ class PickingAvatarDialog extends StatelessWidget {
                                       ),
                                       Expanded(
                                         child: Center(
-                                          child: Image.network(
-                                            avatars[index].url,
+                                          child: AppCachedNetworkImage(
+                                            url: avatars[index].url,
                                           ),
                                         ),
                                       ),

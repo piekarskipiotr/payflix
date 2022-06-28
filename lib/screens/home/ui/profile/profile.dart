@@ -11,6 +11,7 @@ import 'package:payflix/screens/home/ui/profile/bloc/change_password_dialog_cubi
 import 'package:payflix/screens/home/ui/profile/change_password_dialog.dart';
 import 'package:payflix/screens/home/ui/profile/edit_profile_dialog.dart';
 import 'package:payflix/widgets/app_bar_with_fixed_title.dart';
+import 'package:payflix/widgets/app_cached_network_image.dart';
 import 'package:payflix/widgets/state_failed_view.dart';
 
 class Profile extends StatelessWidget {
@@ -81,8 +82,8 @@ class Profile extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: Center(
-                                            child: Image.network(
-                                              user.avatar.url,
+                                            child: AppCachedNetworkImage(
+                                              url: user.avatar.url,
                                             ),
                                           ),
                                         ),

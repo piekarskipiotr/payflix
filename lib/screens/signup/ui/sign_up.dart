@@ -13,6 +13,7 @@ import 'package:payflix/screens/signup/bloc/signup_state_listener.dart';
 import 'package:payflix/screens/picking_avatar_dialog/ui/picking_avatar_dialog.dart';
 import 'package:payflix/widgets/app_bar_with_moved_title/bloc/app_bar_cubit.dart';
 import 'package:payflix/widgets/app_bar_with_moved_title/ui/app_bar_with_moved_title.dart';
+import 'package:payflix/widgets/app_cached_network_image.dart';
 import 'package:payflix/widgets/blur_container.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -101,8 +102,8 @@ class SignUp extends StatelessWidget {
                                                       ),
                                                       Expanded(
                                                         child: Center(
-                                                          child: Image.network(
-                                                            avatar.url,
+                                                          child: AppCachedNetworkImage(
+                                                            url: avatar.url,
                                                           ),
                                                         ),
                                                       ),

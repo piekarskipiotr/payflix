@@ -1,5 +1,6 @@
 // humans
 const chat = 'assets/humans/chat.png';
+const defAvatar = 'assets/humans/avatars/avatar_person_2.png';
 const person1 = 'assets/humans/person_1.png';
 const person2 = 'assets/humans/person_2.png';
 const person3 = 'assets/humans/person_3.png';

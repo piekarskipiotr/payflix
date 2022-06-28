@@ -10,6 +10,7 @@ import 'package:payflix/screens/home/ui/profile/bloc/edit_profile_dialog_cubit.d
 import 'package:payflix/screens/home/ui/profile/bloc/edit_profile_dialog_state.dart';
 import 'package:payflix/screens/home/ui/profile/bloc/edit_profile_dialog_state_listener.dart';
 import 'package:payflix/screens/picking_avatar_dialog/ui/picking_avatar_dialog.dart';
+import 'package:payflix/widgets/app_cached_network_image.dart';
 import 'package:payflix/widgets/primary_button.dart';
 
 class EditProfileDialog extends StatelessWidget {
@@ -82,8 +83,8 @@ class EditProfileDialog extends StatelessWidget {
                                             ),
                                             Expanded(
                                               child: Center(
-                                                child: Image.network(
-                                                  avatar.url,
+                                                child: AppCachedNetworkImage(
+                                                  url: avatar.url,
                                                 ),
                                               ),
                                             ),

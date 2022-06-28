@@ -6,6 +6,7 @@ import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/widgets/app_cached_network_image.dart';
 
 class MemberCard extends StatelessWidget {
   final PayflixUser user;
@@ -53,8 +54,8 @@ class MemberCard extends StatelessWidget {
                         right: 15.0,
                         bottom: 5.0,
                       ),
-                      child: Image.network(
-                        user.avatar.url,
+                      child: AppCachedNetworkImage(
+                        url: user.avatar.url,
                       ),
                     ),
                     Align(
