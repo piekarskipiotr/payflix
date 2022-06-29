@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/enum/app_placeholder.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
@@ -57,7 +57,7 @@ class MemberCard extends StatelessWidget {
                       ),
                       child: AppCachedNetworkImage(
                         url: user.avatar.url,
-                        placeholder: defAvatar,
+                        placeholder: AppPlaceholder.avatar,
                       ),
                     ),
                     Align(

@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/enum/app_placeholder.dart';
 import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/resources/app_theme.dart';
@@ -63,7 +63,7 @@ class GroupCard extends StatelessWidget {
                       ),
                       child: AppCachedNetworkImage(
                         url: group.groupType.logo,
-                        placeholder: defVOD,
+                        placeholder: AppPlaceholder.vod,
                       ),
                     ),
                     Align(

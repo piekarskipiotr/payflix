@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/validators/sign_up_validation.dart';
+import 'package:payflix/data/enum/app_placeholder.dart';
 import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
@@ -104,7 +105,7 @@ class SignUp extends StatelessWidget {
                                                         child: Center(
                                                           child: AppCachedNetworkImage(
                                                             url: avatar.url,
-                                                            placeholder: defAvatar,
+                                                            placeholder: AppPlaceholder.avatar,
                                                           ),
                                                         ),
                                                       ),

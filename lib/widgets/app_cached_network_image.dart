@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:payflix/data/enum/app_placeholder.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AppCachedNetworkImage extends StatelessWidget {
   final String url;
-  final String placeholder;
+  final AppPlaceholder placeholder;
   final Color? color;
   final BlendMode? blendMode;
   final double? size;
@@ -34,7 +35,7 @@ class AppCachedNetworkImage extends StatelessWidget {
       placeholder: (context, url) => Shimmer.fromColors(
         baseColor: AppColors.containerBlack,
         highlightColor: AppColors.lighterGray,
-        child: Image.asset(placeholder),
+        child: Image.asset(placeholder.image),
       ),
     );
   }

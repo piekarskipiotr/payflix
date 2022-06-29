@@ -1,6 +1,5 @@
 // humans
 const chat = 'assets/humans/chat.png';
-const defAvatar = 'assets/humans/avatars/avatar_person_2.png';
 const person1 = 'assets/humans/person_1.png';
 const person2 = 'assets/humans/person_2.png';
 const person3 = 'assets/humans/person_3.png';
@@ -11,7 +10,6 @@ const friends = 'assets/humans/friends.png';
 const groupFriends = 'assets/humans/group_friends.png';
 const moneyAndCoins = 'assets/humans/money_and_coins.png';
 const money = 'assets/humans/money.png';
-const defVOD = 'assets/vod/nflix.png';
 
 // social
 const googleIcon = 'assets/social/google_icon.png';
@@ -29,6 +27,10 @@ const hboLogo = 'https://firebasestorage.googleapis.com/v0/b/payflix-339c8.appsp
 const primeLogo = 'https://firebasestorage.googleapis.com/v0/b/payflix-339c8.appspot.com/o/vods%2Fpvideo.png?alt=media';
 const disneyLogo = 'https://firebasestorage.googleapis.com/v0/b/payflix-339c8.appspot.com/o/vods%2Fdplus.png?alt=media';
 const huluLogo = 'https://firebasestorage.googleapis.com/v0/b/payflix-339c8.appspot.com/o/vods%2Fhulu.png?alt=media';
+
+// placeholders
+const avatarPlaceholder = 'assets/placeholders/avatar_placeholder.png';
+const vodPlaceholder = 'assets/placeholders/vod_placeholder.png';
 
 // firebase names
 const groupsCollectionName = 'groups';

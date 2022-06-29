@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/validators/group_settings_validation.dart';
+import 'package:payflix/data/enum/app_placeholder.dart';
 import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/di/get_it.dart';
@@ -100,15 +101,14 @@ class GroupSettings extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Center(
-                                child: AppCachedNetworkImage(
-                                  url: context
-                                      .read<GroupSettingsCubit>()
-                                      .getVod()
-                                      .logo,
-                                  placeholder: defVOD,
-                                  size: 38.0,
-                                )
-                              ),
+                                  child: AppCachedNetworkImage(
+                                url: context
+                                    .read<GroupSettingsCubit>()
+                                    .getVod()
+                                    .logo,
+                                placeholder: AppPlaceholder.vod,
+                                size: 38.0,
+                              )),
                             ),
                           ),
                         )

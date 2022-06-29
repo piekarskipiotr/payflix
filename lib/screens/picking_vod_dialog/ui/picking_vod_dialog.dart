@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/enum/app_placeholder.dart';
 import 'package:payflix/data/enum/group_type.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
@@ -92,7 +92,7 @@ class PickingVodDialog extends StatelessWidget {
                                     child: Center(
                                       child: AppCachedNetworkImage(
                                         url: vod.logo,
-                                        placeholder: defVOD,
+                                        placeholder: AppPlaceholder.vod,
                                         color: context
                                                 .read<PickingVodDialogCubit>()
                                                 .doesUserHasVodGroupAlready(vod)
