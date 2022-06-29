@@ -1,6 +1,6 @@
 import 'dart:ui';
 
 class ColorConverter {
-  static fromIntToColor(int value) => Color(value);
-  static fromColorToInt(Color value) => int.parse('$value');
+  static Color fromIntToColor(int value) => Color(value);
+  static int fromColorToInt(Color value) => value.value;
 }
