@@ -1,9 +1,12 @@
 import 'dart:developer';
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/common/helpers/code_painter.dart';
 import 'package:payflix/data/app_hive.dart';
 import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/invite_info.dart';
@@ -11,6 +14,9 @@ import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/dynamic_links_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/screens/members/bloc/invite_dialog_state.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 @injectable
 class InviteDialogCubit extends Cubit<InviteDialogState> {
@@ -22,8 +28,7 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
   bool _showCopiedText = false;
   String? _inviteLink;
 
-  InviteDialogCubit(
-      this._authRepo, this._dynamicLinksRepo, this._firestoreRepo)
+  InviteDialogCubit(this._authRepo, this._dynamicLinksRepo, this._firestoreRepo)
       : super(InitInviteDialogState());
 
   bool showSecondary() => _showSecondary;
@@ -99,9 +104,7 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
     var expirationDate = DateTime.now().add(const Duration(days: 7));
     var groupId = '$uid${groupType.codeName}';
 
-    var link =
-    (await _dynamicLinksRepo.createInviteLink(uuid))
-        .toString();
+    var link = (await _dynamicLinksRepo.createInviteLink(uuid)).toString();
 
     var inviteInfo = InviteInfo(
       link,
@@ -115,6 +118,54 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
     await invitesBox.put(inviteInfoKey, inviteInfo);
 
     return link;
+  }
+
+  Future shareQrCode(String text, String subject) async {
+    emit(SharingQrCode());
+    await _createAndShareQrCode(text, subject);
+    emit(SharingQrCodeFinished());
+  }
+
+  Future _writeToFile(ByteData data, String path) async {
+    final buffer = data.buffer;
+    await File(path).writeAsBytes(
+        buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
+  }
+
+  Future _createAndShareQrCode(String text, String subject) async {
+    const imageSize = 2048.0;
+
+    try {
+      var qrCodeImage = await QrPainter(
+        data: linkFieldController.text,
+        version: QrVersions.auto,
+        color: Colors.black,
+        emptyColor: Colors.white,
+        gapless: true,
+        embeddedImageStyle: null,
+        embeddedImage: null,
+      ).toImage(imageSize);
+
+      var tempDir = await getTemporaryDirectory();
+      var path = '${tempDir.path}/payflix_qr_code.png';
+      var image = await CodePainter(qrImage: qrCodeImage)
+          .toImageData(imageSize, format: ImageByteFormat.png);
+
+      if (image != null) {
+        await _writeToFile(image, path);
+
+        await Share.shareFiles(
+          [path],
+          mimeTypes: ['image/png'],
+          text: text,
+          subject: subject,
+        );
+      } else {
+        throw 'image-not-created';
+      }
+    } catch (e) {
+      log('$e');
+    }
   }
 
   @override

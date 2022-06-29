@@ -121,5 +121,7 @@
   "wrong_previous_password" : "Aktualne hasło nie jest poprawne!",
   "edit_profile_email_id_info_1" : "Twój aktualny adres to ",
   "edit_profile_email_id_info_2" : "\nPayflix nie zezwala na jego zmianę, jedyną opcją na zmianę adresu email jest utworzenie nowego konta",
-  "user_profile_updated_successfully" : "Pomyślnie zaktualizowano profil użytkownika!"
+  "user_profile_updated_successfully" : "Pomyślnie zaktualizowano profil użytkownika!",
+  "qr_share_text" : "Dołącz do mojej grupy w aplikacji Payflix!",
+  "qr_share_subject" : "Dołącz do grupy - Payflix"
 }

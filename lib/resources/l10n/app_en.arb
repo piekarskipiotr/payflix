@@ -121,5 +121,7 @@
   "wrong_previous_password" : "Current password is incorrect!",
   "edit_profile_email_id_info_1" : "Your current email ID is ",
   "edit_profile_email_id_info_2" : " and Payflix doesn't allow to change it, the only way is to create new account with desire email ID",
-  "user_profile_updated_successfully" : "User profile updated successfully!"
+  "user_profile_updated_successfully" : "User profile updated successfully!",
+  "qr_share_text" : "Join to my group in Payflix app!",
+  "qr_share_subject" : "Join to the group - Payflix"
 }

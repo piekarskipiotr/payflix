@@ -101,8 +101,7 @@ class InviteDialog extends StatelessWidget {
               ),
               PrimaryButton(
                 text: getString(context).show_qr,
-                onClick: () =>
-                    context.read<InviteDialogCubit>().changeView(),
+                onClick: () => context.read<InviteDialogCubit>().changeView(),
                 isLoading: false,
               ),
               const SizedBox(
@@ -141,7 +140,8 @@ class InviteDialog extends StatelessWidget {
                 height: 40.0,
               ),
               QrImage(
-                data: 'https://github.com/piekarskipiotr/',
+                data:
+                    context.read<InviteDialogCubit>().linkFieldController.text,
                 version: QrVersions.auto,
                 size: 256.0,
                 backgroundColor: AppColors.creamWhite,
@@ -151,7 +151,10 @@ class InviteDialog extends StatelessWidget {
               ),
               PrimaryButton(
                 text: getString(context).share,
-                onClick: () {},
+                onClick: () => context.read<InviteDialogCubit>().shareQrCode(
+                      getString(context).qr_share_text,
+                      getString(context).qr_share_subject,
+                    ),
                 isLoading: false,
               ),
               const SizedBox(
@@ -160,8 +163,7 @@ class InviteDialog extends StatelessWidget {
               SecondaryButton(
                 text: getString(context).back,
                 isLoading: false,
-                onClick: () =>
-                    context.read<InviteDialogCubit>().changeView(),
+                onClick: () => context.read<InviteDialogCubit>().changeView(),
               ),
             ],
           ),

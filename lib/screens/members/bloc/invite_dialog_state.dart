@@ -16,3 +16,7 @@ class CopiedTextVisibilityChanged extends InviteDialogState {}
 class GettingInviteLink extends InviteDialogState {}
 
 class GettingInviteLinkSucceeded extends InviteDialogState {}
+
+class SharingQrCode extends InviteDialogState {}
+
+class SharingQrCodeFinished extends InviteDialogState {}
