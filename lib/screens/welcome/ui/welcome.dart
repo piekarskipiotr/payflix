@@ -98,7 +98,10 @@ class Welcome extends StatelessWidget {
                                     Expanded(
                                       child: PrimaryButton(
                                         text: getString(context).scan,
-                                        onClick: () => {},
+                                        onClick: () => Navigator.pushNamed(
+                                          context,
+                                          AppRoutes.qrScanner,
+                                        ),
                                         isLoading: false,
                                       ),
                                     ),
