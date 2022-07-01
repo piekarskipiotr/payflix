@@ -52,7 +52,8 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
 
     if (await _firestoreRepo.doesUserIsInGroup(docReference: uid, groupId: groupId)) {
       emit(UserIsAlreadyInThisGroup());
-
+    } else if (await _firestoreRepo.doesUserIsInVODGroup(docReference: uid, groupId: groupId)) {
+      emit(UserIsAlreadyInThisVodGroup());
     } else {
       await _firestoreRepo.updateUserData(
         docReference: uid,
@@ -62,7 +63,7 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
       );
 
       await _firestoreRepo.updateGroupData(
-        docReference: uid,
+        docReference: groupId,
         data: {
           "users": FieldValue.arrayUnion([uid])
         },

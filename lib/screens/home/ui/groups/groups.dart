@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
 import 'package:payflix/screens/home/ui/groups/group_card.dart';
@@ -35,7 +36,8 @@ class Groups extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () =>
+                    Navigator.pushNamed(context, AppRoutes.qrScanner),
                 icon: const Icon(
                   Icons.qr_code_scanner,
                 ),

@@ -19,4 +19,6 @@ class AddingUserToGroup extends LaunchingScreenState {}
 
 class UserIsAlreadyInThisGroup extends LaunchingScreenState {}
 
+class UserIsAlreadyInThisVodGroup extends LaunchingScreenState {}
+
 class AddingUserToGroupCompleted extends LaunchingScreenState {}

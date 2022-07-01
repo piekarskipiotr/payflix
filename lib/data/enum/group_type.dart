@@ -68,10 +68,6 @@ class GroupTypeHelper {
         return GroupType.disneyPlus;
       case 'hflix':
         return GroupType.hulu;
-
-
-      default:
-        return GroupType.netflix;
     }
   }
 
@@ -88,5 +84,11 @@ class GroupTypeHelper {
       case GroupType.hulu:
         return 'hflix';
     }
+  }
+
+  static getGroupTypeFromGroupId(String groupId) {
+    var length = groupId.length;
+    var code = groupId.substring(length - 5, length);
+    return getGroupTypeByCode(code);
   }
 }

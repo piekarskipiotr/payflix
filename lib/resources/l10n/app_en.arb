@@ -123,5 +123,10 @@
   "edit_profile_email_id_info_2" : " and Payflix doesn't allow to change it, the only way is to create new account with desire email ID",
   "user_profile_updated_successfully" : "User profile updated successfully!",
   "qr_share_text" : "Join to my group in Payflix app!",
-  "qr_share_subject" : "Join to the group - Payflix"
+  "qr_share_subject" : "Join to the group - Payflix",
+  "qr_scanner_title" : "Scan the group Qr code",
+  "invalid_qr_code" : "Scanned code is not valid and can't be handle by app",
+  "user_already_in_group" : "You are trying to join to the group you already belong",
+  "user_already_in_vod_group_type" : "Joining failed! You can only be in one VOD type group at the time",
+  "added_to_group_successfully" : "You joined to the new group!"
 }

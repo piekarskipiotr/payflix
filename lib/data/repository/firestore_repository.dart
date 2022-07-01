@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/avatar.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/invite_info.dart';
@@ -131,6 +132,28 @@ class FirestoreRepository {
               .data()!)
           .groups
           .contains(groupId);
+
+  Future<bool> doesUserIsInVODGroup({
+    required String docReference,
+    required String groupId,
+  }) async {
+    var vodGroupType = GroupTypeHelper.getGroupTypeFromGroupId(groupId);
+    var groups = PayflixUser.fromJson((await _firestore
+        .collection(usersCollectionName)
+        .doc(docReference)
+        .get())
+        .data()!).groups;
+
+    for (var group in groups) {
+      var groupType = GroupTypeHelper.getGroupTypeFromGroupId(group);
+      if (groupType == vodGroupType) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
 
   Future<List<PayflixUser>> getMembers({
     required List<String> ids,

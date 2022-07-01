@@ -102,7 +102,7 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
     var uid = _authRepo.getUID();
     var uuid = _firestoreRepo.getUUID(collection: groupsInviteCollectionName);
     var expirationDate = DateTime.now().add(const Duration(days: 7));
-    var groupId = '$uid${groupType.codeName}';
+    var groupId = '${uid}_${groupType.codeName}';
 
     var link = (await _dynamicLinksRepo.createInviteLink(uuid)).toString();
 

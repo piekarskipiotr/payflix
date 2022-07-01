@@ -7,4 +7,5 @@ class AppRoutes {
   static const groupSettings = '/group_settings';
   static const members = '/members';
   static const home = '/home';
+  static const qrScanner = '/qr_scanner';
 }

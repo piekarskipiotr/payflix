@@ -123,5 +123,10 @@
   "edit_profile_email_id_info_2" : "\nPayflix nie zezwala na jego zmianę, jedyną opcją na zmianę adresu email jest utworzenie nowego konta",
   "user_profile_updated_successfully" : "Pomyślnie zaktualizowano profil użytkownika!",
   "qr_share_text" : "Dołącz do mojej grupy w aplikacji Payflix!",
-  "qr_share_subject" : "Dołącz do grupy - Payflix"
+  "qr_share_subject" : "Dołącz do grupy - Payflix",
+  "qr_scanner_title" : "Zeskanuj Qr kod grupy",
+  "invalid_qr_code" : "Zeskanowany kod jest niepoprawny i nie może zostać obsłużony przez aplikację",
+  "user_already_in_group" : "Próbujesz dołączyć do grupy, której jesteś już członkiem.",
+  "user_already_in_vod_group_type" : "Dołączanie nieudane! W danym momencie możesz być tylko w jednej grupie danej platfomy VOD",
+  "added_to_group_successfully" : "Dołączyłeś do nowej grupy!"
 }
