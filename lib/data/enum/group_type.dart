@@ -86,7 +86,7 @@ class GroupTypeHelper {
     }
   }
 
-  static getGroupTypeFromGroupId(String groupId) {
+  static GroupType getGroupTypeFromGroupId(String groupId) {
     var length = groupId.length;
     var code = groupId.substring(length - 5, length);
     return getGroupTypeByCode(code);

@@ -32,8 +32,8 @@ class PrimaryButton extends StatelessWidget {
           padding: AppTheme.buttonPadding,
           child: isLoading
               ? const SizedBox(
-                  height: 21.0,
-                  width: 21.0,
+                  height: 22.0,
+                  width: 22.0,
                   child: CircularProgressIndicator(
                     color: AppColors.creamWhite,
                     strokeWidth: 2.0,

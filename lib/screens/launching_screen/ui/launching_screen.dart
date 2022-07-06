@@ -13,8 +13,11 @@ class LaunchingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LaunchingScreenCubit, LaunchingScreenState>(
-      listener: (context, state) =>
-          LaunchingScreenListener.listenToState(context, state),
+      listener: (context, state) => LaunchingScreenListener.listenToState(
+        context,
+        state,
+        context.read<LaunchingScreenCubit>().getJoiningGroupDialogCubit(),
+      ),
       builder: (context, state) {
         return Scaffold(
           body: Center(

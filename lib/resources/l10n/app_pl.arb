@@ -128,5 +128,8 @@
   "invalid_qr_code" : "Zeskanowany kod jest niepoprawny i nie może zostać obsłużony przez aplikację",
   "user_already_in_group" : "Próbujesz dołączyć do grupy, której jesteś już członkiem.",
   "user_already_in_vod_group_type" : "Dołączanie nieudane! W danym momencie możesz być tylko w jednej grupie danej platfomy VOD",
-  "added_to_group_successfully" : "Dołączyłeś do nowej grupy!"
+  "added_to_group_successfully" : "Dołączyłeś do nowej grupy!",
+  "join" : "Dołącz",
+  "joining_group_dialog_header" : "Jesteś o krok od dołączenia do tej grupy",
+  "admin_of_group" : "Admin grupy"
 }

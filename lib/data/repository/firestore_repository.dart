@@ -154,6 +154,18 @@ class FirestoreRepository {
     return false;
   }
 
+  Future<String> getAdminEmailByGroupId({required groupId}) async {
+    var length = groupId.length;
+    var userId = groupId.substring(0, length - 6);
+
+    var user = PayflixUser.fromJson((await _firestore
+        .collection(usersCollectionName)
+        .doc(userId)
+        .get())
+        .data()!);
+
+    return user.email;
+  }
 
   Future<List<PayflixUser>> getMembers({
     required List<String> ids,

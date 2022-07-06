@@ -128,7 +128,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       await _firestoreRepo.updateGroupData(
           docReference: groupId, data: groupData);
 
-      emit(CreatingGroupSucceeded());
+      emit(SavingSettingsSucceeded());
     } catch (e) {
       emit(CreatingGroupFailed(e as String?));
     }

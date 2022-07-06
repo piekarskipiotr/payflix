@@ -53,6 +53,7 @@ class _QrScannerState extends State<QrScanner> {
           state,
           stream,
           qrController,
+          context.read<QrScannerCubit>(),
         ),
         child: Scaffold(
           extendBody: true,

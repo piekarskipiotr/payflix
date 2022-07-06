@@ -36,321 +36,327 @@ class GroupSettings extends StatelessWidget {
     return BlocListener<GroupSettingsCubit, GroupSettingsState>(
       listener: (context, state) =>
           GroupSettingsStateListener.listenToState(context, state),
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: SafeArea(
-          top: true,
-          bottom: true,
-          child: Stack(
-            children: [
-              Positioned(
-                right: -10.0,
-                child: SingleChildScrollView(
-                  child: Container(
-                    alignment: Alignment.topRight,
-                    padding: const EdgeInsets.only(
-                      top: 40.0,
-                    ),
-                    child: Image.asset(
-                      groupFriends,
-                      scale: 2.9,
+      child: WillPopScope(
+        onWillPop: () async {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          return true;
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          body: SafeArea(
+            top: true,
+            bottom: true,
+            child: Stack(
+              children: [
+                Positioned(
+                  right: -10.0,
+                  child: SingleChildScrollView(
+                    child: Container(
+                      alignment: Alignment.topRight,
+                      padding: const EdgeInsets.only(
+                        top: 40.0,
+                      ),
+                      child: Image.asset(
+                        groupFriends,
+                        scale: 2.9,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              CustomScrollView(
-                physics: const BouncingScrollPhysics(),
-                slivers: [
-                  MultiBlocProvider(
-                    providers: [
-                      BlocProvider.value(value: getIt<AppBarCubit>()),
-                      BlocProvider.value(
-                          value: context.read<GroupSettingsCubit>()),
-                    ],
-                    child: AppBarWithMovedTitle(
-                      title: isGroupCreator
-                          ? getString(context).create_group
-                          : getString(context).group_settings,
-                      secondaryText: (isGroupCreator
-                              ? getString(context).create_group
-                              : getString(context).group_settings)
-                          .replaceAll('\n', ' '),
-                      actions: [
-                        IconButton(
-                          onPressed: group == null
-                              ? () => AppDialogController.showBottomSheetDialog(
-                                    context,
-                                    BlocProvider.value(
-                                      value: context
-                                          .read<GroupSettingsCubit>()
-                                          .getVodDialogCubit(),
-                                      child: const PickingVodDialog(),
-                                    ),
-                                  )
-                              : null,
-                          iconSize: 38.0,
-                          icon: Material(
-                            elevation: 0,
-                            clipBehavior: Clip.hardEdge,
-                            color: AppColors.containerBlack,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(
-                                16.0,
+                CustomScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  slivers: [
+                    MultiBlocProvider(
+                      providers: [
+                        BlocProvider.value(value: getIt<AppBarCubit>()),
+                        BlocProvider.value(
+                            value: context.read<GroupSettingsCubit>()),
+                      ],
+                      child: AppBarWithMovedTitle(
+                        title: isGroupCreator
+                            ? getString(context).create_group
+                            : getString(context).group_settings,
+                        secondaryText: (isGroupCreator
+                                ? getString(context).create_group
+                                : getString(context).group_settings)
+                            .replaceAll('\n', ' '),
+                        actions: [
+                          IconButton(
+                            onPressed: group == null
+                                ? () => AppDialogController.showBottomSheetDialog(
+                                      context,
+                                      BlocProvider.value(
+                                        value: context
+                                            .read<GroupSettingsCubit>()
+                                            .getVodDialogCubit(),
+                                        child: const PickingVodDialog(),
+                                      ),
+                                    )
+                                : null,
+                            iconSize: 38.0,
+                            icon: Material(
+                              elevation: 0,
+                              clipBehavior: Clip.hardEdge,
+                              color: AppColors.containerBlack,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(
+                                  16.0,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Center(
+                                    child: AppCachedNetworkImage(
+                                  url: context
+                                      .read<GroupSettingsCubit>()
+                                      .getVod()
+                                      .logo,
+                                  placeholder: AppPlaceholder.vod,
+                                  size: 38.0,
+                                )),
                               ),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Center(
-                                  child: AppCachedNetworkImage(
-                                url: context
-                                    .read<GroupSettingsCubit>()
-                                    .getVod()
-                                    .logo,
-                                placeholder: AppPlaceholder.vod,
-                                size: 38.0,
-                              )),
-                            ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 25.0,
-                        ),
-                        BlurContainer(
-                          body: Form(
-                            key: formKey,
-                            child: Column(
-                              children: [
-                                Text(
-                                  isGroupCreator
-                                      ? getString(context)
-                                          .create_group_form_header
-                                      : getString(context)
-                                          .group_settings_form_header,
-                                  textAlign: TextAlign.left,
-                                  style: GoogleFonts.oxygen(
-                                    color: AppColors.creamWhite,
-                                    fontSize: 16.0,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 20.0,
-                                ),
-                                TextFormField(
-                                  initialValue: group
-                                      ?.paymentInfo.monthlyPayment
-                                      .toString(),
-                                  onSaved: (mPayment) => context
-                                      .read<GroupSettingsCubit>()
-                                      .setMonthlyPayment(mPayment),
-                                  validator: (mPayment) =>
-                                      GroupSettingsValidation.validatePayment(
-                                    context,
-                                    mPayment,
-                                  ),
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  maxLines: 1,
-                                  textInputAction: TextInputAction.next,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                        (RegExp(r'^\d+\.?\d{0,2}'))),
-                                  ],
-                                  keyboardType:
-                                      const TextInputType.numberWithOptions(
-                                          decimal: true),
-                                  style: GoogleFonts.oxygen(),
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.zero,
-                                    prefixIcon: const Icon(
-                                      Icons.attach_money,
-                                      size: 22.0,
-                                      color: AppColors.creamWhite,
-                                    ),
-                                    hintText:
-                                        getString(context).monthly_payment,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 15.0,
-                                ),
-                                TextFormField(
-                                  initialValue: group?.paymentInfo.dayOfTheMonth
-                                      .toString(),
-                                  onSaved: (dayOfPayment) => context
-                                      .read<GroupSettingsCubit>()
-                                      .setDayOfTheMonth(dayOfPayment),
-                                  validator: (dayOfPayment) =>
-                                      GroupSettingsValidation
-                                          .validateDayOfPayment(
-                                    context,
-                                    dayOfPayment,
-                                  ),
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  maxLines: 1,
-                                  textInputAction: TextInputAction.next,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp(r'^\d{0,2}')),
-                                  ],
-                                  keyboardType: TextInputType.number,
-                                  style: GoogleFonts.oxygen(),
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        const EdgeInsets.only(right: 10.0),
-                                    prefixIcon: const Icon(
-                                      Icons.today,
-                                      size: 22.0,
-                                      color: AppColors.creamWhite,
-                                    ),
-                                    hintText:
-                                        getString(context).day_of_the_month,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 30.0,
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    getString(context).account_access_optional,
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 25.0,
+                          ),
+                          BlurContainer(
+                            body: Form(
+                              key: formKey,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    isGroupCreator
+                                        ? getString(context)
+                                            .create_group_form_header
+                                        : getString(context)
+                                            .group_settings_form_header,
                                     textAlign: TextAlign.left,
                                     style: GoogleFonts.oxygen(
                                       color: AppColors.creamWhite,
                                       fontSize: 16.0,
                                     ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 20.0,
-                                ),
-                                TextFormField(
-                                  initialValue:
-                                      group?.accessData.emailID.toString(),
-                                  onSaved: (emailID) => context
-                                      .read<GroupSettingsCubit>()
-                                      .setEmailID(emailID),
-                                  validator: (emailID) =>
-                                      GroupSettingsValidation
-                                          .validateEmailIdField(
-                                    context,
-                                    emailID,
+                                  const SizedBox(
+                                    height: 20.0,
                                   ),
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  maxLines: 1,
-                                  textInputAction: TextInputAction.next,
-                                  style: GoogleFonts.oxygen(),
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.zero,
-                                    prefixIcon: const Icon(
-                                      Icons.alternate_email,
-                                      size: 22.0,
-                                      color: AppColors.creamWhite,
+                                  TextFormField(
+                                    initialValue: group
+                                        ?.paymentInfo.monthlyPayment
+                                        .toString(),
+                                    onSaved: (mPayment) => context
+                                        .read<GroupSettingsCubit>()
+                                        .setMonthlyPayment(mPayment),
+                                    validator: (mPayment) =>
+                                        GroupSettingsValidation.validatePayment(
+                                      context,
+                                      mPayment,
                                     ),
-                                    hintText: getString(context).email_id,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    maxLines: 1,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          (RegExp(r'^\d+\.?\d{0,2}'))),
+                                    ],
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            decimal: true),
+                                    style: GoogleFonts.oxygen(),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.zero,
+                                      prefixIcon: const Icon(
+                                        Icons.attach_money,
+                                        size: 22.0,
+                                        color: AppColors.creamWhite,
+                                      ),
+                                      hintText:
+                                          getString(context).monthly_payment,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 15.0,
-                                ),
-                                BlocBuilder<GroupSettingsCubit,
-                                    GroupSettingsState>(
-                                  builder: (context, state) {
-                                    return TextFormField(
-                                      initialValue:
-                                          group?.accessData.password.toString(),
-                                      onSaved: (password) => context
-                                          .read<GroupSettingsCubit>()
-                                          .setPassword(password),
-                                      maxLines: 1,
-                                      textInputAction: TextInputAction.done,
-                                      obscureText: context
-                                          .watch<GroupSettingsCubit>()
-                                          .isPasswordVisible(),
-                                      style: GoogleFonts.oxygen(),
-                                      decoration: InputDecoration(
-                                        contentPadding:
-                                            const EdgeInsets.only(right: 10.0),
-                                        hintText: getString(context).password,
-                                        prefixIcon: const Icon(
-                                          Icons.lock,
-                                          size: 22.0,
-                                          color: AppColors.creamWhite,
-                                        ),
-                                        suffixIcon: Material(
-                                          color: Colors.transparent,
-                                          child: IconButton(
-                                            onPressed: () => context
-                                                .read<GroupSettingsCubit>()
-                                                .changePasswordVisibility(),
-                                            splashRadius: 20.0,
-                                            icon: Icon(
-                                              context
-                                                      .watch<
-                                                          GroupSettingsCubit>()
-                                                      .isPasswordVisible()
-                                                  ? Icons.visibility
-                                                  : Icons.visibility_off,
-                                              size: 22.0,
-                                              color: AppColors.creamWhite,
+                                  const SizedBox(
+                                    height: 15.0,
+                                  ),
+                                  TextFormField(
+                                    initialValue: group?.paymentInfo.dayOfTheMonth
+                                        .toString(),
+                                    onSaved: (dayOfPayment) => context
+                                        .read<GroupSettingsCubit>()
+                                        .setDayOfTheMonth(dayOfPayment),
+                                    validator: (dayOfPayment) =>
+                                        GroupSettingsValidation
+                                            .validateDayOfPayment(
+                                      context,
+                                      dayOfPayment,
+                                    ),
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    maxLines: 1,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp(r'^\d{0,2}')),
+                                    ],
+                                    keyboardType: TextInputType.number,
+                                    style: GoogleFonts.oxygen(),
+                                    decoration: InputDecoration(
+                                      contentPadding:
+                                          const EdgeInsets.only(right: 10.0),
+                                      prefixIcon: const Icon(
+                                        Icons.today,
+                                        size: 22.0,
+                                        color: AppColors.creamWhite,
+                                      ),
+                                      hintText:
+                                          getString(context).day_of_the_month,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 30.0,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      getString(context).account_access_optional,
+                                      textAlign: TextAlign.left,
+                                      style: GoogleFonts.oxygen(
+                                        color: AppColors.creamWhite,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  TextFormField(
+                                    initialValue:
+                                        group?.accessData.emailID.toString(),
+                                    onSaved: (emailID) => context
+                                        .read<GroupSettingsCubit>()
+                                        .setEmailID(emailID),
+                                    validator: (emailID) =>
+                                        GroupSettingsValidation
+                                            .validateEmailIdField(
+                                      context,
+                                      emailID,
+                                    ),
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    maxLines: 1,
+                                    textInputAction: TextInputAction.next,
+                                    style: GoogleFonts.oxygen(),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.zero,
+                                      prefixIcon: const Icon(
+                                        Icons.alternate_email,
+                                        size: 22.0,
+                                        color: AppColors.creamWhite,
+                                      ),
+                                      hintText: getString(context).email_id,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 15.0,
+                                  ),
+                                  BlocBuilder<GroupSettingsCubit,
+                                      GroupSettingsState>(
+                                    builder: (context, state) {
+                                      return TextFormField(
+                                        initialValue:
+                                            group?.accessData.password.toString(),
+                                        onSaved: (password) => context
+                                            .read<GroupSettingsCubit>()
+                                            .setPassword(password),
+                                        maxLines: 1,
+                                        textInputAction: TextInputAction.done,
+                                        obscureText: context
+                                            .watch<GroupSettingsCubit>()
+                                            .isPasswordVisible(),
+                                        style: GoogleFonts.oxygen(),
+                                        decoration: InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.only(right: 10.0),
+                                          hintText: getString(context).password,
+                                          prefixIcon: const Icon(
+                                            Icons.lock,
+                                            size: 22.0,
+                                            color: AppColors.creamWhite,
+                                          ),
+                                          suffixIcon: Material(
+                                            color: Colors.transparent,
+                                            child: IconButton(
+                                              onPressed: () => context
+                                                  .read<GroupSettingsCubit>()
+                                                  .changePasswordVisibility(),
+                                              splashRadius: 20.0,
+                                              icon: Icon(
+                                                context
+                                                        .watch<
+                                                            GroupSettingsCubit>()
+                                                        .isPasswordVisible()
+                                                    ? Icons.visibility
+                                                    : Icons.visibility_off,
+                                                size: 22.0,
+                                                color: AppColors.creamWhite,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: 25.0,
-                                ),
-                                BlocBuilder<GroupSettingsCubit,
-                                    GroupSettingsState>(
-                                  builder: (context, state) {
-                                    return PrimaryButton(
-                                      text: isGroupCreator
-                                          ? getString(context).create
-                                          : getString(context).save,
-                                      onClick: state is! SavingSettings &&
-                                              state is! CreatingGroup
-                                          ? () {
-                                              if (formKey.currentState!
-                                                  .validate()) {
-                                                formKey.currentState!.save();
-                                                isGroupCreator
-                                                    ? context
-                                                        .read<
-                                                            GroupSettingsCubit>()
-                                                        .createGroup()
-                                                    : context
-                                                        .read<
-                                                            GroupSettingsCubit>()
-                                                        .saveSettings();
+                                      );
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 25.0,
+                                  ),
+                                  BlocBuilder<GroupSettingsCubit,
+                                      GroupSettingsState>(
+                                    builder: (context, state) {
+                                      return PrimaryButton(
+                                        text: isGroupCreator
+                                            ? getString(context).create
+                                            : getString(context).save,
+                                        onClick: state is! SavingSettings &&
+                                                state is! CreatingGroup
+                                            ? () {
+                                                if (formKey.currentState!
+                                                    .validate()) {
+                                                  formKey.currentState!.save();
+                                                  isGroupCreator
+                                                      ? context
+                                                          .read<
+                                                              GroupSettingsCubit>()
+                                                          .createGroup()
+                                                      : context
+                                                          .read<
+                                                              GroupSettingsCubit>()
+                                                          .saveSettings();
+                                                }
                                               }
-                                            }
-                                          : null,
-                                      isLoading: state is SavingSettings ||
-                                          state is CreatingGroup,
-                                    );
-                                  },
-                                ),
-                              ],
+                                            : null,
+                                        isLoading: state is SavingSettings ||
+                                            state is CreatingGroup,
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ],
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

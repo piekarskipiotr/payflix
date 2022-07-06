@@ -22,3 +22,13 @@ class UserIsAlreadyInThisGroup extends LaunchingScreenState {}
 class UserIsAlreadyInThisVodGroup extends LaunchingScreenState {}
 
 class AddingUserToGroupCompleted extends LaunchingScreenState {}
+
+class JoiningGroupCanceled extends LaunchingScreenState {}
+
+class UserCanBeAddedToTheGroup extends LaunchingScreenState {
+  final String email;
+  final String uid;
+  final String groupId;
+
+  UserCanBeAddedToTheGroup(this.email, this.uid, this.groupId);
+}

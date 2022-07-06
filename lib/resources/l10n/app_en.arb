@@ -128,5 +128,8 @@
   "invalid_qr_code" : "Scanned code is not valid and can't be handle by app",
   "user_already_in_group" : "You are trying to join to the group you already belong",
   "user_already_in_vod_group_type" : "Joining failed! You can only be in one VOD type group at the time",
-  "added_to_group_successfully" : "You joined to the new group!"
+  "added_to_group_successfully" : "You joined to the new group!",
+  "join" : "Join",
+  "joining_group_dialog_header" : "You are about to join this group",
+  "admin_of_group" : "Group admin"
 }

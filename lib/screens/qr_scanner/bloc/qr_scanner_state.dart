@@ -11,10 +11,18 @@ class FoundDataIsCorrect extends QrScannerState {}
 
 class FoundDataIsIncorrect extends QrScannerState {}
 
-class AddingUserToGroup extends QrScannerState {}
-
 class UserIsAlreadyInThisGroup extends QrScannerState {}
 
 class UserIsAlreadyInThisVodGroup extends QrScannerState {}
+
+class JoiningGroupCanceled extends QrScannerState {}
+
+class UserCanBeAddedToTheGroup extends QrScannerState {
+  final String email;
+  final String uid;
+  final String groupId;
+
+  UserCanBeAddedToTheGroup(this.email, this.uid, this.groupId);
+}
 
 class AddingUserToGroupCompleted extends QrScannerState {}
