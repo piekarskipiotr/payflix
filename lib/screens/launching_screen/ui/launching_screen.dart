@@ -16,7 +16,6 @@ class LaunchingScreen extends StatelessWidget {
       listener: (context, state) => LaunchingScreenListener.listenToState(
         context,
         state,
-        context.read<LaunchingScreenCubit>().getJoiningGroupDialogCubit(),
       ),
       builder: (context, state) {
         return Scaffold(

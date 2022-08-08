@@ -2,9 +2,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:payflix/app_listener_bloc/app_listener.dart';
+import 'package:payflix/app_listener_bloc/app_listener_cubit.dart';
+import 'package:payflix/app_listener_bloc/app_listener_state.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/screens/joining_group_dialog/bloc/joining_group_dialog_cubit.dart';
 import 'package:payflix/screens/verification_room/bloc/ver_room_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/screens/verification_room/bloc/ver_room_state.dart';
@@ -15,9 +20,20 @@ class VerificationRoom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<VerRoomCubit, VerRoomState>(
-      listener: (context, state) =>
-          VerRoomStateListener.listenToState(context, state),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<VerRoomCubit, VerRoomState>(
+          listener: (context, state) =>
+              VerRoomStateListener.listenToState(context, state),
+        ),
+        BlocListener<AppListenerCubit, AppListenerState>(
+          listener: (context, state) => AppListener.listenToState(
+            context,
+            state,
+            getIt<JoiningGroupDialogCubit>(),
+          ),
+        ),
+      ],
       child: WillPopScope(
         onWillPop: () => context.read<VerRoomCubit>().logOut(),
         child: Scaffold(

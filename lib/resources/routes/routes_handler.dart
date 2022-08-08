@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/app_listener_bloc/app_listener_cubit.dart';
 import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_cubit.dart';
@@ -39,8 +40,8 @@ class RoutesHandler {
         );
       case AppRoutes.login:
         return buildRoute(
-          BlocProvider(
-            create: (_) => getIt<LoginCubit>(),
+          BlocProvider.value(
+            value: getIt<LoginCubit>(),
             child: Login(
               formKey: GlobalKey<FormState>(),
             ),
@@ -49,8 +50,8 @@ class RoutesHandler {
         );
       case AppRoutes.signUp:
         return buildRoute(
-          BlocProvider(
-            create: (_) => getIt<SignUpCubit>(),
+          BlocProvider.value(
+            value: getIt<SignUpCubit>(),
             child: SignUp(
               formKey: GlobalKey<FormState>(),
             ),
@@ -59,24 +60,24 @@ class RoutesHandler {
         );
       case AppRoutes.verRoom:
         return buildRoute(
-          BlocProvider(
-            create: (_) => getIt<VerRoomCubit>()..listenToVerificationStatus(),
+          BlocProvider.value(
+            value: getIt<VerRoomCubit>()..listenToVerificationStatus(),
             child: const VerificationRoom(),
           ),
           settings: settings,
         );
       case AppRoutes.welcome:
         return buildRoute(
-          BlocProvider(
-            create: (_) => getIt<WelcomeCubit>()..isAlreadyInGroup(),
+          BlocProvider.value(
+            value: getIt<WelcomeCubit>()..isAlreadyInGroup(),
             child: const Welcome(),
           ),
           settings: settings,
         );
       case AppRoutes.groupSettings:
         return buildRoute(
-          BlocProvider(
-            create: (_) => getIt<GroupSettingsCubit>(),
+          BlocProvider.value(
+            value: getIt<GroupSettingsCubit>(),
             child: GroupSettings(
               formKey: GlobalKey<FormState>(),
             ),
@@ -85,24 +86,27 @@ class RoutesHandler {
         );
       case AppRoutes.members:
         return buildRoute(
-          BlocProvider(
-            create: (_) => getIt<MembersCubit>(),
+          BlocProvider.value(
+            value: getIt<MembersCubit>(),
             child: const Members(),
           ),
           settings: settings,
         );
       case AppRoutes.home:
         return buildRoute(
-          BlocProvider(
-            create: (_) => getIt<HomeCubit>(),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: getIt<HomeCubit>()),
+              BlocProvider.value(value: getIt<AppListenerCubit>()),
+            ],
             child: const Home(),
           ),
           settings: settings,
         );
       case AppRoutes.qrScanner:
         return buildRoute(
-          BlocProvider(
-            create: (_) => getIt<QrScannerCubit>(),
+          BlocProvider.value(
+            value: getIt<QrScannerCubit>(),
             child: const QrScanner(),
           ),
           settings: settings,

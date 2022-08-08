@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:payflix/app_listener_bloc/app_listener.dart';
+import 'package:payflix/app_listener_bloc/app_listener_cubit.dart';
+import 'package:payflix/app_listener_bloc/app_listener_state.dart';
+import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/bloc/home_cubit_listener.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
 import 'package:payflix/screens/home/ui/groups/groups.dart';
 import 'package:payflix/screens/home/ui/profile/profile.dart';
+import 'package:payflix/screens/joining_group_dialog/bloc/joining_group_dialog_cubit.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -20,9 +25,20 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<HomeCubit, HomeState>(
-      listener: (context, state) =>
-          HomeCubitListener.listenToState(context, state),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<HomeCubit, HomeState>(
+          listener: (context, state) =>
+              HomeCubitListener.listenToState(context, state),
+        ),
+        BlocListener<AppListenerCubit, AppListenerState>(
+          listener: (context, state) => AppListener.listenToState(
+            context,
+            state,
+            getIt<JoiningGroupDialogCubit>(),
+          ),
+        ),
+      ],
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: SafeArea(

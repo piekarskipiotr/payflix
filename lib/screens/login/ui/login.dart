@@ -1,12 +1,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:payflix/app_listener_bloc/app_listener.dart';
+import 'package:payflix/app_listener_bloc/app_listener_cubit.dart';
+import 'package:payflix/app_listener_bloc/app_listener_state.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/common/validators/login_validation.dart';
+import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
+import 'package:payflix/screens/joining_group_dialog/bloc/joining_group_dialog_cubit.dart';
 import 'package:payflix/screens/login/bloc/login_cubit.dart';
 import 'package:payflix/screens/login/bloc/login_state.dart';
 import 'package:payflix/screens/login/bloc/login_state_listener.dart';
@@ -23,9 +28,20 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginState>(
-      listener: (context, state) =>
-          LoginStateListener.listenToState(context, state),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<LoginCubit, LoginState>(
+          listener: (context, state) =>
+              LoginStateListener.listenToState(context, state),
+        ),
+        BlocListener<AppListenerCubit, AppListenerState>(
+          listener: (context, state) => AppListener.listenToState(
+            context,
+            state,
+            getIt<JoiningGroupDialogCubit>(),
+          ),
+        ),
+      ],
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         body: SafeArea(
