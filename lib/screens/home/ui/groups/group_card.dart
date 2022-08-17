@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/data/enum/app_placeholder.dart';
 import 'package:payflix/data/enum/group_type.dart';
@@ -8,6 +9,7 @@ import 'package:payflix/data/model/group.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
+import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/widgets/app_cached_network_image.dart';
 
 class GroupCard extends StatelessWidget {
@@ -27,7 +29,7 @@ class GroupCard extends StatelessWidget {
         onTap: () => Navigator.pushNamed(
           context,
           AppRoutes.members,
-          arguments: group,
+          arguments: [group, context.read<HomeCubit>()],
         ),
         child: SizedBox(
           height: 162.0,
