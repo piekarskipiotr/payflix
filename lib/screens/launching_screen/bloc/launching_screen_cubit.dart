@@ -16,7 +16,7 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
     this._authRepository,
     this._firestoreRepository,
   ) : super(InitLaunchingScreenState()) {
-    _initialize();
+    Future.delayed(const Duration(seconds: 1), () async => await _initialize());
   }
 
   Future _initialize() async {

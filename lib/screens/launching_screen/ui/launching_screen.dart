@@ -12,32 +12,30 @@ class LaunchingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LaunchingScreenCubit, LaunchingScreenState>(
+    return BlocListener<LaunchingScreenCubit, LaunchingScreenState>(
       listener: (context, state) => LaunchingScreenListener.listenToState(
         context,
         state,
       ),
-      builder: (context, state) {
-        return Scaffold(
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                const CircularProgressIndicator(),
-                const SizedBox(height: 5.0),
-                Text(
-                  getString(context).initializing_app,
-                  style: GoogleFonts.oxygen(
-                    color: AppColors.creamWhite,
-                    fontSize: 16.0,
-                  ),
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 15.0),
+              Text(
+                getString(context).initializing_app,
+                style: GoogleFonts.oxygen(
+                  color: AppColors.creamWhite,
+                  fontSize: 16.0,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
