@@ -11,6 +11,7 @@ import 'package:payflix/screens/home/bloc/home_state.dart';
 import 'package:payflix/screens/home/ui/groups/groups.dart';
 import 'package:payflix/screens/home/ui/profile/profile.dart';
 import 'package:payflix/screens/joining_group_dialog/bloc/joining_group_dialog_cubit.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -20,16 +21,34 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final _pages = [const Groups(), const Profile()];
   var _pageIndex = 0;
+  late RefreshController _groupsController;
+  late RefreshController _profileController;
+  late List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _groupsController = RefreshController(initialRefresh: false);
+    _profileController = RefreshController(initialRefresh: false);
+
+    _pages = [
+      Groups(controller: _groupsController),
+      Profile(controller: _profileController),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
         BlocListener<HomeCubit, HomeState>(
-          listener: (context, state) =>
-              HomeCubitListener.listenToState(context, state),
+          listener: (context, state) => HomeCubitListener.listenToState(
+            context,
+            state,
+            _groupsController,
+            _profileController,
+          ),
         ),
         BlocListener<AppListenerCubit, AppListenerState>(
           listener: (context, state) => AppListener.listenToState(

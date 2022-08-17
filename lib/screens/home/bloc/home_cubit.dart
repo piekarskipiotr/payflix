@@ -31,7 +31,7 @@ class HomeCubit extends Cubit<HomeState> {
     this._pickingVodDialogCubit,
     this._editProfileDialogCubit,
   ) : super(InitHomeState()) {
-    fetchData();
+    fetchData(isRefresh: false);
 
     _editProfileDialogCubitSubscription =
         _editProfileDialogCubit.stream.listen((state) {
@@ -77,9 +77,8 @@ class HomeCubit extends Cubit<HomeState> {
     emit(LoggingOutCompleted());
   }
 
-  Future fetchData() async {
-    emit(FetchingData());
-    _groups.clear();
+  Future fetchData({required bool isRefresh}) async {
+    emit(isRefresh ? RefreshingData() : FetchingData());
     var user = _authRepo.instance().currentUser;
 
     if (user != null) {
@@ -87,6 +86,7 @@ class HomeCubit extends Cubit<HomeState> {
       _payflixUser = await _firestoreRepository.getUserData(docReference: uid);
       var userGroups = _payflixUser!.groups;
 
+      _groups.clear();
       for (var id in userGroups) {
         var groupData =
             await _firestoreRepository.getGroupData(docReference: id);

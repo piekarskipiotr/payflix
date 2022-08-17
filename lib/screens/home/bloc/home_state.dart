@@ -9,6 +9,8 @@ class InitHomeState extends HomeState {}
 
 class FetchingData extends HomeState {}
 
+class RefreshingData extends HomeState {}
+
 class FetchingDataSucceeded extends HomeState {}
 
 class FetchingDataFailed extends HomeState {}
