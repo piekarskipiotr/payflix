@@ -40,8 +40,13 @@ class RoutesHandler {
         );
       case AppRoutes.login:
         return buildRoute(
-          BlocProvider.value(
-            value: getIt<LoginCubit>(),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: getIt<AppListenerCubit>()),
+              BlocProvider.value(
+                value: getIt<LoginCubit>(),
+              )
+            ],
             child: Login(
               formKey: GlobalKey<FormState>(),
             ),
