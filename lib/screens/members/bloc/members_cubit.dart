@@ -6,6 +6,7 @@ import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
+import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/members/bloc/members_state.dart';
 
 @injectable
@@ -20,13 +21,34 @@ class MembersCubit extends Cubit<MembersState> {
   bool isCurrentUser(PayflixUser user) => _authRepo.getUID() == user.id;
 
   Future _fetchMembers(Group group) async {
-    emit(FetchingMembers());
+    try {
+      emit(FetchingMembers());
 
-    var ids = group.users!;
-    var uid = _authRepo.getUID()!;
-    var members = await _firestoreRepository.getMembers(ids: ids, uid: uid);
+      var ids = group.users!;
+      var uid = _authRepo.getUID()!;
+      var members = await _firestoreRepository.getMembers(ids: ids, uid: uid);
 
-    emit(FetchingMembersSucceeded(members));
+      emit(FetchingMembersSucceeded(members));
+    } catch (e) {
+      emit(FetchingMembersFailed());
+    }
+  }
+
+  Future refreshData({required HomeCubit cubit}) async {
+    if (_group != null) {
+      try {
+        var group = await _firestoreRepository.getGroupData(docReference: _group!.getGroupId());
+        cubit.updateGroupData(group);
+
+        var ids = group.users!;
+        var uid = _authRepo.getUID()!;
+        var members = await _firestoreRepository.getMembers(ids: ids, uid: uid);
+
+        emit(FetchingMembersSucceeded(members));
+      } catch (e) {
+        emit(FetchingMembersFailed());
+      }
+    }
   }
 
   Future initialize(Group group) async {

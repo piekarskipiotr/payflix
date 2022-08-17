@@ -56,6 +56,15 @@ class HomeCubit extends Cubit<HomeState> {
 
   List<Group> getGroups() => _groups;
 
+  void updateGroupData(Group group) {
+    emit(RefreshingData());
+    var index = _groups.indexWhere((g) => g.getGroupId() == group.getGroupId());
+    _groups[index] = group;
+
+    getVodDialogCubit().setUserGroup(_groups);
+    emit(FetchingDataSucceeded());
+  }
+
   bool isUserGroupAdmin(Group group) {
     var uid = _authRepo.getUID();
     var groupId = group.getGroupId();
