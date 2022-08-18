@@ -63,7 +63,7 @@ class _QrScannerState extends State<QrScanner> {
               getString(context).qr_scanner_title,
               style: GoogleFonts.oxygen(
                 fontSize: 18.0,
-                color: AppColors.creamWhite,
+                color: AppColors.gray,
               ),
             ),
             centerTitle: false,
@@ -75,9 +75,9 @@ class _QrScannerState extends State<QrScanner> {
             onQRViewCreated: _onQRViewCreated,
             overlay: QrScannerOverlayShape(
               borderColor: AppColors.accent,
-              borderRadius: 24.0,
-              borderWidth: 12.0,
-              borderLength: 50.0,
+              borderRadius: 28.0,
+              borderWidth: 6.0,
+              borderLength: 46.0,
             ),
           ),
         ),
