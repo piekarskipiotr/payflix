@@ -15,7 +15,11 @@ class AppDialogController {
     );
   }
 
-  static showBottomSheetDialog(BuildContext context, Widget dialog) {
+  static showBottomSheetDialog({
+    required BuildContext context,
+    required Widget dialog,
+    bool isSidePadding = true,
+  }) {
     showModalBottomSheet(
       context: context,
       clipBehavior: Clip.antiAlias,
@@ -36,10 +40,12 @@ class AppDialogController {
           child: SafeArea(
             bottom: true,
             child: Padding(
-              padding: const EdgeInsets.only(
-                left: 20.0,
-                right: 20.0,
-              ),
+              padding: isSidePadding
+                  ? const EdgeInsets.only(
+                      left: 20.0,
+                      right: 20.0,
+                    )
+                  : EdgeInsets.zero,
               child: dialog,
             ),
           ),

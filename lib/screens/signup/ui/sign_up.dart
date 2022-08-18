@@ -147,8 +147,8 @@ class SignUp extends StatelessWidget {
                                                             .unfocus();
                                                         AppDialogController
                                                             .showBottomSheetDialog(
-                                                          context,
-                                                          BlocProvider.value(
+                                                          context: context,
+                                                          dialog: BlocProvider.value(
                                                             value: context
                                                                 .read<
                                                                     SignUpCubit>()

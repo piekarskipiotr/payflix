@@ -83,9 +83,10 @@ class GroupSettings extends StatelessWidget {
                         actions: [
                           IconButton(
                             onPressed: group == null
-                                ? () => AppDialogController.showBottomSheetDialog(
-                                      context,
-                                      BlocProvider.value(
+                                ? () =>
+                                    AppDialogController.showBottomSheetDialog(
+                                      context: context,
+                                      dialog: BlocProvider.value(
                                         value: context
                                             .read<GroupSettingsCubit>()
                                             .getVodDialogCubit(),
@@ -186,7 +187,8 @@ class GroupSettings extends StatelessWidget {
                                     height: 15.0,
                                   ),
                                   TextFormField(
-                                    initialValue: group?.paymentInfo.dayOfTheMonth
+                                    initialValue: group
+                                        ?.paymentInfo.dayOfTheMonth
                                         .toString(),
                                     onSaved: (dayOfPayment) => context
                                         .read<GroupSettingsCubit>()
@@ -225,7 +227,7 @@ class GroupSettings extends StatelessWidget {
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      getString(context).account_access_optional,
+                                      '${getString(context).account_access} (${getString(context).optional})',
                                       textAlign: TextAlign.left,
                                       style: GoogleFonts.oxygen(
                                         color: AppColors.creamWhite,
@@ -270,8 +272,8 @@ class GroupSettings extends StatelessWidget {
                                       GroupSettingsState>(
                                     builder: (context, state) {
                                       return TextFormField(
-                                        initialValue:
-                                            group?.accessData.password.toString(),
+                                        initialValue: group?.accessData.password
+                                            .toString(),
                                         onSaved: (password) => context
                                             .read<GroupSettingsCubit>()
                                             .setPassword(password),
@@ -282,8 +284,8 @@ class GroupSettings extends StatelessWidget {
                                             .isPasswordVisible(),
                                         style: GoogleFonts.oxygen(),
                                         decoration: InputDecoration(
-                                          contentPadding:
-                                              const EdgeInsets.only(right: 10.0),
+                                          contentPadding: const EdgeInsets.only(
+                                              right: 10.0),
                                           hintText: getString(context).password,
                                           prefixIcon: const Icon(
                                             Icons.lock,

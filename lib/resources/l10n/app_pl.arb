@@ -64,7 +64,8 @@
   "create_group_form_header" : "Dziękujemy za rozszerzenie naszej społeczności! Wszystkie poniższe ustawienia możesz później zmienić",
   "group_settings_form_header" : "Ustawienia Twojej grupy możesz zmienić w każdym momencie jednak na wprowadzenie niektórych z nich może potrwać trochę czasu",
   "save" : "Zapisz",
-  "account_access_optional" : "Dane dostępowe (opcjonalne)",
+  "account_access" : "Dane dostępowe",
+  "optional" : "opcjonalnie",
   "monthly_payment" : "Opłata miesięczna",
   "day_of_the_month" : "Dzień miesiąca",
   "saved" : "Zapisano!",
@@ -131,5 +132,6 @@
   "added_to_group_successfully" : "Dołączyłeś do nowej grupy!",
   "join" : "Dołącz",
   "joining_group_dialog_header" : "Jesteś o krok od dołączenia do tej grupy",
-  "admin_of_group" : "Admin grupy"
+  "admin_of_group" : "Admin grupy",
+  "leave_group" : "Opuść grupę"
 }
