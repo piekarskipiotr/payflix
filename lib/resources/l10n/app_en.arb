@@ -133,5 +133,7 @@
   "join" : "Join",
   "joining_group_dialog_header" : "You are about to join this group",
   "admin_of_group" : "Group admin",
-  "leave_group" : "Leave group"
+  "leave_group" : "Leave group",
+  "payment_info" : "Payment info",
+  "admin_contact" : "Admin contact"
 }
