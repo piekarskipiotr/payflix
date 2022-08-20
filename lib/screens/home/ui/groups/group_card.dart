@@ -7,12 +7,10 @@ import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/data/enum/app_placeholder.dart';
 import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/group.dart';
-import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
-import 'package:payflix/screens/home/ui/groups/bloc/group_quick_actions_dialog_cubit.dart';
 import 'package:payflix/screens/home/ui/groups/group_quick_actions_dialog.dart';
 import 'package:payflix/widgets/app_cached_network_image.dart';
 
@@ -39,7 +37,7 @@ class GroupCard extends StatelessWidget {
         onLongPress: () => AppDialogController.showBottomSheetDialog(
           context: context,
           dialog: BlocProvider.value(
-            value: getIt<GroupQuickActionsDialogCubit>(),
+            value: context.read<HomeCubit>().getGQADialogCubit(),
             child: GroupQuickActionsDialog(
               group: group,
               isAdmin: isAdmin,
