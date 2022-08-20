@@ -81,39 +81,42 @@ class GroupSettings extends StatelessWidget {
                                 : getString(context).group_settings)
                             .replaceAll('\n', ' '),
                         actions: [
-                          IconButton(
-                            onPressed: group == null
-                                ? () => AppDialogController.showBottomSheetDialog(
-                                      context,
-                                      BlocProvider.value(
-                                        value: context
-                                            .read<GroupSettingsCubit>()
-                                            .getVodDialogCubit(),
-                                        child: const PickingVodDialog(),
-                                      ),
-                                    )
-                                : null,
-                            iconSize: 38.0,
-                            icon: Material(
-                              elevation: 0,
-                              clipBehavior: Clip.hardEdge,
-                              color: AppColors.containerBlack,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(
-                                  16.0,
+                          BlocBuilder<GroupSettingsCubit, GroupSettingsState>(
+                            builder: (context, state) => IconButton(
+                              onPressed: group == null
+                                  ? () =>
+                                      AppDialogController.showBottomSheetDialog(
+                                        context,
+                                        BlocProvider.value(
+                                          value: context
+                                              .read<GroupSettingsCubit>()
+                                              .getVodDialogCubit(),
+                                          child: const PickingVodDialog(),
+                                        ),
+                                      )
+                                  : null,
+                              iconSize: 38.0,
+                              icon: Material(
+                                elevation: 0,
+                                clipBehavior: Clip.hardEdge,
+                                color: AppColors.containerBlack,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(
+                                    16.0,
+                                  ),
                                 ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Center(
-                                    child: AppCachedNetworkImage(
-                                  url: context
-                                      .read<GroupSettingsCubit>()
-                                      .getVod()
-                                      .logo,
-                                  placeholder: AppPlaceholder.vod,
-                                  size: 38.0,
-                                )),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Center(
+                                      child: AppCachedNetworkImage(
+                                    url: context
+                                        .read<GroupSettingsCubit>()
+                                        .getVod()
+                                        .logo,
+                                    placeholder: AppPlaceholder.vod,
+                                    size: 38.0,
+                                  )),
+                                ),
                               ),
                             ),
                           )
@@ -186,7 +189,8 @@ class GroupSettings extends StatelessWidget {
                                     height: 15.0,
                                   ),
                                   TextFormField(
-                                    initialValue: group?.paymentInfo.dayOfTheMonth
+                                    initialValue: group
+                                        ?.paymentInfo.dayOfTheMonth
                                         .toString(),
                                     onSaved: (dayOfPayment) => context
                                         .read<GroupSettingsCubit>()
@@ -225,7 +229,8 @@ class GroupSettings extends StatelessWidget {
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      getString(context).account_access_optional,
+                                      getString(context)
+                                          .account_access_optional,
                                       textAlign: TextAlign.left,
                                       style: GoogleFonts.oxygen(
                                         color: AppColors.creamWhite,
@@ -270,8 +275,8 @@ class GroupSettings extends StatelessWidget {
                                       GroupSettingsState>(
                                     builder: (context, state) {
                                       return TextFormField(
-                                        initialValue:
-                                            group?.accessData.password.toString(),
+                                        initialValue: group?.accessData.password
+                                            .toString(),
                                         onSaved: (password) => context
                                             .read<GroupSettingsCubit>()
                                             .setPassword(password),
@@ -282,8 +287,8 @@ class GroupSettings extends StatelessWidget {
                                             .isPasswordVisible(),
                                         style: GoogleFonts.oxygen(),
                                         decoration: InputDecoration(
-                                          contentPadding:
-                                              const EdgeInsets.only(right: 10.0),
+                                          contentPadding: const EdgeInsets.only(
+                                              right: 10.0),
                                           hintText: getString(context).password,
                                           prefixIcon: const Icon(
                                             Icons.lock,
