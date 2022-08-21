@@ -28,6 +28,12 @@ class PaymentInfo {
 
   Map<String, dynamic> toJson() => _$PaymentInfoToJson(this);
 
+  bool isOptionalDataEmpty() => isBankAccountNumberEmpty() && isPhoneNumberEmpty();
+
+  bool isBankAccountNumberEmpty() => bankAccountNumber == null || bankAccountNumber?.trim() == '';
+
+  bool isPhoneNumberEmpty() => phoneNumber == null || phoneNumber?.trim() == '';
+
   @override
   String toString() =>
       'PaymentInfo{monthlyPayment: $monthlyPayment, dayOfTheMonth: $dayOfTheMonth, bankAccountNumber: $bankAccountNumber, phoneNumber: $phoneNumber}';
