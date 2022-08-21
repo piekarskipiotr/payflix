@@ -45,4 +45,22 @@ class GroupSettingsValidation {
 
     return null;
   }
+
+  static String? validatePhoneNumber(BuildContext context, String? value) {
+
+    if (value == null || value.trim() == '') {
+      return null;
+    }
+
+    // case 1: not matching phone number pattern
+    // Pattern from here: https://regexr.com/3c53v
+    const pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
+    final regExp = RegExp(pattern);
+
+    if (!regExp.hasMatch(value)) {
+      return getString(context).not_phone_number;
+    }
+
+    return null;
+  }
 }

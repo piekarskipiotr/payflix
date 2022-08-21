@@ -28,6 +28,8 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
 
   double? _monthlyPayment;
   int? _dayOfTheMonth;
+  String? _bankAccountNo;
+  String? _phoneNumber;
   String? _emailID;
   String? _password;
   bool _isPasswordObscure = true;
@@ -36,11 +38,12 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   GroupSettingsCubit(
     this._authRepo,
     this._firestoreRepo,
-    this._dynamicLinksRepo, this._pickingVodDialogCubit,
+    this._dynamicLinksRepo,
+    this._pickingVodDialogCubit,
   ) : super(InitGroupSettingsState()) {
     getGroups();
     _pickingVodDialogCubitSubscription = _pickingVodDialogCubit.stream.listen(
-          (state) {
+      (state) {
         if (state is VodPicked) {
           emit(ChangingVod());
           var vod = state.groupType;
@@ -73,8 +76,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       var userGroups = userData.groups;
 
       for (var id in userGroups) {
-        var groupData =
-        await _firestoreRepo.getGroupData(docReference: id);
+        var groupData = await _firestoreRepo.getGroupData(docReference: id);
         groups.add(groupData);
       }
 
@@ -109,6 +111,11 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       _dayOfTheMonth = null;
     }
   }
+
+  void setBankAccountNumber(String? bankAccountNo) =>
+      _bankAccountNo = bankAccountNo;
+
+  void setPhoneNumber(String? phoneNumber) => _phoneNumber = phoneNumber;
 
   void setEmailID(String? emailID) => _emailID = emailID;
 
@@ -189,17 +196,19 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   String _generateGroupId(String userId, GroupType groupType) =>
       '${userId}_${groupType.codeName}';
 
-  Future<Map<String, dynamic>> _generateGroupData(String uid, GroupType groupType) async {
+  Future<Map<String, dynamic>> _generateGroupData(
+      String uid, GroupType groupType) async {
     var paymentInfo = PaymentInfo(
       monthlyPayment: _monthlyPayment!,
       dayOfTheMonth: _dayOfTheMonth!,
+      bankAccountNumber: _bankAccountNo,
+      phoneNumber: _phoneNumber,
     );
 
     var accessData = AccessData(
       emailID: _emailID,
       password: _password,
     );
-
 
     var inviteInfo = await _createInviteLink(groupType: groupType);
 

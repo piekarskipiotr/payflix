@@ -142,5 +142,8 @@
   "leaving_group_failed": "Error occurred while trying to left the group!",
   "account_access_header": "Your access data to VOD platform. Remember to not share this data with anyone that is not a member of the group!",
   "account_access_not_found_header" : "The admin of this group didn't provide access data.",
-  "account_access_not_found_body" : "Contact the group administrator to obtain an email address and password for the VOD platform."
+  "account_access_not_found_body" : "Contact the group administrator to obtain an email address and password for the VOD platform.",
+  "phone_number" : "Phone number",
+  "bank_account_number" : "Bank account no.",
+  "not_phone_number": "Incorrect phone number pattern"
 }

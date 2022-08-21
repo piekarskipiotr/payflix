@@ -142,5 +142,8 @@
   "leaving_group_failed" : "Wystąpił błąd przy próbie opuszczenia grupy!",
   "account_access_header" : "Twoje dane dostępowe do platformy VOD. Pamiętaj aby nie udostępniać tych danych osobom nie będących częścią grupy!",
   "account_access_not_found_header" : "Zarządca tej grupy nie udostępnił danych dostępu.",
-  "account_access_not_found_body" : "Skontaktuj się z administratorem grupy w celu uzyskania adresu email oraz hasła do platformy VOD."
+  "account_access_not_found_body" : "Skontaktuj się z administratorem grupy w celu uzyskania adresu email oraz hasła do platformy VOD.",
+  "phone_number" : "Telefon",
+  "bank_account_number" : "Nr konta bankowego",
+  "not_phone_number": "Nieprawidłowy format numeru telefonu"
 }
