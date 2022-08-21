@@ -27,8 +27,8 @@ class Groups extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () => AppDialogController.showBottomSheetDialog(
-                  context,
-                  BlocProvider.value(
+                  context: context,
+                  dialog: BlocProvider.value(
                     value: context.read<HomeCubit>().getVodDialogCubit(),
                     child: const PickingVodDialog(),
                   ),

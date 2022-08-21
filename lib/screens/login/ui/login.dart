@@ -141,8 +141,8 @@ class Login extends StatelessWidget {
                                                           .save();
                                                       AppDialogController
                                                           .showBottomSheetDialog(
-                                                        context,
-                                                        BlocProvider.value(
+                                                        context: context,
+                                                        dialog: BlocProvider.value(
                                                           value: context.read<
                                                               LoginCubit>(),
                                                           child:

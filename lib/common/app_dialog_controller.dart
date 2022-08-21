@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -15,7 +16,12 @@ class AppDialogController {
     );
   }
 
-  static showBottomSheetDialog(BuildContext context, Widget dialog) {
+  static showBottomSheetDialog({
+    required BuildContext context,
+    required Widget dialog,
+    bool isSidePadding = true,
+    FutureOr<void> Function()? onClose,
+  }) {
     showModalBottomSheet(
       context: context,
       clipBehavior: Clip.antiAlias,
@@ -36,15 +42,17 @@ class AppDialogController {
           child: SafeArea(
             bottom: true,
             child: Padding(
-              padding: const EdgeInsets.only(
-                left: 20.0,
-                right: 20.0,
-              ),
+              padding: isSidePadding
+                  ? const EdgeInsets.only(
+                      left: 20.0,
+                      right: 20.0,
+                    )
+                  : EdgeInsets.zero,
               child: dialog,
             ),
           ),
         ),
       ),
-    );
+    ).whenComplete(onClose ?? () {});
   }
 }

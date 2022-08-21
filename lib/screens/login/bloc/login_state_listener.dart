@@ -25,8 +25,8 @@ class LoginStateListener {
       );
     } else if (state is SignInWithGoogleAccountSucceeded) {
       AppDialogController.showBottomSheetDialog(
-        context,
-        BlocProvider.value(
+        context: context,
+        dialog: BlocProvider.value(
           value: context.read<LoginCubit>().getDialogCubit(),
           child: const PickingAvatarDialog(),
         ),

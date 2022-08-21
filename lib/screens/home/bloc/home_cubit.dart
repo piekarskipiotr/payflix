@@ -8,6 +8,8 @@ import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
+import 'package:payflix/screens/home/ui/groups/bloc/group_quick_actions_dialog_cubit.dart';
+import 'package:payflix/screens/home/ui/groups/bloc/group_quick_actions_dialog_state.dart';
 import 'package:payflix/screens/home/ui/profile/bloc/edit_profile_dialog_cubit.dart';
 import 'package:payflix/screens/home/ui/profile/bloc/edit_profile_dialog_state.dart';
 import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_cubit.dart';
@@ -21,6 +23,8 @@ class HomeCubit extends Cubit<HomeState> {
   late StreamSubscription _pickingVodDialogCubitSubscription;
   final EditProfileDialogCubit _editProfileDialogCubit;
   late StreamSubscription _editProfileDialogCubitSubscription;
+  final GroupQuickActionsDialogCubit _groupQuickActionsDialogCubit;
+  late StreamSubscription _groupQuickActionsDialogCubitSubscription;
 
   final _groups = List<Group>.empty(growable: true);
   PayflixUser? _payflixUser;
@@ -30,6 +34,7 @@ class HomeCubit extends Cubit<HomeState> {
     this._firestoreRepository,
     this._pickingVodDialogCubit,
     this._editProfileDialogCubit,
+    this._groupQuickActionsDialogCubit,
   ) : super(InitHomeState()) {
     fetchData(isRefresh: false);
 
@@ -49,6 +54,15 @@ class HomeCubit extends Cubit<HomeState> {
           var vod = state.groupType;
           getVodDialogCubit().clearPick();
           emit(NavigateToGroupCreator(vod));
+        }
+      },
+    );
+
+    _groupQuickActionsDialogCubitSubscription =
+        _groupQuickActionsDialogCubit.stream.listen(
+      (state) {
+        if (state is LeavingGroupSucceeded) {
+          fetchData(isRefresh: false);
         }
       },
     );
@@ -79,6 +93,9 @@ class HomeCubit extends Cubit<HomeState> {
   PickingVodDialogCubit getVodDialogCubit() => _pickingVodDialogCubit;
 
   EditProfileDialogCubit getProfileEditCubit() => _editProfileDialogCubit;
+
+  GroupQuickActionsDialogCubit getGQADialogCubit() =>
+      _groupQuickActionsDialogCubit;
 
   Future logOut() async {
     emit(LoggingOut());
@@ -113,6 +130,7 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> close() async {
     await _pickingVodDialogCubitSubscription.cancel();
     await _editProfileDialogCubitSubscription.cancel();
+    await _groupQuickActionsDialogCubitSubscription.cancel();
     return super.close();
   }
 

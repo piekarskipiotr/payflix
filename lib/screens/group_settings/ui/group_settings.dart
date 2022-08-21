@@ -21,6 +21,11 @@ import 'package:payflix/widgets/blur_container.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+extension StringCasingExtension on String {
+  String toCapitalized() =>
+      length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+}
+
 class GroupSettings extends StatelessWidget {
   final GlobalKey<FormState> formKey;
 
@@ -86,8 +91,8 @@ class GroupSettings extends StatelessWidget {
                               onPressed: group == null
                                   ? () =>
                                       AppDialogController.showBottomSheetDialog(
-                                        context,
-                                        BlocProvider.value(
+                                        context: context,
+                                        dialog: BlocProvider.value(
                                           value: context
                                               .read<GroupSettingsCubit>()
                                               .getVodDialogCubit(),
@@ -119,7 +124,7 @@ class GroupSettings extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -224,13 +229,74 @@ class GroupSettings extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(
+                                    height: 15.0,
+                                  ),
+                                  TextFormField(
+                                    initialValue: group
+                                        ?.paymentInfo.bankAccountNumber
+                                        .toString(),
+                                    onSaved: (bankAccountNumber) => context
+                                        .read<GroupSettingsCubit>()
+                                        .setBankAccountNumber(
+                                            bankAccountNumber),
+                                    maxLines: 1,
+                                    textInputAction: TextInputAction.next,
+                                    style: GoogleFonts.oxygen(),
+                                    decoration: InputDecoration(
+                                      contentPadding:
+                                          const EdgeInsets.only(right: 10.0),
+                                      prefixIcon: const Icon(
+                                        Icons.account_balance,
+                                        size: 22.0,
+                                        color: AppColors.creamWhite,
+                                      ),
+                                      hintText: getString(context)
+                                          .bank_account_number,
+                                      helperText:
+                                          '     ${getString(context).optional.toCapitalized()}',
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 15.0,
+                                  ),
+                                  TextFormField(
+                                    initialValue: group?.paymentInfo.phoneNumber
+                                        .toString(),
+                                    onSaved: (phoneNumber) => context
+                                        .read<GroupSettingsCubit>()
+                                        .setPhoneNumber(phoneNumber),
+                                    validator: (phoneNumber) =>
+                                        GroupSettingsValidation
+                                            .validatePhoneNumber(
+                                      context,
+                                      phoneNumber,
+                                    ),
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    maxLines: 1,
+                                    textInputAction: TextInputAction.next,
+                                    keyboardType: TextInputType.number,
+                                    style: GoogleFonts.oxygen(),
+                                    decoration: InputDecoration(
+                                      contentPadding:
+                                          const EdgeInsets.only(right: 10.0),
+                                      prefixIcon: const Icon(
+                                        Icons.phone,
+                                        size: 22.0,
+                                        color: AppColors.creamWhite,
+                                      ),
+                                      hintText: getString(context).phone_number,
+                                      helperText:
+                                          '     ${getString(context).optional.toCapitalized()}',
+                                    ),
+                                  ),
+                                  const SizedBox(
                                     height: 30.0,
                                   ),
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      getString(context)
-                                          .account_access_optional,
+                                      '${getString(context).account_access} (${getString(context).optional})',
                                       textAlign: TextAlign.left,
                                       style: GoogleFonts.oxygen(
                                         color: AppColors.creamWhite,

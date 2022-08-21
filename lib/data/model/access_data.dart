@@ -15,6 +15,12 @@ class AccessData {
     required this.password,
   });
 
+  bool isDataEmpty() => isEmailIDEmpty() && isPasswordEmpty();
+
+  bool isEmailIDEmpty() => emailID == null || emailID?.trim() == '';
+
+  bool isPasswordEmpty() => password == null || password?.trim() == '';
+
   @override
   String toString() => 'AccessData{emailID: $emailID, password: $password}';
 

@@ -22,8 +22,8 @@ class InviteCard extends StatelessWidget {
           24.0,
         ),
         onTap: () => AppDialogController.showBottomSheetDialog(
-          context,
-          BlocProvider(
+          context: context,
+          dialog: BlocProvider(
             create: (_) => getIt<InviteDialogCubit>()
               ..getInviteLink(
                 groupType: groupType,
