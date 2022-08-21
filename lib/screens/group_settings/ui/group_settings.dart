@@ -22,14 +22,14 @@ import 'package:payflix/widgets/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 extension StringCasingExtension on String {
-  String toCapitalized() => length > 0 ?'${this[0].toUpperCase()}${substring(1).toLowerCase()}':'';
+  String toCapitalized() =>
+      length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
 }
 
 class GroupSettings extends StatelessWidget {
   final GlobalKey<FormState> formKey;
 
   const GroupSettings({Key? key, required this.formKey}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -86,43 +86,45 @@ class GroupSettings extends StatelessWidget {
                                 : getString(context).group_settings)
                             .replaceAll('\n', ' '),
                         actions: [
-                          IconButton(
-                            onPressed: group == null
-                                ? () =>
-                                    AppDialogController.showBottomSheetDialog(
-                                      context: context,
-                                      dialog: BlocProvider.value(
-                                        value: context
-                                            .read<GroupSettingsCubit>()
-                                            .getVodDialogCubit(),
-                                        child: const PickingVodDialog(),
-                                      ),
-                                    )
-                                : null,
-                            iconSize: 38.0,
-                            icon: Material(
-                              elevation: 0,
-                              clipBehavior: Clip.hardEdge,
-                              color: AppColors.containerBlack,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(
-                                  16.0,
+                          BlocBuilder<GroupSettingsCubit, GroupSettingsState>(
+                            builder: (context, state) => IconButton(
+                              onPressed: group == null
+                                  ? () =>
+                                      AppDialogController.showBottomSheetDialog(
+                                        context: context,
+                                        dialog: BlocProvider.value(
+                                          value: context
+                                              .read<GroupSettingsCubit>()
+                                              .getVodDialogCubit(),
+                                          child: const PickingVodDialog(),
+                                        ),
+                                      )
+                                  : null,
+                              iconSize: 38.0,
+                              icon: Material(
+                                elevation: 0,
+                                clipBehavior: Clip.hardEdge,
+                                color: AppColors.containerBlack,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(
+                                    16.0,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Center(
+                                      child: AppCachedNetworkImage(
+                                    url: context
+                                        .read<GroupSettingsCubit>()
+                                        .getVod()
+                                        .logo,
+                                    placeholder: AppPlaceholder.vod,
+                                    size: 38.0,
+                                  )),
                                 ),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Center(
-                                    child: AppCachedNetworkImage(
-                                  url: context
-                                      .read<GroupSettingsCubit>()
-                                      .getVod()
-                                      .logo,
-                                  placeholder: AppPlaceholder.vod,
-                                  size: 38.0,
-                                )),
-                              ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -250,7 +252,8 @@ class GroupSettings extends StatelessWidget {
                                       ),
                                       hintText: getString(context)
                                           .bank_account_number,
-                                      helperText: '     ${getString(context).optional.toCapitalized()}',
+                                      helperText:
+                                          '     ${getString(context).optional.toCapitalized()}',
                                     ),
                                   ),
                                   const SizedBox(
@@ -283,7 +286,8 @@ class GroupSettings extends StatelessWidget {
                                         color: AppColors.creamWhite,
                                       ),
                                       hintText: getString(context).phone_number,
-                                      helperText: '     ${getString(context).optional.toCapitalized()}',
+                                      helperText:
+                                          '     ${getString(context).optional.toCapitalized()}',
                                     ),
                                   ),
                                   const SizedBox(
