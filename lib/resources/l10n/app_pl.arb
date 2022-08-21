@@ -139,5 +139,8 @@
   "leave_group_header": "Jesteś pewien że chcesz opuścić grupę?",
   "leave_group_body": "Za chwilę opuścisz grupę i stracisz dostęp do informacji o płatnościach, danych dostępowych i innych. Zarządca grupy dostanie powiadomienie o Twoim odejściu.",
   "leaving_group_succeeded" : "Opuściłeś grupę!",
-  "leaving_group_failed" : "Wystąpił błąd przy próbie opuszczenia grupy!"
+  "leaving_group_failed" : "Wystąpił błąd przy próbie opuszczenia grupy!",
+  "account_access_header" : "Twoje dane dostępowe do platformy VOD. Pamiętaj aby nie udostępniać tych danych osobom nie będących częścią grupy!",
+  "account_access_not_found_header" : "Zarządca tej grupy nie udostępnił danych dostępu.",
+  "account_access_not_found_body" : "Skontaktuj się z administratorem grupy w celu uzyskania adresu email oraz hasła do platformy VOD."
 }

@@ -44,6 +44,10 @@ class GroupCard extends StatelessWidget {
             ),
           ),
           isSidePadding: false,
+          onClose: () async => await Future.delayed(
+            const Duration(milliseconds: 100),
+            () => context.read<HomeCubit>().getGQADialogCubit().restartView(),
+          ),
         ),
         child: SizedBox(
           height: 162.0,

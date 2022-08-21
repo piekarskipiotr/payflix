@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,6 +30,7 @@ class GroupQuickActionsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(group.accessData.toString());
     return BlocListener<GroupQuickActionsDialogCubit,
         GroupQuickActionsDialogState>(
       listener: (context, state) =>
@@ -61,7 +64,10 @@ class GroupQuickActionsDialog extends StatelessWidget {
                   height: 25.0,
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: () =>
+                      context.read<GroupQuickActionsDialogCubit>().changeView(
+                            action: _accountAccessActionCode,
+                          ),
                   contentPadding: const EdgeInsets.only(left: 22.0),
                   leading: const Icon(Icons.lock_open),
                   title: Text(
@@ -103,7 +109,7 @@ class GroupQuickActionsDialog extends StatelessWidget {
                   ListTile(
                     onTap: () =>
                         context.read<GroupQuickActionsDialogCubit>().changeView(
-                              action: 'leave-group',
+                              action: _leaveGroupActionCode,
                             ),
                     contentPadding: const EdgeInsets.only(left: 22.0),
                     leading: const Icon(
@@ -170,7 +176,193 @@ class GroupQuickActionsDialog extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: [],
+      children: [
+        Container(
+          height: 5.0,
+          width: 100.0,
+          decoration: BoxDecoration(
+            color: AppColors.lighterGray,
+            borderRadius: BorderRadius.circular(28.0),
+          ),
+        ),
+        if (group.accessData.isDataEmpty()) ...[
+          const SizedBox(
+            height: 12.0,
+          ),
+          Transform.translate(
+            offset: const Offset(0, -42.0),
+            child: Column(
+              children: [
+                SizedBox(
+                  width: 256.0,
+                  height: 256.0,
+                  child: Lottie.asset(
+                    lottieNoData,
+                    repeat: true,
+                  ),
+                ),
+                Transform.translate(
+                  offset: const Offset(0, -12.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        getString(context).account_access_not_found_header,
+                        style: GoogleFonts.oxygen(
+                          color: AppColors.creamWhite,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26.0,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 7.0,
+                      ),
+                      Text(
+                        getString(context).account_access_not_found_body,
+                        style: GoogleFonts.oxygen(
+                          color: AppColors.creamWhite,
+                          fontSize: 15.0,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 22.0,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ] else ...[
+          const SizedBox(
+            height: 25.0,
+          ),
+          Text(
+            getString(context).account_access_header,
+            style: GoogleFonts.oxygen(
+              color: AppColors.creamWhite,
+              fontSize: 16.0,
+            ),
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+
+          if (!group.accessData.isEmailIDEmpty()) ...[
+            TextFormField(
+              initialValue: group.accessData.emailID,
+              maxLines: 1,
+              readOnly: true,
+              style: GoogleFonts.oxygen(),
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.only(left: 15.0),
+                helperText:
+                context.watch<GroupQuickActionsDialogCubit>().showCopiedText(
+                  'email-id',
+                )
+                    ? getString(context).copied
+                    : '',
+                helperStyle: GoogleFonts.oxygen(
+                  color: AppColors.green,
+                ),
+                suffixIcon: Material(
+                  color: Colors.transparent,
+                  child: IconButton(
+                    splashRadius: 20.0,
+                    onPressed: () => context
+                        .read<GroupQuickActionsDialogCubit>()
+                        .copyAccessData(
+                      group.accessData,
+                      'email-id',
+                    ),
+                    icon: const Icon(
+                      Icons.copy,
+                      size: 22.0,
+                      color: AppColors.creamWhite,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10.0,
+            ),
+          ],
+
+          if (!group.accessData.isPasswordEmpty()) ...[
+            TextFormField(
+              initialValue: group.accessData.password,
+              maxLines: 1,
+              readOnly: true,
+              obscureText: context
+                  .watch<GroupQuickActionsDialogCubit>()
+                  .isAccountAccessPasswordVisible(),
+              style: GoogleFonts.oxygen(),
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.only(left: 15.0),
+                helperText:
+                context.watch<GroupQuickActionsDialogCubit>().showCopiedText(
+                  'password',
+                )
+                    ? getString(context).copied
+                    : '',
+                helperStyle: GoogleFonts.oxygen(
+                  color: AppColors.green,
+                ),
+                suffixIcon: Material(
+                  color: Colors.transparent,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        splashRadius: 20.0,
+                        onPressed: () => context
+                            .read<GroupQuickActionsDialogCubit>()
+                            .changeAccountAccessPasswordVisibility(),
+                        icon: Icon(
+                          context
+                              .watch<GroupQuickActionsDialogCubit>()
+                              .isAccountAccessPasswordVisible()
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          size: 22.0,
+                          color: AppColors.creamWhite,
+                        ),
+                      ),
+                      IconButton(
+                        splashRadius: 20.0,
+                        onPressed: () => context
+                            .read<GroupQuickActionsDialogCubit>()
+                            .copyAccessData(
+                          group.accessData,
+                          'password',
+                        ),
+                        icon: const Icon(
+                          Icons.copy,
+                          size: 22.0,
+                          color: AppColors.creamWhite,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+
+          const SizedBox(
+            height: 64.0,
+          ),
+        ],
+        PrimaryButton(
+          text: getString(context).back,
+          onClick: () =>
+              context.read<GroupQuickActionsDialogCubit>().changeView(
+                    action: '-',
+                  ),
+          isLoading: false,
+        ),
+      ],
     );
   }
 

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class AppDialogController {
     required BuildContext context,
     required Widget dialog,
     bool isSidePadding = true,
+    FutureOr<void> Function()? onClose,
   }) {
     showModalBottomSheet(
       context: context,
@@ -51,6 +53,6 @@ class AppDialogController {
           ),
         ),
       ),
-    );
+    ).whenComplete(onClose ?? () {});
   }
 }
