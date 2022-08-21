@@ -10,9 +10,17 @@ class PaymentInfo {
   @JsonKey(name: 'day_of_the_month')
   int dayOfTheMonth;
 
+  @JsonKey(name: 'bank_account_number')
+  String? bankAccountNumber;
+
+  @JsonKey(name: 'phone_number')
+  String? phoneNumber;
+
   PaymentInfo({
     required this.monthlyPayment,
     required this.dayOfTheMonth,
+    this.bankAccountNumber,
+    this.phoneNumber,
   });
 
   factory PaymentInfo.fromJson(Map<String, dynamic> json) =>
@@ -22,5 +30,5 @@ class PaymentInfo {
 
   @override
   String toString() =>
-      'PaymentInfo{monthlyPayment: $monthlyPayment, dayOfTheMonth: $dayOfTheMonth}';
+      'PaymentInfo{monthlyPayment: $monthlyPayment, dayOfTheMonth: $dayOfTheMonth, bankAccountNumber: $bankAccountNumber, phoneNumber: $phoneNumber}';
 }
