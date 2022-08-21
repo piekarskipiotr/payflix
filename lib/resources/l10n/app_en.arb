@@ -145,5 +145,8 @@
   "account_access_not_found_body" : "Contact the group administrator to obtain an email address and password for the VOD platform.",
   "phone_number" : "Phone number",
   "bank_account_number" : "Bank account no.",
-  "not_phone_number": "Incorrect phone number pattern"
+  "not_phone_number": "Incorrect phone number pattern",
+  "payment_info_header": "The administrator has provided data that will allow you to perform the payment for the use of the VOD service.",
+  "payment_info_not_found_header": "The manager of this group didn't share bank data.",
+  "payment_info_not_found_body": "Contact the group's administrator for information that will allow you to execute the user fee."
 }

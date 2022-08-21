@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:payflix/data/model/access_data.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
@@ -18,6 +17,8 @@ class GroupQuickActionsDialogCubit extends Cubit<GroupQuickActionsDialogState> {
   bool _showSecondary = false;
   bool _showEmailIdCopiedText = false;
   bool _showPasswordCopiedText = false;
+  bool _showBankAccountCopiedText = false;
+  bool _showPhoneCopiedText = false;
   bool _isAccountAccessPasswordVisible = true;
   String _action = '';
 
@@ -28,18 +29,47 @@ class GroupQuickActionsDialogCubit extends Cubit<GroupQuickActionsDialogState> {
 
   bool showSecondary() => _showSecondary;
 
-  bool showCopiedText(String value) =>
-      value == 'email-id' ? _showEmailIdCopiedText : _showPasswordCopiedText;
+  bool showCopiedText(String value) {
+    switch (value) {
+      case 'email-id':
+        return _showEmailIdCopiedText;
+      case 'password':
+        return _showPasswordCopiedText;
+      case 'bank-account':
+        return _showBankAccountCopiedText;
+      case 'phone-number':
+        return _showPhoneCopiedText;
+      default:
+        return false;
+    }
+  }
 
   String getActionCodeName() => _action;
 
   bool isAccountAccessPasswordVisible() => _isAccountAccessPasswordVisible;
 
-  Future copyAccessData(AccessData accessData, String value) async {
+  Future copyData(Group group, String value) async {
     emit(ChangingCopiedTextVisibility());
 
-    var valueToCopy =
-        value == 'email-id' ? accessData.emailID : accessData.password;
+    String? valueToCopy;
+    switch (value) {
+      case 'email-id':
+        valueToCopy = group.accessData.emailID;
+        break;
+      case 'password':
+        valueToCopy = group.accessData.password;
+        break;
+      case 'bank-account':
+        valueToCopy = group.paymentInfo.bankAccountNumber;
+        break;
+      case 'phone-number':
+        valueToCopy = group.paymentInfo.phoneNumber;
+        break;
+      default:
+        valueToCopy = '';
+        break;
+    }
+
     Clipboard.setData(
       ClipboardData(
         text: valueToCopy,
@@ -47,24 +77,31 @@ class GroupQuickActionsDialogCubit extends Cubit<GroupQuickActionsDialogState> {
     );
 
     // show 'copied' text below field
-    if (value == 'email-id') {
-      _showEmailIdCopiedText = !_showEmailIdCopiedText;
-    } else {
-      _showPasswordCopiedText = !_showPasswordCopiedText;
-    }
-
+    _changeCopiedTextVisibility(value);
     emit(CopiedTextVisibilityChanged());
 
     // hide it after 3 seconds
     await Future.delayed(const Duration(seconds: 3));
     emit(ChangingCopiedTextVisibility());
-    if (value == 'email-id') {
-      _showEmailIdCopiedText = !_showEmailIdCopiedText;
-    } else {
-      _showPasswordCopiedText = !_showPasswordCopiedText;
-    }
-
+    _changeCopiedTextVisibility(value);
     emit(CopiedTextVisibilityChanged());
+  }
+
+  void _changeCopiedTextVisibility(String value) {
+    switch (value) {
+      case 'email-id':
+        _showEmailIdCopiedText = !_showEmailIdCopiedText;
+        break;
+      case 'password':
+        _showPasswordCopiedText = !_showPasswordCopiedText;
+        break;
+      case 'bank-account':
+        _showBankAccountCopiedText = !_showBankAccountCopiedText;
+        break;
+      case 'phone-number':
+        _showPhoneCopiedText = !_showPhoneCopiedText;
+        break;
+    }
   }
 
   Future leaveGroup(Group group) async {
@@ -116,6 +153,7 @@ class GroupQuickActionsDialogCubit extends Cubit<GroupQuickActionsDialogState> {
     emit(ChangingDialogView());
     _action = '-';
     _showSecondary = false;
+    _isAccountAccessPasswordVisible = true;
     emit(DialogViewChanged());
   }
 
