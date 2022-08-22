@@ -7,7 +7,7 @@ abstract class MembersState {
 
 class InitMembersState extends MembersState {}
 
-class InitializingGroup extends MembersState {}
+class InitializingMembers extends MembersState {}
 
 class FetchingMembers extends MembersState {}
 

@@ -13,6 +13,7 @@ import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_cubit.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_state.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_state_listener.dart';
+import 'package:payflix/screens/members/bloc/members_cubit.dart';
 import 'package:payflix/screens/picking_vod_dialog/ui/picking_vod_dialog.dart';
 import 'package:payflix/widgets/app_bar_with_moved_title/bloc/app_bar_cubit.dart';
 import 'package:payflix/widgets/app_bar_with_moved_title/ui/app_bar_with_moved_title.dart';
@@ -33,10 +34,11 @@ class GroupSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as List<dynamic>;
-    final bool isGroupCreator = args[0];
-    final Group? group = isGroupCreator ? null : args[1];
-    context.read<GroupSettingsCubit>().initializeVod(args[1]);
+    final _args = ModalRoute.of(context)!.settings.arguments as List<dynamic>;
+    final bool _isGroupCreator = _args[0];
+    final Group? _group = _isGroupCreator ? null : _args[1];
+    final MembersCubit? _membersCubit = _isGroupCreator ? null : _args[2];
+    context.read<GroupSettingsCubit>().initializeVod(_args[1]);
 
     return BlocListener<GroupSettingsCubit, GroupSettingsState>(
       listener: (context, state) =>
@@ -78,17 +80,17 @@ class GroupSettings extends StatelessWidget {
                             value: context.read<GroupSettingsCubit>()),
                       ],
                       child: AppBarWithMovedTitle(
-                        title: isGroupCreator
+                        title: _isGroupCreator
                             ? getString(context).create_group
                             : getString(context).group_settings,
-                        secondaryText: (isGroupCreator
+                        secondaryText: (_isGroupCreator
                                 ? getString(context).create_group
                                 : getString(context).group_settings)
                             .replaceAll('\n', ' '),
                         actions: [
                           BlocBuilder<GroupSettingsCubit, GroupSettingsState>(
                             builder: (context, state) => IconButton(
-                              onPressed: group == null
+                              onPressed: _group == null
                                   ? () =>
                                       AppDialogController.showBottomSheetDialog(
                                         context: context,
@@ -141,7 +143,7 @@ class GroupSettings extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Text(
-                                    isGroupCreator
+                                    _isGroupCreator
                                         ? getString(context)
                                             .create_group_form_header
                                         : getString(context)
@@ -156,7 +158,7 @@ class GroupSettings extends StatelessWidget {
                                     height: 20.0,
                                   ),
                                   TextFormField(
-                                    initialValue: group
+                                    initialValue: _group
                                         ?.paymentInfo.monthlyPayment
                                         .toString(),
                                     onSaved: (mPayment) => context
@@ -194,7 +196,7 @@ class GroupSettings extends StatelessWidget {
                                     height: 15.0,
                                   ),
                                   TextFormField(
-                                    initialValue: group
+                                    initialValue: _group
                                         ?.paymentInfo.dayOfTheMonth
                                         .toString(),
                                     onSaved: (dayOfPayment) => context
@@ -232,7 +234,7 @@ class GroupSettings extends StatelessWidget {
                                     height: 15.0,
                                   ),
                                   TextFormField(
-                                    initialValue: group
+                                    initialValue: _group
                                         ?.paymentInfo.bankAccountNumber
                                         .toString(),
                                     onSaved: (bankAccountNumber) => context
@@ -260,7 +262,8 @@ class GroupSettings extends StatelessWidget {
                                     height: 15.0,
                                   ),
                                   TextFormField(
-                                    initialValue: group?.paymentInfo.phoneNumber
+                                    initialValue: _group
+                                        ?.paymentInfo.phoneNumber
                                         .toString(),
                                     onSaved: (phoneNumber) => context
                                         .read<GroupSettingsCubit>()
@@ -309,7 +312,7 @@ class GroupSettings extends StatelessWidget {
                                   ),
                                   TextFormField(
                                     initialValue:
-                                        group?.accessData.emailID.toString(),
+                                        _group?.accessData.emailID.toString(),
                                     onSaved: (emailID) => context
                                         .read<GroupSettingsCubit>()
                                         .setEmailID(emailID),
@@ -341,7 +344,8 @@ class GroupSettings extends StatelessWidget {
                                       GroupSettingsState>(
                                     builder: (context, state) {
                                       return TextFormField(
-                                        initialValue: group?.accessData.password
+                                        initialValue: _group
+                                            ?.accessData.password
                                             .toString(),
                                         onSaved: (password) => context
                                             .read<GroupSettingsCubit>()
@@ -391,7 +395,7 @@ class GroupSettings extends StatelessWidget {
                                       GroupSettingsState>(
                                     builder: (context, state) {
                                       return PrimaryButton(
-                                        text: isGroupCreator
+                                        text: _isGroupCreator
                                             ? getString(context).create
                                             : getString(context).save,
                                         onClick: state is! SavingSettings &&
@@ -400,15 +404,20 @@ class GroupSettings extends StatelessWidget {
                                                 if (formKey.currentState!
                                                     .validate()) {
                                                   formKey.currentState!.save();
-                                                  isGroupCreator
-                                                      ? context
-                                                          .read<
-                                                              GroupSettingsCubit>()
-                                                          .createGroup()
-                                                      : context
-                                                          .read<
-                                                              GroupSettingsCubit>()
-                                                          .saveSettings();
+                                                  if (_isGroupCreator) {
+                                                    context
+                                                        .read<
+                                                            GroupSettingsCubit>()
+                                                        .createGroup();
+                                                  } else {
+                                                    context
+                                                        .read<
+                                                            GroupSettingsCubit>()
+                                                        .saveSettings(
+                                                          _group,
+                                                          _membersCubit,
+                                                        );
+                                                  }
                                                 }
                                               }
                                             : null,

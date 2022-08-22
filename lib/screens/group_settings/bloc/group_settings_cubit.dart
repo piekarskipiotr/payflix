@@ -15,6 +15,7 @@ import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/dynamic_links_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_state.dart';
+import 'package:payflix/screens/members/bloc/members_cubit.dart';
 import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_cubit.dart';
 import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_state.dart';
 
@@ -121,7 +122,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
 
   void setPassword(String? password) => _password = password;
 
-  Future<void> saveSettings() async {
+  Future<void> saveSettings(Group? group, MembersCubit? membersCubit) async {
     emit(SavingSettings());
     try {
       var userId = _authRepo.getUID();
@@ -132,9 +133,13 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       var groupType = getVod();
       var groupId = _generateGroupId(userId, groupType);
       var groupData = await _generateGroupData(userId, groupType);
+      if (group != null) {
+        group = Group.fromJson(groupData);
+        membersCubit?.updateGroup(group);
+      }
+
       await _firestoreRepo.updateGroupData(
           docReference: groupId, data: groupData);
-
       emit(SavingSettingsSucceeded());
     } catch (e) {
       emit(CreatingGroupFailed(e as String?));

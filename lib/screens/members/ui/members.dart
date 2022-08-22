@@ -33,8 +33,7 @@ class _MembersState extends State<Members> {
     final group = args[0] as Group;
     final homeCubit = args[1] as HomeCubit;
 
-    context.read<MembersCubit>().initialize(group);
-
+    context.read<MembersCubit>().initialize(group, homeCubit);
     return BlocListener<MembersCubit, MembersState>(
       listener: (context, state) => MembersListener.listenToState(
         context,
@@ -80,7 +79,8 @@ class _MembersState extends State<Members> {
                             AppRoutes.groupSettings,
                             arguments: [
                               false,
-                              context.read<MembersCubit>().getGroup()
+                              context.read<MembersCubit>().getGroup(),
+                              context.read<MembersCubit>(),
                             ],
                           ),
                           icon: const Icon(
@@ -136,7 +136,7 @@ class _MembersState extends State<Members> {
                                   childCount: members.length + 1,
                                 ),
                               );
-                            } else if (state is InitializingGroup ||
+                            } else if (state is InitializingMembers ||
                                 state is FetchingMembers) {
                               return const SliverFillRemaining(
                                 hasScrollBody: false,
@@ -150,9 +150,11 @@ class _MembersState extends State<Members> {
                                 child: StateFailedView(
                                   text:
                                       getString(context).fetching_members_error,
-                                  onClick: () => context
-                                      .read<MembersCubit>()
-                                      .initialize(group),
+                                  onClick: () =>
+                                      context.read<MembersCubit>().initialize(
+                                            group,
+                                            homeCubit,
+                                          ),
                                 ),
                               );
                             }

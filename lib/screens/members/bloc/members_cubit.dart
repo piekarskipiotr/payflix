@@ -12,6 +12,7 @@ import 'package:payflix/screens/members/bloc/members_state.dart';
 @injectable
 class MembersCubit extends Cubit<MembersState> {
   Group? _group;
+  HomeCubit? _homeCubit;
   final AuthRepository _authRepo;
   final FirestoreRepository _firestoreRepository;
 
@@ -37,7 +38,8 @@ class MembersCubit extends Cubit<MembersState> {
   Future refreshData({required HomeCubit cubit}) async {
     if (_group != null) {
       try {
-        var group = await _firestoreRepository.getGroupData(docReference: _group!.getGroupId());
+        var group = await _firestoreRepository.getGroupData(
+            docReference: _group!.getGroupId());
         cubit.updateGroupData(group);
 
         var ids = group.users!;
@@ -51,10 +53,16 @@ class MembersCubit extends Cubit<MembersState> {
     }
   }
 
-  Future initialize(Group group) async {
-    if (_group == null) {
-      emit(InitializingGroup());
+  void updateGroup(Group group) {
+    _homeCubit?.updateGroupData(group);
+    _group = group;
+  }
+
+  Future initialize(Group group, HomeCubit homeCubit) async {
+    if (_group == null && _homeCubit == null) {
+      emit(InitializingMembers());
       _group = group;
+      _homeCubit = homeCubit;
       await _fetchMembers(_group!);
     }
   }
