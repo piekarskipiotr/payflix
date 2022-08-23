@@ -194,13 +194,33 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
     }
   }
 
-  Future<InviteInfo> _createInviteLink({required GroupType groupType}) async {
+  Future<String> _createAndRemoveExpiredInviteLink(
+    String uuid,
+    String? previousLink,
+  ) async {
+    if (previousLink != null) {
+      var dynamicLink = await _dynamicLinksRepo
+          .instance()
+          .getDynamicLink(Uri.parse(previousLink));
+      var link = dynamicLink!.link;
+      var inviteId = link.queryParametersAll['id']!.first;
+
+      await _firestoreRepo.deleteGroupInviteData(docReference: inviteId);
+    }
+
+    return (await _dynamicLinksRepo.createInviteLink(uuid)).toString();
+  }
+
+  Future<InviteInfo> _createInviteLink({
+    required GroupType groupType,
+    String? previousLink,
+  }) async {
     var uid = _authRepo.getUID();
     var uuid = _firestoreRepo.getUUID(collection: groupsInviteCollectionName);
     var expirationDate = DateTime.now().add(const Duration(hours: 1));
     var groupId = '${uid}_${groupType.codeName}';
 
-    var link = (await _dynamicLinksRepo.createInviteLink(uuid)).toString();
+    var link = await _createAndRemoveExpiredInviteLink(uuid, previousLink);
 
     var inviteInfo = InviteInfo(
       link,
@@ -236,7 +256,11 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       password: _password,
     );
 
-    inviteInfo ??= await _createInviteLink(groupType: groupType);
+    inviteInfo ??= await _createInviteLink(
+      groupType: groupType,
+      previousLink: inviteInfo?.link,
+    );
+
     var group = Group(
       paymentInfo: paymentInfo,
       accessData: accessData,

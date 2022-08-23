@@ -28,8 +28,11 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
   bool _showCopiedText = false;
   String? _inviteLink;
 
-  InviteDialogCubit(this._authRepo, this._dynamicLinksRepo, this._firestoreRepo)
-      : super(InitInviteDialogState());
+  InviteDialogCubit(
+    this._authRepo,
+    this._dynamicLinksRepo,
+    this._firestoreRepo,
+  ) : super(InitInviteDialogState());
 
   bool showSecondary() => _showSecondary;
 
@@ -80,7 +83,10 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
 
         emit(GettingInviteLinkSucceeded());
       } else {
-        var link = await _createInviteLink(groupType: groupType);
+        var link = await _createInviteLink(
+          groupType: groupType,
+          previousLink: localInviteInfo.link,
+        );
 
         _inviteLink = link;
         linkFieldController.text = link;
@@ -98,14 +104,33 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
     }
   }
 
-  Future<String> _createInviteLink({required GroupType groupType}) async {
+  Future<String> _createAndRemoveExpiredInviteLink(
+    String uuid,
+    String? previousLink,
+  ) async {
+    if (previousLink != null) {
+      var dynamicLink = await _dynamicLinksRepo
+          .instance()
+          .getDynamicLink(Uri.parse(previousLink));
+      var link = dynamicLink!.link;
+      var inviteId = link.queryParametersAll['id']!.first;
+
+      await _firestoreRepo.deleteGroupInviteData(docReference: inviteId);
+    }
+
+    return (await _dynamicLinksRepo.createInviteLink(uuid)).toString();
+  }
+
+  Future<String> _createInviteLink({
+    required GroupType groupType,
+    String? previousLink,
+  }) async {
     var uid = _authRepo.getUID();
     var uuid = _firestoreRepo.getUUID(collection: groupsInviteCollectionName);
     var expirationDate = DateTime.now().add(const Duration(hours: 1));
     var groupId = '${uid}_${groupType.codeName}';
 
-    var link = (await _dynamicLinksRepo.createInviteLink(uuid)).toString();
-
+    var link = await _createAndRemoveExpiredInviteLink(uuid, previousLink);
     var inviteInfo = InviteInfo(
       link,
       expirationDate,
