@@ -16,7 +16,7 @@ class LoggingInSucceeded extends LoginState {
 }
 
 class LoggingInFailed extends LoginState {
-  final String? error;
+  final dynamic error;
 
   LoggingInFailed(this.error);
 }
@@ -34,7 +34,7 @@ class LoggingInWithGoogleAccountSucceeded extends LoginState {
 class SignInWithGoogleAccountSucceeded extends LoginState {}
 
 class LoggingInWithGoogleAccountFailed extends LoginState {
-  final String? error;
+  final dynamic error;
 
   LoggingInWithGoogleAccountFailed(this.error);
 }
@@ -46,7 +46,7 @@ class SendingPasswordResetEmail extends LoginState {}
 class SendingPasswordResetEmailSucceeded extends LoginState {}
 
 class SendingPasswordResetEmailFailed extends LoginState {
-  final String? error;
+  final dynamic error;
 
   SendingPasswordResetEmailFailed(this.error);
 }

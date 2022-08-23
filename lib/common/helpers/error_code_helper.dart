@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 
 class ErrorCodeHelper {
-  static tryConvertErrorCodeToMessage(BuildContext context, String? errorCode) {
+  static tryConvertErrorCodeToMessage(BuildContext context, dynamic errorCode) {
     if (errorCode == null) {
       return null;
     }
@@ -25,7 +25,7 @@ class ErrorCodeHelper {
       case 'too-many-requests':
         return getString(context).too_many_requests;
       default:
-        return errorCode;
+        return errorCode.toString();
     }
   }
 }

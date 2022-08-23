@@ -10,7 +10,7 @@ class ResendingVerificationEmail extends VerRoomState {}
 class ResendingVerificationEmailSucceeded extends VerRoomState {}
 
 class ResendingVerificationEmailFailed extends VerRoomState {
-  String? error;
+  dynamic error;
 
   ResendingVerificationEmailFailed(this.error);
 }

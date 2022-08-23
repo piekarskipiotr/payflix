@@ -19,7 +19,7 @@ class SigningUp extends SignupState {}
 class SigningUpSucceeded extends SignupState {}
 
 class SigningUpFailed extends SignupState {
-  final String? error;
+  final dynamic error;
 
   SigningUpFailed(this.error);
 }

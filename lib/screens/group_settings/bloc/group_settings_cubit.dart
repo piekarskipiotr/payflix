@@ -144,7 +144,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
           docReference: groupId, data: groupData);
       emit(SavingSettingsSucceeded());
     } catch (e) {
-      emit(CreatingGroupFailed(e as String?));
+      emit(CreatingGroupFailed(e));
     }
   }
 
@@ -173,7 +173,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       if (e is FirebaseException) {
         emit(CreatingGroupFailed(e.message));
       } else {
-        emit(CreatingGroupFailed(e as String?));
+        emit(CreatingGroupFailed(e));
       }
     }
   }
