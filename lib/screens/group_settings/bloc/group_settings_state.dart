@@ -10,7 +10,7 @@ class SavingSettings extends GroupSettingsState {}
 class SavingSettingsSucceeded extends GroupSettingsState {}
 
 class SavingSettingsFailed extends GroupSettingsState {
-  final String? error;
+  final dynamic error;
 
   SavingSettingsFailed(this.error);
 }
@@ -20,7 +20,7 @@ class CreatingGroup extends GroupSettingsState {}
 class CreatingGroupSucceeded extends GroupSettingsState {}
 
 class CreatingGroupFailed extends GroupSettingsState {
-  final String? error;
+  final dynamic error;
 
   CreatingGroupFailed(this.error);
 }

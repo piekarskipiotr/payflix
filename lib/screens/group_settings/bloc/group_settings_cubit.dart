@@ -61,6 +61,8 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
         _groupType = arg;
       } else if (arg is Group) {
         _groupType = arg.groupType;
+      } else {
+        _groupType = GroupType.netflix;
       }
 
       getVodDialogCubit().pickVod(_groupType!);
@@ -130,7 +132,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
         throw 'user-id-not-found';
       }
 
-      var groupType = getVod();
+      GroupType groupType = getVod();
       var groupId = _generateGroupId(userId, groupType);
       var groupData = await _generateGroupData(userId, groupType);
       if (group != null) {
@@ -142,7 +144,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
           docReference: groupId, data: groupData);
       emit(SavingSettingsSucceeded());
     } catch (e) {
-      emit(CreatingGroupFailed(e as String?));
+      emit(CreatingGroupFailed(e));
     }
   }
 
@@ -171,7 +173,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       if (e is FirebaseException) {
         emit(CreatingGroupFailed(e.message));
       } else {
-        emit(CreatingGroupFailed(e as String?));
+        emit(CreatingGroupFailed(e));
       }
     }
   }

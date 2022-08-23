@@ -31,7 +31,7 @@ class VerRoomCubit extends Cubit<VerRoomState> {
     } on FirebaseAuthException catch (e) {
       emit(ResendingVerificationEmailFailed(e.code));
     } catch (e) {
-      emit(ResendingVerificationEmailFailed(e as String?));
+      emit(ResendingVerificationEmailFailed(e));
     }
   }
 

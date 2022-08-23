@@ -49,7 +49,7 @@ class Welcome extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.topRight,
                   padding: const EdgeInsets.only(
-                    top: 20.0,
+                    top: 5.0,
                   ),
                   child: Image.asset(
                     happyPerson,

@@ -65,7 +65,7 @@ class LoginCubit extends Cubit<LoginState> {
     } on FirebaseAuthException catch (e) {
       emit(LoggingInFailed(e.code));
     } catch (e) {
-      emit(LoggingInFailed(e as String?));
+      emit(LoggingInFailed(e));
     }
   }
 
@@ -113,7 +113,7 @@ class LoginCubit extends Cubit<LoginState> {
     } on FirebaseAuthException catch (e) {
       emit(LoggingInWithGoogleAccountFailed(e.code));
     } catch (e) {
-      emit(LoggingInWithGoogleAccountFailed(e as String?));
+      emit(LoggingInWithGoogleAccountFailed(e));
     }
   }
 
@@ -125,7 +125,7 @@ class LoginCubit extends Cubit<LoginState> {
     } on FirebaseAuthException catch (e) {
       emit(SendingPasswordResetEmailFailed(e.code));
     } catch (e) {
-      emit(SendingPasswordResetEmailFailed(e as String?));
+      emit(SendingPasswordResetEmailFailed(e));
     }
   }
 

@@ -77,7 +77,7 @@ class SignUpCubit extends Cubit<SignupState> {
     } on FirebaseAuthException catch (e) {
       emit(SigningUpFailed(e.code));
     } catch (e) {
-      emit(SigningUpFailed(e as String?));
+      emit(SigningUpFailed(e));
     }
   }
 
