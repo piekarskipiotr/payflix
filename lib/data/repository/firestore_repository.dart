@@ -82,6 +82,11 @@ class FirestoreRepository {
               .get())
           .data()!);
 
+  Future deleteGroupInviteData({
+    required String docReference,
+  }) async => await _firestore.collection(groupsInviteCollectionName)
+      .doc(docReference).delete();
+
   // user
   Future setUserData({
     required String docReference,
