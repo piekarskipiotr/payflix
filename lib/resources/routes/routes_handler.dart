@@ -65,16 +65,26 @@ class RoutesHandler {
         );
       case AppRoutes.verRoom:
         return buildRoute(
-          BlocProvider.value(
-            value: getIt<VerRoomCubit>()..listenToVerificationStatus(),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: getIt<AppListenerCubit>()),
+              BlocProvider.value(
+                value: getIt<VerRoomCubit>()..listenToVerificationStatus(),
+              ),
+            ],
             child: const VerificationRoom(),
           ),
           settings: settings,
         );
       case AppRoutes.welcome:
         return buildRoute(
-          BlocProvider.value(
-            value: getIt<WelcomeCubit>()..isAlreadyInGroup(),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: getIt<AppListenerCubit>()),
+              BlocProvider.value(
+                value: getIt<WelcomeCubit>()..isAlreadyInGroup(),
+              ),
+            ],
             child: const Welcome(),
           ),
           settings: settings,
