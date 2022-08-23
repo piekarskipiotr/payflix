@@ -61,6 +61,8 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
         _groupType = arg;
       } else if (arg is Group) {
         _groupType = arg.groupType;
+      } else {
+        _groupType = GroupType.netflix;
       }
 
       getVodDialogCubit().pickVod(_groupType!);
@@ -130,7 +132,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
         throw 'user-id-not-found';
       }
 
-      var groupType = getVod();
+      GroupType groupType = getVod();
       var groupId = _generateGroupId(userId, groupType);
       var groupData = await _generateGroupData(userId, groupType);
       if (group != null) {
