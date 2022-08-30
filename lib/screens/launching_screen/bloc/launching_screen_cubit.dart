@@ -21,29 +21,34 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
 
   Future _initialize() async {
     emit(InitializingApp());
-
     String? route;
-    var user = _authRepository.instance().currentUser;
 
-    bool isAuth = user != null;
-    bool isVerified = user?.emailVerified == true;
+    try {
+      var user = _authRepository.instance().currentUser;
 
-    if (isAuth && isVerified) {
-      var uid = user.uid;
-      var doesUserExistsInDatabase =
-          await _firestoreRepository.doesUserExist(docReference: uid);
+      bool isAuth = user != null;
+      bool isVerified = user?.emailVerified == true;
 
-      if (doesUserExistsInDatabase) {
-        var doesUserIsInGroup =
-            await _firestoreRepository.doesUserHasAGroup(docReference: uid);
-        route = doesUserIsInGroup ? AppRoutes.home : AppRoutes.welcome;
+      if (isAuth && isVerified) {
+        var uid = user.uid;
+        var doesUserExistsInDatabase =
+        await _firestoreRepository.doesUserExist(docReference: uid);
+
+        if (doesUserExistsInDatabase) {
+          var doesUserIsInGroup =
+          await _firestoreRepository.doesUserHasAGroup(docReference: uid);
+          route = doesUserIsInGroup ? AppRoutes.home : AppRoutes.welcome;
+        } else {
+          await _authRepository.instance().signOut();
+          route = AppRoutes.login;
+        }
+      } else if (isAuth && !isVerified) {
+        route = AppRoutes.verRoom;
       } else {
-        await _authRepository.instance().signOut();
         route = AppRoutes.login;
       }
-    } else if (isAuth && !isVerified) {
-      route = AppRoutes.verRoom;
-    } else {
+    } catch (_) {
+      await _authRepository.instance().signOut();
       route = AppRoutes.login;
     }
 
