@@ -7,14 +7,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/common/helpers/code_painter.dart';
-import 'package:payflix/data/app_hive.dart';
 import 'package:payflix/data/enum/group_type.dart';
+import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/invite_info.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/dynamic_links_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/screens/members/bloc/invite_dialog_state.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:payflix/screens/members/bloc/members_cubit.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -24,6 +25,7 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
   final DynamicLinksRepository _dynamicLinksRepo;
   final FirestoreRepository _firestoreRepo;
   final TextEditingController linkFieldController = TextEditingController();
+  MembersCubit? _membersCubit;
   bool _showSecondary = false;
   bool _showCopiedText = false;
   String? _inviteLink;
@@ -33,6 +35,14 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
     this._dynamicLinksRepo,
     this._firestoreRepo,
   ) : super(InitInviteDialogState());
+
+  void initialize(MembersCubit membersCubit) {
+    _membersCubit ??= membersCubit;
+  }
+
+  void updateGroup(Group group) {
+    _membersCubit?.updateGroup(group);
+  }
 
   bool showSecondary() => _showSecondary;
 
@@ -65,42 +75,30 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
     }
   }
 
-  Future getInviteLink({required GroupType groupType}) async {
+  Future getInviteLink({required Group group}) async {
     emit(GettingInviteLink());
-    InviteInfo? localInviteInfo = invitesBox.get(
-      inviteInfoKey,
-      defaultValue: null,
-    );
+    InviteInfo? inviteInfo = group.inviteInfo;
 
-    if (localInviteInfo != null) {
-      var now = DateTime.now();
+    var now = DateTime.now();
 
-      if (localInviteInfo.expiration.isAfter(now)) {
-        var link = localInviteInfo.link;
+    if (inviteInfo.expiration.isAfter(now)) {
+      var link = inviteInfo.link;
 
-        _inviteLink = link;
-        linkFieldController.text = link;
+      _inviteLink = link;
+      linkFieldController.text = link;
+      emit(GettingInviteLinkSucceeded());
 
-        emit(GettingInviteLinkSucceeded());
-      } else {
-        var link = await _createInviteLink(
-          groupType: groupType,
-          previousLink: localInviteInfo.link,
-        );
-
-        _inviteLink = link;
-        linkFieldController.text = link;
-
-        emit(GettingInviteLinkSucceeded());
-      }
     } else {
-      var uid = _authRepo.getUID();
-      var groupId = '${uid}_${groupType.codeName}';
+      var invite = await _createAndReturnInviteLink(
+        groupType: group.groupType,
+        previousLink: inviteInfo.link,
+      );
 
-      var group = await _firestoreRepo.getGroupData(docReference: groupId);
-      await invitesBox.put(inviteInfoKey, group.inviteInfo);
-
-      getInviteLink(groupType: groupType);
+      _inviteLink = invite.link;
+      linkFieldController.text = invite.link;
+      group.inviteInfo = invite;
+      updateGroup(group);
+      emit(GettingInviteLinkSucceeded());
     }
   }
 
@@ -121,7 +119,7 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
     return (await _dynamicLinksRepo.createInviteLink(uuid)).toString();
   }
 
-  Future<String> _createInviteLink({
+  Future<InviteInfo> _createAndReturnInviteLink({
     required GroupType groupType,
     String? previousLink,
   }) async {
@@ -140,9 +138,8 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
     var json = inviteInfo.toJson();
     await _firestoreRepo.setGroupInviteData(docReference: uuid, data: json);
     await _firestoreRepo.updateGroupInviteData(docReference: uuid, data: json);
-    await invitesBox.put(inviteInfoKey, inviteInfo);
 
-    return link;
+    return inviteInfo;
   }
 
   Future shareQrCode(String text, String subject) async {

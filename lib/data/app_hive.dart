@@ -26,3 +26,6 @@ class AppHive {
     Hive.registerAdapter(InviteInfoAdapter());
   }
 }
+
+// Currently the app doesn't use any of this boxes, so if nothing changes
+// this file and whole Hive module should be removed before the app release

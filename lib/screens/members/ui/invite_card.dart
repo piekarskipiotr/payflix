@@ -1,17 +1,23 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
-import 'package:payflix/data/enum/group_type.dart';
+import 'package:payflix/data/model/group.dart';
 import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/screens/members/bloc/invite_dialog_cubit.dart';
+import 'package:payflix/screens/members/bloc/members_cubit.dart';
 import 'package:payflix/screens/members/ui/invite_dialog.dart';
 
 class InviteCard extends StatelessWidget {
-  final GroupType groupType;
-  const InviteCard({Key? key, required this.groupType,}) : super(key: key);
+  final Group group;
+  final MembersCubit membersCubit;
+
+  const InviteCard({
+    Key? key,
+    required this.group,
+    required this.membersCubit,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +29,11 @@ class InviteCard extends StatelessWidget {
         ),
         onTap: () => AppDialogController.showBottomSheetDialog(
           context: context,
-          dialog: BlocProvider(
-            create: (_) => getIt<InviteDialogCubit>()
+          dialog: BlocProvider.value(
+            value: getIt<InviteDialogCubit>()
+              ..initialize(membersCubit)
               ..getInviteLink(
-                groupType: groupType,
+                group: group,
               ),
             child: const InviteDialog(),
           ),

@@ -123,14 +123,17 @@ class _MembersState extends State<Members> {
                                   (context, index) {
                                     return index == 0
                                         ? InviteCard(
-                                            groupType: group.groupType,
+                                            group: group,
+                                            membersCubit:
+                                                context.read<MembersCubit>(),
                                           )
                                         : MemberCard(
                                             user: members[index - 1],
                                             isCurrentUser: context
                                                 .read<MembersCubit>()
                                                 .isCurrentUser(
-                                                    members[index - 1]),
+                                                  members[index - 1],
+                                                ),
                                           );
                                   },
                                   childCount: members.length + 1,
