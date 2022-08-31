@@ -148,5 +148,11 @@
   "not_phone_number": "Incorrect phone number pattern",
   "payment_info_header": "The administrator has provided data that will allow you to perform the payment for the use of the VOD service.",
   "payment_info_not_found_header": "The manager of this group didn't share bank data.",
-  "payment_info_not_found_body": "Contact the group's administrator for information that will allow you to execute the user fee."
+  "payment_info_not_found_body": "Contact the group's administrator for information that will allow you to execute the user fee.",
+  "delete_group" : "Delete group",
+  "delete_group_header" : "You are one step away from tragedy!",
+  "delete_group_body" : "By deleting the group, all members will lose access to it and you will no longer be able to get payment information.",
+  "delete" : "Delete",
+  "group_deleted" : "The group has been deleted!",
+  "group_deleted_body" : "Your group has been annihilated BAM, if you miss this VOD platform you can always create a new group!"
 }

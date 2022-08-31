@@ -10,6 +10,7 @@ import 'package:payflix/data/model/group.dart';
 import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/screens/group_settings/bloc/group_delete_cubit.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_cubit.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_state.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_state_listener.dart';
@@ -21,6 +22,7 @@ import 'package:payflix/widgets/app_cached_network_image.dart';
 import 'package:payflix/widgets/blur_container.dart';
 import 'package:payflix/widgets/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'delete_group_dialog.dart';
 
 extension StringCasingExtension on String {
   String toCapitalized() =>
@@ -430,6 +432,32 @@ class GroupSettings extends StatelessWidget {
                               ),
                             ),
                           ),
+                          if (!_isGroupCreator) ...[
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            ListTile(
+                              onTap: () =>
+                                  AppDialogController.showFullScreenDialog(
+                                context,
+                                BlocProvider.value(
+                                  value: getIt<GroupDeleteCubit>(),
+                                  child: DeleteGroupDialog(
+                                    group: _group!,
+                                  ),
+                                ),
+                              ),
+                              title: Text(
+                                getString(context).delete_group,
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.oxygen(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                  color: AppColors.red,
+                                ),
+                              ),
+                            ),
+                          ]
                         ],
                       ),
                     )
