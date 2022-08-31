@@ -22,6 +22,7 @@ const lottieFailure = 'assets/lottie/failure.json';
 const lottieEmailVerify = 'assets/lottie/mail_message.json';
 const lottieWarning = 'assets/lottie/warning.json';
 const lottieNoData = 'assets/lottie/no_data.json';
+const lottieDelete = 'assets/lottie/delete.json';
 
 // video on demand platforms
 const netflixLogo = 'https://firebasestorage.googleapis.com/v0/b/payflix-339c8.appspot.com/o/vods%2Fnflix.png?alt=media';
