@@ -149,10 +149,23 @@
   "payment_info_header": "Administrator udostępnił dane, które pozwolą Ci na wykonanie opłaty za korzystanie z serwisu VOD.",
   "payment_info_not_found_header": "Zarządca tej grupy nie udostępnił danych bankowych.",
   "payment_info_not_found_body": "Skontaktuj się z administratorem grupy w celu uzyskania informacji pozwalających Ci wykonać opłatę za korzystanie z usługi.",
-  "delete_group" : "Usuń grupę",
-  "delete_group_header" : "Jesteś o krok od tragedii!",
-  "delete_group_body" : "Usuwając grupę wszyscy jej członkowie stracą do niej dostęp oraz nie będziesz mógł już uzyskać informacji o płatnościach.",
-  "delete" : "Usuń",
-  "group_deleted" : "Grupa została usunięta!",
-  "group_deleted_body" : "Twoja grupa została unicestwiona BAM, jeśli zatęsknisz za tą platformą VOD możesz zawsze utworzyć nową grupę!"
+  "delete_group": "Usuń grupę",
+  "delete_group_header": "Jesteś o krok od tragedii!",
+  "delete_group_body": "Usuwając grupę wszyscy jej członkowie stracą do niej dostęp oraz nie będziesz mógł już uzyskać informacji o płatnościach.",
+  "delete": "Usuń",
+  "group_deleted": "Grupa została usunięta!",
+  "group_deleted_body": "Twoja grupa została unicestwiona BAM, jeśli zatęsknisz za tą platformą VOD możesz zawsze utworzyć nową grupę!",
+  "remove_user_header": "Jesteś pewien że chcesz usunąć {userName} z grupy?",
+  "@remove_user_header": {
+    "description": "Nagłówek dialogu usuwania użytkownika z grupy",
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  },
+  "remove_user_body": "Usunięcie członka z grupy spowoduje przeliczenie aktualnej stawki miesięcznej na użytkownika, każdy z nich dostanie również informację o tej aktualizacji.",
+  "remove": "Usuń",
+  "member_removed": "Członek został usunięty!",
+  "member_removed_body": "Aktualna stawka została przeliczona, członkowie grupy dostali powiadomienie o zaistniałej sytuacji"
 }

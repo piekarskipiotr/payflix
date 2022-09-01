@@ -1,20 +1,34 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/data/enum/app_placeholder.dart';
+import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/payflix_user.dart';
+import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/screens/home/bloc/home_cubit.dart';
+import 'package:payflix/screens/members/bloc/remove_member_cubit.dart';
+import 'package:payflix/screens/members/ui/remove_member_dialog.dart';
 import 'package:payflix/widgets/app_cached_network_image.dart';
 
 class MemberCard extends StatelessWidget {
   final PayflixUser user;
+  final Group group;
   final bool isCurrentUser;
+  final HomeCubit homeCubit;
 
-  const MemberCard({Key? key, required this.user, required this.isCurrentUser})
-      : super(key: key);
+  const MemberCard({
+    Key? key,
+    required this.user,
+    required this.isCurrentUser,
+    required this.group,
+    required this.homeCubit,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +39,17 @@ class MemberCard extends StatelessWidget {
           24.0,
         ),
         onTap: () => {},
+        onLongPress: () => AppDialogController.showBottomSheetDialog(
+          context: context,
+          dialog: BlocProvider.value(
+            value: getIt<RemoveMemberCubit>(),
+            child: RemoveMemberDialog(
+              user: user,
+              group: group,
+              homeCubit: homeCubit,
+            ),
+          ),
+        ),
         child: SizedBox(
           height: 162.0,
           width: 162.0,

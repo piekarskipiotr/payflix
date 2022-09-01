@@ -154,5 +154,18 @@
   "delete_group_body" : "By deleting the group, all members will lose access to it and you will no longer be able to get payment information.",
   "delete" : "Delete",
   "group_deleted" : "The group has been deleted!",
-  "group_deleted_body" : "Your group has been annihilated BAM, if you miss this VOD platform you can always create a new group!"
+  "group_deleted_body" : "Your group has been annihilated BAM, if you miss this VOD platform you can always create a new group!",
+  "remove_user_header": "Are you sure you want to remove {userName} from the group?",
+  "@remove_user_header": {
+    "description": "Header of the dialogue for removing a user from a group",
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      }
+    }
+  },
+  "remove_user_body": "Removing a member from the group will recalculate the current monthly rate per user, each member will also receive information about this update.",
+  "remove" : "Remove",
+  "member_removed": "The member has been removed!",
+  "member_removed_body": "The current rate has been recalculated, group members have received notification of the situation"
 }
