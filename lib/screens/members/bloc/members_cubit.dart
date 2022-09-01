@@ -54,8 +54,12 @@ class MembersCubit extends Cubit<MembersState> {
   }
 
   void updateGroup(Group group) {
+    emit(RefreshingData());
+
     _homeCubit?.updateGroupData(group);
     _group = group;
+
+    emit(DataRefreshed());
   }
 
   Future initialize(Group group, HomeCubit homeCubit) async {

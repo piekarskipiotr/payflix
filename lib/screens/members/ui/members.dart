@@ -127,13 +127,18 @@ class _MembersState extends State<Members> {
                                             membersCubit:
                                                 context.read<MembersCubit>(),
                                           )
-                                        : MemberCard(
-                                            user: members[index - 1],
-                                            isCurrentUser: context
-                                                .read<MembersCubit>()
-                                                .isCurrentUser(
-                                                  members[index - 1],
-                                                ),
+                                        : BlocProvider.value(
+                                            value: context.read<MembersCubit>(),
+                                            child: MemberCard(
+                                              user: members[index - 1],
+                                              group: group,
+                                              isCurrentUser: context
+                                                  .read<MembersCubit>()
+                                                  .isCurrentUser(
+                                                    members[index - 1],
+                                                  ),
+                                              homeCubit: homeCubit,
+                                            ),
                                           );
                                   },
                                   childCount: members.length + 1,
