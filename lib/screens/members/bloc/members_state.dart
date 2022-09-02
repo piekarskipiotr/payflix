@@ -20,5 +20,3 @@ class FetchingMembersSucceeded extends MembersState {
 class FetchingMembersFailed extends MembersState {}
 
 class RefreshingData extends MembersState {}
-
-class DataRefreshed extends MembersState {}

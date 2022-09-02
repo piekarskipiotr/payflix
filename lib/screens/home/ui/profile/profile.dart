@@ -9,7 +9,9 @@ import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
 import 'package:payflix/screens/home/ui/profile/bloc/change_password_dialog_cubit.dart';
+import 'package:payflix/screens/home/ui/profile/bloc/delete_account_dialog_cubit.dart';
 import 'package:payflix/screens/home/ui/profile/change_password_dialog.dart';
+import 'package:payflix/screens/home/ui/profile/delete_account_dialog.dart';
 import 'package:payflix/screens/home/ui/profile/edit_profile_dialog.dart';
 import 'package:payflix/widgets/app_bar_with_fixed_title.dart';
 import 'package:payflix/widgets/app_cached_network_image.dart';
@@ -326,7 +328,16 @@ class Profile extends StatelessWidget {
                             ),
                           ),
                           ListTile(
-                            onTap: () {},
+                            onTap: () =>
+                                AppDialogController.showFullScreenDialog(
+                              context,
+                              BlocProvider.value(
+                                value: getIt<DeleteAccountDialogCubit>(),
+                                child: DeleteAccountDialog(
+                                  user: user,
+                                ),
+                              ),
+                            ),
                             contentPadding: const EdgeInsets.only(left: 25.0),
                             title: Text(
                               getString(context).delete_account,

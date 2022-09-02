@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/enum/group_type.dart';
@@ -109,6 +111,8 @@ class _MembersState extends State<Members> {
                         ),
                         sliver: BlocBuilder<MembersCubit, MembersState>(
                           builder: (context, state) {
+                            log('\n\n\n\n');
+                            log(state.toString());
                             if (state is FetchingMembersSucceeded) {
                               var members = state.members;
 
