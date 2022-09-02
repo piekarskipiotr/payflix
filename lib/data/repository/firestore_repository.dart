@@ -164,6 +164,11 @@ class FirestoreRepository {
     return false;
   }
 
+  Future deleteUser({
+    required String docReference,
+  }) async => await _firestore.collection(usersCollectionName)
+      .doc(docReference).delete();
+
   Future<String> getAdminEmailByGroupId({required groupId}) async {
     var length = groupId.length;
     var userId = groupId.substring(0, length - 6);

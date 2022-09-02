@@ -167,5 +167,9 @@
   "remove_user_body": "Usunięcie członka z grupy spowoduje przeliczenie aktualnej stawki miesięcznej na użytkownika, każdy z nich dostanie również informację o tej aktualizacji.",
   "remove": "Usuń",
   "member_removed": "Członek został usunięty!",
-  "member_removed_body": "Aktualna stawka została przeliczona, członkowie grupy dostali powiadomienie o zaistniałej sytuacji"
+  "member_removed_body": "Aktualna stawka została przeliczona, członkowie grupy dostali powiadomienie o zaistniałej sytuacji",
+  "delete_account_header": "Jesteś o krok od usunięcia konta!",
+  "delete_account_body": "Usuwając konto, usuwasz również wszystkie grupy, których jesteś administratorem. Członkowie tych grup zostaną poinformowani o Tej sytuacji.",
+  "account_deleted": "Konto zostało usunięte!",
+  "account_deleted_body": "Twoje konto i grupy zostały usunięte. Przykro nam że się rozstajemy, mamy nadzieję że nasze drogi skrzyżują się ponownie w innej aplikacji :)"
 }

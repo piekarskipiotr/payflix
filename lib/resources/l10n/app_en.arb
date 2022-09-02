@@ -167,5 +167,9 @@
   "remove_user_body": "Removing a member from the group will recalculate the current monthly rate per user, each member will also receive information about this update.",
   "remove" : "Remove",
   "member_removed": "The member has been removed!",
-  "member_removed_body": "The current rate has been recalculated, group members have received notification of the situation"
+  "member_removed_body": "The current rate has been recalculated, group members have received notification of the situation",
+  "delete_account_header": "You are one step away from deleting your account!",
+  "delete_account_body": "By deleting your account, you will also delete all groups of which you are an administrator. The members of these groups will be informed of this situation.",
+  "account_deleted": "The account has been deleted!",
+  "account_deleted_body": "Your account and groups have been deleted. We are sorry to part ways, we hope our paths will cross again in another application :)"
 }

@@ -13,6 +13,7 @@ import 'package:payflix/screens/members/bloc/members_state.dart';
 class MembersCubit extends Cubit<MembersState> {
   Group? _group;
   HomeCubit? _homeCubit;
+  List<PayflixUser> _members = List.empty(growable: true);
   final AuthRepository _authRepo;
   final FirestoreRepository _firestoreRepository;
 
@@ -27,9 +28,9 @@ class MembersCubit extends Cubit<MembersState> {
 
       var ids = group.users!;
       var uid = _authRepo.getUID()!;
-      var members = await _firestoreRepository.getMembers(ids: ids, uid: uid);
+      _members = await _firestoreRepository.getMembers(ids: ids, uid: uid);
 
-      emit(FetchingMembersSucceeded(members));
+      emit(FetchingMembersSucceeded(_members));
     } catch (e) {
       emit(FetchingMembersFailed());
     }
@@ -44,9 +45,9 @@ class MembersCubit extends Cubit<MembersState> {
 
         var ids = group.users!;
         var uid = _authRepo.getUID()!;
-        var members = await _firestoreRepository.getMembers(ids: ids, uid: uid);
+        _members = await _firestoreRepository.getMembers(ids: ids, uid: uid);
 
-        emit(FetchingMembersSucceeded(members));
+        emit(FetchingMembersSucceeded(_members));
       } catch (e) {
         emit(FetchingMembersFailed());
       }
@@ -59,7 +60,7 @@ class MembersCubit extends Cubit<MembersState> {
     _homeCubit?.updateGroupData(group);
     _group = group;
 
-    emit(DataRefreshed());
+    emit(FetchingMembersSucceeded(_members));
   }
 
   Future initialize(Group group, HomeCubit homeCubit) async {
