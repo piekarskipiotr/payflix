@@ -30,10 +30,10 @@ class DeleteAccountDialogCubit extends Cubit<DeleteAccountDialogState> {
           await _deleteGroup(group);
         } else {
           group.users?.removeWhere((element) => element == uid);
-          await _firestoreRepository.updateUserData(
-            docReference: uid,
+          await _firestoreRepository.updateGroupData(
+            docReference: groupId,
             data: {
-              "groups": user.groups,
+              "users": group.users,
             },
           );
         }
