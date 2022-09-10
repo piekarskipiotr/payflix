@@ -22,6 +22,6 @@ Project is created with **Flutter**💙.
 
 ## 💡 Features
 * Sign in with Google or Apple
-* Join a group via deepl link or scaning QR code
+* Join a group via link or scan QR code
 * Quick access to group data
 * _and more will be developed soon_
