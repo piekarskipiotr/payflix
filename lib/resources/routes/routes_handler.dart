@@ -15,6 +15,8 @@ import 'package:payflix/screens/login/bloc/login_cubit.dart';
 import 'package:payflix/screens/login/ui/login.dart';
 import 'package:payflix/screens/members/bloc/members_cubit.dart';
 import 'package:payflix/screens/members/ui/members.dart';
+import 'package:payflix/screens/payments/bloc/payments_cubit.dart';
+import 'package:payflix/screens/payments/ui/payments.dart';
 import 'package:payflix/screens/qr_scanner/bloc/qr_scanner_cubit.dart';
 import 'package:payflix/screens/qr_scanner/ui/qr_scanner.dart';
 import 'package:payflix/screens/signup/bloc/signup_cubit.dart';
@@ -123,6 +125,14 @@ class RoutesHandler {
           BlocProvider.value(
             value: getIt<QrScannerCubit>(),
             child: const QrScanner(),
+          ),
+          settings: settings,
+        );
+      case AppRoutes.payments:
+        return buildRoute(
+          BlocProvider.value(
+            value: getIt<PaymentsCubit>(),
+            child: const Payments(),
           ),
           settings: settings,
         );

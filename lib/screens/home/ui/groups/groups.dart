@@ -108,9 +108,10 @@ class Groups extends StatelessWidget {
                           value: context.read<HomeCubit>(),
                           child: GroupCard(
                             group: groups[index],
-                            isAdmin: context.read<HomeCubit>().isUserGroupAdmin(
-                                  groups[index],
-                                ),
+                            user: context.read<HomeCubit>().getPayflixUser()!,
+                            isAdmin: context
+                                .read<HomeCubit>()
+                                .isUserGroupAdmin(groups[index]),
                           ),
                         ),
                         childCount: groups.length,

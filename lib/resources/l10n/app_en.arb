@@ -171,5 +171,8 @@
   "delete_account_header": "You are one step away from deleting your account!",
   "delete_account_body": "By deleting your account, you will also delete all groups of which you are an administrator. The members of these groups will be informed of this situation.",
   "account_deleted": "The account has been deleted!",
-  "account_deleted_body": "Your account and groups have been deleted. We are sorry to part ways, we hope our paths will cross again in another application :)"
+  "account_deleted_body": "Your account and groups have been deleted. We are sorry to part ways, we hope our paths will cross again in another application :)",
+  "payments" : "Payments",
+  "days" : "days",
+  "till_next_payment" : "until the next payment"
 }

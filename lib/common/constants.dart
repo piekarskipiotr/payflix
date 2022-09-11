@@ -10,6 +10,7 @@ const friends = 'assets/humans/friends.png';
 const groupFriends = 'assets/humans/group_friends.png';
 const moneyAndCoins = 'assets/humans/money_and_coins.png';
 const money = 'assets/humans/money.png';
+const cash = 'assets/humans/cash.png';
 
 // social
 const googleIcon = 'assets/social/google_icon.png';
