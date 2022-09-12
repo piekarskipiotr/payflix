@@ -8,6 +8,7 @@ import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/screens/payments/ui/month_item.dart';
 import 'package:payflix/widgets/app_bar_with_moved_title/bloc/app_bar_cubit.dart';
 import 'package:payflix/widgets/app_bar_with_moved_title/ui/app_bar_with_moved_title.dart';
 import 'package:payflix/widgets/app_cached_network_image.dart';
@@ -178,11 +179,7 @@ class _PaymentsState extends State<Payments> {
                 margin: const EdgeInsets.only(top: 24.0),
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => BlurContainer(
-                    body: Container(
-                      height: 48.0,
-                    ),
-                  ),
+                  itemBuilder: (context, index) => const MonthItem(),
                   itemCount: 50,
                 ),
               ),
