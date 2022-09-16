@@ -162,6 +162,33 @@ class AppTheme {
     ],
   );
 
+  static LinearGradient paymentsBottomOverlayGradient(Color color) => LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      color.withOpacity(0.0),
+      color.withOpacity(0.01),
+      color.withOpacity(0.02),
+      color.withOpacity(0.04),
+      color.withOpacity(0.06),
+      color.withOpacity(0.08),
+      color.withOpacity(0.10),
+      color.withOpacity(0.20),
+      color.withOpacity(0.30),
+      color.withOpacity(0.40),
+      color.withOpacity(0.50),
+      color.withOpacity(0.60),
+      color.withOpacity(0.70),
+      color.withOpacity(0.80),
+      color.withOpacity(0.90),
+      color.withOpacity(0.92),
+      color.withOpacity(0.94),
+      color.withOpacity(0.96),
+      color.withOpacity(0.98),
+      color,
+    ],
+  );
+
   static final appBarGradientExperimental = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,

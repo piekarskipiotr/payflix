@@ -123,23 +123,35 @@ class _PaymentsState extends State<Payments> {
                 SliverPersistentHeader(
                   delegate: _SliverAppBarDelegate(
                     child: Container(
-                      margin: const EdgeInsets.only(top: 24.0),
-                      child: Stack(
-                        children: [
-                          AnimatedOpacity(
-                            duration: const Duration(milliseconds: 300),
-                            opacity: _showGradient ? 1.0 : 0.0,
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                height: 172.0,
-                                decoration: BoxDecoration(
-                                  gradient: AppTheme.appBarGradientExperimental,
-                                ),
+                      color: _showGradient
+                          ? Theme.of(context).scaffoldBackgroundColor
+                          : null,
+                    ),
+                    maxHeight: 28.0,
+                    minHeight: 28.0,
+                  ),
+                  pinned: true,
+                ),
+                SliverPersistentHeader(
+                  delegate: _SliverAppBarDelegate(
+                    child: Stack(
+                      children: [
+                        AnimatedOpacity(
+                          duration: const Duration(milliseconds: 300),
+                          opacity: _showGradient ? 1.0 : 0.0,
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              height: 204.0,
+                              decoration: BoxDecoration(
+                                gradient: AppTheme.appBarGradientExperimental,
                               ),
                             ),
                           ),
-                          BlurContainer(
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: BlurContainer(
                             body: FittedBox(
                               fit: BoxFit.scaleDown,
                               child: Column(
@@ -166,22 +178,34 @@ class _PaymentsState extends State<Payments> {
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    maxHeight: 172.0,
-                    minHeight: 172.0,
+                    maxHeight: 192.0,
+                    minHeight: 192.0,
                   ),
                   pinned: true,
                 ),
               ],
-              body: Container(
-                margin: const EdgeInsets.only(top: 24.0),
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => const MonthItem(),
-                  itemCount: 50,
-                ),
+              body: Stack(
+                children: [
+                  ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) => const MonthItem(),
+                    itemCount: 50,
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: 100.0,
+                      decoration: BoxDecoration(
+                        gradient: AppTheme.paymentsBottomOverlayGradient(
+                          Theme.of(context).scaffoldBackgroundColor,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ],
