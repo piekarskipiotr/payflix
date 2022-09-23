@@ -1,3 +1,5 @@
+import 'package:clock/clock.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'payment_info.g.dart';
@@ -28,11 +30,36 @@ class PaymentInfo {
 
   Map<String, dynamic> toJson() => _$PaymentInfoToJson(this);
 
-  bool isOptionalDataEmpty() => isBankAccountNumberEmpty() && isPhoneNumberEmpty();
+  bool isOptionalDataEmpty() =>
+      isBankAccountNumberEmpty() && isPhoneNumberEmpty();
 
-  bool isBankAccountNumberEmpty() => bankAccountNumber == null || bankAccountNumber?.trim() == '';
+  bool isBankAccountNumberEmpty() =>
+      bankAccountNumber == null || bankAccountNumber?.trim() == '';
 
   bool isPhoneNumberEmpty() => phoneNumber == null || phoneNumber?.trim() == '';
+
+  DateTime getNextDate() {
+    var now = clock.now();
+    var today = DateTime(now.year, now.month, now.day);
+    var days = _daysInMonth(today);
+
+    DateTime nextDate;
+    if (days < dayOfTheMonth) {
+      nextDate = DateTime(today.year, today.month, days);
+    } else {
+      nextDate = DateTime(today.year, today.month, dayOfTheMonth);
+      if (nextDate.isBefore(today)) {
+        nextDate = DateTime(today.year, today.month + 1, dayOfTheMonth);
+      }
+    }
+
+    return nextDate;
+  }
+
+  int _daysInMonth(DateTime date) => DateTimeRange(
+        start: DateTime(date.year, date.month, 1),
+        end: DateTime(date.year, date.month + 1),
+      ).duration.inDays;
 
   @override
   String toString() =>
