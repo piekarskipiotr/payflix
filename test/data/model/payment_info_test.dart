@@ -40,4 +40,33 @@ void main() {
       });
     });
   });
+
+  group('Days until next payment', () {
+    test('Should return 0', () {
+      final today = DateTime(2022, 9, 23);
+      final paymentInfo = PaymentInfo(monthlyPayment: 7, dayOfTheMonth: 23);
+
+      withClock(Clock.fixed(today), () {
+        expect(paymentInfo.getDaysUntilNextPayment(), 0);
+      });
+    });
+
+    test('Should return 7', () {
+      final today = DateTime(2022, 9, 16);
+      final paymentInfo = PaymentInfo(monthlyPayment: 7, dayOfTheMonth: 23);
+
+      withClock(Clock.fixed(today), () {
+        expect(paymentInfo.getDaysUntilNextPayment(), 7);
+      });
+    });
+
+    test('Should return 29', () {
+      final today = DateTime(2022, 9, 17);
+      final paymentInfo = PaymentInfo(monthlyPayment: 7, dayOfTheMonth: 16);
+
+      withClock(Clock.fixed(today), () {
+        expect(paymentInfo.getDaysUntilNextPayment(), 29);
+      });
+    });
+  });
 }
