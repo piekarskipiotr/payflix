@@ -56,6 +56,12 @@ class PaymentInfo {
     return nextDate;
   }
 
+  int getDaysUntilNextPayment() {
+    var now = clock.now();
+    var today = DateTime(now.year, now.month, now.day);
+    return getNextDate().difference(today).inDays;
+  }
+
   int _daysInMonth(DateTime date) => DateTimeRange(
         start: DateTime(date.year, date.month, 1),
         end: DateTime(date.year, date.month + 1),
