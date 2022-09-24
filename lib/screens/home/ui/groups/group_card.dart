@@ -38,7 +38,9 @@ class GroupCard extends StatelessWidget {
         onTap: () => Navigator.pushNamed(
           context,
           isAdmin ? AppRoutes.members : AppRoutes.payments,
-          arguments: isAdmin ? [group, context.read<HomeCubit>()] : user,
+          arguments: isAdmin
+              ? [group, context.read<HomeCubit>()]
+              : [user, group.paymentInfo],
         ),
         onLongPress: () => AppDialogController.showBottomSheetDialog(
           context: context,

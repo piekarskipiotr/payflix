@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/enum/app_placeholder.dart';
 import 'package:payflix/data/model/payflix_user.dart';
+import 'package:payflix/data/model/payment_info.dart';
 import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
@@ -50,7 +51,10 @@ class _PaymentsState extends State<Payments> {
 
   @override
   Widget build(BuildContext context) {
-    final user = ModalRoute.of(context)!.settings.arguments as PayflixUser;
+    final args = ModalRoute.of(context)!.settings.arguments as List<dynamic>;
+    final user = args[0] as PayflixUser;
+    final paymentInfo = args[1] as PaymentInfo;
+    final days = paymentInfo.getDaysUntilNextPayment();
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -158,18 +162,20 @@ class _PaymentsState extends State<Payments> {
                                 children: [
                                   const SizedBox(height: 5.0),
                                   Text(
-                                    '10 ${getString(context).days}',
+                                    _handleDaysUntilPaymentText(days),
                                     style: GoogleFonts.oxygen(
                                       fontSize: 28.0,
                                       fontWeight: FontWeight.bold,
-                                      color: AppColors.primary,
+                                      color: AppColors.secondary,
                                     ),
                                   ),
                                   const SizedBox(height: 2.0),
                                   Text(
-                                    getString(context).till_next_payment,
+                                    days > 0
+                                        ? getString(context).till_next_payment
+                                        : getString(context).it_s_today_sub,
                                     style: GoogleFonts.oxygen(
-                                      fontSize: 12.0,
+                                      fontSize: 14.0,
                                       color: AppColors.creamWhite,
                                     ),
                                   ),
@@ -192,7 +198,8 @@ class _PaymentsState extends State<Payments> {
                   ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) => const MonthItem(),
-                    itemCount: 50,
+                    itemCount: 12,
+                    padding: const EdgeInsets.only(bottom: 92.0),
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
@@ -212,6 +219,14 @@ class _PaymentsState extends State<Payments> {
         ),
       ),
     );
+  }
+
+  String _handleDaysUntilPaymentText(int days) {
+    if (days == 0) {
+      return getString(context).it_s_today;
+    }
+
+    return '$days ${days > 1 ? getString(context).days : getString(context).day}';
   }
 }
 

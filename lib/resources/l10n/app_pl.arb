@@ -174,5 +174,8 @@
   "account_deleted_body": "Twoje konto i grupy zostały usunięte. Przykro nam że się rozstajemy, mamy nadzieję że nasze drogi skrzyżują się ponownie w innej aplikacji :)",
   "payments" : "Płatności",
   "days" : "dni",
-  "till_next_payment" : "do następnej płatności"
+  "day" : "dzień",
+  "till_next_payment" : "do następnej płatności",
+  "it_s_today" : "To dzisiaj",
+  "it_s_today_sub" : "upływa termin płatności!"
 }

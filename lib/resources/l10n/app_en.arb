@@ -174,5 +174,9 @@
   "account_deleted_body": "Your account and groups have been deleted. We are sorry to part ways, we hope our paths will cross again in another application :)",
   "payments" : "Payments",
   "days" : "days",
-  "till_next_payment" : "until the next payment"
+  "day" : "day",
+  "till_next_payment" : "do następnej płatności",
+  "it_s_today" : "It's today",
+  "it_s_today_sub" : "the payment day!"
+
 }
