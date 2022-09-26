@@ -12,7 +12,7 @@ class MonthItem extends StatefulWidget {
 }
 
 class _MonthItemState extends State<MonthItem> {
-  final _tempStatus = PaymentMonthStatus.future;
+  final _tempStatus = PaymentMonthStatus.unpaid;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class _MonthItemState extends State<MonthItem> {
                         Icons.arrow_forward_ios,
                         color: AppColors.creamWhite,
                         size: 20.0,
-                      )
+                      ),
                     ],
                   ),
                 ),
