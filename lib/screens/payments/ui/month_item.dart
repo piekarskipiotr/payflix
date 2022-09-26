@@ -2,17 +2,25 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/data/enum/payment_month_status.dart';
+import 'package:payflix/data/model/month_payment_info.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 
 class MonthItem extends StatefulWidget {
-  const MonthItem({Key? key}) : super(key: key);
+  final MonthPaymentInfo mpi;
+  const MonthItem({Key? key, required this.mpi}) : super(key: key);
 
   @override
   State<MonthItem> createState() => _MonthItemState();
 }
 
 class _MonthItemState extends State<MonthItem> {
-  final _tempStatus = PaymentMonthStatus.unpaid;
+  late MonthPaymentInfo _mpi;
+
+  @override
+  void initState() {
+    _mpi = widget.mpi;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,15 +63,15 @@ class _MonthItemState extends State<MonthItem> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: _tempStatus.bgColor,
+                          color: _mpi.status.bgColor,
                           borderRadius: BorderRadius.circular(100.0),
                           border: Border.all(
                             width: 1,
-                            color: _tempStatus.bgColor ?? AppColors.creamWhite,
+                            color: _mpi.status.bgColor ?? AppColors.creamWhite,
                           ),
                         ),
                         child: Icon(
-                          _tempStatus.icon,
+                          _mpi.status.icon,
                           color: AppColors.creamWhite,
                           size: 18.0,
                         ),
@@ -73,7 +81,7 @@ class _MonthItemState extends State<MonthItem> {
                       ),
                       Expanded(
                         child: Text(
-                          'May',
+                          _mpi.monthName,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.oxygen(

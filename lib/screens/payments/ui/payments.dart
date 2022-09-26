@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/enum/app_placeholder.dart';
+import 'package:payflix/data/enum/payment_month_status.dart';
+import 'package:payflix/data/model/month_payment_info.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/model/payment_info.dart';
 import 'package:payflix/di/get_it.dart';
@@ -197,7 +199,13 @@ class _PaymentsState extends State<Payments> {
                 children: [
                   ListView.builder(
                     physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) => const MonthItem(),
+                    itemBuilder: (context, index) => MonthItem(
+                      mpi: MonthPaymentInfo(
+                        2022,
+                        5,
+                        PaymentMonthStatus.unpaid,
+                      ),
+                    ),
                     itemCount: 12,
                     padding: const EdgeInsets.only(bottom: 92.0),
                   ),

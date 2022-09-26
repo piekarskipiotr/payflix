@@ -1,6 +1,9 @@
+import 'dart:io';
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:payflix/common/helpers/json_converter_helper.dart';
 import 'package:payflix/data/enum/payment_month_status.dart';
+import 'package:payflix/screens/group_settings/ui/group_settings.dart';
 
 part 'month_payment_info.g.dart';
 
@@ -17,6 +20,10 @@ class MonthPaymentInfo {
   PaymentMonthStatus status;
 
   MonthPaymentInfo(this.year, this.month, this.status);
+
+  String get monthName => DateFormat.MMMM(Platform.localeName.split('_')[0])
+      .format(DateTime(year, month))
+      .toCapitalized();
 
   factory MonthPaymentInfo.fromJson(Map<String, dynamic> json) =>
       _$MonthPaymentInfoFromJson(json);

@@ -175,7 +175,7 @@
   "payments" : "Payments",
   "days" : "days",
   "day" : "day",
-  "till_next_payment" : "do następnej płatności",
+  "till_next_payment" : "till next payment",
   "it_s_today" : "It's today",
   "it_s_today_sub" : "the payment day!"
 
