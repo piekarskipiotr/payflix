@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/enum/app_placeholder.dart';
-import 'package:payflix/data/enum/payment_month_status.dart';
-import 'package:payflix/data/model/month_payment_info.dart';
+import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/payflix_user.dart';
-import 'package:payflix/data/model/payment_info.dart';
 import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/screens/payments/bloc/payments_cubit.dart';
+import 'package:payflix/screens/payments/bloc/payments_state.dart';
 import 'package:payflix/screens/payments/ui/month_item.dart';
 import 'package:payflix/widgets/app_bar_with_moved_title/bloc/app_bar_cubit.dart';
 import 'package:payflix/widgets/app_bar_with_moved_title/ui/app_bar_with_moved_title.dart';
@@ -19,18 +19,30 @@ import 'package:payflix/widgets/blur_container.dart';
 import 'dart:math' as math;
 
 class Payments extends StatefulWidget {
-  const Payments({Key? key}) : super(key: key);
+  final PayflixUser user;
+  final Group group;
+
+  const Payments({
+    Key? key,
+    required this.user,
+    required this.group,
+  }) : super(key: key);
 
   @override
   State<Payments> createState() => _PaymentsState();
 }
 
 class _PaymentsState extends State<Payments> {
+  late PayflixUser _user;
+  late Group _group;
   late ScrollController _scrollController;
   bool _showGradient = false;
 
   @override
   void initState() {
+    _user = widget.user;
+    _group = widget.group;
+
     _scrollController = ScrollController()
       ..addListener(() {
         if (_scrollController.offset >= 155.0) {
@@ -53,11 +65,6 @@ class _PaymentsState extends State<Payments> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as List<dynamic>;
-    final user = args[0] as PayflixUser;
-    final paymentInfo = args[1] as PaymentInfo;
-    final days = paymentInfo.getDaysUntilNextPayment();
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -83,145 +90,156 @@ class _PaymentsState extends State<Payments> {
                 ),
               ),
             ),
-            NestedScrollView(
-              physics: const BouncingScrollPhysics(),
-              controller: _scrollController,
-              headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                SliverOverlapAbsorber(
-                  handle:
-                      NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                  sliver: SliverSafeArea(
-                    top: false,
-                    sliver: BlocProvider.value(
-                      value: getIt<AppBarCubit>(),
-                      child: AppBarWithMovedTitle(
-                        title: getString(context).payments,
-                        actions: [
-                          IconButton(
-                            onPressed: () {},
-                            iconSize: 38.0,
-                            icon: Material(
-                              elevation: 0,
-                              clipBehavior: Clip.hardEdge,
-                              color: AppColors.containerBlack,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(
-                                  16.0,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Center(
-                                  child: AppCachedNetworkImage(
-                                    url: user.avatar.url,
-                                    placeholder: AppPlaceholder.avatar,
-                                    size: 38.0,
+            BlocBuilder<PaymentsCubit, PaymentsState>(
+              builder: (context, state) {
+                final days = _group.paymentInfo.getDaysUntilNextPayment();
+                final payments = context.read<PaymentsCubit>().getPayments();
+
+                return NestedScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  controller: _scrollController,
+                  headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                    SliverOverlapAbsorber(
+                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                          context),
+                      sliver: SliverSafeArea(
+                        top: false,
+                        sliver: BlocProvider.value(
+                          value: getIt<AppBarCubit>(),
+                          child: AppBarWithMovedTitle(
+                            title: getString(context).payments,
+                            actions: [
+                              IconButton(
+                                onPressed: () {},
+                                iconSize: 38.0,
+                                icon: Material(
+                                  elevation: 0,
+                                  clipBehavior: Clip.hardEdge,
+                                  color: AppColors.containerBlack,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(
+                                      16.0,
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Center(
+                                      child: AppCachedNetworkImage(
+                                        url: _user.avatar.url,
+                                        placeholder: AppPlaceholder.avatar,
+                                        size: 38.0,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SliverPersistentHeader(
-                  delegate: _SliverAppBarDelegate(
-                    child: Container(
-                      color: _showGradient
-                          ? Theme.of(context).scaffoldBackgroundColor
-                          : null,
-                    ),
-                    maxHeight: 28.0,
-                    minHeight: 28.0,
-                  ),
-                  pinned: true,
-                ),
-                SliverPersistentHeader(
-                  delegate: _SliverAppBarDelegate(
-                    child: Stack(
-                      children: [
-                        AnimatedOpacity(
-                          duration: const Duration(milliseconds: 300),
-                          opacity: _showGradient ? 1.0 : 0.0,
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Container(
-                              height: 204.0,
-                              decoration: BoxDecoration(
-                                gradient: AppTheme.appBarGradientExperimental,
-                              ),
-                            ),
+                            ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: BlurContainer(
-                            body: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Column(
-                                children: [
-                                  const SizedBox(height: 5.0),
-                                  Text(
-                                    _handleDaysUntilPaymentText(days),
-                                    style: GoogleFonts.oxygen(
-                                      fontSize: 28.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.secondary,
-                                    ),
+                      ),
+                    ),
+                    SliverPersistentHeader(
+                      delegate: _SliverAppBarDelegate(
+                        child: Container(
+                          color: _showGradient
+                              ? Theme.of(context).scaffoldBackgroundColor
+                              : null,
+                        ),
+                        maxHeight: 28.0,
+                        minHeight: 28.0,
+                      ),
+                      pinned: true,
+                    ),
+                    SliverPersistentHeader(
+                      delegate: _SliverAppBarDelegate(
+                        child: Stack(
+                          children: [
+                            AnimatedOpacity(
+                              duration: const Duration(milliseconds: 300),
+                              opacity: _showGradient ? 1.0 : 0.0,
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Container(
+                                  height: 204.0,
+                                  decoration: BoxDecoration(
+                                    gradient:
+                                        AppTheme.appBarGradientExperimental,
                                   ),
-                                  const SizedBox(height: 2.0),
-                                  Text(
-                                    days > 0
-                                        ? getString(context).till_next_payment
-                                        : getString(context).it_s_today_sub,
-                                    style: GoogleFonts.oxygen(
-                                      fontSize: 14.0,
-                                      color: AppColors.creamWhite,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 5.0),
-                                ],
+                                ),
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: BlurContainer(
+                                body: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(height: 5.0),
+                                      Text(
+                                        _handleDaysUntilPaymentText(days),
+                                        style: GoogleFonts.oxygen(
+                                          fontSize: 28.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.secondary,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 2.0),
+                                      Text(
+                                        days > 0
+                                            ? getString(context)
+                                                .till_next_payment
+                                            : getString(context).it_s_today_sub,
+                                        style: GoogleFonts.oxygen(
+                                          fontSize: 14.0,
+                                          color: AppColors.creamWhite,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 5.0),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        maxHeight: 192.0,
+                        minHeight: 192.0,
+                      ),
+                      pinned: true,
+                    ),
+                  ],
+                  body: Stack(
+                    alignment: Alignment.topCenter,
+                    children: [
+                      if (state is FetchingPayments) ... [
+                        const CircularProgressIndicator(),
+                      ] else ... [
+                        ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.only(bottom: 92.0),
+                          itemBuilder: (context, index) => MonthItem(
+                            mpi: payments[index],
                           ),
+                          itemCount: payments.length,
                         ),
                       ],
-                    ),
-                    maxHeight: 192.0,
-                    minHeight: 192.0,
-                  ),
-                  pinned: true,
-                ),
-              ],
-              body: Stack(
-                children: [
-                  ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) => MonthItem(
-                      mpi: MonthPaymentInfo(
-                        2022,
-                        5,
-                        PaymentMonthStatus.unpaid,
-                      ),
-                    ),
-                    itemCount: 12,
-                    padding: const EdgeInsets.only(bottom: 92.0),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                        gradient: AppTheme.paymentsBottomOverlayGradient(
-                          Theme.of(context).scaffoldBackgroundColor,
+
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          height: 100.0,
+                          decoration: BoxDecoration(
+                            gradient: AppTheme.paymentsBottomOverlayGradient(
+                              Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                      )
+                    ],
+                  ),
+                );
+              },
             ),
           ],
         ),

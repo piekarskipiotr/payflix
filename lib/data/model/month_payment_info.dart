@@ -9,9 +9,7 @@ part 'month_payment_info.g.dart';
 
 @JsonSerializable()
 class MonthPaymentInfo {
-  final int year;
-
-  final int month;
+  final DateTime date;
 
   @JsonKey(
     fromJson: JsonConverterHelper.getPMSFromCode,
@@ -19,10 +17,10 @@ class MonthPaymentInfo {
   )
   PaymentMonthStatus status;
 
-  MonthPaymentInfo(this.year, this.month, this.status);
+  MonthPaymentInfo(this.date, this.status);
 
   String get monthName => DateFormat.MMMM(Platform.localeName.split('_')[0])
-      .format(DateTime(year, month))
+      .format(DateTime(date.year, date.month))
       .toCapitalized();
 
   factory MonthPaymentInfo.fromJson(Map<String, dynamic> json) =>
@@ -31,5 +29,5 @@ class MonthPaymentInfo {
   Map<String, dynamic> toJson() => _$MonthPaymentInfoToJson(this);
 
   @override
-  String toString() => 'MonthPaymentInfo{year: $year, month: $month, status: $status}';
+  String toString() => 'MonthPaymentInfo{date: $date, status: $status}';
 }

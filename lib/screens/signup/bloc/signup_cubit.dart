@@ -93,6 +93,7 @@ class SignUpCubit extends Cubit<SignupState> {
       _avatar!,
       _profileName!,
       List.empty(),
+      {},
     );
 
     return userInfo.toJson();

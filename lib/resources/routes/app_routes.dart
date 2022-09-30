@@ -8,5 +8,4 @@ class AppRoutes {
   static const members = '/members';
   static const home = '/home';
   static const qrScanner = '/qr_scanner';
-  static const payments = '/payments';
 }

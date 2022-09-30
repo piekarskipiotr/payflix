@@ -4,3 +4,7 @@ abstract class PaymentsState {
 }
 
 class InitPaymentsState extends PaymentsState {}
+
+class FetchingPayments extends PaymentsState {}
+
+class FetchingPaymentsCompleted extends PaymentsState {}

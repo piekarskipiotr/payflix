@@ -8,11 +8,13 @@ import 'package:payflix/data/enum/app_placeholder.dart';
 import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/payflix_user.dart';
+import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
-import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/ui/groups/group_quick_actions_dialog.dart';
+import 'package:payflix/screens/payments/bloc/payments_cubit.dart';
+import 'package:payflix/screens/payments/ui/payments.dart';
 import 'package:payflix/widgets/app_cached_network_image.dart';
 
 class GroupCard extends StatelessWidget {
@@ -35,12 +37,21 @@ class GroupCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           24.0,
         ),
-        onTap: () => Navigator.pushNamed(
-          context,
-          isAdmin ? AppRoutes.members : AppRoutes.payments,
-          arguments: isAdmin
-              ? [group, context.read<HomeCubit>()]
-              : [user, group.paymentInfo],
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: context.read<HomeCubit>()),
+                BlocProvider.value(
+                  value: getIt<PaymentsCubit>()..fetchPayments(user, group),
+                ),
+              ],
+              child: Payments(
+                group: group,
+                user: user,
+              ),
+            ),
+          ),
         ),
         onLongPress: () => AppDialogController.showBottomSheetDialog(
           context: context,

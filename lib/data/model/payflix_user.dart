@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:payflix/data/model/month_payment_info.dart';
 
 import 'avatar.dart';
 
@@ -21,6 +22,9 @@ class PayflixUser {
   @JsonKey(name: 'groups')
   List<String> groups;
 
+  @JsonKey(name: 'payments')
+  Map<String, List<MonthPaymentInfo>> payments;
+
   @JsonKey(ignore: true)
   bool? isCurrentUser;
 
@@ -30,6 +34,7 @@ class PayflixUser {
     this.avatar,
     this.displayName,
     this.groups,
+    this.payments,
   );
 
   factory PayflixUser.fromJson(Map<String, dynamic> json) => PayflixUser(
@@ -38,6 +43,14 @@ class PayflixUser {
         Avatar.fromJson(json['avatar']),
         json['display_name'] as String,
         (json['groups'] as List<dynamic>).map((e) => e as String).toList(),
+        (json['payments'] as Map<String, dynamic>).map(
+          (k, e) => MapEntry(
+              k,
+              (e as List<dynamic>)
+                  .map((e) =>
+                      MonthPaymentInfo.fromJson(e as Map<String, dynamic>))
+                  .toList()),
+        ),
       );
 
   Map<String, dynamic> toJson() => _$PayflixUserToJson(this);
