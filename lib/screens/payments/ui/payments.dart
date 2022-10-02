@@ -212,19 +212,24 @@ class _PaymentsState extends State<Payments> {
                   body: Stack(
                     alignment: Alignment.topCenter,
                     children: [
-                      if (state is FetchingPayments) ... [
+                      if (state is FetchingPayments) ...[
                         const CircularProgressIndicator(),
-                      ] else ... [
+                      ] else ...[
                         ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           padding: const EdgeInsets.only(bottom: 92.0),
-                          itemBuilder: (context, index) => MonthItem(
-                            mpi: payments[index],
+                          itemBuilder: (context, index) => BlocProvider.value(
+                            value: context.read<PaymentsCubit>(),
+                            child: MonthItem(
+                              mpi: payments[index],
+                              paymentInfo: _group.paymentInfo,
+                              userId: _user.id,
+                              groupId: _group.getGroupId(),
+                            ),
                           ),
                           itemCount: payments.length,
                         ),
                       ],
-
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(

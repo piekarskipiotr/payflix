@@ -4,8 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/data/enum/payment_month_action.dart';
 import 'package:payflix/data/enum/payment_month_status.dart';
 import 'package:payflix/data/model/group.dart';
+import 'package:payflix/data/model/month_payment_history.dart';
 import 'package:payflix/data/model/month_payment_info.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
@@ -17,6 +19,40 @@ class PaymentsCubit extends Cubit<PaymentsState> {
   final List<MonthPaymentInfo> _payments = List.empty(growable: true);
 
   PaymentsCubit(this._firestoreRepository) : super(InitPaymentsState());
+
+  Future changeMPIStatus(
+    MonthPaymentInfo mpi,
+    String userId,
+    String groupId,
+  ) async {
+    emit(HandlingMonthPaymentInfo());
+    var currentStatus = mpi.status;
+    var now = clock.now();
+    var today = DateTime(now.year, now.month, now.day);
+
+    if (currentStatus == PaymentMonthStatus.paid) {
+      mpi.status = mpi.date.isBefore(today)
+          ? PaymentMonthStatus.expired
+          : PaymentMonthStatus.unpaid;
+    } else {
+      mpi.status = PaymentMonthStatus.paid;
+    }
+
+    mpi.history.add(
+      MonthPaymentHistory(
+        today,
+        mpi.status == PaymentMonthStatus.paid
+            ? PaymentMonthAction.markedAsPaid
+            : PaymentMonthAction.markedAsUnpaid,
+      ),
+    );
+
+    await _firestoreRepository.updateUserData(docReference: userId, data: {
+      "payments.$groupId": FieldValue.arrayUnion([mpi.toJson()])
+    });
+
+    emit(HandlingMonthPaymentInfoCompleted());
+  }
 
   List<MonthPaymentInfo> getPayments() => _payments.reversed.toList();
 
@@ -35,10 +71,12 @@ class PaymentsCubit extends Cubit<PaymentsState> {
           MonthPaymentInfo(
             nextPayment,
             PaymentMonthStatus.unpaid,
+            [],
           ),
           MonthPaymentInfo(
             _getFuturePaymentDate(nextPayment, group.paymentInfo.dayOfTheMonth),
             PaymentMonthStatus.unpaid,
+            [],
           ),
         ],
       );
@@ -58,6 +96,7 @@ class PaymentsCubit extends Cubit<PaymentsState> {
             date.isBefore(today)
                 ? PaymentMonthStatus.expired
                 : PaymentMonthStatus.unpaid,
+            [],
           ),
         );
       }

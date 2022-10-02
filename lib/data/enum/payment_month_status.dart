@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
+import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 
 enum PaymentMonthStatus { paid, unpaid, expired }
 
 extension PaymentMonthStatusEx on PaymentMonthStatus {
+  String getName(BuildContext context) {
+    switch (this) {
+      case PaymentMonthStatus.paid:
+        return getString(context).paid;
+      case PaymentMonthStatus.unpaid:
+        return getString(context).unpaid;
+      case PaymentMonthStatus.expired:
+        return getString(context).expired;
+    }
+  }
+
   IconData? get icon {
     switch (this) {
       case PaymentMonthStatus.paid:

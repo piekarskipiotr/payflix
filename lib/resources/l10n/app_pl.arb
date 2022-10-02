@@ -177,5 +177,17 @@
   "day" : "dzień",
   "till_next_payment" : "do następnej płatności",
   "it_s_today" : "To dzisiaj",
-  "it_s_today_sub" : "upływa termin płatności!"
+  "it_s_today_sub" : "upływa termin płatności!",
+  "history" : "Historia",
+  "nothing_yet" : "Aktualnie brak",
+  "mark_as_paid" : "Ustaw jako zapłacone",
+  "mark_as_unpaid" : "Ustaw jako niezapłacone",
+  "close" : "Zamknij",
+  "paid" : "Zapłacono",
+  "unpaid" : "Nie zapłacono",
+  "expired" : "Przeterminowane",
+  "marked_as_paid" : "Ustawiono jako zapłanocne",
+  "marked_as_unpaid" : "Ustawiono jako niezapłacone",
+  "history_details_paid" : "Klikając “Ustaw jako zapłacone” potwierdzasz płatność użytkownika. Możesz cofnąć swoją akcję, jednak zostanie ona zarejestrowana w historii.",
+  "history_details_unpaid" : "Klikając “Ustaw jako niezapłacone” cofasz potwierdzenie płatności użytkownika. Możesz cofnąć swoją akcję, jednak zostanie ona zarejestrowana w historii."
 }
