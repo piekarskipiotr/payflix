@@ -30,6 +30,10 @@ class PaymentsCubit extends Cubit<PaymentsState> {
     var now = clock.now();
     var today = DateTime(now.year, now.month, now.day);
 
+    await _firestoreRepository.updateUserData(docReference: userId, data: {
+      "payments.$groupId": FieldValue.arrayRemove([mpi.toJson()]),
+    });
+
     if (currentStatus == PaymentMonthStatus.paid) {
       mpi.status = mpi.date.isBefore(today)
           ? PaymentMonthStatus.expired
@@ -48,7 +52,7 @@ class PaymentsCubit extends Cubit<PaymentsState> {
     );
 
     await _firestoreRepository.updateUserData(docReference: userId, data: {
-      "payments.$groupId": FieldValue.arrayUnion([mpi.toJson()])
+      "payments.$groupId": FieldValue.arrayUnion([mpi.toJson()]),
     });
 
     emit(HandlingMonthPaymentInfoCompleted());
@@ -84,21 +88,21 @@ class PaymentsCubit extends Cubit<PaymentsState> {
       // check if dates are missing and if generate them
       var now = clock.now();
       var today = DateTime(now.year, now.month, 1);
+      payments.sort((a, b) => a.date.compareTo(b.date));
+
       while (payments.last.date.isBefore(
           _getFuturePaymentDate(today, group.paymentInfo.dayOfTheMonth))) {
         isEdited = true;
 
         var date = _getFuturePaymentDate(
             payments.last.date, group.paymentInfo.dayOfTheMonth);
-        payments.add(
-          MonthPaymentInfo(
-            date,
-            date.isBefore(today)
-                ? PaymentMonthStatus.expired
-                : PaymentMonthStatus.unpaid,
-            [],
-          ),
-        );
+        payments.add(MonthPaymentInfo(
+          date,
+          date.isBefore(today)
+              ? PaymentMonthStatus.expired
+              : PaymentMonthStatus.unpaid,
+          [],
+        ));
       }
     }
 
