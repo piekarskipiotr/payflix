@@ -11,6 +11,7 @@ import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
+import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/ui/groups/group_quick_actions_dialog.dart';
 import 'package:payflix/screens/payments/bloc/payments_cubit.dart';
@@ -37,22 +38,29 @@ class GroupCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           24.0,
         ),
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => MultiBlocProvider(
-              providers: [
-                BlocProvider.value(value: context.read<HomeCubit>()),
-                BlocProvider.value(
-                  value: getIt<PaymentsCubit>()..fetchPayments(user, group),
+        onTap: () => isAdmin
+            ? Navigator.pushNamed(
+                context,
+                AppRoutes.members,
+                arguments: [group, context.read<HomeCubit>()],
+              )
+            : Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider.value(value: context.read<HomeCubit>()),
+                      BlocProvider.value(
+                        value: getIt<PaymentsCubit>()
+                          ..fetchPayments(user, group),
+                      ),
+                    ],
+                    child: Payments(
+                      group: group,
+                      user: user,
+                    ),
+                  ),
                 ),
-              ],
-              child: Payments(
-                group: group,
-                user: user,
               ),
-            ),
-          ),
-        ),
         onLongPress: () => AppDialogController.showBottomSheetDialog(
           context: context,
           dialog: BlocProvider.value(

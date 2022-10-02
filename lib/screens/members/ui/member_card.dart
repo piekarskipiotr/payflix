@@ -14,6 +14,8 @@ import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/members/bloc/remove_member_cubit.dart';
 import 'package:payflix/screens/members/ui/remove_member_dialog.dart';
+import 'package:payflix/screens/payments/bloc/payments_cubit.dart';
+import 'package:payflix/screens/payments/ui/payments.dart';
 import 'package:payflix/widgets/app_cached_network_image.dart';
 
 class MemberCard extends StatelessWidget {
@@ -38,7 +40,23 @@ class MemberCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           24.0,
         ),
-        onTap: () => {},
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: homeCubit),
+                BlocProvider.value(
+                  value: getIt<PaymentsCubit>()
+                    ..fetchPayments(user, group),
+                ),
+              ],
+              child: Payments(
+                group: group,
+                user: user,
+              ),
+            ),
+          ),
+        ),
         onLongPress: () => AppDialogController.showBottomSheetDialog(
           context: context,
           dialog: BlocProvider.value(
