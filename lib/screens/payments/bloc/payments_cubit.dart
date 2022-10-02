@@ -46,10 +46,12 @@ class PaymentsCubit extends Cubit<PaymentsState> {
       // check if dates are missing and if generate them
       var now = clock.now();
       var today = DateTime(now.year, now.month, 1);
-      while (payments.last.date.isBefore(_getFuturePaymentDate(today, group.paymentInfo.dayOfTheMonth))) {
+      while (payments.last.date.isBefore(
+          _getFuturePaymentDate(today, group.paymentInfo.dayOfTheMonth))) {
         isEdited = true;
 
-        var date = _getFuturePaymentDate(payments.last.date, group.paymentInfo.dayOfTheMonth);
+        var date = _getFuturePaymentDate(
+            payments.last.date, group.paymentInfo.dayOfTheMonth);
         payments.add(
           MonthPaymentInfo(
             date,
@@ -65,11 +67,9 @@ class PaymentsCubit extends Cubit<PaymentsState> {
       await _firestoreRepository.updateUserData(
         docReference: user.id,
         data: {
-          "payments": {
-            group.getGroupId(): FieldValue.arrayUnion(
-              payments.map((e) => e.toJson()).toList(),
-            ),
-          },
+          "payments.${group.getGroupId()}": FieldValue.arrayUnion(
+            payments.map((e) => e.toJson()).toList(),
+          ),
         },
       );
     }
