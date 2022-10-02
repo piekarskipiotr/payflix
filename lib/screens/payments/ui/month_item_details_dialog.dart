@@ -121,7 +121,7 @@ class MonthItemDetailsDialog extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            DateFormat('dd-MM-yyyy').format(e.date),
+                            DateFormat('dd-MM-yyyy HH:mm:ss').format(e.date),
                             style: GoogleFonts.oxygen(
                               fontSize: 14.0,
                               color: AppColors.creamWhite,

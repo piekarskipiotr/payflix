@@ -44,7 +44,14 @@ class PaymentsCubit extends Cubit<PaymentsState> {
 
     mpi.history.add(
       MonthPaymentHistory(
-        today,
+        DateTime(
+          now.year,
+          now.month,
+          now.day,
+          now.hour,
+          now.minute,
+          now.second,
+        ),
         mpi.status == PaymentMonthStatus.paid
             ? PaymentMonthAction.markedAsPaid
             : PaymentMonthAction.markedAsUnpaid,
