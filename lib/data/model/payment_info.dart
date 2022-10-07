@@ -38,9 +38,9 @@ class PaymentInfo {
 
   bool isPhoneNumberEmpty() => phoneNumber == null || phoneNumber?.trim() == '';
 
-  DateTime getNextDate() {
+  DateTime getNextDate({DateTime? fromDate}) {
     var now = clock.now();
-    var today = DateTime(now.year, now.month, now.day);
+    var today = fromDate ?? DateTime(now.year, now.month, now.day);
     var days = _daysInMonth(today);
 
     DateTime nextDate;
@@ -56,10 +56,10 @@ class PaymentInfo {
     return nextDate;
   }
 
-  int getDaysUntilNextPayment() {
+  int getDaysUntilNextPayment({DateTime? fromDate}) {
     var now = clock.now();
     var today = DateTime(now.year, now.month, now.day);
-    return getNextDate().difference(today).inDays;
+    return getNextDate(fromDate: fromDate).difference(today).inDays;
   }
 
   int _daysInMonth(DateTime date) => DateTimeRange(

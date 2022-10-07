@@ -6,22 +6,39 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/data/enum/payment_month_action.dart';
 import 'package:payflix/data/enum/payment_month_status.dart';
-import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/month_payment_history.dart';
 import 'package:payflix/data/model/month_payment_info.dart';
-import 'package:payflix/data/model/payflix_user.dart';
+import 'package:payflix/data/model/payment_info.dart';
+import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/screens/payments/bloc/payments_state.dart';
 
-@singleton
+@injectable
 class PaymentsCubit extends Cubit<PaymentsState> {
   final FirestoreRepository _firestoreRepository;
+  final AuthRepository _authRepository;
   final List<MonthPaymentInfo> _payments = List.empty(growable: true);
 
-  PaymentsCubit(this._firestoreRepository) : super(InitPaymentsState());
+  PaymentsCubit(this._firestoreRepository, this._authRepository)
+      : super(InitPaymentsState());
+
+  int getDaysUntilNextPayment(PaymentInfo pi) => _payments.isEmpty
+      ? 0
+      : pi.getDaysUntilNextPayment(
+          fromDate: _payments
+              .firstWhere(
+                  (element) => element.status == PaymentMonthStatus.unpaid)
+              .date,
+        );
+
+  bool shouldBeHighlighted(MonthPaymentInfo mpi) =>
+      mpi ==
+      _payments
+          .firstWhere((element) => element.status == PaymentMonthStatus.unpaid);
 
   Future changeMPIStatus(
     MonthPaymentInfo mpi,
+    PaymentInfo pi,
     String userId,
     String groupId,
   ) async {
@@ -63,12 +80,18 @@ class PaymentsCubit extends Cubit<PaymentsState> {
     });
 
     emit(HandlingMonthPaymentInfoCompleted());
+    await fetchPayments(groupId);
   }
 
   List<MonthPaymentInfo> getPayments() => _payments.reversed.toList();
 
-  Future fetchPayments(PayflixUser user, Group group) async {
+  Future fetchPayments(String groupId) async {
     emit(FetchingPayments());
+
+    var uid = _authRepository.instance().currentUser!.uid;
+    var user = await _firestoreRepository.getUserData(docReference: uid);
+    var group = await _firestoreRepository.getGroupData(docReference: groupId);
+
     var isEdited = false;
     final payments = user.payments[group.getGroupId()] ?? [];
 
@@ -113,19 +136,34 @@ class PaymentsCubit extends Cubit<PaymentsState> {
       }
     }
 
+    _payments.clear();
+    _payments.addAll(payments);
+
+    if (_payments[_payments.length - 2].status != PaymentMonthStatus.unpaid) {
+      isEdited = true;
+
+      var lastMpiDate = _payments.last.date;
+      var nextDate = DateTime(lastMpiDate.year, lastMpiDate.month + 1, lastMpiDate.day);
+      _payments.add(
+        MonthPaymentInfo(
+          group.paymentInfo.getNextDate(fromDate: nextDate),
+          PaymentMonthStatus.unpaid,
+          [],
+        ),
+      );
+    }
+
     if (isEdited) {
       await _firestoreRepository.updateUserData(
         docReference: user.id,
         data: {
           "payments.${group.getGroupId()}": FieldValue.arrayUnion(
-            payments.map((e) => e.toJson()).toList(),
+            _payments.map((e) => e.toJson()).toList(),
           ),
         },
       );
     }
 
-    _payments.clear();
-    _payments.addAll(payments);
     emit(FetchingPaymentsCompleted());
   }
 

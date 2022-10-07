@@ -47,7 +47,7 @@ class MemberCard extends StatelessWidget {
                 BlocProvider.value(value: homeCubit),
                 BlocProvider.value(
                   value: getIt<PaymentsCubit>()
-                    ..fetchPayments(user, group),
+                    ..fetchPayments(group.getGroupId()),
                 ),
               ],
               child: Payments(

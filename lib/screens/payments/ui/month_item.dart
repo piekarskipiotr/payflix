@@ -15,6 +15,7 @@ class MonthItem extends StatefulWidget {
   final PaymentInfo paymentInfo;
   final String userId;
   final String groupId;
+  final bool isHighlighted;
 
   const MonthItem({
     Key? key,
@@ -22,6 +23,7 @@ class MonthItem extends StatefulWidget {
     required this.paymentInfo,
     required this.userId,
     required this.groupId,
+    required this.isHighlighted,
   }) : super(key: key);
 
   @override
@@ -33,6 +35,7 @@ class _MonthItemState extends State<MonthItem> {
   late PaymentInfo _paymentInfo;
   late String _userId;
   late String _groupId;
+  late bool _isHighlighted;
 
   @override
   void initState() {
@@ -40,6 +43,7 @@ class _MonthItemState extends State<MonthItem> {
     _paymentInfo = widget.paymentInfo;
     _userId = widget.userId;
     _groupId = widget.groupId;
+    _isHighlighted = widget.isHighlighted;
 
     super.initState();
   }
@@ -47,23 +51,26 @@ class _MonthItemState extends State<MonthItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 18.0),
+      padding: EdgeInsets.only(
+        left: 10.0,
+        right: (_isHighlighted ? 10.0 : 24.0),
+        bottom: 18.0,
+      ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () =>
-              AppDialogController.showBottomSheetDialog(
-                context: context,
-                dialog: BlocProvider.value(
-                  value: context.read<PaymentsCubit>(),
-                  child: MonthItemDetailsDialog(
-                    mpi: _mpi,
-                    paymentInfo: _paymentInfo,
-                    userId: _userId,
-                    groupId: _groupId,
-                  ),
-                ),
+          onTap: () => AppDialogController.showBottomSheetDialog(
+            context: context,
+            dialog: BlocProvider.value(
+              value: context.read<PaymentsCubit>(),
+              child: MonthItemDetailsDialog(
+                mpi: _mpi,
+                paymentInfo: _paymentInfo,
+                userId: _userId,
+                groupId: _groupId,
               ),
+            ),
+          ),
           borderRadius: BorderRadius.circular(
             20.0,
           ),
@@ -79,7 +86,9 @@ class _MonthItemState extends State<MonthItem> {
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: AppColors.containerBlack,
+                  color: _isHighlighted
+                      ? AppColors.primary
+                      : AppColors.containerBlack,
                   borderRadius: BorderRadius.circular(
                     20.0,
                   ),
@@ -100,7 +109,7 @@ class _MonthItemState extends State<MonthItem> {
                           color: _mpi.status.bgColor,
                           borderRadius: BorderRadius.circular(100.0),
                           border: Border.all(
-                            width: 1,
+                            width: 2,
                             color: _mpi.status.bgColor ?? AppColors.creamWhite,
                           ),
                         ),

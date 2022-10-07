@@ -92,8 +92,10 @@ class _PaymentsState extends State<Payments> {
             ),
             BlocBuilder<PaymentsCubit, PaymentsState>(
               builder: (context, state) {
-                final days = _group.paymentInfo.getDaysUntilNextPayment();
                 final payments = context.read<PaymentsCubit>().getPayments();
+                final days = context
+                    .read<PaymentsCubit>()
+                    .getDaysUntilNextPayment(_group.paymentInfo);
 
                 return NestedScrollView(
                   physics: const BouncingScrollPhysics(),
@@ -101,7 +103,8 @@ class _PaymentsState extends State<Payments> {
                   headerSliverBuilder: (context, innerBoxIsScrolled) => [
                     SliverOverlapAbsorber(
                       handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                          context),
+                        context,
+                      ),
                       sliver: SliverSafeArea(
                         top: false,
                         sliver: BlocProvider.value(
@@ -225,6 +228,11 @@ class _PaymentsState extends State<Payments> {
                               paymentInfo: _group.paymentInfo,
                               userId: _user.id,
                               groupId: _group.getGroupId(),
+                              isHighlighted: context
+                                  .watch<PaymentsCubit>()
+                                  .shouldBeHighlighted(
+                                    payments[index],
+                                  ),
                             ),
                           ),
                           itemCount: payments.length,

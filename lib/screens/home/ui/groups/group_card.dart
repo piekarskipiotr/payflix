@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,22 +44,22 @@ class GroupCard extends StatelessWidget {
                 arguments: [group, context.read<HomeCubit>()],
               )
             : Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => MultiBlocProvider(
-                    providers: [
-                      BlocProvider.value(value: context.read<HomeCubit>()),
-                      BlocProvider.value(
-                        value: getIt<PaymentsCubit>()
-                          ..fetchPayments(user, group),
-                      ),
-                    ],
-                    child: Payments(
-                      group: group,
-                      user: user,
-                    ),
-                  ),
+          MaterialPageRoute(
+            builder: (_) => MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: context.read<HomeCubit>()),
+                BlocProvider.value(
+                  value: getIt<PaymentsCubit>()
+                    ..fetchPayments(group.getGroupId()),
                 ),
+              ],
+              child: Payments(
+                group: group,
+                user: user,
               ),
+            ),
+          ),
+        ),
         onLongPress: () => AppDialogController.showBottomSheetDialog(
           context: context,
           dialog: BlocProvider.value(

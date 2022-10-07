@@ -171,6 +171,7 @@ class MonthItemDetailsDialog extends StatelessWidget {
                       : getString(context).mark_as_paid,
                   onClick: () => context.read<PaymentsCubit>().changeMPIStatus(
                         mpi,
+                        paymentInfo,
                         userId,
                         groupId,
                       ),
