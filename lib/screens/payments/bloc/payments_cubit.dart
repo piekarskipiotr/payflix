@@ -31,6 +31,18 @@ class PaymentsCubit extends Cubit<PaymentsState> {
               .date,
         );
 
+  bool isItemEditable(int index) {
+    if (index + 1 == _payments.length) {
+      return false;
+    }
+
+    if (_payments[index + 1].status == PaymentMonthStatus.paid) {
+      return false;
+    }
+
+    return true;
+  }
+
   bool shouldBeHighlighted(MonthPaymentInfo mpi) =>
       mpi ==
       _payments

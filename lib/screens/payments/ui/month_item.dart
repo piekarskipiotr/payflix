@@ -15,6 +15,7 @@ class MonthItem extends StatefulWidget {
   final PaymentInfo paymentInfo;
   final String userId;
   final String groupId;
+  final bool isEditable;
   final bool isHighlighted;
 
   const MonthItem({
@@ -23,6 +24,7 @@ class MonthItem extends StatefulWidget {
     required this.paymentInfo,
     required this.userId,
     required this.groupId,
+    required this.isEditable,
     required this.isHighlighted,
   }) : super(key: key);
 
@@ -35,6 +37,7 @@ class _MonthItemState extends State<MonthItem> {
   late PaymentInfo _paymentInfo;
   late String _userId;
   late String _groupId;
+  late bool _isEditable;
   late bool _isHighlighted;
 
   @override
@@ -43,6 +46,7 @@ class _MonthItemState extends State<MonthItem> {
     _paymentInfo = widget.paymentInfo;
     _userId = widget.userId;
     _groupId = widget.groupId;
+    _isEditable = widget.isEditable;
     _isHighlighted = widget.isHighlighted;
 
     super.initState();
@@ -68,6 +72,7 @@ class _MonthItemState extends State<MonthItem> {
                 paymentInfo: _paymentInfo,
                 userId: _userId,
                 groupId: _groupId,
+                isEditable: _isEditable,
               ),
             ),
           ),

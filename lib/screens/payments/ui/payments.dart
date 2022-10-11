@@ -228,6 +228,11 @@ class _PaymentsState extends State<Payments> {
                               paymentInfo: _group.paymentInfo,
                               userId: _user.id,
                               groupId: _group.getGroupId(),
+                              isEditable: context
+                                  .watch<PaymentsCubit>()
+                                  .isItemEditable(
+                                index,
+                              ),
                               isHighlighted: context
                                   .watch<PaymentsCubit>()
                                   .shouldBeHighlighted(

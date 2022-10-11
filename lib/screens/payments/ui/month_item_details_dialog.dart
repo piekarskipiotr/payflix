@@ -18,6 +18,7 @@ class MonthItemDetailsDialog extends StatelessWidget {
   final PaymentInfo paymentInfo;
   final String userId;
   final String groupId;
+  final bool isEditable;
 
   const MonthItemDetailsDialog({
     Key? key,
@@ -25,6 +26,7 @@ class MonthItemDetailsDialog extends StatelessWidget {
     required this.paymentInfo,
     required this.userId,
     required this.groupId,
+    required this.isEditable,
   }) : super(key: key);
 
   @override
@@ -164,23 +166,26 @@ class MonthItemDetailsDialog extends StatelessWidget {
               const SizedBox(
                 height: 12.0,
               ),
-              BlocBuilder<PaymentsCubit, PaymentsState>(
-                builder: (context, state) => PrimaryButton(
-                  text: mpi.status == PaymentMonthStatus.paid
-                      ? getString(context).mark_as_unpaid
-                      : getString(context).mark_as_paid,
-                  onClick: () => context.read<PaymentsCubit>().changeMPIStatus(
-                        mpi,
-                        paymentInfo,
-                        userId,
-                        groupId,
-                      ),
-                  isLoading: state is HandlingMonthPaymentInfo,
+              if (isEditable) ... [
+                BlocBuilder<PaymentsCubit, PaymentsState>(
+                  builder: (context, state) => PrimaryButton(
+                    text: mpi.status == PaymentMonthStatus.paid
+                        ? getString(context).mark_as_unpaid
+                        : getString(context).mark_as_paid,
+                    onClick: () => context.read<PaymentsCubit>().changeMPIStatus(
+                      mpi,
+                      paymentInfo,
+                      userId,
+                      groupId,
+                    ),
+                    isLoading: state is HandlingMonthPaymentInfo,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 18.0,
-              ),
+                const SizedBox(
+                  height: 18.0,
+                ),
+              ],
+
               SecondaryButton(
                 text: getString(context).close,
                 isLoading: false,
