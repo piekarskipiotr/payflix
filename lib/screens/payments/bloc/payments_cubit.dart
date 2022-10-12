@@ -31,16 +31,12 @@ class PaymentsCubit extends Cubit<PaymentsState> {
               .date,
         );
 
-  bool isItemEditable(int index) {
-    if (index + 1 == _payments.length) {
-      return false;
-    }
+  bool isItemEditable(MonthPaymentInfo mpi) {
+    var highlightedMpi = _payments.firstWhere((element) => element.status == PaymentMonthStatus.unpaid);
+    var previousIndex = _payments.indexOf(highlightedMpi) - 1;
+    var currentMpiIndex = _payments.indexOf(mpi);
 
-    if (_payments[index + 1].status == PaymentMonthStatus.paid) {
-      return false;
-    }
-
-    return true;
+    return mpi == highlightedMpi || previousIndex == currentMpiIndex;
   }
 
   bool shouldBeHighlighted(MonthPaymentInfo mpi) =>
@@ -92,15 +88,15 @@ class PaymentsCubit extends Cubit<PaymentsState> {
     });
 
     emit(HandlingMonthPaymentInfoCompleted());
-    await fetchPayments(groupId);
+    await fetchPayments(groupId, userId);
   }
 
   List<MonthPaymentInfo> getPayments() => _payments.reversed.toList();
 
-  Future fetchPayments(String groupId) async {
+  Future fetchPayments(String groupId, String? userId) async {
     emit(FetchingPayments());
 
-    var uid = _authRepository.instance().currentUser!.uid;
+    var uid = userId ?? _authRepository.instance().currentUser!.uid;
     var user = await _firestoreRepository.getUserData(docReference: uid);
     var group = await _firestoreRepository.getGroupData(docReference: groupId);
 

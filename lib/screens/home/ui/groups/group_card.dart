@@ -44,22 +44,23 @@ class GroupCard extends StatelessWidget {
                 arguments: [group, context.read<HomeCubit>()],
               )
             : Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => MultiBlocProvider(
-              providers: [
-                BlocProvider.value(value: context.read<HomeCubit>()),
-                BlocProvider.value(
-                  value: getIt<PaymentsCubit>()
-                    ..fetchPayments(group.getGroupId()),
+                MaterialPageRoute(
+                  builder: (_) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider.value(value: context.read<HomeCubit>()),
+                      BlocProvider.value(
+                        value: getIt<PaymentsCubit>()
+                          ..fetchPayments(group.getGroupId(), user.id),
+                      ),
+                    ],
+                    child: Payments(
+                      group: group,
+                      user: user,
+                      isAdmin: isAdmin,
+                    ),
+                  ),
                 ),
-              ],
-              child: Payments(
-                group: group,
-                user: user,
               ),
-            ),
-          ),
-        ),
         onLongPress: () => AppDialogController.showBottomSheetDialog(
           context: context,
           dialog: BlocProvider.value(

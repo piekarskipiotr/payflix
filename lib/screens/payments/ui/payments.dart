@@ -21,11 +21,13 @@ import 'dart:math' as math;
 class Payments extends StatefulWidget {
   final PayflixUser user;
   final Group group;
+  final bool isAdmin;
 
   const Payments({
     Key? key,
     required this.user,
     required this.group,
+    required this.isAdmin,
   }) : super(key: key);
 
   @override
@@ -36,12 +38,15 @@ class _PaymentsState extends State<Payments> {
   late PayflixUser _user;
   late Group _group;
   late ScrollController _scrollController;
+  late bool _isAdmin;
+
   bool _showGradient = false;
 
   @override
   void initState() {
     _user = widget.user;
     _group = widget.group;
+    _isAdmin = widget.isAdmin;
 
     _scrollController = ScrollController()
       ..addListener(() {
@@ -228,11 +233,13 @@ class _PaymentsState extends State<Payments> {
                               paymentInfo: _group.paymentInfo,
                               userId: _user.id,
                               groupId: _group.getGroupId(),
-                              isEditable: context
-                                  .watch<PaymentsCubit>()
-                                  .isItemEditable(
-                                index,
-                              ),
+                              isEditable: _isAdmin
+                                  ? context
+                                      .watch<PaymentsCubit>()
+                                      .isItemEditable(
+                                        payments[index],
+                                      )
+                                  : false,
                               isHighlighted: context
                                   .watch<PaymentsCubit>()
                                   .shouldBeHighlighted(
