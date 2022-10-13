@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/enum/app_placeholder.dart';
+import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/di/get_it.dart';
@@ -117,8 +118,20 @@ class _PaymentsState extends State<Payments> {
                           child: AppBarWithMovedTitle(
                             title: getString(context).payments,
                             actions: [
+                              if (_isAdmin) ...[
+                                Center(
+                                  child: Text(
+                                    _user.displayName,
+                                    style: GoogleFonts.oxygen(
+                                      fontSize: 18.0,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 4.0,),
+                              ],
+
                               IconButton(
-                                onPressed: () {},
+                                onPressed: null,
                                 iconSize: 38.0,
                                 icon: Material(
                                   elevation: 0,
@@ -133,8 +146,12 @@ class _PaymentsState extends State<Payments> {
                                     padding: const EdgeInsets.all(4.0),
                                     child: Center(
                                       child: AppCachedNetworkImage(
-                                        url: _user.avatar.url,
-                                        placeholder: AppPlaceholder.avatar,
+                                        url: _isAdmin
+                                            ? _user.avatar.url
+                                            : _group.groupType.logo,
+                                        placeholder: _isAdmin
+                                            ? AppPlaceholder.avatar
+                                            : AppPlaceholder.vod,
                                         size: 38.0,
                                       ),
                                     ),
