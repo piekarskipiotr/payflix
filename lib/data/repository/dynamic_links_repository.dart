@@ -1,7 +1,7 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable
+@singleton
 class DynamicLinksRepository {
   final _dynamicLinks = FirebaseDynamicLinks.instance;
   final _urlPrefix = 'https://payflix.page.link';

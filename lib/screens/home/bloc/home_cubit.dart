@@ -19,10 +19,13 @@ import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_state
 class HomeCubit extends Cubit<HomeState> {
   final AuthRepository _authRepo;
   final FirestoreRepository _firestoreRepository;
+
   final PickingVodDialogCubit _pickingVodDialogCubit;
   late StreamSubscription _pickingVodDialogCubitSubscription;
+
   final EditProfileDialogCubit _editProfileDialogCubit;
   late StreamSubscription _editProfileDialogCubitSubscription;
+
   final GroupQuickActionsDialogCubit _groupQuickActionsDialogCubit;
   late StreamSubscription _groupQuickActionsDialogCubitSubscription;
 

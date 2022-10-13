@@ -7,7 +7,7 @@ import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/invite_info.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 
-@injectable
+@singleton
 class FirestoreRepository {
   final _firestore = FirebaseFirestore.instance;
 

@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,19 +6,28 @@ import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/data/enum/app_placeholder.dart';
 import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/model/group.dart';
+import 'package:payflix/data/model/payflix_user.dart';
+import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/app_theme.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/ui/groups/group_quick_actions_dialog.dart';
+import 'package:payflix/screens/payments/bloc/payments_cubit.dart';
+import 'package:payflix/screens/payments/ui/payments.dart';
 import 'package:payflix/widgets/app_cached_network_image.dart';
 
 class GroupCard extends StatelessWidget {
   final Group group;
+  final PayflixUser user;
   final bool isAdmin;
 
-  const GroupCard({Key? key, required this.group, required this.isAdmin})
-      : super(key: key);
+  const GroupCard({
+    Key? key,
+    required this.group,
+    required this.user,
+    required this.isAdmin,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +37,30 @@ class GroupCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           24.0,
         ),
-        onTap: () => Navigator.pushNamed(
-          context,
-          AppRoutes.members,
-          arguments: [group, context.read<HomeCubit>()],
-        ),
+        onTap: () => isAdmin
+            ? Navigator.pushNamed(
+                context,
+                AppRoutes.members,
+                arguments: [group, context.read<HomeCubit>()],
+              )
+            : Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider.value(value: context.read<HomeCubit>()),
+                      BlocProvider.value(
+                        value: getIt<PaymentsCubit>()
+                          ..fetchPayments(group.getGroupId(), user.id),
+                      ),
+                    ],
+                    child: Payments(
+                      group: group,
+                      user: user,
+                      isAdmin: isAdmin,
+                    ),
+                  ),
+                ),
+              ),
         onLongPress: () => AppDialogController.showBottomSheetDialog(
           context: context,
           dialog: BlocProvider.value(

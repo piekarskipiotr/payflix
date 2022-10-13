@@ -143,6 +143,7 @@ class LoginCubit extends Cubit<LoginState> {
       _avatar!,
       user.displayName!,
       List.empty(),
+      {},
     );
 
     return userInfo.toJson();
