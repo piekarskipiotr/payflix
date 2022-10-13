@@ -55,22 +55,24 @@ class MemberCard extends StatelessWidget {
                       child: Payments(
                         group: group,
                         user: user,
-                        isAdmin: homeCubit.isUserGroupAdmin(group),
+                        isAdmin: homeCubit.isUserGroupAdmin(group, null),
                       ),
                     ),
                   ),
                 ),
-        onLongPress: () => AppDialogController.showBottomSheetDialog(
-          context: context,
-          dialog: BlocProvider.value(
-            value: getIt<RemoveMemberCubit>(),
-            child: RemoveMemberDialog(
-              user: user,
-              group: group,
-              homeCubit: homeCubit,
-            ),
-          ),
-        ),
+        onLongPress: homeCubit.isUserGroupAdmin(group, user.id)
+            ? null
+            : () => AppDialogController.showBottomSheetDialog(
+                  context: context,
+                  dialog: BlocProvider.value(
+                    value: getIt<RemoveMemberCubit>(),
+                    child: RemoveMemberDialog(
+                      user: user,
+                      group: group,
+                      homeCubit: homeCubit,
+                    ),
+                  ),
+                ),
         child: SizedBox(
           height: 162.0,
           width: 162.0,

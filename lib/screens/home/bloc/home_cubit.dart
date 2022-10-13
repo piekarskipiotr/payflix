@@ -82,8 +82,8 @@ class HomeCubit extends Cubit<HomeState> {
     emit(FetchingDataSucceeded());
   }
 
-  bool isUserGroupAdmin(Group group) {
-    var uid = _authRepo.getUID();
+  bool isUserGroupAdmin(Group group, String? customUserId) {
+    var uid = customUserId ?? _authRepo.getUID();
     var groupId = group.getGroupId();
     var indexOfSuffix = groupId.indexOf('_');
     var pureGroupId = groupId.substring(0, indexOfSuffix);
