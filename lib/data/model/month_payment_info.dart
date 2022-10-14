@@ -10,6 +10,8 @@ part 'month_payment_info.g.dart';
 
 @JsonSerializable()
 class MonthPaymentInfo {
+  final double payment;
+
   final DateTime date;
 
   @JsonKey(
@@ -20,7 +22,7 @@ class MonthPaymentInfo {
 
   List<MonthPaymentHistory> history;
 
-  MonthPaymentInfo(this.date, this.status, this.history);
+  MonthPaymentInfo(this.payment, this.date, this.status, this.history);
 
   String get monthName => DateFormat.MMMM(Platform.localeName.split('_')[0])
       .format(DateTime(date.year, date.month))
@@ -32,5 +34,6 @@ class MonthPaymentInfo {
   Map<String, dynamic> toJson() => _$MonthPaymentInfoToJson(this);
 
   @override
-  String toString() => 'MonthPaymentInfo{date: $date, status: $status, history: $history}';
+  String toString() =>
+      'MonthPaymentInfo{payment: $payment, date: $date, status: $status, history: $history}';
 }

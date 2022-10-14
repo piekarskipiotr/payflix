@@ -32,6 +32,15 @@ class Group {
 
   String getGroupId() => inviteInfo.groupId;
 
+  double getPaymentPerUser() {
+    var mp = paymentInfo.monthlyPayment;
+    var usersCount = users?.length ?? 1;
+
+    return usersCount > 1
+        ? double.parse((mp / usersCount).toStringAsFixed(2))
+        : mp;
+  }
+
   @override
   String toString() =>
       'Group{paymentInfo: $paymentInfo, accessData: $accessData, inviteInfo: $inviteInfo}';

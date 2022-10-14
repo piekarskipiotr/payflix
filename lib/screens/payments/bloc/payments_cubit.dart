@@ -46,7 +46,6 @@ class PaymentsCubit extends Cubit<PaymentsState> {
 
   Future changeMPIStatus(
     MonthPaymentInfo mpi,
-    PaymentInfo pi,
     String userId,
     String groupId,
   ) async {
@@ -111,11 +110,13 @@ class PaymentsCubit extends Cubit<PaymentsState> {
       payments.addAll(
         [
           MonthPaymentInfo(
+            group.getPaymentPerUser(),
             nextPayment,
             PaymentMonthStatus.unpaid,
             [],
           ),
           MonthPaymentInfo(
+            group.getPaymentPerUser(),
             _getFuturePaymentDate(nextPayment, group.paymentInfo.dayOfTheMonth),
             PaymentMonthStatus.unpaid,
             [],
@@ -135,6 +136,7 @@ class PaymentsCubit extends Cubit<PaymentsState> {
         var date = _getFuturePaymentDate(
             payments.last.date, group.paymentInfo.dayOfTheMonth);
         payments.add(MonthPaymentInfo(
+          group.getPaymentPerUser(),
           date,
           date.isBefore(today)
               ? PaymentMonthStatus.expired
@@ -154,6 +156,7 @@ class PaymentsCubit extends Cubit<PaymentsState> {
       var nextDate = DateTime(lastMpiDate.year, lastMpiDate.month + 1, lastMpiDate.day);
       _payments.add(
         MonthPaymentInfo(
+          group.getPaymentPerUser(),
           group.paymentInfo.getNextDate(fromDate: nextDate),
           PaymentMonthStatus.unpaid,
           [],

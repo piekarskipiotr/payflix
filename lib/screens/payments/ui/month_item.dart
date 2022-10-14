@@ -5,14 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/data/enum/payment_month_status.dart';
 import 'package:payflix/data/model/month_payment_info.dart';
-import 'package:payflix/data/model/payment_info.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/screens/payments/bloc/payments_cubit.dart';
 import 'package:payflix/screens/payments/ui/month_item_details_dialog.dart';
 
 class MonthItem extends StatefulWidget {
   final MonthPaymentInfo mpi;
-  final PaymentInfo paymentInfo;
   final String userId;
   final String groupId;
   final bool isEditable;
@@ -21,7 +19,6 @@ class MonthItem extends StatefulWidget {
   const MonthItem({
     Key? key,
     required this.mpi,
-    required this.paymentInfo,
     required this.userId,
     required this.groupId,
     required this.isEditable,
@@ -34,7 +31,6 @@ class MonthItem extends StatefulWidget {
 
 class _MonthItemState extends State<MonthItem> {
   late MonthPaymentInfo _mpi;
-  late PaymentInfo _paymentInfo;
   late String _userId;
   late String _groupId;
   late bool _isEditable;
@@ -43,7 +39,6 @@ class _MonthItemState extends State<MonthItem> {
   @override
   void initState() {
     _mpi = widget.mpi;
-    _paymentInfo = widget.paymentInfo;
     _userId = widget.userId;
     _groupId = widget.groupId;
     _isEditable = widget.isEditable;
@@ -69,7 +64,6 @@ class _MonthItemState extends State<MonthItem> {
               value: context.read<PaymentsCubit>(),
               child: MonthItemDetailsDialog(
                 mpi: _mpi,
-                paymentInfo: _paymentInfo,
                 userId: _userId,
                 groupId: _groupId,
                 isEditable: _isEditable,
