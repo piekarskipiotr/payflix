@@ -189,5 +189,6 @@
   "marked_as_paid" : "Marked as paid",
   "marked_as_unpaid" : "Marked as unpaid",
   "history_details_paid" : "By tapping “Mark as paid”, you confirm user payment. You can undo your action but they will be listed in month details history.",
-  "history_details_unpaid" : "By tapping “Mark as unpaid”, you undo confirmation of user payment. You can undo your action but they will be listed in month details history."
+  "history_details_unpaid" : "By tapping “Mark as unpaid”, you undo confirmation of user payment. You can undo your action but they will be listed in month details history.",
+  "price_modified" : "The price has changed"
 }

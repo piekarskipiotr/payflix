@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 
-enum PaymentMonthStatus { paid, unpaid, expired }
+enum PaymentMonthStatus { paid, unpaid, expired, priceModified}
 
 extension PaymentMonthStatusEx on PaymentMonthStatus {
   String getName(BuildContext context) {
@@ -13,6 +13,8 @@ extension PaymentMonthStatusEx on PaymentMonthStatus {
         return getString(context).unpaid;
       case PaymentMonthStatus.expired:
         return getString(context).expired;
+      case PaymentMonthStatus.priceModified:
+        return getString(context).price_modified;
     }
   }
 
@@ -24,6 +26,8 @@ extension PaymentMonthStatusEx on PaymentMonthStatus {
         return null;
       case PaymentMonthStatus.expired:
         return Icons.priority_high;
+      case PaymentMonthStatus.priceModified:
+        return Icons.currency_exchange;
     }
   }
 
@@ -35,6 +39,8 @@ extension PaymentMonthStatusEx on PaymentMonthStatus {
         return null;
       case PaymentMonthStatus.expired:
         return AppColors.red;
+      case PaymentMonthStatus.priceModified:
+        return AppColors.orange;
     }
   }
 
@@ -46,6 +52,8 @@ extension PaymentMonthStatusEx on PaymentMonthStatus {
         return 'UNPAID';
       case PaymentMonthStatus.expired:
         return 'EXPIRED';
+      case PaymentMonthStatus.priceModified:
+        return 'PRICE_MODIFIED';
     }
   }
 }

@@ -10,9 +10,9 @@ part 'month_payment_info.g.dart';
 
 @JsonSerializable()
 class MonthPaymentInfo {
-  final double payment;
+  double payment;
 
-  final DateTime date;
+  DateTime date;
 
   @JsonKey(
     fromJson: JsonConverterHelper.getPMSFromCode,
