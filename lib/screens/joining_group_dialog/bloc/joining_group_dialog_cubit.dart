@@ -38,7 +38,8 @@ class JoiningGroupDialogCubit extends Cubit<JoiningGroupDialogState> {
     );
 
     var group = await _firestoreRepository.getGroupData(docReference: groupId);
-    for (var user in group.users ?? []) {
+    for (var userId in group.users ?? []) {
+      var user = await _firestoreRepository.getUserData(docReference: userId);
       await _updatePayments(user, groupId, group.getPaymentPerUser());
     }
 
@@ -51,12 +52,22 @@ class JoiningGroupDialogCubit extends Cubit<JoiningGroupDialogState> {
     var today = DateTime(now.year, now.month, now.day);
 
     for (var mpi in mpiList) {
-      if (mpi.date.isAfter(today)) {
+      if (mpi.date.isAfter(today) || mpi.date.isAtSameMomentAs(today)) {
         mpi.payment = price;
         if (mpi.status == PaymentMonthStatus.paid) {
           mpi.status = PaymentMonthStatus.priceModified;
           mpi.history.add(
-            MonthPaymentHistory(today, PaymentMonthAction.priceModified),
+            MonthPaymentHistory(
+              DateTime(
+                now.year,
+                now.month,
+                now.day,
+                now.hour,
+                now.minute,
+                now.second,
+              ),
+              PaymentMonthAction.priceModified,
+            ),
           );
         }
       }
@@ -66,9 +77,7 @@ class JoiningGroupDialogCubit extends Cubit<JoiningGroupDialogState> {
     await _firestoreRepository.updateUserData(
       docReference: user.id,
       data: {
-        "payments.$groupId": FieldValue.arrayUnion(
-          mpiList.map((e) => e.toJson()).toList(),
-        ),
+        "payments.$groupId": mpiList.map((e) => e.toJson()).toList(),
       },
     );
   }

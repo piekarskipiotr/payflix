@@ -28,8 +28,7 @@ class RemoveMemberCubit extends Cubit<RemoveMemberState> {
       var uid = user.id;
       var groupId = group.getGroupId();
 
-      user.groups
-          .removeWhere((element) => element == groupId);
+      user.groups.removeWhere((element) => element == groupId);
       await _firestoreRepository.updateUserData(
         docReference: uid,
         data: {
@@ -37,8 +36,7 @@ class RemoveMemberCubit extends Cubit<RemoveMemberState> {
         },
       );
 
-      group.users
-          ?.removeWhere((element) => element == uid);
+      group.users?.removeWhere((element) => element == uid);
       await _firestoreRepository.updateGroupData(
         docReference: groupId,
         data: {
@@ -46,7 +44,8 @@ class RemoveMemberCubit extends Cubit<RemoveMemberState> {
         },
       );
 
-      for (var user in group.users ?? []) {
+      for (var userId in group.users ?? []) {
+        var user = await _firestoreRepository.getUserData(docReference: userId);
         await _updatePayments(user, groupId, group.getPaymentPerUser());
       }
 
@@ -62,12 +61,22 @@ class RemoveMemberCubit extends Cubit<RemoveMemberState> {
     var today = DateTime(now.year, now.month, now.day);
 
     for (var mpi in mpiList) {
-      if (mpi.date.isAfter(today)) {
+      if (mpi.date.isAfter(today) || mpi.date.isAtSameMomentAs(today)) {
         mpi.payment = price;
         if (mpi.status == PaymentMonthStatus.paid) {
           mpi.status = PaymentMonthStatus.priceModified;
           mpi.history.add(
-            MonthPaymentHistory(today, PaymentMonthAction.priceModified),
+            MonthPaymentHistory(
+              DateTime(
+                now.year,
+                now.month,
+                now.day,
+                now.hour,
+                now.minute,
+                now.second,
+              ),
+              PaymentMonthAction.priceModified,
+            ),
           );
         }
       }

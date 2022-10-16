@@ -133,7 +133,8 @@ class GroupQuickActionsDialogCubit extends Cubit<GroupQuickActionsDialogState> {
         },
       );
 
-      for (var user in group.users ?? []) {
+      for (var userId in group.users ?? []) {
+        var user = await _firestoreRepository.getUserData(docReference: userId);
         await _updatePayments(user, groupId, group.getPaymentPerUser());
       }
 
@@ -151,12 +152,22 @@ class GroupQuickActionsDialogCubit extends Cubit<GroupQuickActionsDialogState> {
     var today = DateTime(now.year, now.month, now.day);
 
     for (var mpi in mpiList) {
-      if (mpi.date.isAfter(today)) {
+      if (mpi.date.isAfter(today) || mpi.date.isAtSameMomentAs(today)) {
         mpi.payment = price;
         if (mpi.status == PaymentMonthStatus.paid) {
           mpi.status = PaymentMonthStatus.priceModified;
           mpi.history.add(
-            MonthPaymentHistory(today, PaymentMonthAction.priceModified),
+            MonthPaymentHistory(
+              DateTime(
+                now.year,
+                now.month,
+                now.day,
+                now.hour,
+                now.minute,
+                now.second,
+              ),
+              PaymentMonthAction.priceModified,
+            ),
           );
         }
       }
