@@ -247,7 +247,6 @@ class _PaymentsState extends State<Payments> {
                             value: context.read<PaymentsCubit>(),
                             child: MonthItem(
                               mpi: payments[index],
-                              paymentInfo: _group.paymentInfo,
                               userId: _user.id,
                               groupId: _group.getGroupId(),
                               isEditable: _isAdmin

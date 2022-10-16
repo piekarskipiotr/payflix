@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:payflix/data/enum/payment_month_action.dart';
 import 'package:payflix/data/enum/payment_month_status.dart';
 import 'package:payflix/data/model/month_payment_info.dart';
-import 'package:payflix/data/model/payment_info.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/payments/bloc/payments_cubit.dart';
@@ -15,7 +14,6 @@ import 'package:payflix/widgets/secondary_button.dart';
 
 class MonthItemDetailsDialog extends StatelessWidget {
   final MonthPaymentInfo mpi;
-  final PaymentInfo paymentInfo;
   final String userId;
   final String groupId;
   final bool isEditable;
@@ -23,7 +21,6 @@ class MonthItemDetailsDialog extends StatelessWidget {
   const MonthItemDetailsDialog({
     Key? key,
     required this.mpi,
-    required this.paymentInfo,
     required this.userId,
     required this.groupId,
     required this.isEditable,
@@ -70,7 +67,7 @@ class MonthItemDetailsDialog extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${paymentInfo.monthlyPayment} PLN',
+                        '${mpi.payment} PLN',
                         style: GoogleFonts.oxygen(
                           fontSize: 28.0,
                           fontWeight: FontWeight.bold,
@@ -174,7 +171,6 @@ class MonthItemDetailsDialog extends StatelessWidget {
                         : getString(context).mark_as_paid,
                     onClick: () => context.read<PaymentsCubit>().changeMPIStatus(
                       mpi,
-                      paymentInfo,
                       userId,
                       groupId,
                     ),

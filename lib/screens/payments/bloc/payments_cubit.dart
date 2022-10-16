@@ -26,13 +26,16 @@ class PaymentsCubit extends Cubit<PaymentsState> {
       ? 0
       : pi.getDaysUntilNextPayment(
           fromDate: _payments
-              .firstWhere(
-                  (element) => element.status == PaymentMonthStatus.unpaid)
+              .firstWhere((element) =>
+                  element.status == PaymentMonthStatus.unpaid ||
+                  element.status == PaymentMonthStatus.priceModified)
               .date,
         );
 
   bool isItemEditable(MonthPaymentInfo mpi) {
-    var highlightedMpi = _payments.firstWhere((element) => element.status == PaymentMonthStatus.unpaid);
+    var highlightedMpi = _payments.firstWhere((element) =>
+        element.status == PaymentMonthStatus.unpaid ||
+        element.status == PaymentMonthStatus.priceModified);
     var previousIndex = _payments.indexOf(highlightedMpi) - 1;
     var currentMpiIndex = _payments.indexOf(mpi);
 
@@ -41,12 +44,12 @@ class PaymentsCubit extends Cubit<PaymentsState> {
 
   bool shouldBeHighlighted(MonthPaymentInfo mpi) =>
       mpi ==
-      _payments
-          .firstWhere((element) => element.status == PaymentMonthStatus.unpaid);
+      _payments.firstWhere((element) =>
+          element.status == PaymentMonthStatus.unpaid ||
+          element.status == PaymentMonthStatus.priceModified);
 
   Future changeMPIStatus(
     MonthPaymentInfo mpi,
-    PaymentInfo pi,
     String userId,
     String groupId,
   ) async {
@@ -111,11 +114,13 @@ class PaymentsCubit extends Cubit<PaymentsState> {
       payments.addAll(
         [
           MonthPaymentInfo(
+            group.getPaymentPerUser(),
             nextPayment,
             PaymentMonthStatus.unpaid,
             [],
           ),
           MonthPaymentInfo(
+            group.getPaymentPerUser(),
             _getFuturePaymentDate(nextPayment, group.paymentInfo.dayOfTheMonth),
             PaymentMonthStatus.unpaid,
             [],
@@ -135,6 +140,7 @@ class PaymentsCubit extends Cubit<PaymentsState> {
         var date = _getFuturePaymentDate(
             payments.last.date, group.paymentInfo.dayOfTheMonth);
         payments.add(MonthPaymentInfo(
+          group.getPaymentPerUser(),
           date,
           date.isBefore(today)
               ? PaymentMonthStatus.expired
@@ -151,9 +157,11 @@ class PaymentsCubit extends Cubit<PaymentsState> {
       isEdited = true;
 
       var lastMpiDate = _payments.last.date;
-      var nextDate = DateTime(lastMpiDate.year, lastMpiDate.month + 1, lastMpiDate.day);
+      var nextDate =
+          DateTime(lastMpiDate.year, lastMpiDate.month + 1, lastMpiDate.day);
       _payments.add(
         MonthPaymentInfo(
+          group.getPaymentPerUser(),
           group.paymentInfo.getNextDate(fromDate: nextDate),
           PaymentMonthStatus.unpaid,
           [],

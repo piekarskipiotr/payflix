@@ -189,5 +189,6 @@
   "marked_as_paid" : "Ustawiono jako zapłanocne",
   "marked_as_unpaid" : "Ustawiono jako niezapłacone",
   "history_details_paid" : "Klikając “Ustaw jako zapłacone” potwierdzasz płatność użytkownika. Możesz cofnąć swoją akcję, jednak zostanie ona zarejestrowana w historii.",
-  "history_details_unpaid" : "Klikając “Ustaw jako niezapłacone” cofasz potwierdzenie płatności użytkownika. Możesz cofnąć swoją akcję, jednak zostanie ona zarejestrowana w historii."
+  "history_details_unpaid" : "Klikając “Ustaw jako niezapłacone” cofasz potwierdzenie płatności użytkownika. Możesz cofnąć swoją akcję, jednak zostanie ona zarejestrowana w historii.",
+  "price_modified" : "Cena uległa zmianie"
 }
