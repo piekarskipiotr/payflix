@@ -5,8 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/data/enum/payment_month_action.dart';
 import 'package:payflix/data/enum/payment_month_status.dart';
 import 'package:payflix/data/model/group.dart';
+import 'package:payflix/data/model/month_payment_history.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
@@ -153,6 +155,9 @@ class GroupQuickActionsDialogCubit extends Cubit<GroupQuickActionsDialogState> {
         mpi.payment = price;
         if (mpi.status == PaymentMonthStatus.paid) {
           mpi.status = PaymentMonthStatus.priceModified;
+          mpi.history.add(
+            MonthPaymentHistory(today, PaymentMonthAction.priceModified),
+          );
         }
       }
     }

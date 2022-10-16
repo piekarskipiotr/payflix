@@ -4,7 +4,9 @@ import 'package:clock/clock.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/data/enum/payment_month_action.dart';
 import 'package:payflix/data/enum/payment_month_status.dart';
+import 'package:payflix/data/model/month_payment_history.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/screens/joining_group_dialog/bloc/joining_group_dialog_state.dart';
@@ -53,6 +55,9 @@ class JoiningGroupDialogCubit extends Cubit<JoiningGroupDialogState> {
         mpi.payment = price;
         if (mpi.status == PaymentMonthStatus.paid) {
           mpi.status = PaymentMonthStatus.priceModified;
+          mpi.history.add(
+            MonthPaymentHistory(today, PaymentMonthAction.priceModified),
+          );
         }
       }
     }
