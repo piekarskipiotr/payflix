@@ -9,6 +9,8 @@ class JsonConverterHelper {
         return PaymentMonthStatus.unpaid;
       case 'EXPIRED':
         return PaymentMonthStatus.expired;
+      case 'PRICE_MODIFIED':
+        return PaymentMonthStatus.priceModified;
       default:
         return PaymentMonthStatus.unpaid;
     }
