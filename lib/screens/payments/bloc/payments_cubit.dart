@@ -105,12 +105,11 @@ class PaymentsCubit extends Cubit<PaymentsState> {
 
     var isEdited = false;
     final payments = user.payments[group.getGroupId()] ?? [];
-
+    final nextPayment = group.paymentInfo.getNextDate();
     // init payments dates if user don't have any
     if (payments.isEmpty) {
       isEdited = true;
 
-      var nextPayment = group.paymentInfo.getNextDate();
       payments.addAll(
         [
           MonthPaymentInfo(
@@ -130,15 +129,34 @@ class PaymentsCubit extends Cubit<PaymentsState> {
     } else {
       // check if dates are missing and if generate them
       var now = clock.now();
-      var today = DateTime(now.year, now.month, 1);
+      var today = DateTime(now.year, now.month, now.day);
       payments.sort((a, b) => a.date.compareTo(b.date));
+
+      for (var mpi in payments) {
+        if (mpi.status != PaymentMonthStatus.unpaid) {
+          continue;
+        }
+
+        isEdited = true;
+        if (mpi.date.isBefore(nextPayment)) {
+          await _firestoreRepository
+              .updateUserData(docReference: user.id, data: {
+            "payments.$groupId": FieldValue.arrayRemove([mpi.toJson()]),
+          });
+
+          mpi.status = PaymentMonthStatus.expired;
+        }
+      }
 
       while (payments.last.date.isBefore(
           _getFuturePaymentDate(today, group.paymentInfo.dayOfTheMonth))) {
         isEdited = true;
 
         var date = _getFuturePaymentDate(
-            payments.last.date, group.paymentInfo.dayOfTheMonth);
+          payments.last.date,
+          group.paymentInfo.dayOfTheMonth,
+        );
+
         payments.add(MonthPaymentInfo(
           group.getPaymentPerUser(),
           date,
