@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:payflix/resources/colors/app_colors.dart';
-import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/launching_screen/bloc/launching_screen_cubit.dart';
 import 'package:payflix/screens/launching_screen/bloc/launching_screen_listener.dart';
 import 'package:payflix/screens/launching_screen/bloc/launching_screen_state.dart';
@@ -23,15 +20,9 @@ class LaunchingScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
+              Image.asset('assets/social/payflix_logo_no_padding.png'),
+              const SizedBox(height: 28.0),
               const CircularProgressIndicator(),
-              const SizedBox(height: 15.0),
-              Text(
-                getString(context).initializing_app,
-                style: GoogleFonts.oxygen(
-                  color: AppColors.creamWhite,
-                  fontSize: 16.0,
-                ),
-              ),
             ],
           ),
         ),
