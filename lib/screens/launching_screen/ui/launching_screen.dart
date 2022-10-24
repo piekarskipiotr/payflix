@@ -15,15 +15,28 @@ class LaunchingScreen extends StatelessWidget {
         state,
       ),
       child: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Image.asset('assets/social/payflix_logo_no_padding.png'),
-              const SizedBox(height: 28.0),
-              const CircularProgressIndicator(),
-            ],
+        body: SafeArea(
+          bottom: true,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Image.asset(
+                  'assets/social/payflix_logo_no_padding.png',
+                  width: 192.0,
+                ),
+                const SizedBox(height: 24.0),
+                const SizedBox(
+                  width: 18.0,
+                  height: 18.0,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.0,
+                  ),
+                ),
+                const SizedBox(height: 48.0),
+              ],
+            ),
           ),
         ),
       ),
