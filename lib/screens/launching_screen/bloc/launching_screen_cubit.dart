@@ -35,9 +35,8 @@ class LaunchingScreenCubit extends Cubit<LaunchingScreenState> {
         await _firestoreRepository.doesUserExist(docReference: uid);
 
         if (doesUserExistsInDatabase) {
-          var doesUserIsInGroup =
-          await _firestoreRepository.doesUserHasAGroup(docReference: uid);
-          route = doesUserIsInGroup ? AppRoutes.home : AppRoutes.welcome;
+          //welcome
+          route = AppRoutes.home;
         } else {
           await _authRepository.instance().signOut();
           route = AppRoutes.login;

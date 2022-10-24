@@ -190,5 +190,12 @@
   "marked_as_unpaid" : "Marked as unpaid",
   "history_details_paid" : "By tapping “Mark as paid”, you confirm user payment. You can undo your action but they will be listed in month details history.",
   "history_details_unpaid" : "By tapping “Mark as unpaid”, you undo confirmation of user payment. You can undo your action but they will be listed in month details history.",
-  "price_modified" : "The price has changed"
+  "price_modified" : "The price has changed",
+  "next" : "Next",
+  "onboard_title_1": "Join the group!",
+  "onboard_title_2": "Scan the QR!",
+  "onboard_title_3": "Create a group.",
+  "onboard_subtitle_1": "Now that you are a Payflix user, you can join a VOD group, and you can do so through an invitation link that you should get from your group representative.",
+  "onboard_subtitle_2": "Another way to join the group is to scan the QR code, you can do this from within the app or from your device's built-in function! How cool is that!",
+  "onboard_subtitle_3": "If you are the important one who manages the group, you can create it using the + sign, which is located in the upper right corner of the main application view ☺️"
 }

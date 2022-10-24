@@ -11,6 +11,9 @@ const groupFriends = 'assets/humans/group_friends.png';
 const moneyAndCoins = 'assets/humans/money_and_coins.png';
 const money = 'assets/humans/money.png';
 const cash = 'assets/humans/cash.png';
+const sittingWomen = 'assets/humans/sitting_women.png';
+const groupOfWomen = 'assets/humans/women_group.png';
+const holdingPhone = 'assets/humans/holding_phone.png';
 
 // social
 const googleIcon = 'assets/social/google_icon.png';
