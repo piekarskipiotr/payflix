@@ -12,3 +12,7 @@ class NavigateToGroup extends WelcomeState {
 
   NavigateToGroup(this.group);
 }
+
+class CheckingWelcomeState extends WelcomeState {}
+
+class CheckingWelcomeStateCompleted extends WelcomeState {}

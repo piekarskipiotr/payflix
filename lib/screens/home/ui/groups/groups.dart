@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
+import 'package:payflix/common/constants.dart';
+import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
@@ -87,11 +90,33 @@ class Groups extends StatelessWidget {
                     if (groups.isEmpty) {
                       return SliverFillRemaining(
                         hasScrollBody: false,
-                        child: StateFailedView(
-                          text: getString(context).fetching_groups_failed,
-                          onClick: () => context.read<HomeCubit>().fetchData(
-                                isRefresh: false,
+                        child: Padding(
+                          padding: const EdgeInsets.all(28.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                emptyInSpace,
+                                width: 164.0,
+                                height: 164.0,
                               ),
+                              const SizedBox(height: 32.0,),
+                              Text(
+                                getString(context).groups_list_empty,
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.oxygen(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.creamWhite,
+                                  letterSpacing: 0.2,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 96.0,
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     }
