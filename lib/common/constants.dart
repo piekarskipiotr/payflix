@@ -53,6 +53,7 @@ const colorsKey = 'colors_key';
 const invitesBoxKey = 'invites_box_key';
 const inviteInfoKey = 'invite_info_key';
 const dynamicLinkKey = 'dynamic_link_key';
+const welcomeStateKey = 'welcome_screen_state_key';
 
 // values
 const regularTitleTopValue = 145.0;

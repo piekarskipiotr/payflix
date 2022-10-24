@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
 import 'package:payflix/resources/routes/app_routes.dart';
@@ -22,15 +23,18 @@ class WelcomeCubit extends Cubit<WelcomeState> {
 
     var uid = _authRepo.getUID();
     var box = await Hive.openBox('user$uid');
-    var shouldRouteToHome =
-        box.get('welcome-screen-state', defaultValue: false);
+    var shouldRouteToHome = box.get(
+      welcomeStateKey,
+      defaultValue: false,
+    );
+
     if (!shouldRouteToHome) {
-      box.put('welcome-screen-state', true);
+      await box.put(welcomeStateKey, true);
     } else {
       Navigator.pushNamedAndRemoveUntil(
         context,
         AppRoutes.home,
-            (route) => false,
+        (route) => false,
       );
     }
 
