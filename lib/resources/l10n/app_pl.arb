@@ -197,5 +197,6 @@
   "onboard_title_3": "Stwórz grupę.",
   "onboard_subtitle_1": "Teraz gdy jesteś użytkownikiem Payflix, możesz dołączyć do grupy VOD, możesz to zrobić przez link z zaproszeniem, który powinieneś dostać od przedstawiciela Twojej grupy.",
   "onboard_subtitle_2": "Innym sposobem na dołączenie do grupy jest zeskanowanie QR kodu, możesz to zrobić z poziomu aplikacji lub z wbudowanej funkcji twojego urządzenia! How cool is that!",
-  "onboard_subtitle_3": "Jeśli to ty jesteś tym ważniakiem, który zarządza grupą, możesz ją stworzyć za pomocą znaku +, który znajduje się w górym prawym rogu głównego widoku aplikacji ☺️"
+  "onboard_subtitle_3": "Jeśli to ty jesteś tym ważniakiem, który zarządza grupą, możesz ją stworzyć za pomocą znaku +, który znajduje się w górym prawym rogu głównego widoku aplikacji ☺️",
+  "groups_list_empty" : "Aktualnie nie należysz do żadnej grupy."
 }
