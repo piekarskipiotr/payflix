@@ -6,6 +6,7 @@ import 'package:payflix/data/enum/app_placeholder.dart';
 import 'package:payflix/di/get_it.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
+import 'package:payflix/resources/routes/app_routes.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
 import 'package:payflix/screens/home/ui/profile/bloc/change_password_dialog_cubit.dart';
@@ -232,7 +233,8 @@ class Profile extends StatelessWidget {
                             padding:
                                 const EdgeInsets.only(left: 25.0, right: 60.0),
                             child: Text(
-                              getString(context).app_latest_information('1.0.0-alpha'),
+                              getString(context)
+                                  .app_latest_information('1.0.0-alpha'),
                               style: GoogleFonts.oxygen(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.bold,
@@ -280,7 +282,7 @@ class Profile extends StatelessWidget {
                             ),
                           ),
                           ListTile(
-                            onTap: () {},
+                            onTap: () => Navigator.pushNamed(context, AppRoutes.acknow),
                             contentPadding: const EdgeInsets.only(left: 25.0),
                             title: Text(
                               getString(context).acknowledgments,

@@ -195,5 +195,6 @@
   "onboard_subtitle_1": "Now that you are a Payflix user, you can join a VOD group, and you can do so through an invitation link that you should get from your group representative.",
   "onboard_subtitle_2": "Another way to join the group is to scan the QR code, you can do this from within the app or from your device's built-in function! How cool is that!",
   "onboard_subtitle_3": "If you are the important one who manages the group, you can create it using the + sign, which is located in the upper right corner of the main application view ☺️",
-  "groups_list_empty" : "Currently, you do not belong to any group."
+  "groups_list_empty" : "Currently, you do not belong to any group.",
+  "acknowledgments_humans_title" : "A huge thank you to the artists responsible for the images featured in the app."
 }

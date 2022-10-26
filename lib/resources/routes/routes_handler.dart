@@ -9,6 +9,7 @@ import 'package:payflix/screens/group_settings/bloc/group_settings_cubit.dart';
 import 'package:payflix/screens/group_settings/ui/group_settings.dart';
 import 'package:payflix/screens/home/bloc/home_cubit.dart';
 import 'package:payflix/screens/home/ui/home.dart';
+import 'package:payflix/screens/home/ui/profile/app-info/acknowledgments.dart';
 import 'package:payflix/screens/launching_screen/bloc/launching_screen_cubit.dart';
 import 'package:payflix/screens/launching_screen/ui/launching_screen.dart';
 import 'package:payflix/screens/login/bloc/login_cubit.dart';
@@ -124,6 +125,11 @@ class RoutesHandler {
             value: getIt<QrScannerCubit>(),
             child: const QrScanner(),
           ),
+          settings: settings,
+        );
+      case AppRoutes.acknow:
+        return buildRoute(
+          const Acknowledgments(),
           settings: settings,
         );
     }
