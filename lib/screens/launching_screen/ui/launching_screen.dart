@@ -21,20 +21,15 @@ class LaunchingScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.max,
-              children: [
-                Image.asset(
-                  'assets/social/payflix_logo_no_padding.png',
-                  width: 192.0,
-                ),
-                const SizedBox(height: 24.0),
-                const SizedBox(
+              children: const [
+                SizedBox(
                   width: 18.0,
                   height: 18.0,
                   child: CircularProgressIndicator(
                     strokeWidth: 2.0,
                   ),
                 ),
-                const SizedBox(height: 48.0),
+                SizedBox(height: 48.0),
               ],
             ),
           ),
