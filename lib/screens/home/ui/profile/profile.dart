@@ -232,8 +232,7 @@ class Profile extends StatelessWidget {
                             padding:
                                 const EdgeInsets.only(left: 25.0, right: 60.0),
                             child: Text(
-                              getString(context).app_latest_information(
-                                  '1.0.0-alpha', '11.06.2022'),
+                              getString(context).app_latest_information('1.0.0-alpha'),
                               style: GoogleFonts.oxygen(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.bold,

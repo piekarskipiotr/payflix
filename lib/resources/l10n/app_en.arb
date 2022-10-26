@@ -91,14 +91,11 @@
   "edit": "Edit",
   "manage_account": "Manage account",
   "change_password": "Change password",
-  "app_latest_information": "App information - {version} update from {date}",
+  "app_latest_information": "App information - {version}",
   "@app_latest_information": {
-    "description": "App latest information header, pass version and date of release",
+    "description": "App latest information header, pass version",
     "placeholders": {
       "version": {
-        "type": "String"
-      },
-      "date": {
         "type": "String"
       }
     }

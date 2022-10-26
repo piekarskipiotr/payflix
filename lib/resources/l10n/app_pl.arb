@@ -91,14 +91,11 @@
   "edit": "Edytuj",
   "manage_account": "Zarządzaj kontem",
   "change_password": "Zmień hasło",
-  "app_latest_information": "Informacje aplikacji - {version} aktualizacja z dnia {date}",
+  "app_latest_information": "Informacje aplikacji - {version}",
   "@app_latest_information": {
-    "description": "App latest information header, pass version and date of release",
+    "description": "App latest information header, pass version",
     "placeholders": {
       "version": {
-        "type": "String"
-      },
-      "date": {
         "type": "String"
       }
     }
