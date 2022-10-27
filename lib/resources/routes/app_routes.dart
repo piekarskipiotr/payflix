@@ -9,4 +9,5 @@ class AppRoutes {
   static const home = '/home';
   static const qrScanner = '/qr_scanner';
   static const acknow = '/acknowledgments';
+  static const support = '/support';
 }

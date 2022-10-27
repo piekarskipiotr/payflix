@@ -264,7 +264,7 @@ class Profile extends StatelessWidget {
                             ),
                           ),
                           ListTile(
-                            onTap: () {},
+                            onTap: () => Navigator.pushNamed(context, AppRoutes.support),
                             contentPadding: const EdgeInsets.only(left: 25.0),
                             title: Text(
                               getString(context).support,

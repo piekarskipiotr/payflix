@@ -16,10 +16,12 @@ const groupOfWomen = 'assets/humans/women_group.png';
 const holdingPhone = 'assets/humans/holding_phone.png';
 const emptyInSpace = 'assets/humans/empty_space.png';
 const joyfulMan = 'assets/humans/joyful_man.png';
+const standingMan = 'assets/humans/man_standing.png';
 
 // social
 const googleIcon = 'assets/social/google_icon.png';
 const appleIcon = 'assets/social/apple_icon.png';
+const twitterIcon = 'assets/social/twitter.svg';
 
 // lottie
 const lottieSuccess = 'assets/lottie/success.json';
