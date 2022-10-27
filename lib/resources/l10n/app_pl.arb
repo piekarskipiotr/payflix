@@ -91,14 +91,11 @@
   "edit": "Edytuj",
   "manage_account": "Zarządzaj kontem",
   "change_password": "Zmień hasło",
-  "app_latest_information": "Informacje aplikacji - {version} aktualizacja z dnia {date}",
+  "app_latest_information": "Informacje aplikacji - {version}",
   "@app_latest_information": {
-    "description": "App latest information header, pass version and date of release",
+    "description": "App latest information header, pass version",
     "placeholders": {
       "version": {
-        "type": "String"
-      },
-      "date": {
         "type": "String"
       }
     }
@@ -198,5 +195,22 @@
   "onboard_subtitle_1": "Teraz gdy jesteś użytkownikiem Payflix, możesz dołączyć do grupy VOD, możesz to zrobić przez link z zaproszeniem, który powinieneś dostać od przedstawiciela Twojej grupy.",
   "onboard_subtitle_2": "Innym sposobem na dołączenie do grupy jest zeskanowanie QR kodu, możesz to zrobić z poziomu aplikacji lub z wbudowanej funkcji twojego urządzenia! How cool is that!",
   "onboard_subtitle_3": "Jeśli to ty jesteś tym ważniakiem, który zarządza grupą, możesz ją stworzyć za pomocą znaku +, który znajduje się w górym prawym rogu głównego widoku aplikacji ☺️",
-  "groups_list_empty" : "Aktualnie nie należysz do żadnej grupy."
+  "groups_list_empty" : "Aktualnie nie należysz do żadnej grupy.",
+  "acknowledgments_humans_title" : "Ogromne podziękowania dla artystów, odpowiedzialnych za przedstawione w aplikacji obrazy.",
+  "support_title" : "Oops 😬 Natrafiłeś na jakiegoś buga lub masz wrażenie że coś nie działa prawidłowo?",
+  "support_title_2" : "Daj nam znać i spróbujmy razem znaleźć rozwiązanie!",
+  "support_subtitle" : "Jako że Payflix tworzy jedna osoba czas odpowiedzi może być opóźniony.",
+  "open_twitter" : "Otwórz Twitter @PayflixApp",
+  "changelog_title" : "Co nowego?",
+  "changelog_subtitle" : "Jak zwykle staramy się dostarczyć najlepszych odczuć z aplikacji! Sprawdź co przygotowaliśmy w tej aktualizacji 🤓",
+  "app_version": "Wersja aplikacji: {version}",
+  "@app_version": {
+    "description": "Wersja aplikacji",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "release" : "Udostępnienie aplikacji 🥳"
 }
