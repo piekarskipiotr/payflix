@@ -10,4 +10,5 @@ class AppRoutes {
   static const qrScanner = '/qr_scanner';
   static const acknow = '/acknowledgments';
   static const support = '/support';
+  static const changelog = '/changelog';
 }

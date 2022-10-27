@@ -200,5 +200,17 @@
   "support_title" : "Oops 😬 Natrafiłeś na jakiegoś buga lub masz wrażenie że coś nie działa prawidłowo?",
   "support_title_2" : "Daj nam znać i spróbujmy razem znaleźć rozwiązanie!",
   "support_subtitle" : "Jako że Payflix tworzy jedna osoba czas odpowiedzi może być opóźniony.",
-  "open_twitter" : "Otwórz Twitter @PayflixApp"
+  "open_twitter" : "Otwórz Twitter @PayflixApp",
+  "changelog_title" : "Co nowego?",
+  "changelog_subtitle" : "Jak zwykle staramy się dostarczyć najlepszych odczuć z aplikacji! Sprawdź co przygotowaliśmy w tej aktualizacji 🤓",
+  "app_version": "Wersja aplikacji: {version}",
+  "@app_version": {
+    "description": "Wersja aplikacji",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "release" : "Udostępnienie aplikacji 🥳"
 }
