@@ -11,6 +11,16 @@ import 'package:payflix/widgets/error_snack_bar.dart';
 import 'package:payflix/widgets/success_snack_bar.dart';
 
 class LoginStateListener {
+  static _navigateAfterSucceededLoggingIn(
+      BuildContext context,
+      bool doesUserHasGroup,
+      ) =>
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        doesUserHasGroup ? AppRoutes.home : AppRoutes.welcome,
+            (route) => false,
+      );
+
   static void listenToState(BuildContext context, LoginState state) {
     if (state is LoggingInFailed) {
       AppDialogController.showSnackBar(
@@ -31,25 +41,27 @@ class LoginStateListener {
           child: const PickingAvatarDialog(),
         ),
       );
+    } else if (state is SignInWithAppleAccountSucceeded) {
+      AppDialogController.showBottomSheetDialog(
+        context: context,
+        dialog: BlocProvider.value(
+          value: context.read<LoginCubit>().getDialogCubit(),
+          child: const PickingAvatarDialog(),
+        ),
+      );
     } else if (state is LoggingInSucceeded) {
-      var route = state.doesUserHasGroup ? AppRoutes.home : AppRoutes.welcome;
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        route,
-        (route) => false,
-      );
+      _navigateAfterSucceededLoggingIn(context, state.doesUserHasGroup);
     } else if (state is LoggingInWithGoogleAccountSucceeded) {
-      var route = state.doesUserHasGroup ? AppRoutes.home : AppRoutes.welcome;
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        route,
-        (route) => false,
-      );
+      _navigateAfterSucceededLoggingIn(context, state.doesUserHasGroup);
+    }  else if (state is LoggingInWithAppleAccountSucceeded) {
+      _navigateAfterSucceededLoggingIn(context, state.doesUserHasGroup);
+    }  else if (state is CompletingSigningInFinished) {
+      _navigateAfterSucceededLoggingIn(context, false);
     } else if (state is NavigateToEmailVerificationRoom) {
       Navigator.pushNamedAndRemoveUntil(
         context,
         AppRoutes.verRoom,
-        (route) => false,
+            (route) => false,
       );
     } else if (state is SendingPasswordResetEmailFailed) {
       Navigator.pop(context);
