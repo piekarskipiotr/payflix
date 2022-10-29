@@ -41,6 +41,24 @@ class LoggingInWithGoogleAccountFailed extends LoginState {
 
 class LoggingInWithGoogleAccountCanceled extends LoginState {}
 
+class LoggingInWithAppleAccount extends LoginState {}
+
+class LoggingInWithAppleAccountSucceeded extends LoginState {
+  final bool doesUserHasGroup;
+
+  LoggingInWithAppleAccountSucceeded(this.doesUserHasGroup);
+}
+
+class SignInWithAppleAccountSucceeded extends LoginState {}
+
+class LoggingInWithAppleAccountFailed extends LoginState {
+  final dynamic error;
+
+  LoggingInWithAppleAccountFailed(this.error);
+}
+
+class LoggingInWithAppleAccountCanceled extends LoginState {}
+
 class SendingPasswordResetEmail extends LoginState {}
 
 class SendingPasswordResetEmailSucceeded extends LoginState {}
@@ -50,3 +68,9 @@ class SendingPasswordResetEmailFailed extends LoginState {
 
   SendingPasswordResetEmailFailed(this.error);
 }
+
+class CheckingSignMethodAvailability extends LoginState {}
+
+class CheckingSignMethodAvailabilityCompleted extends LoginState {}
+
+class CompletingSigningInFinished extends LoginState {}

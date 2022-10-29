@@ -142,7 +142,8 @@ class Login extends StatelessWidget {
                                                       AppDialogController
                                                           .showBottomSheetDialog(
                                                         context: context,
-                                                        dialog: BlocProvider.value(
+                                                        dialog:
+                                                            BlocProvider.value(
                                                           value: context.read<
                                                               LoginCubit>(),
                                                           child:
@@ -274,52 +275,61 @@ class Login extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 15.0,
-                                    ),
-                                    Material(
-                                      color: AppColors.fieldBlack,
-                                      clipBehavior: Clip.antiAlias,
-                                      borderRadius: BorderRadius.circular(
-                                        18.0,
+                                    if (context
+                                        .read<LoginCubit>()
+                                        .isSignWithAppleAvailable) ...[
+                                      const SizedBox(
+                                        height: 15.0,
                                       ),
-                                      child: InkWell(
-                                        onTap: () {},
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: AppColors.fieldBlack
-                                                .withOpacity(0.8),
-                                            borderRadius: BorderRadius.circular(
-                                              18.0,
+                                      Material(
+                                        color: AppColors.fieldBlack,
+                                        clipBehavior: Clip.antiAlias,
+                                        borderRadius: BorderRadius.circular(
+                                          18.0,
+                                        ),
+                                        child: InkWell(
+                                          onTap: () => context
+                                              .read<LoginCubit>()
+                                              .authenticateUserByAppleAccount(),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: AppColors.fieldBlack
+                                                  .withOpacity(0.8),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                18.0,
+                                              ),
                                             ),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(13.0),
-                                            child: Row(
-                                              children: [
-                                                Image.asset(
-                                                  appleIcon,
-                                                  height: 22.0,
-                                                  width: 22.0,
-                                                ),
-                                                const SizedBox(
-                                                  width: 12.0,
-                                                ),
-                                                Text(
-                                                  getString(context)
-                                                      .continue_with_apple,
-                                                  maxLines: 1,
-                                                  style: GoogleFonts.oxygen(
-                                                    color: AppColors.creamWhite,
-                                                    fontSize: 16.0,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(13.0),
+                                              child: Row(
+                                                children: [
+                                                  Image.asset(
+                                                    appleIcon,
+                                                    height: 22.0,
+                                                    width: 22.0,
                                                   ),
-                                                )
-                                              ],
+                                                  const SizedBox(
+                                                    width: 12.0,
+                                                  ),
+                                                  Text(
+                                                    getString(context)
+                                                        .continue_with_apple,
+                                                    maxLines: 1,
+                                                    style: GoogleFonts.oxygen(
+                                                      color:
+                                                          AppColors.creamWhite,
+                                                      fontSize: 16.0,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ],
                                 );
                               },
