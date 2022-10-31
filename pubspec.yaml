@@ -19,9 +19,11 @@ dependencies:
   google_fonts: 2.3.1
 
   ## firebase:
-  firebase_auth: ^3.3.5
-  firebase_core: ^1.11.0
-  cloud_firestore: ^3.1.6
+  firebase_auth: ^4.1.0
+  firebase_core: ^2.1.1
+  cloud_firestore: ^4.0.3
+  firebase_dynamic_links: ^5.0.3
+  firebase_messaging: ^14.0.3
 
   ## login / registration helpers
   google_sign_in: ^5.2.2
@@ -31,7 +33,6 @@ dependencies:
   json_serializable: ^6.1.4
   json_annotation: ^4.4.0
   qr_flutter: ^4.0.0
-  firebase_dynamic_links: ^4.0.6
   injectable: ^1.5.3
   hive_flutter: ^1.1.0
   hive: ^2.0.6
@@ -45,7 +46,6 @@ dependencies:
   flutter_launcher_icons: ^0.10.0
   url_launcher: ^6.1.6
   flutter_svg: ^1.1.6
-  firebase_messaging: ^13.1.0
   flutter_local_notifications: ^12.0.3
 
 dev_dependencies:
