@@ -25,6 +25,9 @@ class PayflixUser {
   @JsonKey(name: 'payments')
   Map<String, List<MonthPaymentInfo>> payments;
 
+  @JsonKey(name: 'device_token')
+  String deviceToken;
+
   @JsonKey(ignore: true)
   bool? isCurrentUser;
 
@@ -35,6 +38,7 @@ class PayflixUser {
     this.displayName,
     this.groups,
     this.payments,
+    this.deviceToken,
   );
 
   factory PayflixUser.fromJson(Map<String, dynamic> json) => PayflixUser(
@@ -51,11 +55,12 @@ class PayflixUser {
                       MonthPaymentInfo.fromJson(e as Map<String, dynamic>))
                   .toList()),
         ),
+        json['device_token'] as String,
       );
 
   Map<String, dynamic> toJson() => _$PayflixUserToJson(this);
 
   @override
   String toString() =>
-      'User{id: $id, avatar: $avatar, displayName: $displayName, groups: $groups}';
+      'User{id: $id, avatar: $avatar, displayName: $displayName, groups: $groups, deviceToken: $deviceToken}';
 }

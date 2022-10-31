@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/data/model/avatar.dart';
@@ -82,21 +83,40 @@ class SignUpCubit extends Cubit<SignupState> {
   }
 
   Future<void> _createUserData(User user) async {
-    var userData = _generateUserData(user);
-    await _firestoreRepo.setUserData(docReference: user.uid, data: userData);
+    var deviceToken = await _getDeviceToken();
+    var userData = _generateUserData(user, deviceToken);
+    if (userData != null) {
+      await _firestoreRepo.setUserData(docReference: user.uid, data: userData);
+    }
   }
 
-  Map<String, dynamic> _generateUserData(User user) {
-    var userInfo = PayflixUser(
-      user.uid,
-      user.email!,
-      _avatar!,
-      _profileName!,
-      List.empty(),
-      {},
-    );
+  Future<String?> _getDeviceToken() async {
+    var token = await FirebaseMessaging.instance.getToken();
+    return token;
+  }
 
-    return userInfo.toJson();
+  Map<String, dynamic>? _generateUserData(User user, String? deviceToken) {
+    try {
+      if (deviceToken == null) {
+        throw 'no-device-token';
+      }
+
+      var userInfo = PayflixUser(
+        user.uid,
+        user.email!,
+        _avatar!,
+        _profileName!,
+        List.empty(),
+        {},
+        deviceToken,
+      );
+
+      return userInfo.toJson();
+    } catch (e) {
+      SigningUpFailed(e);
+    }
+
+    return null;
   }
 
   @override
