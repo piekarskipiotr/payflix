@@ -29,6 +29,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    getIt<HomeCubit>().initNotifications(context);
     _groupsController = RefreshController(initialRefresh: false);
     _profileController = RefreshController(initialRefresh: false);
 

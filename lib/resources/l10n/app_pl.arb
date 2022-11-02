@@ -212,5 +212,8 @@
       }
     }
   },
-  "release" : "Udostępnienie aplikacji 🥳"
+  "release" : "Udostępnienie aplikacji 🥳",
+  "push_notification_permission_title" : "Powiadomienia",
+  "push_notification_permission_subtitle" : "Chcesz wyłączyć jedną z głównych funkcjonalności aplikacji? Powiadomienia służą powiadomieniu Cię o zbliżających się terminach płatności za konta VOD oraz o zmianach dotyczących grup (np. zmiana ceny).",
+  "open_settings" : "Otwórz ustawienia"
 }

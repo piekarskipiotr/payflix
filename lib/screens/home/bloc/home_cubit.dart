@@ -1,8 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
@@ -14,6 +18,7 @@ import 'package:payflix/screens/home/ui/profile/bloc/edit_profile_dialog_cubit.d
 import 'package:payflix/screens/home/ui/profile/bloc/edit_profile_dialog_state.dart';
 import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_cubit.dart';
 import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_state.dart';
+import 'package:payflix/widgets/permission_dialog.dart';
 
 @injectable
 class HomeCubit extends Cubit<HomeState> {
@@ -31,6 +36,14 @@ class HomeCubit extends Cubit<HomeState> {
 
   final _groups = List<Group>.empty(growable: true);
   PayflixUser? _payflixUser;
+
+  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final channel = const AndroidNotificationChannel(
+    'high_importance_channel', // id
+    'High Importance Notifications', // title
+    importance: Importance.high,
+    enableVibration: true,
+  );
 
   HomeCubit(
     this._authRepo,
@@ -70,6 +83,37 @@ class HomeCubit extends Cubit<HomeState> {
       },
     );
   }
+
+  Future initNotifications(BuildContext context) async {
+    _requestPermission(context);
+  }
+
+  Future _requestPermission(BuildContext context) async {
+    final messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus != AuthorizationStatus.authorized &&
+        settings.authorizationStatus != AuthorizationStatus.provisional) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (BuildContext context) => const PermissionDialog(
+            permission: 'push-notifications',
+            asset: explaining,
+          ),
+        ),
+      );
+    }
+  }
+  
 
   List<Group> getGroups() => _groups;
 

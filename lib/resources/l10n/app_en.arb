@@ -212,5 +212,8 @@
       }
     }
   },
-  "release" : "Release of the app 🥳"
+  "release" : "Release of the app 🥳",
+  "push_notification_permission_title" : "Notifications",
+  "push_notification_permission_subtitle" : "Do you want to disable one of the main features of the app? Notifications are used to notify you of upcoming payment deadlines for VOD accounts and changes regarding groups (e.g. price changes).",
+  "open_settings" : "Open settings"
 }
