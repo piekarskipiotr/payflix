@@ -8,10 +8,15 @@ class NotificationData {
   final String action;
   final String status;
 
-  NotificationData(this.id, this.action, this.status);
+  NotificationData({
+    required this.id,
+    required this.action,
+    required this.status,
+  });
 
   @override
-  String toString() => 'NotificationData{id: $id, action: $action, status: $status}';
+  String toString() =>
+      'NotificationData{id: $id, action: $action, status: $status}';
 
   factory NotificationData.fromJson(Map<String, dynamic> json) =>
       _$NotificationDataFromJson(json);

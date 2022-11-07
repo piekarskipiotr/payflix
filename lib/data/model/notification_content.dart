@@ -7,7 +7,10 @@ class NotificationContent {
   final String title;
   final String body;
 
-  NotificationContent(this.title, this.body);
+  NotificationContent({
+    required this.title,
+    required this.body,
+  });
 
   @override
   String toString() => 'NotificationContent{title: $title, body: $body}';

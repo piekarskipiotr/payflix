@@ -18,10 +18,16 @@ class Notification {
   @JsonKey(name: 'to')
   final String destinationToken;
 
-  Notification(this.content, this.priority, this.data, this.destinationToken);
+  Notification({
+    required this.content,
+    required this.priority,
+    required this.data,
+    required this.destinationToken,
+  });
 
   @override
-  String toString() => 'Notification{content: $content, priority: $priority, data: $data, destinationToken: $destinationToken}';
+  String toString() =>
+      'Notification{content: $content, priority: $priority, data: $data, destinationToken: $destinationToken}';
 
   factory Notification.fromJson(Map<String, dynamic> json) =>
       _$NotificationFromJson(json);
