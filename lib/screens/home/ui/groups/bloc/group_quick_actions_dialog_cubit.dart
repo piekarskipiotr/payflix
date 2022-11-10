@@ -159,7 +159,7 @@ class GroupQuickActionsDialogCubit extends Cubit<GroupQuickActionsDialogState> {
           _notificationRepository.sendPushMessage(
             title,
             body,
-            user.deviceToken,
+            user.devicesToken,
             'def-action',
           );
         }

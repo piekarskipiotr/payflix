@@ -12,7 +12,7 @@ import 'package:payflix/screens/payments/ui/month_item_details_dialog.dart';
 class MonthItem extends StatefulWidget {
   final MonthPaymentInfo mpi;
   final String userId;
-  final String token;
+  final List<String> tokens;
   final String groupId;
   final bool isEditable;
   final bool isHighlighted;
@@ -21,7 +21,7 @@ class MonthItem extends StatefulWidget {
     Key? key,
     required this.mpi,
     required this.userId,
-    required this.token,
+    required this.tokens,
     required this.groupId,
     required this.isEditable,
     required this.isHighlighted,
@@ -34,7 +34,7 @@ class MonthItem extends StatefulWidget {
 class _MonthItemState extends State<MonthItem> {
   late MonthPaymentInfo _mpi;
   late String _userId;
-  late String _token;
+  late List<String> _tokens;
   late String _groupId;
   late bool _isEditable;
   late bool _isHighlighted;
@@ -43,7 +43,7 @@ class _MonthItemState extends State<MonthItem> {
   void initState() {
     _mpi = widget.mpi;
     _userId = widget.userId;
-    _token = widget.token;
+    _tokens = widget.tokens;
     _groupId = widget.groupId;
     _isEditable = widget.isEditable;
     _isHighlighted = widget.isHighlighted;
@@ -69,7 +69,7 @@ class _MonthItemState extends State<MonthItem> {
               child: MonthItemDetailsDialog(
                 mpi: _mpi,
                 userId: _userId,
-                token: _token,
+                tokens: _tokens,
                 groupId: _groupId,
                 isEditable: _isEditable,
               ),

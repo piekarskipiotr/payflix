@@ -68,7 +68,7 @@ class JoiningGroupDialogCubit extends Cubit<JoiningGroupDialogState> {
         _notificationRepository.sendPushMessage(
           title,
           body,
-          user.deviceToken,
+          user.devicesToken,
           'def-action',
         );
       }

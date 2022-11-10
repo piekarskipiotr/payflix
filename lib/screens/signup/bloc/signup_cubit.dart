@@ -108,7 +108,7 @@ class SignUpCubit extends Cubit<SignupState> {
         _profileName!,
         List.empty(),
         {},
-        deviceToken,
+        [deviceToken],
       );
 
       return userInfo.toJson();

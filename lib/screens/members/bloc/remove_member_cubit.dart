@@ -74,7 +74,7 @@ class RemoveMemberCubit extends Cubit<RemoveMemberState> {
           _notificationRepository.sendPushMessage(
             title,
             body,
-            user.deviceToken,
+            user.devicesToken,
             'def-action',
           );
         }

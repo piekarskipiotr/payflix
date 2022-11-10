@@ -62,7 +62,7 @@ class DeleteAccountDialogCubit extends Cubit<DeleteAccountDialogState> {
               _notificationRepository.sendPushMessage(
                 title,
                 body,
-                user.deviceToken,
+                user.devicesToken,
                 'def-action',
               );
             }

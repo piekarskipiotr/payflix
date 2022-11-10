@@ -57,7 +57,7 @@ class PaymentsCubit extends Cubit<PaymentsState> {
   Future changeMPIStatus(
     MonthPaymentInfo mpi,
     String userId,
-    String token,
+    List<String> tokens,
     String groupId,
     BuildContext context,
   ) async {
@@ -104,7 +104,7 @@ class PaymentsCubit extends Cubit<PaymentsState> {
     _notificationRepository.sendPushMessage(
       title,
       body,
-      token,
+      tokens,
       'def-action',
     );
 

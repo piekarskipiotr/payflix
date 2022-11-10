@@ -15,7 +15,7 @@ import 'package:payflix/widgets/secondary_button.dart';
 class MonthItemDetailsDialog extends StatelessWidget {
   final MonthPaymentInfo mpi;
   final String userId;
-  final String token;
+  final List<String> tokens;
   final String groupId;
   final bool isEditable;
 
@@ -23,7 +23,7 @@ class MonthItemDetailsDialog extends StatelessWidget {
     Key? key,
     required this.mpi,
     required this.userId,
-    required this.token,
+    required this.tokens,
     required this.groupId,
     required this.isEditable,
   }) : super(key: key);
@@ -175,7 +175,7 @@ class MonthItemDetailsDialog extends StatelessWidget {
                         context.read<PaymentsCubit>().changeMPIStatus(
                               mpi,
                               userId,
-                              token,
+                              tokens,
                               groupId,
                               context,
                             ),

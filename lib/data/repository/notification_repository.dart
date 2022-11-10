@@ -93,7 +93,7 @@ class NotificationRepository {
   void sendPushMessage(
     String title,
     String body,
-    String token,
+    List<String> tokens,
     String action,
   ) async {
     try {
@@ -106,26 +106,27 @@ class NotificationRepository {
         ),
       );
 
-      final notification = model.Notification(
-        content: NotificationContent(
-          title: title,
-          body: body,
-        ),
-        data: NotificationData(
-          id: '1',
-          action: action,
-          status: 'done',
-        ),
-        priority: 'high',
-        destinationToken: token,
-      );
+      for (final token in tokens) {
+        final notification = model.Notification(
+          content: NotificationContent(
+            title: title,
+            body: body,
+          ),
+          data: NotificationData(
+            id: '1',
+            action: action,
+            status: 'done',
+          ),
+          priority: 'high',
+          destinationToken: token,
+        );
 
-      final response = await dio.post(
-        'https://fcm.googleapis.com/fcm/send',
-        data: notification,
-      );
-
-      log(response.toString());
+        final response = await dio.post(
+          'https://fcm.googleapis.com/fcm/send',
+          data: notification,
+        );
+        log(response.toString());
+      }
     } catch (e) {
       log("error push notification");
     }
