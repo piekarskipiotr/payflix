@@ -212,5 +212,29 @@
       }
     }
   },
-  "release" : "Release of the app 🥳"
+  "release" : "Release of the app 🥳",
+  "push_notification_permission_title" : "Notifications",
+  "push_notification_permission_subtitle" : "Do you want to disable one of the main features of the app? Notifications are used to notify you of upcoming payment deadlines for VOD accounts and changes regarding groups (e.g. price changes).",
+  "open_settings" : "Open settings",
+  "new_user_notification_title" : "A new person has appeared!",
+  "new_user_notification_body" : "Along with the new person, we have updated the monthly price for each group user!",
+  "payment_price_changed_notification_title" : "The monthly price has been updated!",
+  "payment_price_changed_notification_body" : "Your monthly price for being part of the {vod} group is currently: {price}",
+  "@payment_price_changed_notification_body": {
+    "placeholders": {
+      "vod": {
+        "type": "String"
+      },
+      "price": {
+        "type": "double",
+        "format": "currency"
+      }
+    }
+  },
+  "user_left_notification_title" : "A user has left your group!",
+  "user_left_notification_body" : "One of your members has left the group or deleted their account on the app.",
+  "removed_from_group_notification_title" : "You have been removed from the group!",
+  "removed_from_group_notification_body" : "Along with this, you lose access about further information about the group.",
+  "mpi_status_changed_notification_title" : "The payment status has been changed!",
+  "mpi_status_changed_notification_body" : "The administrator of one of your groups changed the status of the payment for the month."
 }

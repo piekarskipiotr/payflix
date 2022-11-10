@@ -101,7 +101,10 @@ class DeleteAccountDialog extends StatelessWidget {
                         text: getString(context).delete,
                         onClick: () => context
                             .read<DeleteAccountDialogCubit>()
-                            .deleteAccount(user),
+                            .deleteAccount(
+                              user,
+                              context,
+                            ),
                         isLoading: state is DeletingAccount,
                       ),
                     ),

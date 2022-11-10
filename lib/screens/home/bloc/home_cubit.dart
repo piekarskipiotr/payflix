@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:developer';
-
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
+import 'package:payflix/data/repository/notification_repository.dart';
 import 'package:payflix/screens/home/bloc/home_state.dart';
 import 'package:payflix/screens/home/ui/groups/bloc/group_quick_actions_dialog_cubit.dart';
 import 'package:payflix/screens/home/ui/groups/bloc/group_quick_actions_dialog_state.dart';
@@ -19,6 +20,7 @@ import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_state
 class HomeCubit extends Cubit<HomeState> {
   final AuthRepository _authRepo;
   final FirestoreRepository _firestoreRepository;
+  final NotificationRepository _notificationRepository;
 
   final PickingVodDialogCubit _pickingVodDialogCubit;
   late StreamSubscription _pickingVodDialogCubitSubscription;
@@ -35,6 +37,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(
     this._authRepo,
     this._firestoreRepository,
+    this._notificationRepository,
     this._pickingVodDialogCubit,
     this._editProfileDialogCubit,
     this._groupQuickActionsDialogCubit,
@@ -69,6 +72,12 @@ class HomeCubit extends Cubit<HomeState> {
         }
       },
     );
+  }
+
+  Future initNotifications(BuildContext context) async {
+    _notificationRepository.requestPermission(context);
+    _notificationRepository.loadFCM();
+    _notificationRepository.listenFCM();
   }
 
   List<Group> getGroups() => _groups;

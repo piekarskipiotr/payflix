@@ -212,5 +212,29 @@
       }
     }
   },
-  "release" : "Udostępnienie aplikacji 🥳"
+  "release" : "Udostępnienie aplikacji 🥳",
+  "push_notification_permission_title" : "Powiadomienia",
+  "push_notification_permission_subtitle" : "Chcesz wyłączyć jedną z głównych funkcjonalności aplikacji? Powiadomienia służą powiadomieniu Cię o zbliżających się terminach płatności za konta VOD oraz o zmianach dotyczących grup (np. zmiana ceny).",
+  "open_settings" : "Otwórz ustawienia",
+  "new_user_notification_title" : "Pojawiła się nowa osoba!",
+  "new_user_notification_body" : "Wraz z nową osobą zaktualizowaliśmy miesięczną cenę dla każdego użytkownika grupy!",
+  "payment_price_changed_notification_title" : "Miesięczna cena została zaktualizowana!",
+  "payment_price_changed_notification_body" : "Twoja miesięczna cena za bycie częścią grupy {vod} wynosi aktualnie: {price}",
+  "@payment_price_changed_notification_body": {
+    "placeholders": {
+      "vod": {
+        "type": "String"
+      },
+      "price": {
+        "type": "double",
+        "format": "currency"
+      }
+    }
+  },
+  "user_left_notification_title" : "Użytkownik opuścił Twoją grupę!",
+  "user_left_notification_body" : "Jedne z Twoich członków opuścił grupę lub usunął konto w aplikacji.",
+  "removed_from_group_notification_title" : "Zostałeś usunięty/a z grupy!",
+  "removed_from_group_notification_body" : "Wraz z tym tracisz dostęp o dalszych informacjach o grupie.",
+  "mpi_status_changed_notification_title" : "Status płatności został zmieniony!",
+  "mpi_status_changed_notification_body" : "Administrator jednej z Twoich grup zmienił status płatności za miesiąc."
 }

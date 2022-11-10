@@ -11,7 +11,9 @@ import 'package:payflix/screens/group_settings/bloc/group_delete_state.dart';
 class GroupDeleteCubit extends Cubit<GroupDeleteState> {
   final FirestoreRepository _firestoreRepository;
 
-  GroupDeleteCubit(this._firestoreRepository) : super(InitGroupDeleteState());
+  GroupDeleteCubit(
+    this._firestoreRepository,
+  ) : super(InitGroupDeleteState());
 
   Future deleteGroup(Group group) async {
     emit(DeletingGroup());

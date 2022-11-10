@@ -32,6 +32,14 @@ class Group {
 
   String getGroupId() => inviteInfo.groupId;
 
+  String getAdminUID() {
+    final groupId = getGroupId();
+    final indexOfSuffix = groupId.indexOf('_');
+    final uid = groupId.substring(0, indexOfSuffix);
+
+    return uid;
+  }
+
   double getPaymentPerUser() {
     var mp = paymentInfo.monthlyPayment;
     var usersCount = users?.length ?? 1;

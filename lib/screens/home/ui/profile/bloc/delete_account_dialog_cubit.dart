@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:clock/clock.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/enum/payment_month_action.dart';
 import 'package:payflix/data/enum/payment_month_status.dart';
 import 'package:payflix/data/model/group.dart';
@@ -11,19 +13,23 @@ import 'package:payflix/data/model/month_payment_history.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
+import 'package:payflix/data/repository/notification_repository.dart';
+import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/home/ui/profile/bloc/delete_account_dialog_state.dart';
 
 @injectable
 class DeleteAccountDialogCubit extends Cubit<DeleteAccountDialogState> {
   final FirestoreRepository _firestoreRepository;
   final AuthRepository _authRepository;
+  final NotificationRepository _notificationRepository;
 
   DeleteAccountDialogCubit(
     this._firestoreRepository,
     this._authRepository,
+    this._notificationRepository,
   ) : super(InitDeleteAccountDialogState());
 
-  Future deleteAccount(PayflixUser user) async {
+  Future deleteAccount(PayflixUser user, BuildContext context) async {
     emit(DeletingAccount());
     try {
       var uid = user.id;
@@ -39,6 +45,27 @@ class DeleteAccountDialogCubit extends Cubit<DeleteAccountDialogState> {
           for (var userId in group.users ?? []) {
             var user = await _firestoreRepository.getUserData(docReference: userId);
             await _updatePayments(user, groupId, group.getPaymentPerUser());
+
+            if (userId != uid) {
+              final isAdmin = userId == group.getAdminUID();
+              final title = isAdmin
+                  ? getString(context).user_left_notification_title
+                  : getString(context).payment_price_changed_notification_title;
+
+              final body = isAdmin
+                  ? getString(context).user_left_notification_body
+                  : getString(context).payment_price_changed_notification_body(
+                      group.groupType.vodName,
+                      group.getPaymentPerUser(),
+                    );
+
+              _notificationRepository.sendPushMessage(
+                title,
+                body,
+                user.devicesToken,
+                'def-action',
+              );
+            }
           }
 
           await _firestoreRepository.updateGroupData(

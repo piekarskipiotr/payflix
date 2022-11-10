@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
@@ -33,8 +35,7 @@ class LoginCubit extends Cubit<LoginState> {
   ) : super(InitLoginState()) {
     isSignInWithAppleAvailable();
 
-    _pickingAvatarDialogBlocSubscription =
-        _pickingAvatarDialogBloc.stream.listen((state) async {
+    _pickingAvatarDialogBlocSubscription = _pickingAvatarDialogBloc.stream.listen((state) async {
       if (state is AvatarPicked) {
         emit(PopDialog());
 
@@ -85,8 +86,8 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> _onLoggingInSucceeded(String loginForm) async {
     var uid = _authRepo.getUID();
-    var doesUserHasGroup =
-        await _firestoreRepository.doesUserHasAGroup(docReference: uid!);
+    var doesUserHasGroup = await _firestoreRepository.doesUserHasAGroup(docReference: uid!);
+    await _updateDevicesToken(uid);
 
     switch (loginForm) {
       case 'form':
@@ -118,6 +119,7 @@ class LoginCubit extends Cubit<LoginState> {
 
         var user = _authRepo.instance().currentUser!;
         if (!await _firestoreRepository.doesUserExist(docReference: user.uid)) {
+          await _updateDevicesToken(user.uid);
           emit(SignInWithGoogleAccountSucceeded());
         } else {
           await _onLoggingInSucceeded('google');
@@ -159,6 +161,7 @@ class LoginCubit extends Cubit<LoginState> {
       await _authRepo.instance().signInWithCredential(credential);
       var user = _authRepo.instance().currentUser!;
       if (!await _firestoreRepository.doesUserExist(docReference: user.uid)) {
+        await _updateDevicesToken(user.uid);
         emit(SignInWithAppleAccountSucceeded());
       } else {
         await _onLoggingInSucceeded('apple');
@@ -184,7 +187,8 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> _createUserData(User user) async {
     var userId = user.uid;
-    var userData = _generateUserData(user);
+    var deviceToken = await _getDeviceToken();
+    var userData = _generateUserData(user, deviceToken);
 
     if (userData != null) {
       await _firestoreRepository.setUserData(
@@ -194,8 +198,27 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  Map<String, dynamic>? _generateUserData(User user) {
+  Future _updateDevicesToken(String uid) async {
+    final token = _getDeviceToken();
+    await _firestoreRepository.updateUserData(
+      docReference:uid,
+      data: {
+        "devices_token": FieldValue.arrayUnion([token])
+      },
+    );
+  }
+
+  Future<String?> _getDeviceToken() async {
+    var token = await FirebaseMessaging.instance.getToken();
+    return token;
+  }
+
+  Map<String, dynamic>? _generateUserData(User user, String? deviceToken) {
     try {
+      if (deviceToken == null) {
+        throw 'no-device-token';
+      }
+
       var userInfo = PayflixUser(
         user.uid,
         user.email!,
@@ -203,6 +226,7 @@ class LoginCubit extends Cubit<LoginState> {
         user.displayName ?? 'User',
         List.empty(),
         {},
+        [deviceToken],
       );
 
       return userInfo.toJson();

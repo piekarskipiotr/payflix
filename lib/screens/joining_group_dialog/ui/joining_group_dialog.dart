@@ -120,7 +120,11 @@ class JoiningGroupDialog extends StatelessWidget {
                         ? null
                         : () => context
                             .read<JoiningGroupDialogCubit>()
-                            .addUserToGroup(uid, groupId),
+                            .addUserToGroup(
+                              uid,
+                              groupId,
+                              context,
+                            ),
                     isLoading: state is JoiningToGroup,
                   ),
                   const SizedBox(
@@ -132,7 +136,9 @@ class JoiningGroupDialog extends StatelessWidget {
                         ? null
                         : () {
                             Navigator.pop(context);
-                            context.read<JoiningGroupDialogCubit>().cancelJoining();
+                            context
+                                .read<JoiningGroupDialogCubit>()
+                                .cancelJoining();
                           },
                     isLoading: false,
                   ),

@@ -20,9 +20,11 @@ class GroupQuickActionsDialog extends StatelessWidget {
   static const _paymentInfoActionCode = 'payment-info';
   static const _leaveGroupActionCode = 'leave-group';
 
-  const GroupQuickActionsDialog(
-      {Key? key, required this.group, required this.isAdmin})
-      : super(key: key);
+  const GroupQuickActionsDialog({
+    Key? key,
+    required this.group,
+    required this.isAdmin,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -581,6 +583,7 @@ class GroupQuickActionsDialog extends StatelessWidget {
           onClick: () =>
               context.read<GroupQuickActionsDialogCubit>().leaveGroup(
                     group,
+                    context,
                   ),
           isLoading: state is LeavingGroup,
         ),

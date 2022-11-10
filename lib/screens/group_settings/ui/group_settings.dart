@@ -418,6 +418,7 @@ class GroupSettings extends StatelessWidget {
                                                         .saveSettings(
                                                           _group,
                                                           _membersCubit,
+                                                          context,
                                                         );
                                                   }
                                                 }
