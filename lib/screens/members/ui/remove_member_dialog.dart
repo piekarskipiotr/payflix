@@ -90,8 +90,11 @@ class RemoveMemberDialog extends StatelessWidget {
               BlocBuilder<RemoveMemberCubit, RemoveMemberState>(
                 builder: (context, state) => PrimaryButton(
                   text: getString(context).remove,
-                  onClick: () =>
-                      context.read<RemoveMemberCubit>().removeUser(user, group),
+                  onClick: () => context.read<RemoveMemberCubit>().removeUser(
+                        user,
+                        group,
+                        context,
+                      ),
                   isLoading: state is RemovingMember,
                 ),
               ),

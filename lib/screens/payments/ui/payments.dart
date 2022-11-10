@@ -248,6 +248,7 @@ class _PaymentsState extends State<Payments> {
                             child: MonthItem(
                               mpi: payments[index],
                               userId: _user.id,
+                              token: _user.deviceToken,
                               groupId: _group.getGroupId(),
                               isEditable: _isAdmin
                                   ? context

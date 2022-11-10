@@ -1,19 +1,27 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:clock/clock.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/common/constants.dart';
 import 'package:payflix/data/app_hive.dart';
 import 'package:payflix/data/enum/group_type.dart';
+import 'package:payflix/data/enum/payment_month_action.dart';
+import 'package:payflix/data/enum/payment_month_status.dart';
 import 'package:payflix/data/model/access_data.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/invite_info.dart';
+import 'package:payflix/data/model/month_payment_history.dart';
+import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/model/payment_info.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/dynamic_links_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
+import 'package:payflix/data/repository/notification_repository.dart';
+import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/group_settings/bloc/group_settings_state.dart';
 import 'package:payflix/screens/members/bloc/members_cubit.dart';
 import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_cubit.dart';
@@ -22,8 +30,9 @@ import 'package:payflix/screens/picking_vod_dialog/bloc/picking_vod_dialog_state
 @injectable
 class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   final AuthRepository _authRepo;
-  final FirestoreRepository _firestoreRepo;
-  final DynamicLinksRepository _dynamicLinksRepo;
+  final FirestoreRepository _firestoreRepository;
+  final DynamicLinksRepository _dynamicLinksRepository;
+  final NotificationRepository _notificationRepository;
   final PickingVodDialogCubit _pickingVodDialogCubit;
   late StreamSubscription _pickingVodDialogCubitSubscription;
 
@@ -38,8 +47,9 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
 
   GroupSettingsCubit(
     this._authRepo,
-    this._firestoreRepo,
-    this._dynamicLinksRepo,
+    this._firestoreRepository,
+    this._dynamicLinksRepository,
+    this._notificationRepository,
     this._pickingVodDialogCubit,
   ) : super(InitGroupSettingsState()) {
     getGroups();
@@ -75,11 +85,12 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
 
     if (user != null) {
       var uid = user.uid;
-      var userData = await _firestoreRepo.getUserData(docReference: uid);
+      var userData = await _firestoreRepository.getUserData(docReference: uid);
       var userGroups = userData.groups;
 
       for (var id in userGroups) {
-        var groupData = await _firestoreRepo.getGroupData(docReference: id);
+        var groupData =
+            await _firestoreRepository.getGroupData(docReference: id);
         groups.add(groupData);
       }
 
@@ -124,7 +135,49 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
 
   void setPassword(String? password) => _password = password;
 
-  Future<void> saveSettings(Group? group, MembersCubit? membersCubit) async {
+  Future _updatePayments(PayflixUser user, String groupId, double price) async {
+    var mpiList = user.payments[groupId] ?? [];
+    var now = clock.now();
+    var today = DateTime(now.year, now.month, now.day);
+
+    for (var mpi in mpiList) {
+      if (mpi.date.isAfter(today) || mpi.date.isAtSameMomentAs(today)) {
+        mpi.payment = price;
+        if (mpi.status == PaymentMonthStatus.paid) {
+          mpi.status = PaymentMonthStatus.priceModified;
+          mpi.history.add(
+            MonthPaymentHistory(
+              DateTime(
+                now.year,
+                now.month,
+                now.day,
+                now.hour,
+                now.minute,
+                now.second,
+              ),
+              PaymentMonthAction.priceModified,
+            ),
+          );
+        }
+      }
+    }
+
+    user.payments[groupId] = mpiList;
+    await _firestoreRepository.updateUserData(
+      docReference: user.id,
+      data: {
+        "payments.$groupId": FieldValue.arrayUnion(
+          mpiList.map((e) => e.toJson()).toList(),
+        ),
+      },
+    );
+  }
+
+  Future<void> saveSettings(
+    Group? group,
+    MembersCubit? membersCubit,
+    BuildContext context,
+  ) async {
     emit(SavingSettings());
     try {
       var userId = _authRepo.getUID();
@@ -140,15 +193,44 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
         group?.inviteInfo,
       );
 
-      if (group != null) {
-        group = Group.fromJson(groupData);
-        membersCubit?.updateGroup(group);
-      }
+      final tempGroup = Group.fromJson(groupData);
+      final wasPaymentInfoChanged = tempGroup.paymentInfo.dayOfTheMonth !=
+              group?.paymentInfo.dayOfTheMonth ||
+          tempGroup.paymentInfo.monthlyPayment !=
+              group?.paymentInfo.monthlyPayment;
 
-      await _firestoreRepo.updateGroupData(
+      group = tempGroup;
+      membersCubit?.updateGroup(group);
+      await _firestoreRepository.updateGroupData(
         docReference: groupId,
         data: groupData,
       );
+
+      final adminId = group.getAdminUID();
+      if (wasPaymentInfoChanged) {
+        for (var userId in group.users ?? []) {
+          var user =
+              await _firestoreRepository.getUserData(docReference: userId);
+          await _updatePayments(user, groupId, group.getPaymentPerUser());
+
+          if (userId != adminId) {
+            final title =
+                getString(context).payment_price_changed_notification_title;
+            final body =
+                getString(context).payment_price_changed_notification_body(
+              group.groupType.vodName,
+              group.getPaymentPerUser(),
+            );
+
+            _notificationRepository.sendPushMessage(
+              title,
+              body,
+              user.deviceToken,
+              'def-action',
+            );
+          }
+        }
+      }
 
       emit(SavingSettingsSucceeded());
     } catch (e) {
@@ -172,12 +254,12 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
         null,
       );
 
-      await _firestoreRepo.setGroupData(
+      await _firestoreRepository.setGroupData(
         docReference: groupId,
         data: groupData,
       );
 
-      await _firestoreRepo.updateUserData(
+      await _firestoreRepository.updateUserData(
         docReference: userId,
         data: {
           "groups": FieldValue.arrayUnion([groupId])
@@ -199,16 +281,16 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
     String? previousLink,
   ) async {
     if (previousLink != null) {
-      var dynamicLink = await _dynamicLinksRepo
+      var dynamicLink = await _dynamicLinksRepository
           .instance()
           .getDynamicLink(Uri.parse(previousLink));
       var link = dynamicLink!.link;
       var inviteId = link.queryParametersAll['id']!.first;
 
-      await _firestoreRepo.deleteGroupInviteData(docReference: inviteId);
+      await _firestoreRepository.deleteGroupInviteData(docReference: inviteId);
     }
 
-    return (await _dynamicLinksRepo.createInviteLink(uuid)).toString();
+    return (await _dynamicLinksRepository.createInviteLink(uuid)).toString();
   }
 
   Future<InviteInfo> _createInviteLink({
@@ -216,7 +298,8 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
     String? previousLink,
   }) async {
     var uid = _authRepo.getUID();
-    var uuid = _firestoreRepo.getUUID(collection: groupsInviteCollectionName);
+    var uuid =
+        _firestoreRepository.getUUID(collection: groupsInviteCollectionName);
     var expirationDate = DateTime.now().add(const Duration(hours: 1));
     var groupId = '${uid}_${groupType.codeName}';
 
@@ -229,8 +312,10 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
     );
 
     var json = inviteInfo.toJson();
-    await _firestoreRepo.setGroupInviteData(docReference: uuid, data: json);
-    await _firestoreRepo.updateGroupInviteData(docReference: uuid, data: json);
+    await _firestoreRepository.setGroupInviteData(
+        docReference: uuid, data: json);
+    await _firestoreRepository.updateGroupInviteData(
+        docReference: uuid, data: json);
 
     await invitesBox.put(inviteInfoKey, inviteInfo);
     return inviteInfo;

@@ -11,16 +11,22 @@ import 'package:payflix/data/model/month_payment_info.dart';
 import 'package:payflix/data/model/payment_info.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
+import 'package:payflix/data/repository/notification_repository.dart';
+import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/payments/bloc/payments_state.dart';
 
 @injectable
 class PaymentsCubit extends Cubit<PaymentsState> {
   final FirestoreRepository _firestoreRepository;
   final AuthRepository _authRepository;
+  final NotificationRepository _notificationRepository;
   final List<MonthPaymentInfo> _payments = List.empty(growable: true);
 
-  PaymentsCubit(this._firestoreRepository, this._authRepository)
-      : super(InitPaymentsState());
+  PaymentsCubit(
+    this._firestoreRepository,
+    this._authRepository,
+    this._notificationRepository,
+  ) : super(InitPaymentsState());
 
   int getDaysUntilNextPayment(PaymentInfo pi) => _payments.isEmpty
       ? 0
@@ -51,7 +57,9 @@ class PaymentsCubit extends Cubit<PaymentsState> {
   Future changeMPIStatus(
     MonthPaymentInfo mpi,
     String userId,
+    String token,
     String groupId,
+    BuildContext context,
   ) async {
     emit(HandlingMonthPaymentInfo());
     var currentStatus = mpi.status;
@@ -89,6 +97,16 @@ class PaymentsCubit extends Cubit<PaymentsState> {
     await _firestoreRepository.updateUserData(docReference: userId, data: {
       "payments.$groupId": FieldValue.arrayUnion([mpi.toJson()]),
     });
+
+    final title = getString(context).mpi_status_changed_notification_title;
+    final body = getString(context).mpi_status_changed_notification_body;
+
+    _notificationRepository.sendPushMessage(
+      title,
+      body,
+      token,
+      'def-action',
+    );
 
     emit(HandlingMonthPaymentInfoCompleted());
     await fetchPayments(groupId, userId);

@@ -15,6 +15,7 @@ import 'package:payflix/widgets/secondary_button.dart';
 class MonthItemDetailsDialog extends StatelessWidget {
   final MonthPaymentInfo mpi;
   final String userId;
+  final String token;
   final String groupId;
   final bool isEditable;
 
@@ -22,6 +23,7 @@ class MonthItemDetailsDialog extends StatelessWidget {
     Key? key,
     required this.mpi,
     required this.userId,
+    required this.token,
     required this.groupId,
     required this.isEditable,
   }) : super(key: key);
@@ -163,17 +165,20 @@ class MonthItemDetailsDialog extends StatelessWidget {
               const SizedBox(
                 height: 12.0,
               ),
-              if (isEditable) ... [
+              if (isEditable) ...[
                 BlocBuilder<PaymentsCubit, PaymentsState>(
                   builder: (context, state) => PrimaryButton(
                     text: mpi.status == PaymentMonthStatus.paid
                         ? getString(context).mark_as_unpaid
                         : getString(context).mark_as_paid,
-                    onClick: () => context.read<PaymentsCubit>().changeMPIStatus(
-                      mpi,
-                      userId,
-                      groupId,
-                    ),
+                    onClick: () =>
+                        context.read<PaymentsCubit>().changeMPIStatus(
+                              mpi,
+                              userId,
+                              token,
+                              groupId,
+                              context,
+                            ),
                     isLoading: state is HandlingMonthPaymentInfo,
                   ),
                 ),
@@ -181,7 +186,6 @@ class MonthItemDetailsDialog extends StatelessWidget {
                   height: 18.0,
                 ),
               ],
-
               SecondaryButton(
                 text: getString(context).close,
                 isLoading: false,

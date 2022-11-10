@@ -2,25 +2,34 @@ import 'dart:developer';
 
 import 'package:clock/clock.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/enum/payment_month_action.dart';
 import 'package:payflix/data/enum/payment_month_status.dart';
 import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/month_payment_history.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
+import 'package:payflix/data/repository/notification_repository.dart';
+import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/members/bloc/remove_member_state.dart';
 
 @injectable
 class RemoveMemberCubit extends Cubit<RemoveMemberState> {
   final FirestoreRepository _firestoreRepository;
+  final NotificationRepository _notificationRepository;
 
-  RemoveMemberCubit(this._firestoreRepository) : super(InitRemoveMemberState());
+  RemoveMemberCubit(
+    this._firestoreRepository,
+    this._notificationRepository,
+  ) : super(InitRemoveMemberState());
 
   Future removeUser(
     PayflixUser user,
     Group group,
+    BuildContext context,
   ) async {
     emit(RemovingMember());
 
@@ -44,9 +53,31 @@ class RemoveMemberCubit extends Cubit<RemoveMemberState> {
         },
       );
 
+      final adminUID = group.getAdminUID();
       for (var userId in group.users ?? []) {
         var user = await _firestoreRepository.getUserData(docReference: userId);
         await _updatePayments(user, groupId, group.getPaymentPerUser());
+
+        if (userId != adminUID) {
+          final isRemovingUser = userId == uid;
+          final title = isRemovingUser
+              ? getString(context).removed_from_group_notification_title
+              : getString(context).payment_price_changed_notification_title;
+
+          final body = isRemovingUser
+              ? getString(context).removed_from_group_notification_body
+              : getString(context).payment_price_changed_notification_body(
+                  group.groupType.vodName,
+                  group.getPaymentPerUser(),
+                );
+
+          _notificationRepository.sendPushMessage(
+            title,
+            body,
+            user.deviceToken,
+            'def-action',
+          );
+        }
       }
 
       emit(RemovingMemberSucceeded(group));

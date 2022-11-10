@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:clock/clock.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:payflix/data/enum/group_type.dart';
 import 'package:payflix/data/enum/payment_month_action.dart';
 import 'package:payflix/data/enum/payment_month_status.dart';
 import 'package:payflix/data/model/group.dart';
@@ -12,12 +14,15 @@ import 'package:payflix/data/model/month_payment_history.dart';
 import 'package:payflix/data/model/payflix_user.dart';
 import 'package:payflix/data/repository/auth_repository.dart';
 import 'package:payflix/data/repository/firestore_repository.dart';
+import 'package:payflix/data/repository/notification_repository.dart';
+import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/home/ui/groups/bloc/group_quick_actions_dialog_state.dart';
 
 @injectable
 class GroupQuickActionsDialogCubit extends Cubit<GroupQuickActionsDialogState> {
   final AuthRepository _authRepo;
   final FirestoreRepository _firestoreRepository;
+  final NotificationRepository _notificationRepository;
 
   bool _showSecondary = false;
   bool _showEmailIdCopiedText = false;
@@ -30,6 +35,7 @@ class GroupQuickActionsDialogCubit extends Cubit<GroupQuickActionsDialogState> {
   GroupQuickActionsDialogCubit(
     this._authRepo,
     this._firestoreRepository,
+    this._notificationRepository,
   ) : super(InitGroupQuickActionsDialogState());
 
   bool showSecondary() => _showSecondary;
@@ -109,7 +115,7 @@ class GroupQuickActionsDialogCubit extends Cubit<GroupQuickActionsDialogState> {
     }
   }
 
-  Future leaveGroup(Group group) async {
+  Future leaveGroup(Group group, BuildContext context) async {
     emit(LeavingGroup());
     var groupId = group.getGroupId();
     var uid = _authRepo.getUID();
@@ -136,6 +142,27 @@ class GroupQuickActionsDialogCubit extends Cubit<GroupQuickActionsDialogState> {
       for (var userId in group.users ?? []) {
         var user = await _firestoreRepository.getUserData(docReference: userId);
         await _updatePayments(user, groupId, group.getPaymentPerUser());
+
+        if (userId != uid) {
+          final isAdmin = userId == group.getAdminUID();
+          final title = isAdmin
+              ? getString(context).user_left_notification_title
+              : getString(context).payment_price_changed_notification_title;
+
+          final body = isAdmin
+              ? getString(context).user_left_notification_body
+              : getString(context).payment_price_changed_notification_body(
+                  group.groupType.vodName,
+                  group.getPaymentPerUser(),
+                );
+
+          _notificationRepository.sendPushMessage(
+            title,
+            body,
+            user.deviceToken,
+            'def-action',
+          );
+        }
       }
 
       emit(LeavingGroupSucceeded());

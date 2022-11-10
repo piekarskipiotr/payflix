@@ -91,8 +91,8 @@ class NotificationRepository {
   }
 
   void sendPushMessage(
-    String body,
     String title,
+    String body,
     String token,
     String action,
   ) async {
