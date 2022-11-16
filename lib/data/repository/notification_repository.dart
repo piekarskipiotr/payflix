@@ -83,12 +83,11 @@ class NotificationRepository {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduleDate = tz.TZDateTime(
       tz.local,
-      now.year,
-      now.month,
-      now.day,
-      now.hour,
-      now.minute,
-      now.second + 30,
+      date.year,
+      date.month,
+      date.day,
+      10,
+      28,
     );
     if (scheduleDate.isBefore(now)) {
       scheduleDate = scheduleDate.add(const Duration(days: 1));
