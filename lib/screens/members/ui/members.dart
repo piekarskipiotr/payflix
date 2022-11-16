@@ -97,6 +97,7 @@ class _MembersState extends State<Members> {
                   onRefresh: () async =>
                       context.read<MembersCubit>().refreshData(
                             cubit: homeCubit,
+                            context: context,
                           ),
                   child: CustomScrollView(
                     physics: const BouncingScrollPhysics(),

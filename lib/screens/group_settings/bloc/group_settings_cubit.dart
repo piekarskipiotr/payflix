@@ -200,7 +200,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
               group?.paymentInfo.monthlyPayment;
 
       group = tempGroup;
-      membersCubit?.updateGroup(group);
+      membersCubit?.updateGroup(group, context);
       await _firestoreRepository.updateGroupData(
         docReference: groupId,
         data: groupData,

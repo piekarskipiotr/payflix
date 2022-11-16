@@ -34,6 +34,7 @@ class InviteCard extends StatelessWidget {
               ..initialize(membersCubit)
               ..getInviteLink(
                 group: group,
+                context: context,
               ),
             child: const InviteDialog(),
           ),

@@ -8,10 +8,17 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/common/api_keys.dart';
 import 'package:payflix/common/constants.dart';
+import 'package:payflix/data/enum/group_type.dart';
+import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/notification.dart' as model;
 import 'package:payflix/data/model/notification_content.dart';
 import 'package:payflix/data/model/notification_data.dart';
+import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/widgets/permission_dialog.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+
 
 @singleton
 class NotificationRepository {
@@ -51,6 +58,68 @@ class NotificationRepository {
         ),
       );
     }
+  }
+  initializeNotification() async {
+    _configureLocalTimeZone();
+    const DarwinInitializationSettings initializationSettingsIOS = DarwinInitializationSettings();
+
+    const AndroidInitializationSettings initializationSettingsAndroid =
+    AndroidInitializationSettings("ic_launcher");
+
+    const InitializationSettings initializationSettings = InitializationSettings(
+      iOS: initializationSettingsIOS,
+      android: initializationSettingsAndroid,
+    );
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+  Future<void> _configureLocalTimeZone() async {
+    tz.initializeTimeZones();
+    final String timeZone = await FlutterNativeTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(timeZone));
+  }
+
+  /// Set right date and time for notifications
+  tz.TZDateTime _convertTime(DateTime date) {
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    tz.TZDateTime scheduleDate = tz.TZDateTime(
+      tz.local,
+      now.year,
+      now.month,
+      now.day,
+      now.hour,
+      now.minute,
+      now.second + 30,
+    );
+    if (scheduleDate.isBefore(now)) {
+      scheduleDate = scheduleDate.add(const Duration(days: 1));
+    }
+    return scheduleDate;
+  }
+
+  cancelAll() async => await flutterLocalNotificationsPlugin.cancelAll();
+  cancel(id) async => await flutterLocalNotificationsPlugin.cancel(id);
+
+  /// Scheduled Notification
+  scheduledNotification({
+    required Group group,
+    required BuildContext context,
+  }) async {
+    log(_convertTime(group.paymentInfo.getNextDate()).toString());
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      group.groupType.index,
+      getString(context).payment_coming_notification_title(group.groupType.vodName),
+      getString(context).payment_coming_notification_body(group.paymentInfo.monthlyPayment),
+      _convertTime(group.paymentInfo.getNextDate()),
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+          icon: 'launch_background',
+        ),
+      ),
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+    );
   }
 
   Future loadFCM() async {
