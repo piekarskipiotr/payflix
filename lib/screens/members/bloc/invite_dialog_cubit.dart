@@ -40,8 +40,8 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
     _membersCubit ??= membersCubit;
   }
 
-  void updateGroup(Group group) {
-    _membersCubit?.updateGroup(group);
+  void updateGroup(Group group, BuildContext context) {
+    _membersCubit?.updateGroup(group, context);
   }
 
   bool showSecondary() => _showSecondary;
@@ -75,7 +75,7 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
     }
   }
 
-  Future getInviteLink({required Group group}) async {
+  Future getInviteLink({required Group group, required BuildContext context}) async {
     emit(GettingInviteLink());
     InviteInfo? inviteInfo = group.inviteInfo;
 
@@ -97,7 +97,7 @@ class InviteDialogCubit extends Cubit<InviteDialogState> {
       _inviteLink = invite.link;
       linkFieldController.text = invite.link;
       group.inviteInfo = invite;
-      updateGroup(group);
+      updateGroup(group, context);
       emit(GettingInviteLinkSucceeded());
     }
   }

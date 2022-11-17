@@ -78,14 +78,24 @@ class HomeCubit extends Cubit<HomeState> {
     _notificationRepository.requestPermission(context);
     _notificationRepository.loadFCM();
     _notificationRepository.listenFCM();
+    _notificationRepository.initializeNotification();
+    _notificationRepository.cancelAll();
+    for (var group in _groups) {
+      _notificationRepository.scheduledNotification(
+        group: group,
+        context: context,
+      );
+    }
   }
 
   List<Group> getGroups() => _groups;
 
-  void updateGroupData(Group group) {
+  void updateGroupData(Group group, BuildContext context) {
     emit(RefreshingData());
     var index = _groups.indexWhere((g) => g.getGroupId() == group.getGroupId());
     _groups[index] = group;
+    _notificationRepository.cancel(group.groupType.index);
+    _notificationRepository.scheduledNotification(group: group, context: context);
 
     getVodDialogCubit().setUserGroup(_groups);
     emit(FetchingDataSucceeded());

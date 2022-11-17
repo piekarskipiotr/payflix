@@ -236,5 +236,22 @@
   "removed_from_group_notification_title" : "You have been removed from the group!",
   "removed_from_group_notification_body" : "Along with this, you lose access about further information about the group.",
   "mpi_status_changed_notification_title" : "The payment status has been changed!",
-  "mpi_status_changed_notification_body" : "The administrator of one of your groups changed the status of the payment for the month."
+  "mpi_status_changed_notification_body" : "The administrator of one of your groups changed the status of the payment for the month.",
+  "payment_coming_notification_title" : "Pay for another month of account sharing at {vod}",
+  "@payment_coming_notification_title": {
+    "placeholders": {
+      "vod": {
+        "type": "String"
+      }
+    }
+  },
+  "payment_coming_notification_body" : "The payment for this month is {price}, You can find payment details in the group's information or directly from the manager.",
+  "@payment_coming_notification_body": {
+    "placeholders": {
+      "price": {
+        "type": "double",
+        "format": "currency"
+      }
+    }
+  }
 }

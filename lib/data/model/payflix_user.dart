@@ -25,7 +25,7 @@ class PayflixUser {
   @JsonKey(name: 'payments')
   Map<String, List<MonthPaymentInfo>> payments;
 
-  @JsonKey(name: 'device_token')
+  @JsonKey(name: 'devices_token')
   List<String> devicesToken;
 
   @JsonKey(ignore: true)
@@ -60,7 +60,15 @@ class PayflixUser {
             .toList(),
       );
 
-  Map<String, dynamic> toJson() => _$PayflixUserToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'address_email': email,
+        'avatar': avatar.toJson(),
+        'display_name': displayName,
+        'groups': groups,
+        'payments': payments,
+        'devices_token': devicesToken,
+      };
 
   @override
   String toString() =>

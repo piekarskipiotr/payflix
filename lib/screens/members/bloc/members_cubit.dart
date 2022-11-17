@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:payflix/data/model/group.dart';
@@ -36,12 +37,12 @@ class MembersCubit extends Cubit<MembersState> {
     }
   }
 
-  Future refreshData({required HomeCubit cubit}) async {
+  Future refreshData({required HomeCubit cubit, required BuildContext context}) async {
     if (_group != null) {
       try {
         var group = await _firestoreRepository.getGroupData(
             docReference: _group!.getGroupId());
-        cubit.updateGroupData(group);
+        cubit.updateGroupData(group, context);
 
         var ids = group.users!;
         var uid = _authRepo.getUID()!;
@@ -54,10 +55,10 @@ class MembersCubit extends Cubit<MembersState> {
     }
   }
 
-  void updateGroup(Group group) {
+  void updateGroup(Group group, BuildContext context) {
     emit(RefreshingData());
 
-    _homeCubit?.updateGroupData(group);
+    _homeCubit?.updateGroupData(group, context);
     _group = group;
 
     emit(FetchingMembersSucceeded(_members));
