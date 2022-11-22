@@ -9,6 +9,9 @@ class PaymentInfo {
   @JsonKey(name: 'monthly_payment')
   double monthlyPayment;
 
+  @JsonKey(name: 'currency')
+  String currency;
+
   @JsonKey(name: 'day_of_the_month')
   int dayOfTheMonth;
 
@@ -20,6 +23,7 @@ class PaymentInfo {
 
   PaymentInfo({
     required this.monthlyPayment,
+    required this.currency,
     required this.dayOfTheMonth,
     this.bankAccountNumber,
     this.phoneNumber,

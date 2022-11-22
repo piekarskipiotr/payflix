@@ -40,11 +40,10 @@ class GroupSettings extends StatelessWidget {
     final bool _isGroupCreator = _args[0];
     final Group? _group = _isGroupCreator ? null : _args[1];
     final MembersCubit? _membersCubit = _isGroupCreator ? null : _args[2];
-    context.read<GroupSettingsCubit>().initializeVod(_args[1]);
+    context.read<GroupSettingsCubit>().initialize(_args[1]);
 
     return BlocListener<GroupSettingsCubit, GroupSettingsState>(
-      listener: (context, state) =>
-          GroupSettingsStateListener.listenToState(context, state),
+      listener: (context, state) => GroupSettingsStateListener.listenToState(context, state),
       child: WillPopScope(
         onWillPop: () async {
           ScaffoldMessenger.of(context).clearSnackBars();
@@ -171,20 +170,57 @@ class GroupSettings extends StatelessWidget {
                                       context,
                                       mPayment,
                                     ),
-                                    autovalidateMode:
-                                        AutovalidateMode.onUserInteraction,
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
                                     maxLines: 1,
                                     textInputAction: TextInputAction.next,
                                     inputFormatters: [
                                       FilteringTextInputFormatter.allow(
-                                          (RegExp(r'^\d+\.?\d{0,2}'))),
+                                        (RegExp(r'^\d+\.?\d{0,2}')),
+                                      ),
                                     ],
-                                    keyboardType:
-                                        const TextInputType.numberWithOptions(
-                                            decimal: true),
+                                    keyboardType: const TextInputType.numberWithOptions(
+                                      decimal: true,
+                                    ),
                                     style: GoogleFonts.oxygen(),
                                     decoration: InputDecoration(
                                       contentPadding: EdgeInsets.zero,
+                                      suffixIcon: Padding(
+                                        padding: const EdgeInsets.only(right: 12.0,),
+                                        child: BlocBuilder<GroupSettingsCubit, GroupSettingsState>(
+                                          builder: (context, state) => DropdownButton<String>(
+                                            value: context.watch<GroupSettingsCubit>().getCurrency(),
+                                            underline: Container(),
+                                            iconSize: 24.0,
+                                            borderRadius: const BorderRadius.all(
+                                              Radius.circular(
+                                                18.0,
+                                              ),
+                                            ),
+                                            dropdownColor: AppColors.fieldBlack,
+                                            icon: const Icon(
+                                              Icons.arrow_drop_down,
+                                              color: AppColors.creamWhite,
+                                            ),
+                                            alignment: Alignment.centerRight,
+                                            onChanged: (value) => context.read<GroupSettingsCubit>().setCurrency(value),
+                                            items: [
+                                              'PLN',
+                                              'USD',
+                                              'EURO',
+                                              'JPY'
+                                            ].map<DropdownMenuItem<String>>(
+                                                    (value) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: Text(
+                                                      value,
+                                                      style: GoogleFonts.oxygen(),
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                          ),
+                                        ),
+                                      ),
                                       prefixIcon: const Icon(
                                         Icons.attach_money,
                                         size: 22.0,

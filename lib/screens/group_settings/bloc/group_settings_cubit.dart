@@ -37,6 +37,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   late StreamSubscription _pickingVodDialogCubitSubscription;
 
   double? _monthlyPayment;
+  String? _currency;
   int? _dayOfTheMonth;
   String? _bankAccountNo;
   String? _phoneNumber;
@@ -65,7 +66,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
     );
   }
 
-  void initializeVod(dynamic arg) {
+  void initialize(dynamic arg) {
     if (_groupType == null) {
       if (arg is GroupType) {
         _groupType = arg;
@@ -73,9 +74,18 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
         _groupType = arg.groupType;
       } else {
         _groupType = GroupType.netflix;
+        _currency = arg.paymentInfo.currency;
       }
 
       getVodDialogCubit().pickVod(_groupType!);
+    }
+
+    if (_currency == null) {
+      if (arg is Group) {
+        _currency = arg.paymentInfo.currency;
+      } else {
+        _currency = 'USD';
+      }
     }
   }
 
@@ -117,6 +127,14 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
       _monthlyPayment = null;
     }
   }
+
+  void setCurrency(String? currency) {
+    emit(SettingCurrency());
+    _currency = currency;
+    emit(CurrencySet());
+  }
+
+  String getCurrency() => _currency ?? '\$';
 
   void setDayOfTheMonth(String? dayOfTheMonth) {
     if (dayOfTheMonth != null) {
@@ -331,6 +349,7 @@ class GroupSettingsCubit extends Cubit<GroupSettingsState> {
   ) async {
     var paymentInfo = PaymentInfo(
       monthlyPayment: _monthlyPayment!,
+      currency: _currency!,
       dayOfTheMonth: _dayOfTheMonth!,
       bankAccountNumber: _bankAccountNo,
       phoneNumber: _phoneNumber,

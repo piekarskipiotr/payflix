@@ -32,3 +32,7 @@ class PasswordVisibilityChanged extends GroupSettingsState {}
 class ChangingVod extends GroupSettingsState {}
 
 class VodChanged extends GroupSettingsState {}
+
+class SettingCurrency extends GroupSettingsState {}
+
+class CurrencySet extends GroupSettingsState {}
