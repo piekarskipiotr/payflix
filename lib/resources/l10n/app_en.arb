@@ -219,7 +219,7 @@
   "new_user_notification_title" : "A new person has appeared!",
   "new_user_notification_body" : "Along with the new person, we have updated the monthly price for each group user!",
   "payment_price_changed_notification_title" : "The monthly price has been updated!",
-  "payment_price_changed_notification_body" : "Your monthly price for being part of the {vod} group is currently: {price}",
+  "payment_price_changed_notification_body" : "Your monthly price for being part of the {vod} group is currently: {price} {currency}",
   "@payment_price_changed_notification_body": {
     "placeholders": {
       "vod": {
@@ -228,6 +228,9 @@
       "price": {
         "type": "double",
         "format": "currency"
+      },
+      "currency": {
+        "type": "String"
       }
     }
   },
@@ -245,12 +248,15 @@
       }
     }
   },
-  "payment_coming_notification_body" : "The payment for this month is {price}, You can find payment details in the group's information or directly from the manager.",
+  "payment_coming_notification_body" : "The payment for this month is {price} {currency}, You can find payment details in the group's information or directly from the manager.",
   "@payment_coming_notification_body": {
     "placeholders": {
       "price": {
         "type": "double",
         "format": "currency"
+      },
+      "currency": {
+        "type": "String"
       }
     }
   }

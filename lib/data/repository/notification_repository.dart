@@ -107,7 +107,7 @@ class NotificationRepository {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       group.groupType.index,
       getString(context).payment_coming_notification_title(group.groupType.vodName),
-      getString(context).payment_coming_notification_body(group.paymentInfo.monthlyPayment),
+      getString(context).payment_coming_notification_body(group.paymentInfo.monthlyPayment, group.paymentInfo.currency),
       _convertTime(group.paymentInfo.getNextDate()),
       NotificationDetails(
         android: AndroidNotificationDetails(

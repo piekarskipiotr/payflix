@@ -154,6 +154,7 @@ class GroupQuickActionsDialogCubit extends Cubit<GroupQuickActionsDialogState> {
               : getString(context).payment_price_changed_notification_body(
                   group.groupType.vodName,
                   group.getPaymentPerUser(),
+                  group.paymentInfo.currency,
                 );
 
           _notificationRepository.sendPushMessage(

@@ -219,7 +219,7 @@
   "new_user_notification_title" : "Pojawiła się nowa osoba!",
   "new_user_notification_body" : "Wraz z nową osobą zaktualizowaliśmy miesięczną cenę dla każdego użytkownika grupy!",
   "payment_price_changed_notification_title" : "Miesięczna cena została zaktualizowana!",
-  "payment_price_changed_notification_body" : "Twoja miesięczna cena za bycie częścią grupy {vod} wynosi aktualnie: {price}",
+  "payment_price_changed_notification_body" : "Twoja miesięczna cena za bycie częścią grupy {vod} wynosi aktualnie: {price} {currency}",
   "@payment_price_changed_notification_body": {
     "placeholders": {
       "vod": {
@@ -228,6 +228,9 @@
       "price": {
         "type": "double",
         "format": "currency"
+      },
+      "currency": {
+        "type": "String"
       }
     }
   },
@@ -245,12 +248,15 @@
       }
     }
   },
-  "payment_coming_notification_body" : "Kwota za ten miesiąc wynosi {price}, dane do płatności możesz znaleźć w informacjach grupy lub bezpośrednio u zarządcy.",
+  "payment_coming_notification_body" : "Kwota za ten miesiąc wynosi {price} {currency}, dane do płatności możesz znaleźć w informacjach grupy lub bezpośrednio u zarządcy.",
   "@payment_coming_notification_body": {
     "placeholders": {
       "price": {
         "type": "double",
         "format": "currency"
+      },
+      "currency": {
+        "type": "String"
       }
     }
   }
