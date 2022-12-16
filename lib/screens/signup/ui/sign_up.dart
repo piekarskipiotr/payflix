@@ -262,7 +262,7 @@ class SignUp extends StatelessWidget {
                                           AutovalidateMode.onUserInteraction,
                                       maxLines: 1,
                                       textInputAction: TextInputAction.done,
-                                      obscureText: true,
+                                      obscureText: context.watch<SignUpCubit>().isPasswordVisible(),
                                       style: GoogleFonts.oxygen(),
                                       decoration: InputDecoration(
                                         contentPadding: EdgeInsets.zero,
@@ -270,6 +270,25 @@ class SignUp extends StatelessWidget {
                                           Icons.lock,
                                           size: 22.0,
                                           color: AppColors.creamWhite,
+                                        ),
+                                        suffixIcon: Material(
+                                          color: Colors.transparent,
+                                          child: IconButton(
+                                            onPressed: () => context
+                                                .read<SignUpCubit>()
+                                                .changePasswordVisibility(),
+                                            splashRadius: 20.0,
+                                            icon: Icon(
+                                              context
+                                                  .watch<
+                                                  SignUpCubit>()
+                                                  .isPasswordVisible()
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off,
+                                              size: 22.0,
+                                              color: AppColors.creamWhite,
+                                            ),
+                                          ),
                                         ),
                                         hintText: getString(context).password,
                                       ),

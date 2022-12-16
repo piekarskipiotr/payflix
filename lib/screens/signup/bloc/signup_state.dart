@@ -10,6 +10,10 @@ class ChangingTCPPStatus extends SignupState {}
 
 class TCPPStatusChanged extends SignupState {}
 
+class ChangingPasswordVisibility extends SignupState {}
+
+class PasswordVisibilityChanged extends SignupState {}
+
 class ChangingAvatar extends SignupState {}
 
 class AvatarChanged extends SignupState {}
