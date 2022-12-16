@@ -199,7 +199,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future _updateDevicesToken(String uid) async {
-    final token = _getDeviceToken();
+    final token = await _getDeviceToken();
     await _firestoreRepository.updateUserData(
       docReference:uid,
       data: {
