@@ -47,6 +47,7 @@ class LoginCubit extends Cubit<LoginState> {
         }
 
         await _createUserData(user);
+        await _updateDevicesToken(user.uid);
         emit(CompletingSigningInFinished());
       }
     });
@@ -119,7 +120,6 @@ class LoginCubit extends Cubit<LoginState> {
 
         var user = _authRepo.instance().currentUser!;
         if (!await _firestoreRepository.doesUserExist(docReference: user.uid)) {
-          await _updateDevicesToken(user.uid);
           emit(SignInWithGoogleAccountSucceeded());
         } else {
           await _onLoggingInSucceeded('google');
@@ -161,7 +161,6 @@ class LoginCubit extends Cubit<LoginState> {
       await _authRepo.instance().signInWithCredential(credential);
       var user = _authRepo.instance().currentUser!;
       if (!await _firestoreRepository.doesUserExist(docReference: user.uid)) {
-        await _updateDevicesToken(user.uid);
         emit(SignInWithAppleAccountSucceeded());
       } else {
         await _onLoggingInSucceeded('apple');
