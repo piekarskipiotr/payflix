@@ -238,7 +238,10 @@ class _PaymentsState extends State<Payments> {
                     alignment: Alignment.topCenter,
                     children: [
                       if (state is FetchingPayments) ...[
-                        const CircularProgressIndicator(),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 16.0),
+                          child: CircularProgressIndicator(),
+                        ),
                       ] else ...[
                         ListView.builder(
                           physics: const BouncingScrollPhysics(),
@@ -249,7 +252,7 @@ class _PaymentsState extends State<Payments> {
                               mpi: payments[index],
                               userId: _user.id,
                               tokens: _user.devicesToken,
-                              groupId: _group.getGroupId(),
+                              group: _group,
                               isEditable: _isAdmin
                                   ? context
                                       .watch<PaymentsCubit>()

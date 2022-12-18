@@ -85,6 +85,8 @@ flutter_native_splash:
 flutter_icons:
   android: "launcher_icon"
   ios: true
+  remove_alpha_ios: true
   image_path: assets/social/payflix_logo.png
-  backgroun_color: "#1E1E24"
+  background_color: "#1E1E24"
+  adaptive_icon_background: "#1E1E24"
   min_sdk_android: 21

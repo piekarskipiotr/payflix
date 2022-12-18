@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
 import 'package:payflix/data/enum/payment_month_status.dart';
+import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/month_payment_info.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/screens/payments/bloc/payments_cubit.dart';
@@ -13,7 +14,7 @@ class MonthItem extends StatefulWidget {
   final MonthPaymentInfo mpi;
   final String userId;
   final List<String> tokens;
-  final String groupId;
+  final Group group;
   final bool isEditable;
   final bool isHighlighted;
 
@@ -22,7 +23,7 @@ class MonthItem extends StatefulWidget {
     required this.mpi,
     required this.userId,
     required this.tokens,
-    required this.groupId,
+    required this.group,
     required this.isEditable,
     required this.isHighlighted,
   }) : super(key: key);
@@ -35,7 +36,7 @@ class _MonthItemState extends State<MonthItem> {
   late MonthPaymentInfo _mpi;
   late String _userId;
   late List<String> _tokens;
-  late String _groupId;
+  late Group _group;
   late bool _isEditable;
   late bool _isHighlighted;
 
@@ -44,7 +45,7 @@ class _MonthItemState extends State<MonthItem> {
     _mpi = widget.mpi;
     _userId = widget.userId;
     _tokens = widget.tokens;
-    _groupId = widget.groupId;
+    _group = widget.group;
     _isEditable = widget.isEditable;
     _isHighlighted = widget.isHighlighted;
 
@@ -70,7 +71,7 @@ class _MonthItemState extends State<MonthItem> {
                 mpi: _mpi,
                 userId: _userId,
                 tokens: _tokens,
-                groupId: _groupId,
+                group: _group,
                 isEditable: _isEditable,
               ),
             ),

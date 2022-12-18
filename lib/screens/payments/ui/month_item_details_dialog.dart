@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:payflix/data/enum/payment_month_action.dart';
 import 'package:payflix/data/enum/payment_month_status.dart';
+import 'package:payflix/data/model/group.dart';
 import 'package:payflix/data/model/month_payment_info.dart';
 import 'package:payflix/resources/colors/app_colors.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
@@ -16,7 +17,7 @@ class MonthItemDetailsDialog extends StatelessWidget {
   final MonthPaymentInfo mpi;
   final String userId;
   final List<String> tokens;
-  final String groupId;
+  final Group group;
   final bool isEditable;
 
   const MonthItemDetailsDialog({
@@ -24,7 +25,7 @@ class MonthItemDetailsDialog extends StatelessWidget {
     required this.mpi,
     required this.userId,
     required this.tokens,
-    required this.groupId,
+    required this.group,
     required this.isEditable,
   }) : super(key: key);
 
@@ -69,7 +70,7 @@ class MonthItemDetailsDialog extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${mpi.payment} PLN',
+                        '${mpi.payment} ${group.paymentInfo.currency}',
                         style: GoogleFonts.oxygen(
                           fontSize: 28.0,
                           fontWeight: FontWeight.bold,
@@ -176,7 +177,7 @@ class MonthItemDetailsDialog extends StatelessWidget {
                               mpi,
                               userId,
                               tokens,
-                              groupId,
+                              group.getGroupId(),
                               context,
                             ),
                     isLoading: state is HandlingMonthPaymentInfo,
