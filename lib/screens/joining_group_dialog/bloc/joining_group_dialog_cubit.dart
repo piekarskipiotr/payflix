@@ -14,7 +14,7 @@ import 'package:payflix/data/repository/notification_repository.dart';
 import 'package:payflix/resources/l10n/app_localizations_helper.dart';
 import 'package:payflix/screens/joining_group_dialog/bloc/joining_group_dialog_state.dart';
 
-@injectable
+@singleton
 class JoiningGroupDialogCubit extends Cubit<JoiningGroupDialogState> {
   final FirestoreRepository _firestoreRepository;
   final NotificationRepository _notificationRepository;
