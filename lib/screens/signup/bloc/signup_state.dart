@@ -5,11 +5,6 @@ abstract class SignupState {
 
 class InitSignupState extends SignupState {}
 
-// TCPP -> Terms and Conditions and Privacy Policy
-class ChangingTCPPStatus extends SignupState {}
-
-class TCPPStatusChanged extends SignupState {}
-
 class ChangingPasswordVisibility extends SignupState {}
 
 class PasswordVisibilityChanged extends SignupState {}

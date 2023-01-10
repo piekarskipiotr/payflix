@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflix/common/app_dialog_controller.dart';
@@ -294,72 +293,7 @@ class SignUp extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 15.0,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Checkbox(
-                                          value: context
-                                              .watch<SignUpCubit>()
-                                              .isTCPPAccepted(),
-                                          onChanged: (_) {
-                                            FocusScope.of(context).unfocus();
-                                            context
-                                                .read<SignUpCubit>()
-                                                .changeTCPPStatus();
-                                          },
-                                        ),
-                                        Expanded(
-                                          child: RichText(
-                                            textAlign: TextAlign.left,
-                                            text: TextSpan(
-                                              text: getString(context)
-                                                  .sign_up_checkbox_text_part_1,
-                                              style: GoogleFonts.oxygen(
-                                                  fontSize: 14.0,
-                                                  color: AppColors.creamWhite,
-                                                  height: 1.2),
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                  text: getString(context)
-                                                      .terms_and_conditions,
-                                                  style: GoogleFonts.oxygen(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: AppColors.accent,
-                                                  ),
-                                                  recognizer:
-                                                      TapGestureRecognizer()
-                                                        ..onTap = () => {},
-                                                ),
-                                                TextSpan(
-                                                  text: getString(context)
-                                                      .sign_up_checkbox_text_part_2,
-                                                  style: GoogleFonts.oxygen(
-                                                    color: AppColors.creamWhite,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: getString(context)
-                                                      .privacy_policy,
-                                                  style: GoogleFonts.oxygen(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: AppColors.accent,
-                                                  ),
-                                                  recognizer:
-                                                      TapGestureRecognizer()
-                                                        ..onTap = () => {},
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 35.0,
+                                      height: 25.0,
                                     ),
                                     PrimaryButton(
                                       text: getString(context).sign_up,

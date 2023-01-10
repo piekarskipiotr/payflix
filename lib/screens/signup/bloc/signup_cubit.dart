@@ -19,7 +19,6 @@ class SignUpCubit extends Cubit<SignupState> {
   final PickingAvatarDialogCubit _pickingAvatarDialogCubit;
   late StreamSubscription _pickingAvatarDialogCubitSubscription;
 
-  bool _tcppStatus = false;
   bool _isPasswordObscure = true;
   Avatar? _avatar;
   String? _profileName;
@@ -43,9 +42,7 @@ class SignUpCubit extends Cubit<SignupState> {
 
   PickingAvatarDialogCubit getDialogCubit() => _pickingAvatarDialogCubit;
 
-  bool isTCPPAccepted() => _tcppStatus;
-
-  bool isAllFilledUp() => _tcppStatus && (_avatar != null);
+  bool isAllFilledUp() => _avatar != null;
 
   bool isPasswordVisible() => _isPasswordObscure;
 
@@ -53,12 +50,6 @@ class SignUpCubit extends Cubit<SignupState> {
     emit(ChangingPasswordVisibility());
     _isPasswordObscure = !_isPasswordObscure;
     emit(PasswordVisibilityChanged());
-  }
-
-  void changeTCPPStatus() {
-    emit(ChangingTCPPStatus());
-    _tcppStatus = !_tcppStatus;
-    emit(TCPPStatusChanged());
   }
 
   void saveProfileName(String? profileName) => _profileName = profileName;
