@@ -22,6 +22,7 @@ Project is created with **Flutter**💙.
 
 ## 💡 Features
 * Sign in with Google or Apple
-* Join a group via link or scan QR code
+* Join a group via link or QR code (built in app) scanner
 * Quick access to group data
+* Push notifications
 * _and more will be developed soon_
